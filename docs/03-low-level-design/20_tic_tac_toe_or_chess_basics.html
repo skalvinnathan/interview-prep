@@ -1,0 +1,603 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>20 - Tic-Tac-Toe (full) and Chess basics | Interview prep</title><style>
+:root{--bg:#fff;--fg:#1f2328;--mut:#59636e;--bd:#d1d9e0;--ac:#0b57d0;--cb:#f6f8fa;--sb:#f6f8fa}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9198a1;--bd:#30363d;--ac:#6cb6ff;--cb:#161b22;--sb:#010409}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{display:flex;min-height:100vh}nav{width:300px;flex:none;background:var(--sb);border-right:1px solid var(--bd);padding:16px;overflow:auto;position:sticky;top:0;height:100vh}
+nav a{color:var(--fg);text-decoration:none;display:block;padding:3px 6px;border-radius:6px;font-size:14px}nav a:hover{background:var(--cb)}nav a.cur{background:var(--ac);color:#fff}
+nav summary{cursor:pointer;font-weight:600;padding:6px 0}nav .home{font-weight:700;font-size:16px;margin-bottom:8px}
+main{flex:1;min-width:0;max-width:900px;padding:24px 32px 80px;margin:0 auto}
+h1,h2,h3{line-height:1.25}h1{border-bottom:1px solid var(--bd);padding-bottom:.3em}h2{border-bottom:1px solid var(--bd);padding-bottom:.25em;margin-top:2em}
+a{color:var(--ac)}pre{background:var(--cb);border:1px solid var(--bd);border-radius:8px;padding:14px;overflow:auto;font-size:13.5px;line-height:1.5}
+code{background:var(--cb);padding:.15em .35em;border-radius:5px;font-size:.92em}pre code{background:none;padding:0}
+table{border-collapse:collapse;display:block;overflow:auto;max-width:100%}th,td{border:1px solid var(--bd);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--cb)}
+blockquote{border-left:4px solid var(--bd);margin:0;padding:0 1em;color:var(--mut)}img{max-width:100%}
+.top{display:none}.pn{display:flex;justify-content:space-between;gap:12px;margin-top:48px;border-top:1px solid var(--bd);padding-top:16px;font-size:14px}
+@media(max-width:820px){.wrap{display:block}nav{width:auto;height:auto;position:static;border-right:0;border-bottom:1px solid var(--bd)}main{padding:16px}}
+</style></head><body><div class="wrap"><nav><a class="home" href="../index.html">Interview prep</a><details><summary>Data structures and algorithms</summary><a href="../01-dsa/00_how_to_start.html">How to start: reading a problem, the 5-step method, and Big-</a><a href="../01-dsa/01_arrays_and_strings.html">Lesson 01. Arrays and Strings</a><a href="../01-dsa/02_hash_maps_and_sets.html">Lesson 02. Hash Maps and Sets</a><a href="../01-dsa/03_two_pointers.html">Lesson 03. Two Pointers</a><a href="../01-dsa/04_sliding_window.html">Lesson 04. Sliding Window</a><a href="../01-dsa/05_stack_and_queue.html">Lesson 05. Stack and Queue (including the monotonic stack)</a><a href="../01-dsa/06_binary_search.html">Lesson 06. Binary Search (including search on the answer)</a><a href="../01-dsa/07_linked_lists.html">Lesson 07. Linked Lists</a><a href="../01-dsa/08_trees_and_bst.html">Lesson 08. Trees and Binary Search Trees (BST)</a><a href="../01-dsa/09_heaps_and_priority_queues.html">Lesson 09: Heaps and Priority Queues</a><a href="../01-dsa/10_graphs_bfs_dfs.html">Lesson 10: Graphs, BFS and DFS (including grids)</a><a href="../01-dsa/11_topological_sort_and_union_find.html">Lesson 11: Topological Sort and Union-Find</a><a href="../01-dsa/12_shortest_paths.html">Lesson 12: Shortest Paths (Dijkstra in plain words)</a><a href="../01-dsa/13_intervals.html">Lesson 13: Intervals (merge intervals, meeting rooms)</a><a href="../01-dsa/14_backtracking.html">Lesson 14: Backtracking (subsets, permutations, combination </a><a href="../01-dsa/15_dynamic_programming_part1.html">Lesson 15: Dynamic Programming, Part 1 (remembering answers)</a><a href="../01-dsa/16_dynamic_programming_part2.html">Lesson 16: Dynamic Programming, Part 2 (LIS, word break, kna</a><a href="../01-dsa/17_tries_and_greedy.html">Lesson 17: Tries and Greedy</a><a href="../01-dsa/18_bit_tricks_and_math_basics.html">Lesson 18: Bit Tricks and Math Basics (short)</a><a href="../01-dsa/19_company_question_patterns.html">Lesson 19: Company Question Patterns (Google, Amazon, Meta, </a></details><details><summary>System design</summary><a href="../02-system-design/00_how_the_round_works.html">How the System Design Round Works</a><a href="../02-system-design/01a_client_server_and_http.html">Client, Server and HTTP</a><a href="../02-system-design/01b_dns_and_cdn.html">DNS and CDN</a><a href="../02-system-design/01c_load_balancers.html">Load Balancers</a><a href="../02-system-design/01d_databases.html">Databases: SQL vs NoSQL, Indexes, Transactions</a><a href="../02-system-design/01e_caching.html">Caching (and Why Invalidation Is Hard)</a><a href="../02-system-design/01f_sharding_and_replication.html">Sharding and Replication</a><a href="../02-system-design/01g_message_queues_and_streams.html">Message Queues and Streams (Kafka Basics)</a><a href="../02-system-design/01h_consistency_and_cap.html">Consistency and the CAP Idea (in Plain Words)</a><a href="../02-system-design/02_numbers_and_estimation.html">Numbers and Estimation</a><a href="../02-system-design/03_reliability_patterns.html">Reliability Patterns</a><a href="../02-system-design/10_url_shortener.html">Design a URL Shortener</a><a href="../02-system-design/11_rate_limiter.html">Design a Rate Limiter</a><a href="../02-system-design/12_chat_system.html">Design a Chat System (like WhatsApp or Slack)</a><a href="../02-system-design/13_news_feed.html">Design a News Feed (like Instagram, Facebook or Twitter/X ho</a><a href="../02-system-design/14_notification_service.html">Design a Notification Service</a><a href="../02-system-design/15_file_storage_like_drive.html">Design File Storage and Sync (like Google Drive or Dropbox)</a><a href="../02-system-design/16_search_autocomplete.html">Design Search Autocomplete (Typeahead)</a><a href="../02-system-design/17_video_streaming_basics.html">Design Video Streaming Basics (like YouTube or Netflix)</a><a href="../02-system-design/18_payment_system_like_stripe.html">Design a Payment System (like Stripe)</a><a href="../02-system-design/19_order_management_like_amazon.html">Design an Order Management System (like Amazon: inventory, o</a><a href="../02-system-design/20_job_scheduler_and_workflow_engine.html">Design a Job Scheduler and Workflow Engine</a><a href="../02-system-design/21_api_gateway_and_auth_system.html">Design an API Gateway and Auth System</a><a href="../02-system-design/22_logging_and_metrics_platform.html">Design a Logging and Metrics Platform</a><a href="../02-system-design/90_cheat_sheet.html">Cheat Sheet (one page)</a><a href="../02-system-design/91_practice_questions.html">Practice Questions (30)</a></details><details open><summary>Low-level design</summary><a href="00_how_the_lld_round_works.html">- How the LLD round works</a><a href="01_oop_in_plain_words.html">- OOP in plain words</a><a href="02_solid_principles.html">- SOLID principles</a><a href="03_design_patterns_you_need.html">- The 8 design patterns you need</a><a href="10_parking_lot.html">- Parking Lot</a><a href="11_lru_cache.html">- LRU Cache</a><a href="12_elevator_system.html">- Elevator System</a><a href="13_library_management.html">- Library Management System</a><a href="14_vending_machine.html">- Vending Machine (State pattern)</a><a href="15_atm.html">- ATM</a><a href="16_rate_limiter_class.html">- Rate Limiter (class design: token bucket and sliding windo</a><a href="17_amazon_locker.html">- Amazon Locker</a><a href="18_splitwise_expense_sharing.html">- Splitwise (Expense Sharing)</a><a href="19_logger_and_notification_system.html">- Logger and Notification System (Observer and Strategy)</a><a class="cur" href="20_tic_tac_toe_or_chess_basics.html">- Tic-Tac-Toe (full) and Chess basics</a><a href="90_cheat_sheet.html">- Cheat sheet (read the night before)</a><a href="91_practice_questions.html">- Practice questions (20)</a></details><details><summary>DevOps and platform basics</summary><a href="../05-devops-platform-basics/01_linux_processes_memory_files.html">Linux: processes, memory, and files</a><a href="../05-devops-platform-basics/02_networking.html">Networking: TCP, DNS, TLS, NAT</a><a href="../05-devops-platform-basics/03_containers_and_docker.html">Containers and Docker</a><a href="../05-devops-platform-basics/04_kubernetes_from_zero.html">Kubernetes from zero</a><a href="../05-devops-platform-basics/05_helm.html">Helm</a><a href="../05-devops-platform-basics/06_terraform.html">Terraform</a><a href="../05-devops-platform-basics/07_ci_cd_github_actions.html">CI/CD with GitHub Actions</a><a href="../05-devops-platform-basics/08_observability_and_sre.html">Observability and SRE</a><a href="../05-devops-platform-basics/09_concurrency_and_distributed_basics.html">Concurrency and distributed basics</a><a href="../05-devops-platform-basics/10_databases_basics.html">Databases basics</a><a href="../05-devops-platform-basics/11_security_basics.html">Security basics (IAM, OAuth2/OIDC/JWT, secrets, supply chain</a><a href="../05-devops-platform-basics/12_gcp_pca_quick_map.html">Google Cloud quick map (for Professional Cloud Architect hol</a><a href="../05-devops-platform-basics/20_interview_questions_with_answers.html">Sixty interview questions with model answers (platform / SRE</a><a href="../05-devops-platform-basics/21_scenario_questions.html">Fifteen &quot;production is down&quot; scenarios, with step-by-step an</a></details><details><summary>Company processes</summary><a href="../06-company-process-and-behavioural/10_google.html">Google</a><a href="../06-company-process-and-behavioural/11_amazon.html">Amazon</a><a href="../06-company-process-and-behavioural/12_stripe.html">Stripe</a><a href="../06-company-process-and-behavioural/13_microsoft_and_azure_roles.html">Microsoft and Azure roles</a><a href="../06-company-process-and-behavioural/14_indian_product_and_gcc_companies.html">Indian product companies and GCCs</a><a href="../06-company-process-and-behavioural/15_european_scaleups.html">European scale-ups and visa basics</a><a href="../06-company-process-and-behavioural/16_ai_startups_like_smallest_ai.html">AI startups like Smallest AI</a><a href="../06-company-process-and-behavioural/24_questions_to_ask_interviewers.html">Questions to ask interviewers</a><a href="../06-company-process-and-behavioural/25_salary_notice_period_and_offer_negotiation_india_and_abroad.html">Salary, notice period and offer negotiation (India and abroa</a><a href="../06-company-process-and-behavioural/26_interview_day_checklists.html">Interview day checklists</a></details></nav><main><h1 id="20-tic-tac-toe-full-and-chess-basics">20 - Tic-Tac-Toe (full) and Chess basics</h1>
+
+<p>Python 3.9. All code was run; the output is real.</p>
+
+<p>Tic-tac-toe is small enough to finish in 45 minutes, so you get a <strong>complete</strong> design. Chess is too big for one round, so you get the <strong>core</strong> (board, piece classes, legal move geometry, turns) and a list of what to say you would add. Interviewers who ask for chess usually want exactly this core and the discussion.</p>
+
+<hr />
+
+<h2 id="1-the-problem-in-plain-words">1. The problem in plain words</h2>
+
+<p><strong>Tic-tac-toe:</strong> two players take turns putting X or O on a 3x3 grid. The first to fill a whole row, column, or diagonal wins. If the grid fills with no winner, it is a draw.</p>
+
+<p><strong>Analogy.</strong> A paper game with a referee. The referee (the <code>Game</code> class) checks whose turn it is, rejects illegal moves, and says when the game is over.</p>
+
+<p><strong>Chess basics:</strong> two players move pieces on an 8x8 board. Each piece type moves in its own way. We build the board, the pieces, the move rules, and the turns.</p>
+
+<hr />
+
+<h2 id="2-requirements-i-ask-the-interviewer">2. Requirements I ask the interviewer</h2>
+
+<p><strong>Tic-tac-toe</strong></p>
+
+<ol>
+<li>Board size fixed at 3x3, or N x N with N in a row to win? -> <em>N x N (default 3).</em></li>
+<li>Players: human vs human, or against a computer? -> <em>Both. A player is controlled by a "move strategy".</em></li>
+<li>Win detection speed? -> <em>Should not scan the whole board after every move.</em></li>
+<li>Invalid moves (cell taken, out of range, wrong turn)? -> <em>Reject with an error; the turn does not change.</em></li>
+<li>Undo? -> <em>Nice extension.</em></li>
+<li>More than two players? -> <em>Possible extension.</em></li>
+</ol>
+
+<p><strong>Chess</strong></p>
+
+<ol>
+<li>Full rules (check, checkmate, castling, en passant, promotion)? -> <em>Not now. First: moves, captures, turns.</em></li>
+<li>Computer opponent? -> <em>Extension through a strategy.</em></li>
+<li>Input format? -> <em>Algebraic text like <code>e2 e4</code>.</em></li>
+</ol>
+
+<hr />
+
+<h2 id="3-classes-and-methods-the-picture">3. Classes and methods (the picture)</h2>
+
+<pre><code>TIC-TAC-TOE
++----------------------------------+
+|              Game                |
+|----------------------------------|
+| board, players, current, status  |
+| make_move(symbol, row, col)      |
+| play()  (uses each player's      |
+|          strategy)               |
+| undo_last()                      |
++---------+------------+-----------+
+          | has        | has many
+          v            v
+   +-----------+   +---------------------+   uses   +-------------------------+
+   |   Board   |   |       Player        |---------&gt;| MoveStrategy (abstract) |
+   |-----------|   |---------------------|          | choose(board, symbol)   |
+   | n, grid   |   | name, symbol,       |          +-----------+-------------+
+   | place()   |   | strategy            |            Scripted  FirstEmpty  Smart
+   | remove()  |   +---------------------+
+   | would_win |
+   | counters  |   Status: IN_PROGRESS / WON / DRAW
+   +-----------+
+
+CHESS
++---------------------+ has 64 cells  +--------------------------------+
+|     ChessBoard      |--------------&gt;| Piece (abstract)               |
+|---------------------|               | color, symbol                  |
+| move(src, dst)      |               | can_move(board, src, dst)      |
++----------+----------+               +----+------+------+------+------+
+           |                              Rook Bishop Queen Knight King Pawn
+           v
+   +---------------+    Queen = Rook moves OR Bishop moves (reuse)
+   |  ChessGame    |
+   | turn handling |
+   +---------------+
+</code></pre>
+
+<p><strong>Key idea for tic-tac-toe, O(1) win check.</strong> Keep, for each player, a counter per row, per column, and for the two diagonals. When a player places a mark, add 1 to the counters touched. If any counter reaches N, that player wins. We never scan the board.</p>
+
+<p><strong>Key idea for chess.</strong> Polymorphism: <code>board.move</code> does not contain <code>if piece == "rook"</code>. It asks the piece: <code>piece.can_move(...)</code>. Each class holds its own rule. A new piece (for a fantasy variant) is a new class.</p>
+
+<hr />
+
+<h2 id="4-full-code">4. Full code</h2>
+
+<pre><code>import threading                               # Lock
+from abc import ABC, abstractmethod            # "promise" classes
+from enum import Enum                          # fixed named choices
+
+
+class GameError(Exception):                    # any illegal action
+    pass
+
+
+class Status(Enum):
+    IN_PROGRESS = 1
+    WON = 2
+    DRAW = 3
+
+
+# =====================  TIC-TAC-TOE  =====================
+
+class Board:
+    def __init__(self, n=3):
+        self.n = n                             # board is n x n, and n in a row wins
+        self.grid = [[None] * n for _ in range(n)]     # None means empty
+        # per-symbol counters: how many marks that symbol has in each row / column / diagonal
+        self._rows, self._cols, self._diag, self._anti = {}, {}, {}, {}
+        self.filled = 0                        # number of occupied cells
+
+    def _counters(self, symbol):
+        # create the counters the first time we see a symbol
+        if symbol not in self._rows:
+            self._rows[symbol] = [0] * self.n
+            self._cols[symbol] = [0] * self.n
+            self._diag[symbol] = 0
+            self._anti[symbol] = 0
+        return self._rows[symbol], self._cols[symbol]
+
+    def in_range(self, r, c):
+        return 0 &lt;= r &lt; self.n and 0 &lt;= c &lt; self.n
+
+    def is_empty(self, r, c):
+        return self.grid[r][c] is None
+
+    def place(self, r, c, symbol):
+        # put a mark and update the counters; return True if this move wins
+        if not self.in_range(r, c):
+            raise GameError("cell out of range")
+        if not self.is_empty(r, c):
+            raise GameError("cell already taken")
+        rows, cols = self._counters(symbol)
+        self.grid[r][c] = symbol
+        self.filled += 1
+        rows[r] += 1
+        cols[c] += 1
+        if r == c:
+            self._diag[symbol] += 1            # on the main diagonal
+        if r + c == self.n - 1:
+            self._anti[symbol] += 1            # on the other diagonal
+        return (rows[r] == self.n or cols[c] == self.n
+                or self._diag[symbol] == self.n or self._anti[symbol] == self.n)
+
+    def remove(self, r, c):
+        # undo a placement (used by undo)
+        symbol = self.grid[r][c]
+        rows, cols = self._counters(symbol)
+        self.grid[r][c] = None
+        self.filled -= 1
+        rows[r] -= 1
+        cols[c] -= 1
+        if r == c:
+            self._diag[symbol] -= 1
+        if r + c == self.n - 1:
+            self._anti[symbol] -= 1
+
+    def would_win(self, r, c, symbol):
+        # would placing here complete a line? (does not change anything)
+        rows, cols = self._counters(symbol)
+        return (rows[r] + 1 == self.n or cols[c] + 1 == self.n
+                or (r == c and self._diag[symbol] + 1 == self.n)
+                or (r + c == self.n - 1 and self._anti[symbol] + 1 == self.n))
+
+    def empty_cells(self):
+        return [(r, c) for r in range(self.n) for c in range(self.n) if self.grid[r][c] is None]
+
+    def render(self):
+        return "\n".join(" ".join(cell or "." for cell in row) for row in self.grid)
+
+
+class MoveStrategy(ABC):
+    @abstractmethod
+    def choose(self, board, symbol):
+        pass
+
+
+class ScriptedStrategy(MoveStrategy):          # plays a fixed list of moves (a stand-in for a human)
+    def __init__(self, moves):
+        self.moves = list(moves)
+    def choose(self, board, symbol):
+        return self.moves.pop(0)
+
+
+class FirstEmptyStrategy(MoveStrategy):        # easy computer: first free cell
+    def choose(self, board, symbol):
+        return board.empty_cells()[0]
+
+
+class SmartStrategy(MoveStrategy):             # medium computer: win, else block, else centre, else first free
+    def __init__(self, all_symbols):
+        self.all_symbols = all_symbols
+    def choose(self, board, symbol):
+        cells = board.empty_cells()
+        for (r, c) in cells:                   # 1. can I win now?
+            if board.would_win(r, c, symbol):
+                return (r, c)
+        for other in self.all_symbols:         # 2. can an opponent win next move? block it
+            if other != symbol:
+                for (r, c) in cells:
+                    if board.would_win(r, c, other):
+                        return (r, c)
+        centre = (board.n // 2, board.n // 2)
+        if centre in cells:                    # 3. take the centre
+            return centre
+        return cells[0]                        # 4. anything free
+
+
+class Player:
+    def __init__(self, name, symbol, strategy):
+        self.name = name
+        self.symbol = symbol
+        self.strategy = strategy
+
+
+class Game:
+    def __init__(self, players, n=3):
+        self.board = Board(n)
+        self.players = players                 # list of Player, in turn order
+        self.turn = 0                          # index of the player who moves now
+        self.status = Status.IN_PROGRESS
+        self.winner = None
+        self.history = []                      # list of (row, col, turn index) for undo
+        self._lock = threading.Lock()
+
+    @property
+    def current(self):
+        return self.players[self.turn]
+
+    def make_move(self, symbol, r, c):
+        with self._lock:                       # check turn + place + switch turn = one atomic step
+            if self.status != Status.IN_PROGRESS:
+                raise GameError("game is over")
+            if symbol != self.current.symbol:
+                raise GameError("not your turn")
+            won = self.board.place(r, c, symbol)
+            self.history.append((r, c, self.turn))
+            if won:
+                self.status, self.winner = Status.WON, self.current
+            elif self.board.filled == self.board.n ** 2:
+                self.status = Status.DRAW
+            else:
+                self.turn = (self.turn + 1) % len(self.players)   # next player
+            return self.status
+
+    def undo_last(self):
+        with self._lock:
+            if not self.history:
+                raise GameError("nothing to undo")
+            r, c, turn = self.history.pop()
+            self.board.remove(r, c)
+            self.turn = turn                   # give the turn back
+            self.status, self.winner = Status.IN_PROGRESS, None
+
+    def play(self):
+        # let each player's strategy choose moves until the game ends
+        while self.status == Status.IN_PROGRESS:
+            p = self.current
+            r, c = p.strategy.choose(self.board, p.symbol)
+            self.make_move(p.symbol, r, c)
+        return self.status
+
+
+# =====================  CHESS BASICS  =====================
+
+class Piece(ABC):
+    def __init__(self, color):
+        self.color = color                     # "white" or "black"
+
+    letter = "?"                               # each piece class sets its letter
+
+    @property
+    def symbol(self):
+        return self.letter.upper() if self.color == "white" else self.letter.lower()
+
+    @abstractmethod
+    def can_move(self, board, src, dst):       # only the piece's own movement rule (not check)
+        pass
+
+
+def clear_path(board, src, dst):
+    # True if every square strictly between src and dst is empty (for straight / diagonal slides)
+    dr = (dst[0] &gt; src[0]) - (dst[0] &lt; src[0])         # -1, 0 or +1
+    dc = (dst[1] &gt; src[1]) - (dst[1] &lt; src[1])
+    r, c = src[0] + dr, src[1] + dc
+    while (r, c) != dst:
+        if board.grid[r][c] is not None:
+            return False
+        r, c = r + dr, c + dc
+    return True
+
+
+class Rook(Piece):
+    letter = "r"
+    def can_move(self, board, src, dst):
+        straight = src[0] == dst[0] or src[1] == dst[1]
+        return straight and clear_path(board, src, dst)
+
+
+class Bishop(Piece):
+    letter = "b"
+    def can_move(self, board, src, dst):
+        diagonal = abs(src[0] - dst[0]) == abs(src[1] - dst[1])
+        return diagonal and clear_path(board, src, dst)
+
+
+class Queen(Piece):
+    letter = "q"
+    def can_move(self, board, src, dst):
+        # a queen moves like a rook OR a bishop: we reuse their rules
+        return Rook(self.color).can_move(board, src, dst) or Bishop(self.color).can_move(board, src, dst)
+
+
+class Knight(Piece):
+    letter = "n"
+    def can_move(self, board, src, dst):
+        dr, dc = abs(src[0] - dst[0]), abs(src[1] - dst[1])
+        return (dr, dc) in ((1, 2), (2, 1))    # the L shape; knights jump, so no path check
+
+
+class King(Piece):
+    letter = "k"
+    def can_move(self, board, src, dst):
+        return max(abs(src[0] - dst[0]), abs(src[1] - dst[1])) == 1
+
+
+class Pawn(Piece):
+    letter = "p"
+    def can_move(self, board, src, dst):
+        direction = -1 if self.color == "white" else 1     # white goes up the screen (row numbers fall)
+        start_row = 6 if self.color == "white" else 1
+        dr, dc = dst[0] - src[0], dst[1] - src[1]
+        target = board.grid[dst[0]][dst[1]]
+        if dc == 0 and dr == direction:
+            return target is None              # one step forward, only onto an empty square
+        if dc == 0 and dr == 2 * direction and src[0] == start_row:
+            middle = board.grid[src[0] + direction][src[1]]
+            return target is None and middle is None       # two steps from the start row
+        if abs(dc) == 1 and dr == direction:
+            return target is not None and target.color != self.color   # diagonal only to capture
+        return False
+
+
+class ChessBoard:
+    def __init__(self):
+        self.grid = [[None] * 8 for _ in range(8)]
+        order = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook]
+        for col, cls in enumerate(order):      # back ranks
+            self.grid[0][col] = cls("black")
+            self.grid[7][col] = cls("white")
+        for col in range(8):                   # pawns
+            self.grid[1][col] = Pawn("black")
+            self.grid[6][col] = Pawn("white")
+
+    @staticmethod
+    def parse(square):
+        # "e2" -&gt; (row, col): file letter a-h is the column; rank 8 is row 0
+        return 8 - int(square[1]), ord(square[0]) - ord("a")
+
+    def move(self, src, dst, color):
+        piece = self.grid[src[0]][src[1]]
+        if piece is None:
+            raise GameError("no piece on the start square")
+        if piece.color != color:
+            raise GameError("that is not your piece")
+        target = self.grid[dst[0]][dst[1]]
+        if target is not None and target.color == color:
+            raise GameError("cannot capture your own piece")
+        if not piece.can_move(self, src, dst):
+            raise GameError(type(piece).__name__ + " cannot move like that")
+        self.grid[dst[0]][dst[1]] = piece      # move (this also removes a captured piece)
+        self.grid[src[0]][src[1]] = None
+        return target                          # the captured piece, or None
+
+    def render(self):
+        lines = []
+        for r in range(8):
+            lines.append(str(8 - r) + " " + " ".join(p.symbol if p else "." for p in self.grid[r]))
+        lines.append("  a b c d e f g h")
+        return "\n".join(lines)
+
+
+class ChessGame:
+    def __init__(self):
+        self.board = ChessBoard()
+        self.turn = "white"                    # white starts
+
+    def play(self, text):
+        src_text, dst_text = text.split()
+        captured = self.board.move(ChessBoard.parse(src_text), ChessBoard.parse(dst_text), self.turn)
+        self.turn = "black" if self.turn == "white" else "white"   # switch only after a legal move
+        return "captured " + type(captured).__name__ if captured else "ok"
+
+
+def main():
+    print("===== Tic-tac-toe: X wins with the top row (scripted humans) =====")
+    px = Player("Asha", "X", ScriptedStrategy([(0, 0), (0, 1), (0, 2)]))
+    po = Player("Ben", "O", ScriptedStrategy([(1, 0), (1, 1)]))
+    g = Game([px, po])
+    print("result:", g.play().name, "| winner:", g.winner.name)
+    print(g.board.render())
+
+    print("===== Smart vs smart on 3x3 =====")
+    g2 = Game([Player("S1", "X", SmartStrategy(["X", "O"])), Player("S2", "O", SmartStrategy(["X", "O"]))])
+    print("result:", g2.play().name)
+    print(g2.board.render())
+
+    print("===== Errors and undo =====")
+    g3 = Game([Player("A", "X", None), Player("B", "O", None)])
+    g3.make_move("X", 1, 1)
+    for label, args in [("wrong turn", ("X", 0, 0)), ("taken cell", ("O", 1, 1)), ("out of range", ("O", 5, 5))]:
+        try:
+            g3.make_move(*args)
+        except GameError as e:
+            print(label, "-&gt;", e)
+    g3.undo_last()
+    print("after undo, centre empty:", g3.board.is_empty(1, 1), "| turn:", g3.current.name)
+
+    # ---- extension: 4x4 board with three players ----
+    print("===== Extension: 4x4, three players (X, O, Z) =====")
+    sy = ["X", "O", "Z"]
+    g4 = Game([Player("P1", "X", SmartStrategy(sy)), Player("P2", "O", SmartStrategy(sy)),
+               Player("P3", "Z", FirstEmptyStrategy())], n=4)
+    print("result:", g4.play().name, "| winner:", g4.winner.name if g4.winner else None)
+    print(g4.board.render())
+
+    # ---- chess ----
+    print("===== Chess basics =====")
+    chess = ChessGame()
+    for mv in ["e2 e4", "e7 e5", "g1 f3", "b8 c6", "f1 b5"]:
+        print(chess.turn, mv, "-&gt;", chess.play(mv))
+    for mv in ["a8 a5", "c6 c4", "e5 e3"]:     # three illegal moves for black
+        try:
+            chess.play(mv)
+        except GameError as e:
+            print("illegal", mv, "-&gt;", e)
+    print(chess.turn, "a7 a6 -&gt;", chess.play("a7 a6"))
+    print(chess.turn, "b5 c6 -&gt;", chess.play("b5 c6"))
+    print(chess.board.render())
+
+    # ---- thread test: 9 threads all try to take cell (0,0) as X on turn 1 ----
+    print("===== Thread test =====")
+    g5 = Game([Player("A", "X", None), Player("B", "O", None)])
+    outcomes = []
+    def grab():
+        try:
+            g5.make_move("X", 0, 0)
+            outcomes.append("ok")
+        except GameError:
+            outcomes.append("refused")
+    threads = [threading.Thread(target=grab) for _ in range(9)]
+    for t in threads: t.start()
+    for t in threads: t.join()
+    print("accepted:", outcomes.count("ok"), "| refused:", outcomes.count("refused"))
+
+
+if __name__ == "__main__":
+    main()
+</code></pre>
+
+<p>Output I got when I ran it:</p>
+
+<pre><code>===== Tic-tac-toe: X wins with the top row (scripted humans) =====
+result: WON | winner: Asha
+X X X
+O O .
+. . .
+===== Smart vs smart on 3x3 =====
+result: WON
+O X X
+X X .
+O O O
+===== Errors and undo =====
+wrong turn -&gt; not your turn
+taken cell -&gt; cell already taken
+out of range -&gt; cell out of range
+after undo, centre empty: True | turn: A
+===== Extension: 4x4, three players (X, O, Z) =====
+result: DRAW | winner: None
+O Z X O
+Z X O Z
+X O X Z
+X O Z X
+===== Chess basics =====
+white e2 e4 -&gt; ok
+black e7 e5 -&gt; ok
+white g1 f3 -&gt; ok
+black b8 c6 -&gt; ok
+white f1 b5 -&gt; ok
+illegal a8 a5 -&gt; Rook cannot move like that
+illegal c6 c4 -&gt; Knight cannot move like that
+illegal e5 e3 -&gt; Pawn cannot move like that
+black a7 a6 -&gt; ok
+white b5 c6 -&gt; captured Knight
+8 r . b q k b n r
+7 . p p p . p p p
+6 p . B . . . . .
+5 . . . . p . . .
+4 . . . . P . . .
+3 . . . . . N . .
+2 P P P P . P P P
+1 R N B Q K . . R
+  a b c d e f g h
+===== Thread test =====
+accepted: 1 | refused: 8
+</code></pre>
+
+<hr />
+
+<h2 id="5-how-the-code-works-walk-through">5. How the code works (walk through)</h2>
+
+<p><strong>Tic-tac-toe</strong></p>
+
+<ol>
+<li><code>Board.place</code> writes the mark and increases four counters (row, column, and the diagonals if the cell is on them). The method returns <code>True</code> if any counter reached N. That is the O(1) win test. No scanning.</li>
+<li><code>Game.make_move</code> is the referee: it checks the game is not over, checks the turn, asks the board to place, then either ends the game (win or draw) or passes the turn. If anything is illegal, an exception is raised <strong>before</strong> the turn changes.</li>
+<li><code>Game.play</code> asks the current player's <strong>strategy</strong> for a move. A human can be a strategy that reads input; the computer uses <code>SmartStrategy</code> (win, block, centre, else any).</li>
+<li><code>would_win</code> lets the smart strategy ask "would this move win?" without changing the board, using the same counters.</li>
+<li>Undo calls <code>board.remove</code>, which reverses the counter changes.</li>
+<li>Look at the "smart vs smart" output: one side <strong>won</strong>. <code>SmartStrategy</code> is only "medium" (win, block, centre). It does not look ahead, so it can be beaten by a trap (a "fork"). A perfect player needs <code>MinimaxStrategy</code>, which is why it is listed as an extension.</li>
+</ol>
+
+<p><strong>Chess</strong></p>
+
+<ol>
+<li><code>ChessBoard.move</code> checks the common rules (a piece exists, it is yours, you do not capture your own piece) and then asks the <strong>piece</strong> <code>can_move</code>. Each piece class contains only its own rule.</li>
+<li><code>Queen</code> reuses <code>Rook</code> and <code>Bishop</code>. <code>Pawn</code> has the most special cases (forward only to empty squares, diagonal only to capture, two steps from the start row).</li>
+<li>In the output the three illegal moves were rejected, and the turn did not change. Then white's bishop captured the knight.</li>
+</ol>
+
+<hr />
+
+<h2 id="6-how-to-extend-it">6. How to extend it</h2>
+
+<p><strong>Tic-tac-toe</strong></p>
+
+<ul>
+<li><em>Bigger board, three players:</em> already supported (<code>n</code> and the player list). The counters are keyed by symbol, so nothing else changes. See the 4x4 output.</li>
+<li><em>Harder AI:</em> write a <code>MinimaxStrategy(MoveStrategy)</code>. No change to <code>Game</code>.</li>
+<li><em>Replay:</em> the <code>history</code> list already records all moves.</li>
+<li><em>Score board across many games:</em> a <code>Tournament</code> class that holds many <code>Game</code> objects.</li>
+</ul>
+
+<p><strong>Chess (what to say you would add, in order)</strong></p>
+
+<ol>
+<li><strong>Check and checkmate:</strong> after a move, find the king's square and ask every enemy piece <code>can_move</code> onto it. A move that leaves your own king attacked is illegal (try the move, test, undo it).</li>
+<li><strong>Special moves:</strong> castling, en passant, pawn promotion. Each can be a small <code>SpecialMoveRule</code> object (Strategy), so <code>Pawn</code> does not become huge.</li>
+<li><strong>Move history and undo:</strong> store each move as a <strong>Command</strong> object with <code>execute</code>/<code>undo</code> (file 03).</li>
+<li><strong>Computer player:</strong> a <code>ChessStrategy</code> interface, as <code>MoveStrategy</code> above.</li>
+<li><strong>Draw rules:</strong> stalemate, repetition.</li>
+</ol>
+
+<hr />
+
+<h2 id="7-thread-safety-notes-plain-words">7. Thread-safety notes (plain words)</h2>
+
+<ul>
+<li>A game is turn-based, so only one player moves at a time. But a web server may deliver two requests at once ("both players clicked"), or a player may double-click.</li>
+<li><strong>The danger:</strong> two threads both pass the checks "cell empty" and "my turn", and both place a mark; or the turn flips twice.</li>
+<li><strong>The fix:</strong> one lock inside <code>make_move</code>, so "check turn, check cell, place, switch turn" is a single step. The thread test: 9 threads all try to take the same cell; exactly one is accepted, the others are refused ("not your turn" or "cell taken").</li>
+<li>Different games are independent, so each <code>Game</code> has its own lock. A server can run thousands of games in parallel without them waiting for each other.</li>
+</ul>
+
+<hr />
+
+<h2 id="8-five-follow-up-questions-with-model-answers">8. Five follow-up questions with model answers</h2>
+
+<p><strong>Q1. How do you check a win in O(1) instead of scanning the board?</strong>
+Keep counters per player for each row, column, and both diagonals. A move updates at most 4 counters. If one reaches N, the player won. Time per move is O(1); memory is O(N) per player.</p>
+
+<p><strong>Q2. Why is the computer a <code>MoveStrategy</code> and not a subclass of <code>Player</code>?</strong>
+The only difference between a human and a computer is <em>how the move is chosen</em>. If I made <code>HumanPlayer</code> and <code>ComputerPlayer</code> subclasses, a "human who switches to computer help" would need a new class. With Strategy, I swap the move source at run time, and <code>Player</code> stays one class.</p>
+
+<p><strong>Q3. How would you implement undo for chess?</strong>
+Each move is a Command that stores everything needed to reverse it: source, destination, the captured piece, and whether it was a first pawn move. <code>undo</code> puts the piece back and restores the captured piece. For special moves (castling), the command stores both piece movements.</p>
+
+<p><strong>Q4. How do you detect check?</strong>
+Find the king of the side to move, and test whether any enemy piece <code>can_move</code> to the king's square. Because every piece has <code>can_move</code>, there is no per-piece <code>if</code>. For legal-move checking, make the move temporarily on the board, test whether your own king is attacked, and undo it.</p>
+
+<p><strong>Q5. How would you avoid having a huge <code>Pawn</code> class with all the special rules?</strong>
+Move the special rules out into small rule objects (promotion rule, en passant rule) and let the board consult a list of rules after the basic geometry check. That keeps each class small (Single Responsibility) and lets you turn rules on or off for variants.</p>
+
+<hr />
+
+<p><strong>Next:</strong> <code>90_cheat_sheet.md</code>.</p>
+<div class="pn"><span><a href="19_logger_and_notification_system.html">&larr; 19 - Logger and Notification System (Obs</a></span><span><a href="90_cheat_sheet.html">90 - Cheat sheet (read the night before) &rarr;</a></span></div></main></div></body></html>

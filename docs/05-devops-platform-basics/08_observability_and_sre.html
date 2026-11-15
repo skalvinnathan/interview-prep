@@ -1,0 +1,454 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>08. Observability and SRE | Interview prep</title><style>
+:root{--bg:#fff;--fg:#1f2328;--mut:#59636e;--bd:#d1d9e0;--ac:#0b57d0;--cb:#f6f8fa;--sb:#f6f8fa}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9198a1;--bd:#30363d;--ac:#6cb6ff;--cb:#161b22;--sb:#010409}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{display:flex;min-height:100vh}nav{width:300px;flex:none;background:var(--sb);border-right:1px solid var(--bd);padding:16px;overflow:auto;position:sticky;top:0;height:100vh}
+nav a{color:var(--fg);text-decoration:none;display:block;padding:3px 6px;border-radius:6px;font-size:14px}nav a:hover{background:var(--cb)}nav a.cur{background:var(--ac);color:#fff}
+nav summary{cursor:pointer;font-weight:600;padding:6px 0}nav .home{font-weight:700;font-size:16px;margin-bottom:8px}
+main{flex:1;min-width:0;max-width:900px;padding:24px 32px 80px;margin:0 auto}
+h1,h2,h3{line-height:1.25}h1{border-bottom:1px solid var(--bd);padding-bottom:.3em}h2{border-bottom:1px solid var(--bd);padding-bottom:.25em;margin-top:2em}
+a{color:var(--ac)}pre{background:var(--cb);border:1px solid var(--bd);border-radius:8px;padding:14px;overflow:auto;font-size:13.5px;line-height:1.5}
+code{background:var(--cb);padding:.15em .35em;border-radius:5px;font-size:.92em}pre code{background:none;padding:0}
+table{border-collapse:collapse;display:block;overflow:auto;max-width:100%}th,td{border:1px solid var(--bd);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--cb)}
+blockquote{border-left:4px solid var(--bd);margin:0;padding:0 1em;color:var(--mut)}img{max-width:100%}
+.top{display:none}.pn{display:flex;justify-content:space-between;gap:12px;margin-top:48px;border-top:1px solid var(--bd);padding-top:16px;font-size:14px}
+@media(max-width:820px){.wrap{display:block}nav{width:auto;height:auto;position:static;border-right:0;border-bottom:1px solid var(--bd)}main{padding:16px}}
+</style></head><body><div class="wrap"><nav><a class="home" href="../index.html">Interview prep</a><details><summary>Data structures and algorithms</summary><a href="../01-dsa/00_how_to_start.html">How to start: reading a problem, the 5-step method, and Big-</a><a href="../01-dsa/01_arrays_and_strings.html">Lesson 01. Arrays and Strings</a><a href="../01-dsa/02_hash_maps_and_sets.html">Lesson 02. Hash Maps and Sets</a><a href="../01-dsa/03_two_pointers.html">Lesson 03. Two Pointers</a><a href="../01-dsa/04_sliding_window.html">Lesson 04. Sliding Window</a><a href="../01-dsa/05_stack_and_queue.html">Lesson 05. Stack and Queue (including the monotonic stack)</a><a href="../01-dsa/06_binary_search.html">Lesson 06. Binary Search (including search on the answer)</a><a href="../01-dsa/07_linked_lists.html">Lesson 07. Linked Lists</a><a href="../01-dsa/08_trees_and_bst.html">Lesson 08. Trees and Binary Search Trees (BST)</a><a href="../01-dsa/09_heaps_and_priority_queues.html">Lesson 09: Heaps and Priority Queues</a><a href="../01-dsa/10_graphs_bfs_dfs.html">Lesson 10: Graphs, BFS and DFS (including grids)</a><a href="../01-dsa/11_topological_sort_and_union_find.html">Lesson 11: Topological Sort and Union-Find</a><a href="../01-dsa/12_shortest_paths.html">Lesson 12: Shortest Paths (Dijkstra in plain words)</a><a href="../01-dsa/13_intervals.html">Lesson 13: Intervals (merge intervals, meeting rooms)</a><a href="../01-dsa/14_backtracking.html">Lesson 14: Backtracking (subsets, permutations, combination </a><a href="../01-dsa/15_dynamic_programming_part1.html">Lesson 15: Dynamic Programming, Part 1 (remembering answers)</a><a href="../01-dsa/16_dynamic_programming_part2.html">Lesson 16: Dynamic Programming, Part 2 (LIS, word break, kna</a><a href="../01-dsa/17_tries_and_greedy.html">Lesson 17: Tries and Greedy</a><a href="../01-dsa/18_bit_tricks_and_math_basics.html">Lesson 18: Bit Tricks and Math Basics (short)</a><a href="../01-dsa/19_company_question_patterns.html">Lesson 19: Company Question Patterns (Google, Amazon, Meta, </a></details><details><summary>System design</summary><a href="../02-system-design/00_how_the_round_works.html">How the System Design Round Works</a><a href="../02-system-design/01a_client_server_and_http.html">Client, Server and HTTP</a><a href="../02-system-design/01b_dns_and_cdn.html">DNS and CDN</a><a href="../02-system-design/01c_load_balancers.html">Load Balancers</a><a href="../02-system-design/01d_databases.html">Databases: SQL vs NoSQL, Indexes, Transactions</a><a href="../02-system-design/01e_caching.html">Caching (and Why Invalidation Is Hard)</a><a href="../02-system-design/01f_sharding_and_replication.html">Sharding and Replication</a><a href="../02-system-design/01g_message_queues_and_streams.html">Message Queues and Streams (Kafka Basics)</a><a href="../02-system-design/01h_consistency_and_cap.html">Consistency and the CAP Idea (in Plain Words)</a><a href="../02-system-design/02_numbers_and_estimation.html">Numbers and Estimation</a><a href="../02-system-design/03_reliability_patterns.html">Reliability Patterns</a><a href="../02-system-design/10_url_shortener.html">Design a URL Shortener</a><a href="../02-system-design/11_rate_limiter.html">Design a Rate Limiter</a><a href="../02-system-design/12_chat_system.html">Design a Chat System (like WhatsApp or Slack)</a><a href="../02-system-design/13_news_feed.html">Design a News Feed (like Instagram, Facebook or Twitter/X ho</a><a href="../02-system-design/14_notification_service.html">Design a Notification Service</a><a href="../02-system-design/15_file_storage_like_drive.html">Design File Storage and Sync (like Google Drive or Dropbox)</a><a href="../02-system-design/16_search_autocomplete.html">Design Search Autocomplete (Typeahead)</a><a href="../02-system-design/17_video_streaming_basics.html">Design Video Streaming Basics (like YouTube or Netflix)</a><a href="../02-system-design/18_payment_system_like_stripe.html">Design a Payment System (like Stripe)</a><a href="../02-system-design/19_order_management_like_amazon.html">Design an Order Management System (like Amazon: inventory, o</a><a href="../02-system-design/20_job_scheduler_and_workflow_engine.html">Design a Job Scheduler and Workflow Engine</a><a href="../02-system-design/21_api_gateway_and_auth_system.html">Design an API Gateway and Auth System</a><a href="../02-system-design/22_logging_and_metrics_platform.html">Design a Logging and Metrics Platform</a><a href="../02-system-design/90_cheat_sheet.html">Cheat Sheet (one page)</a><a href="../02-system-design/91_practice_questions.html">Practice Questions (30)</a></details><details><summary>Low-level design</summary><a href="../03-low-level-design/00_how_the_lld_round_works.html">- How the LLD round works</a><a href="../03-low-level-design/01_oop_in_plain_words.html">- OOP in plain words</a><a href="../03-low-level-design/02_solid_principles.html">- SOLID principles</a><a href="../03-low-level-design/03_design_patterns_you_need.html">- The 8 design patterns you need</a><a href="../03-low-level-design/10_parking_lot.html">- Parking Lot</a><a href="../03-low-level-design/11_lru_cache.html">- LRU Cache</a><a href="../03-low-level-design/12_elevator_system.html">- Elevator System</a><a href="../03-low-level-design/13_library_management.html">- Library Management System</a><a href="../03-low-level-design/14_vending_machine.html">- Vending Machine (State pattern)</a><a href="../03-low-level-design/15_atm.html">- ATM</a><a href="../03-low-level-design/16_rate_limiter_class.html">- Rate Limiter (class design: token bucket and sliding windo</a><a href="../03-low-level-design/17_amazon_locker.html">- Amazon Locker</a><a href="../03-low-level-design/18_splitwise_expense_sharing.html">- Splitwise (Expense Sharing)</a><a href="../03-low-level-design/19_logger_and_notification_system.html">- Logger and Notification System (Observer and Strategy)</a><a href="../03-low-level-design/20_tic_tac_toe_or_chess_basics.html">- Tic-Tac-Toe (full) and Chess basics</a><a href="../03-low-level-design/90_cheat_sheet.html">- Cheat sheet (read the night before)</a><a href="../03-low-level-design/91_practice_questions.html">- Practice questions (20)</a></details><details open><summary>DevOps and platform basics</summary><a href="01_linux_processes_memory_files.html">Linux: processes, memory, and files</a><a href="02_networking.html">Networking: TCP, DNS, TLS, NAT</a><a href="03_containers_and_docker.html">Containers and Docker</a><a href="04_kubernetes_from_zero.html">Kubernetes from zero</a><a href="05_helm.html">Helm</a><a href="06_terraform.html">Terraform</a><a href="07_ci_cd_github_actions.html">CI/CD with GitHub Actions</a><a class="cur" href="08_observability_and_sre.html">Observability and SRE</a><a href="09_concurrency_and_distributed_basics.html">Concurrency and distributed basics</a><a href="10_databases_basics.html">Databases basics</a><a href="11_security_basics.html">Security basics (IAM, OAuth2/OIDC/JWT, secrets, supply chain</a><a href="12_gcp_pca_quick_map.html">Google Cloud quick map (for Professional Cloud Architect hol</a><a href="20_interview_questions_with_answers.html">Sixty interview questions with model answers (platform / SRE</a><a href="21_scenario_questions.html">Fifteen &quot;production is down&quot; scenarios, with step-by-step an</a></details><details><summary>Company processes</summary><a href="../06-company-process-and-behavioural/10_google.html">Google</a><a href="../06-company-process-and-behavioural/11_amazon.html">Amazon</a><a href="../06-company-process-and-behavioural/12_stripe.html">Stripe</a><a href="../06-company-process-and-behavioural/13_microsoft_and_azure_roles.html">Microsoft and Azure roles</a><a href="../06-company-process-and-behavioural/14_indian_product_and_gcc_companies.html">Indian product companies and GCCs</a><a href="../06-company-process-and-behavioural/15_european_scaleups.html">European scale-ups and visa basics</a><a href="../06-company-process-and-behavioural/16_ai_startups_like_smallest_ai.html">AI startups like Smallest AI</a><a href="../06-company-process-and-behavioural/24_questions_to_ask_interviewers.html">Questions to ask interviewers</a><a href="../06-company-process-and-behavioural/25_salary_notice_period_and_offer_negotiation_india_and_abroad.html">Salary, notice period and offer negotiation (India and abroa</a><a href="../06-company-process-and-behavioural/26_interview_day_checklists.html">Interview day checklists</a></details></nav><main><h1 id="08-observability-and-sre">08. Observability and SRE</h1>
+
+<p>Legend: <code>[REAL]</code> = I ran it on this Mac on 2026-11-15 (Python scripts with a fixed random seed, so you get the same numbers). <code>[SAMPLE]</code> = example written to show the shape. The SRE ideas (four golden signals, SLI/SLO/SLA, error budgets, percentiles, burn-rate alerts, postmortems) and the Prometheus histogram rule were read from Google's SRE books and the Prometheus docs (links at the end).</p>
+
+<hr />
+
+<h2 id="1-what-it-is-plain-words-analogy">1. What it is (plain words + analogy)</h2>
+
+<p><strong>Observability</strong> = being able to ask your running system "what is wrong and why?" using the data it gives out, <strong>without</strong> shipping new code.
+<strong>SRE</strong> (Site Reliability Engineering) = treating operations as a software problem: set a clear reliability target, measure it, and use the gap to decide between new features and stability work.</p>
+
+<p>Analogy: a <strong>car dashboard and a mechanic's diary</strong>.</p>
+
+<ul>
+<li><strong>Metrics</strong> = the gauges (speed, fuel, temperature). Numbers over time. Cheap and good for "is something wrong?".</li>
+<li><strong>Logs</strong> = the diary. One line per event ("at 10:03 brakes applied"). Good for "what exactly happened?".</li>
+<li><strong>Traces</strong> = a GPS track of <strong>one trip</strong> through all the towns (services). Good for "where did this one slow request spend its time?".</li>
+</ul>
+
+<p>Metrics tell you <strong>that</strong> there is a problem. Traces tell you <strong>where</strong>. Logs tell you <strong>why</strong>.</p>
+
+<h2 id="2-why-it-matters-in-interviews">2. Why it matters in interviews</h2>
+
+<p>SRE and platform interviews (Google, Amazon, ScienceLogic, Unikraft SRE) always include: define SLI/SLO, explain error budgets, "why not average latency?", "how do you alert?", "walk me through an incident", "write a postmortem". 2026 prep guides say SRE questions "center on incident handling and error budgets", for example "what happens when your error budget runs out?" and "how would you respond to rising error rates before customers report them?". You also have real Prometheus/Grafana/Loki experience; be ready to go deep on it.</p>
+
+<h2 id="3-how-it-works-step-by-step">3. How it works, step by step</h2>
+
+<h3 id="31-the-three-pillars-plus-how-they-connect">3.1 The three pillars, plus how they connect</h3>
+
+<pre><code> Your service ──emits──&gt; metrics  ──&gt; Prometheus ──&gt; Grafana dashboards + Alertmanager (pages)
+              ──emits──&gt; logs     ──&gt; Loki       ──&gt; Grafana (search logs)
+              ──emits──&gt; traces   ──&gt; Tempo/Jaeger ──&gt; Grafana (view a request's path)
+        all three can be sent through the OpenTelemetry Collector
+</code></pre>
+
+<p>Link them with a shared <strong>trace ID</strong> in every log line, so from a slow trace you can jump to its logs.</p>
+
+<h3 id="32-prometheus-metrics">3.2 Prometheus (metrics)</h3>
+
+<ul>
+<li>Prometheus <strong>pulls</strong> ("scrapes") a <code>/metrics</code> HTTP page from each target every N seconds and stores the numbers as <strong>time series</strong> (a metric name plus labels). (Pull model: general knowledge.)</li>
+<li>Metric types:
+<ul>
+<li><strong>Counter</strong>: only goes up (requests total). Always use <code>rate()</code> on it.</li>
+<li><strong>Gauge</strong>: goes up and down (memory in use, queue length).</li>
+<li><strong>Histogram</strong>: counts observations in <strong>buckets</strong> (how many requests took &lt; 0.1 s, &lt; 0.5 s, ...). Lets you compute percentiles.</li>
+<li><strong>Summary</strong>: computes quantiles inside the app.</li>
+</ul></li>
+<li><strong>Labels</strong> are <code>key="value"</code> tags (<code>{method="GET", status="500"}</code>). <strong>Cardinality</strong> = how many different label combinations exist. Never put user IDs, emails, or request IDs in labels: millions of series will crash Prometheus.</li>
+<li><strong>PromQL</strong> examples:</li>
+</ul>
+
+<pre><code># requests per second, per service, over the last 5 minutes
+sum by (service) (rate(http_requests_total[5m]))
+
+# error ratio (share of 5xx)
+sum(rate(http_requests_total{status=~"5.."}[5m]))
+  /
+sum(rate(http_requests_total[5m]))
+
+# p99 latency from a classic histogram (keep the "le" label when summing!)
+histogram_quantile(0.99, sum by (le) (rate(http_request_duration_seconds_bucket[5m])))
+</code></pre>
+
+<p>The Prometheus docs say it directly: histograms can be <strong>aggregated</strong> because "bucket counts are additive"; summary quantiles are "not aggregatable", and "averaging the quantiles yields statistically nonsensical values". They also recommend native histograms when you can use them.</p>
+
+<ul>
+<li><strong>Alertmanager</strong> receives alerts from Prometheus rules, groups them, silences them, and sends to Slack/PagerDuty.</li>
+<li><strong>Exporters</strong> expose metrics for things you cannot change (node_exporter for Linux, kube-state-metrics for Kubernetes objects, cAdvisor for containers).</li>
+</ul>
+
+<h3 id="33-loki-logs">3.3 Loki (logs)</h3>
+
+<p>From Grafana's docs: Loki "does not index the contents of the logs". It indexes only <strong>labels</strong> on each log stream and stores the log text compressed in chunks (object storage like S3 or GCS). So it is cheap, but you must choose a <strong>small set of low-cardinality labels</strong> (app, namespace, pod, level). You search with <strong>LogQL</strong>, which looks like PromQL: pick streams with label matchers, then filter lines.</p>
+
+<pre><code>{namespace="prod", app="api"} |= "error" != "healthcheck"
+{app="api"} | json | status &gt;= 500
+sum by (app) (rate({namespace="prod"} |= "error" [5m]))     # logs turned into a metric
+</code></pre>
+
+<p>Good logging: structured (JSON) lines, a trace ID, a level, <strong>no secrets or personal data</strong>, and a sane volume (logs cost money). Grafana's docs name <strong>Grafana Alloy</strong> as an agent to ship logs (Promtail is an older agent; I did not verify its status, check the current docs).</p>
+
+<h3 id="34-grafana">3.4 Grafana</h3>
+
+<p>A dashboard and alerting UI that reads many data sources (Prometheus, Loki, Tempo, cloud monitors). Good dashboards: start with the four golden signals per service; link to logs and traces; show SLO status and burn rate; avoid a wall of 60 charts.</p>
+
+<h3 id="35-opentelemetry-otel">3.5 OpenTelemetry (OTel)</h3>
+
+<p>An open standard and set of tools for creating and moving telemetry. From the docs, its signals are <strong>traces</strong> (follow a request's route), <strong>metrics</strong> (runtime measurements), <strong>logs</strong> (individual events), and <strong>baggage</strong> (context carried between signals). Main parts (general knowledge; the signals page I read did not cover them): <strong>SDKs/auto-instrumentation</strong> in your code, <strong>OTLP</strong> (the wire protocol), and the <strong>Collector</strong> (a small service that receives, processes, and exports telemetry to any backend). Traces are made of <strong>spans</strong> (one timed operation, such as a DB call). A <strong>trace ID</strong> passed along in HTTP headers ties spans from many services together (context propagation). Why it matters: you instrument once and can change the backend later without changing code.</p>
+
+<h3 id="36-the-four-golden-signals-google-sre-book">3.6 The four golden signals (Google SRE book)</h3>
+
+<p>For every user-facing service, watch:</p>
+
+<table>
+<thead>
+<tr>
+  <th>Signal</th>
+  <th>Plain meaning</th>
+  <th>Note from the book</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Latency</strong></td>
+  <td>time to serve a request</td>
+  <td>"Track successful and failed requests separately": "a slow error is even worse than a fast error"</td>
+</tr>
+<tr>
+  <td><strong>Traffic</strong></td>
+  <td>how much demand</td>
+  <td>e.g. HTTP requests per second</td>
+</tr>
+<tr>
+  <td><strong>Errors</strong></td>
+  <td>rate of failing requests</td>
+  <td>explicit (HTTP 500), implicit (200 with wrong content), or by policy (too slow)</td>
+</tr>
+<tr>
+  <td><strong>Saturation</strong></td>
+  <td>how full the service is</td>
+  <td>the most constrained resource; many systems degrade before 100 percent</td>
+</tr>
+</tbody>
+</table>
+
+<p>Related methods you may hear: <strong>RED</strong> (Rate, Errors, Duration, for services) and <strong>USE</strong> (Utilization, Saturation, Errors, for resources like CPU and disks). They are similar ideas.</p>
+
+<h3 id="37-sli-slo-sla-error-budget">3.7 SLI, SLO, SLA, error budget</h3>
+
+<ul>
+<li><strong>SLI</strong> (indicator): a measured number about the service. "Share of requests that succeeded and took under 300 ms."</li>
+<li><strong>SLO</strong> (objective): the target for the SLI. "99.9 percent of requests good over 30 days."</li>
+<li><strong>SLA</strong> (agreement): a contract with consequences if the SLO is missed (refunds). Google's book: if there is no explicit consequence, "you're probably looking at an SLO". An SLA is looser than the internal SLO.</li>
+<li><strong>Error budget</strong> = <code>1 - SLO</code> = the amount of failure you are <strong>allowed</strong>. The book calls it "an SLO for meeting other SLOs".</li>
+</ul>
+
+<p>Maths you should be able to do in your head (30-day month = 43,200 minutes):</p>
+
+<table>
+<thead>
+<tr>
+  <th>SLO</th>
+  <th>Allowed bad</th>
+  <th>Downtime per 30 days</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>99%</td>
+  <td>1%</td>
+  <td>432 min (7.2 hours)</td>
+</tr>
+<tr>
+  <td>99.5%</td>
+  <td>0.5%</td>
+  <td>216 min (3.6 hours)</td>
+</tr>
+<tr>
+  <td>99.9%</td>
+  <td>0.1%</td>
+  <td>43.2 min</td>
+</tr>
+<tr>
+  <td>99.95%</td>
+  <td>0.05%</td>
+  <td>21.6 min</td>
+</tr>
+<tr>
+  <td>99.99%</td>
+  <td>0.01%</td>
+  <td>4.32 min</td>
+</tr>
+</tbody>
+</table>
+
+<p>(I computed these: minutes × allowed fraction.) For request-based SLIs, budget = allowed failed requests. If the SLO is 99.9% and you serve 10 million requests in the window, you may fail 10,000.</p>
+
+<p>How budget is used: while budget remains, the team ships features. When it is nearly spent, the team <strong>slows releases and does reliability work</strong>. This turns "dev wants speed vs ops wants stability" into one number both sides agreed on. The book says teams track it daily or weekly, with monthly or quarterly reviews, and the gap between the observed violation rate and the budget is used to decide on releases.</p>
+
+<p>Choosing good SLIs: measure <strong>what users feel</strong> (successful, fast responses at the edge/load balancer), not what the server feels (CPU). Do not set 100 percent: it is too costly, and users cannot tell the difference beyond what their own network gives.</p>
+
+<h3 id="38-percentiles-and-why-you-cannot-average-them">3.8 Percentiles, and why you cannot average them</h3>
+
+<p><strong>Percentile</strong>: p99 = "99 percent of requests were faster than this number". p50 = median.</p>
+
+<p>Why not the mean: Google's book says averages "can hide a long tail" of slow requests; use percentiles. Its example: typical request about 50 ms but 5 percent about 20 times slower, which average-based monitoring misses. And in the monitoring chapter: a service averaging 100 ms at 1,000 requests per second can still have 1 percent of requests taking 5 seconds.</p>
+
+<p><code>[REAL]</code> my demo: 950 requests near 50 ms and 50 requests near 1000 ms (5 percent slow):</p>
+
+<pre><code>mean  = 98 ms          &lt;- looks fine
+p50   = 50 ms          &lt;- looks fine
+p95   = 69 ms
+p99   = 1104 ms        &lt;- the slow users are visible only here
+</code></pre>
+
+<p>One in twenty users waits about a second, and the mean (98 ms) hides it.</p>
+
+<p><strong>Why you cannot average percentiles across servers</strong>: a percentile is a position in a sorted list. The positions of two separate lists tell you nothing about the position in the merged list. <code>[REAL]</code> demo: server A had 1000 requests (3 percent slow, 2000 ms) and server B had 100 fast requests:</p>
+
+<pre><code>server A (1000 requests) p99 = 2007 ms
+server B ( 100 requests) p99 = 62 ms
+average of the two p99s   = 1035 ms   &lt;- WRONG
+p99 of all 1100 requests  = 2004 ms   &lt;- RIGHT
+</code></pre>
+
+<p>The average (1035 ms) matches no real user experience. B's tiny traffic got equal weight to A's big traffic. <strong>Fix</strong>: keep <strong>histogram buckets</strong> (counts are additive), sum buckets across servers, then compute the percentile from the summed buckets (<code>histogram_quantile</code> in Prometheus). Do the same across time windows: do not average p99 over 5-minute points to get an hourly p99.</p>
+
+<p>Honest limits: bucket-based percentiles are <strong>estimates</strong> (accuracy depends on bucket boundaries). Native histograms improve that. Also, SLOs are often written as "99% of requests under 300 ms" (a ratio of good events), which <strong>can</strong> be aggregated by simply adding good and total counts. That is often better than quoting p99.</p>
+
+<h3 id="39-alerting-symptoms-not-causes">3.9 Alerting: symptoms, not causes</h3>
+
+<p>Google's book: "it's better to spend much more effort on catching symptoms than causes." Page a human when <strong>users are hurt now</strong> (error ratio high, latency high, SLO burning fast). Do not page on "CPU is 85 percent" or "pod restarted once" unless it is a very definite, very imminent cause (disk will be full in 30 minutes). Cause-level signals belong on dashboards and low-priority tickets. Every page should be <strong>urgent, actionable, and need a human</strong>. Noisy alerts cause alert fatigue, and people stop trusting them.</p>
+
+<p><strong>Burn-rate alerts</strong> (Google SRE Workbook): burn rate = "how fast, relative to the SLO, the service consumes the error budget". Burn rate 1 would use up exactly the whole budget at the end of the window. The workbook's recommended multiwindow, multi-burn-rate alerts for a 99.9 percent SLO over 30 days:</p>
+
+<table>
+<thead>
+<tr>
+  <th>Action</th>
+  <th>Long window</th>
+  <th>Short window</th>
+  <th>Burn rate</th>
+  <th>Budget used when it fires</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Page</td>
+  <td>1 hour</td>
+  <td>5 min</td>
+  <td>14.4</td>
+  <td>2%</td>
+</tr>
+<tr>
+  <td>Page</td>
+  <td>6 hours</td>
+  <td>30 min</td>
+  <td>6</td>
+  <td>5%</td>
+</tr>
+<tr>
+  <td>Ticket</td>
+  <td>3 days</td>
+  <td>6 hours</td>
+  <td>1</td>
+  <td>10%</td>
+</tr>
+</tbody>
+</table>
+
+<p>An alert fires only when <strong>both</strong> windows exceed the threshold: the long window shows it is real and significant, the short window shows it is <strong>still happening</strong> (suggested short window is 1/12 of the long one). Check the maths: 14.4 × (1 hour / 720 hours) = 2 percent.</p>
+
+<pre><code># Prometheus alert shape (error ratio recording rule names are examples)
+groups:
+- name: slo
+  rules:
+  - alert: HighErrorBudgetBurn
+    expr: |
+      job:slo_errors_per_request:ratio_rate1h  &gt; (14.4 * 0.001)
+      and
+      job:slo_errors_per_request:ratio_rate5m  &gt; (14.4 * 0.001)
+    for: 2m
+    labels: { severity: page }
+    annotations:
+      summary: "Burning error budget 14.4x too fast"
+      runbook_url: https://wiki.example.com/runbooks/api-errors
+</code></pre>
+
+<p>Every alert needs a <strong>runbook link</strong> and an owner.</p>
+
+<h3 id="310-incident-response">3.10 Incident response</h3>
+
+<p>Goal: <strong>reduce user impact fast</strong>, then learn. Not "find the root cause first".</p>
+
+<pre><code> detect -&gt; triage (severity, who is hit?) -&gt; declare incident -&gt; mitigate -&gt; resolve -&gt; postmortem -&gt; action items
+</code></pre>
+
+<p>Roles (as described in 2026 prep material): an <strong>Incident Commander</strong> (decides, coordinates, does not debug), a <strong>communications lead</strong> (updates status page and stakeholders), and <strong>responders/subject experts</strong> (investigate and fix). One channel for the incident. Write a <strong>timeline</strong> as you go.</p>
+
+<p>Order of thinking:</p>
+
+<ol>
+<li><strong>What is the impact?</strong> Which users, how many, since when, which regions? (Look at the SLO dashboard.)</li>
+<li><strong>What changed?</strong> Deploys, config changes, feature flags, traffic spikes, cert expiry, a dependency outage. Most incidents follow a change.</li>
+<li><strong>Mitigate first</strong>: roll back, turn off a feature flag, shift traffic away, scale up, rate-limit. Fix the root cause later.</li>
+<li><strong>Communicate</strong> on a fixed rhythm (for example every 30 minutes), even if it says "no new information".</li>
+<li>Confirm recovery with the SLIs, not with feelings. Keep watching.</li>
+<li><strong>Postmortem</strong> within a few days.</li>
+</ol>
+
+<p>Severity example (define your own): SEV1 = most users down or data loss; SEV2 = a major feature broken or heavy degradation; SEV3 = minor.</p>
+
+<h3 id="311-blameless-postmortem-template">3.11 Blameless postmortem template</h3>
+
+<p>Principles from Google's SRE Workbook chapter on postmortem culture: focus on <strong>system gaps, not people</strong> ("Individuals act in good faith and make decisions based on the best information available"); use neutral, factual language; one owner; include everyone involved; write promptly; share widely; "a postmortem without subsequent action is indistinguishable from no postmortem".</p>
+
+<p>Template (sections follow the workbook's example; wording is mine):</p>
+
+<pre><code># Postmortem: &lt;short title&gt;            Date: &lt;YYYY-MM-DD&gt;   Owner: &lt;name&gt;   Status: &lt;draft/final&gt;
+
+## Summary
+Two or three sentences: what broke, who was affected, how long, how it ended.
+
+## Impact
+- Duration: &lt;start&gt; to &lt;end&gt; (&lt;N&gt; minutes)
+- Users/requests affected: &lt;number or %&gt;, which regions/products
+- Business impact: &lt;revenue, SLA, support tickets&gt;
+- SLO/error budget used: &lt;x% of the monthly budget&gt;
+
+## Detection
+How we found out (alert? customer?). Time from start to detection.
+
+## Root causes and trigger
+Trigger: the event that set it off.
+Root causes: the system weaknesses that let it happen (not "person X made a typo").
+
+## Timeline (all times in one timezone)
+10:02  deploy 4.7 started
+10:09  error-rate alert fired (page)
+10:14  IC declared SEV2
+10:21  decision to roll back
+10:26  rollback done, errors falling
+10:40  recovery confirmed
+
+## What went well / what went poorly / where we got lucky
+
+## Action items
+| # | Action | Type (prevent/detect/mitigate) | Owner | Priority | Ticket | Done when (verifiable) |
+</code></pre>
+
+<p>Make action items <strong>owned, tracked, and verifiable</strong>, and include prevention, not only mitigation.</p>
+
+<h2 id="4-commands-to-try">4. Commands to try</h2>
+
+<p>I ran the percentile demo above with Python. Other things to try:</p>
+
+<pre><code># Percentiles yourself (Python 3, no installs)
+python3 - &lt;&lt;'EOF'
+import random, statistics
+random.seed(42)
+lat = sorted([random.gauss(50,5) for _ in range(950)] + [random.gauss(1000,100) for _ in range(50)])
+p = lambda q: lat[int(len(lat)*q/100)-1]
+print("mean", round(statistics.mean(lat)), "p50", round(p(50)), "p99", round(p(99)))
+EOF
+
+# Prometheus / Grafana locally (needs Docker running)
+docker run -d -p 9090:9090 prom/prometheus
+docker run -d -p 3000:3000 grafana/grafana
+
+# Query Prometheus from the shell
+curl -s 'http://localhost:9090/api/v1/query?query=up' | jq .
+
+# Kubernetes quick signals
+kubectl top pods -A --sort-by=memory | head       # needs metrics-server
+kubectl get events -A --sort-by=.lastTimestamp | tail
+kubectl logs deploy/api --since=15m | grep -i error | tail
+</code></pre>
+
+<p><code>[SAMPLE]</code> Prometheus API answer:</p>
+
+<pre><code>{"status":"success","data":{"resultType":"vector","result":[{"metric":{"__name__":"up","job":"prometheus"},"value":[1763243000.1,"1"]}]}}
+</code></pre>
+
+<h2 id="5-common-mistakes">5. Common mistakes</h2>
+
+<ol>
+<li>Using the average latency (hides the tail).</li>
+<li>Averaging percentiles across servers or time windows.</li>
+<li>High-cardinality labels (user ID, URL with IDs) in Prometheus or Loki.</li>
+<li>Alerting on causes (CPU 80 percent) so people get paged for non-problems; no runbooks.</li>
+<li>SLOs of 100 percent, or SLIs that measure the server instead of the user.</li>
+<li>Looking for the root cause before mitigating during an incident.</li>
+<li>Postmortems that name and blame a person, or that have no owned follow-up actions.</li>
+<li>Logs with secrets or personal data, or logging so much that cost and noise explode.</li>
+</ol>
+
+<h2 id="6-eight-interview-questions-with-answers">6. Eight interview questions with answers</h2>
+
+<p><strong>Q1. Explain metrics, logs, and traces and when you use each.</strong>
+Metrics are cheap numbers over time: good for dashboards, alerts, and spotting that something is wrong. Logs are detailed event records: good for finding the exact error. Traces follow one request across services showing time per hop: good for finding where latency comes from. Link them with a trace ID.</p>
+
+<p><strong>Q2. What are the four golden signals?</strong>
+Latency, traffic, errors, saturation. Track latency of successful and failed requests separately, count errors including wrong-content responses and too-slow ones, and measure saturation on the most constrained resource.</p>
+
+<p><strong>Q3. Define SLI, SLO, SLA, and error budget with an example.</strong>
+SLI: percent of HTTP requests that return non-5xx within 300 ms. SLO: 99.9 percent over 30 days. SLA: the contract, for example refunds if monthly availability falls below 99.5 percent. Error budget: 0.1 percent, about 43 minutes per 30 days, or 10,000 failed requests out of 10 million. When it is used up, we slow feature releases and fix reliability.</p>
+
+<p><strong>Q4. Why do we use percentiles instead of the average? Why can't we average percentiles?</strong>
+The mean hides slow tail requests, and tail users are real people. Percentiles show the distribution. A percentile is a position in a sorted list, so the p99s of two servers cannot be averaged: the result depends on how many requests each served and where the slow ones are. Keep histogram buckets, sum the buckets, then compute the percentile (<code>histogram_quantile</code>), or define the SLO as a ratio of good to total events.</p>
+
+<p><strong>Q5. How should alerting be designed?</strong>
+Page on symptoms users feel (error ratio, latency, SLO burn rate), not on causes. Use multiwindow multi-burn-rate alerts: for a 99.9 percent SLO, page at 14.4x burn over 1 hour (and 5 minutes), page at 6x over 6 hours (and 30 minutes), ticket at 1x over 3 days. Every alert is actionable and has a runbook; remove or downgrade noisy ones.</p>
+
+<p><strong>Q6. The error budget is exhausted. What happens?</strong>
+Per the agreed error-budget policy: pause risky feature releases, focus engineering time on reliability (fix the top causes of budget burn), and allow only urgent fixes until the budget recovers. It works only if product and engineering agreed on the policy beforehand.</p>
+
+<p><strong>Q7. Why does Loki only index labels, and what is the catch?</strong>
+Indexing only labels keeps the index small and storage cheap, with compressed chunks in object storage. The catch: queries filter log text at query time (slower on huge ranges), and you must keep labels few and low-cardinality (app, namespace, pod, level), or Loki gets slow and expensive.</p>
+
+<p><strong>Q8. Walk me through how you run an incident and what the postmortem contains.</strong>
+Detect and triage impact and severity, declare the incident, assign an incident commander and a communicator, check recent changes, mitigate first (rollback, flag off, shift traffic), communicate on a schedule, confirm recovery on SLIs. Then a blameless postmortem: summary, impact, trigger and root causes, timeline, what went well or poorly, and owned, prioritized, verifiable action items.</p>
+
+<h2 id="7-self-quiz-answers-at-the-end">7. Self-quiz (answers at the end)</h2>
+
+<ol>
+<li>For a 99.9% SLO over 30 days, how many minutes of full outage is the budget?</li>
+<li>Server A p99 = 200 ms, server B p99 = 400 ms. Can you say the combined p99 is 300 ms?</li>
+<li>Name the four golden signals.</li>
+<li>What does burn rate 1 mean? What does burn rate 14.4 over one hour mean for the budget?</li>
+<li>Why is a high-cardinality label dangerous in Prometheus?</li>
+</ol>
+
+<p><strong>Answers</strong></p>
+
+<ol>
+<li>43.2 minutes (0.001 × 43,200).</li>
+<li>No. Percentiles cannot be averaged; it depends on request counts and distributions. Merge histogram buckets and recompute.</li>
+<li>Latency, traffic, errors, saturation.</li>
+<li>Burn rate 1: the budget would be used up exactly at the end of the window. 14.4 for one hour uses 2 percent of the 30-day budget (14.4 × 1/720).</li>
+<li>Each label combination is a separate time series, so millions of series use huge memory and slow queries.</li>
+</ol>
+
+<h2 id="8-sources">8. Sources</h2>
+
+<ul>
+<li>Google SRE book, Service Level Objectives (SLI/SLO/SLA, percentiles, error budgets): https://sre.google/sre-book/service-level-objectives/</li>
+<li>Google SRE book, Monitoring Distributed Systems (four golden signals, symptoms vs causes, averages hide the tail): https://sre.google/sre-book/monitoring-distributed-systems/</li>
+<li>Google SRE Workbook, Alerting on SLOs (burn rate table): https://sre.google/workbook/alerting-on-slos/</li>
+<li>Google SRE Workbook, Postmortem Culture: https://sre.google/workbook/postmortem-culture/</li>
+<li>Prometheus, histograms and summaries: https://prometheus.io/docs/practices/histograms/</li>
+<li>Grafana Loki overview: https://grafana.com/docs/loki/latest/get-started/overview/</li>
+<li>OpenTelemetry signals: https://opentelemetry.io/docs/concepts/signals/</li>
+<li>2026 SRE interview-theme summaries (prep sites; indicators only): https://www.kore1.com/sre-interview-questions/ and https://prachub.com/resources/incident-response-interview-questions-for-sre-and-senior-engineers</li>
+<li>Local demos: Python scripts run on this Mac, 2026-11-15</li>
+</ul>
+
+<p>Not verified from a source: Prometheus pull model and metric type definitions; PromQL for the error ratio; Alertmanager and exporter descriptions; LogQL examples; OTel Collector, OTLP, span, and context-propagation descriptions; RED and USE methods; Promtail status; incident roles (summary of prep sites); the severity levels and the postmortem template wording (mine); SLO table arithmetic (computed by me).</p>
+<div class="pn"><span><a href="07_ci_cd_github_actions.html">&larr; 07. CI/CD with GitHub Actions</a></span><span><a href="09_concurrency_and_distributed_basics.html">09. Concurrency and distributed basics &rarr;</a></span></div></main></div></body></html>

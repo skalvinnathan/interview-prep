@@ -1,0 +1,398 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>10. Databases basics | Interview prep</title><style>
+:root{--bg:#fff;--fg:#1f2328;--mut:#59636e;--bd:#d1d9e0;--ac:#0b57d0;--cb:#f6f8fa;--sb:#f6f8fa}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9198a1;--bd:#30363d;--ac:#6cb6ff;--cb:#161b22;--sb:#010409}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{display:flex;min-height:100vh}nav{width:300px;flex:none;background:var(--sb);border-right:1px solid var(--bd);padding:16px;overflow:auto;position:sticky;top:0;height:100vh}
+nav a{color:var(--fg);text-decoration:none;display:block;padding:3px 6px;border-radius:6px;font-size:14px}nav a:hover{background:var(--cb)}nav a.cur{background:var(--ac);color:#fff}
+nav summary{cursor:pointer;font-weight:600;padding:6px 0}nav .home{font-weight:700;font-size:16px;margin-bottom:8px}
+main{flex:1;min-width:0;max-width:900px;padding:24px 32px 80px;margin:0 auto}
+h1,h2,h3{line-height:1.25}h1{border-bottom:1px solid var(--bd);padding-bottom:.3em}h2{border-bottom:1px solid var(--bd);padding-bottom:.25em;margin-top:2em}
+a{color:var(--ac)}pre{background:var(--cb);border:1px solid var(--bd);border-radius:8px;padding:14px;overflow:auto;font-size:13.5px;line-height:1.5}
+code{background:var(--cb);padding:.15em .35em;border-radius:5px;font-size:.92em}pre code{background:none;padding:0}
+table{border-collapse:collapse;display:block;overflow:auto;max-width:100%}th,td{border:1px solid var(--bd);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--cb)}
+blockquote{border-left:4px solid var(--bd);margin:0;padding:0 1em;color:var(--mut)}img{max-width:100%}
+.top{display:none}.pn{display:flex;justify-content:space-between;gap:12px;margin-top:48px;border-top:1px solid var(--bd);padding-top:16px;font-size:14px}
+@media(max-width:820px){.wrap{display:block}nav{width:auto;height:auto;position:static;border-right:0;border-bottom:1px solid var(--bd)}main{padding:16px}}
+</style></head><body><div class="wrap"><nav><a class="home" href="../index.html">Interview prep</a><details><summary>Data structures and algorithms</summary><a href="../01-dsa/00_how_to_start.html">How to start: reading a problem, the 5-step method, and Big-</a><a href="../01-dsa/01_arrays_and_strings.html">Lesson 01. Arrays and Strings</a><a href="../01-dsa/02_hash_maps_and_sets.html">Lesson 02. Hash Maps and Sets</a><a href="../01-dsa/03_two_pointers.html">Lesson 03. Two Pointers</a><a href="../01-dsa/04_sliding_window.html">Lesson 04. Sliding Window</a><a href="../01-dsa/05_stack_and_queue.html">Lesson 05. Stack and Queue (including the monotonic stack)</a><a href="../01-dsa/06_binary_search.html">Lesson 06. Binary Search (including search on the answer)</a><a href="../01-dsa/07_linked_lists.html">Lesson 07. Linked Lists</a><a href="../01-dsa/08_trees_and_bst.html">Lesson 08. Trees and Binary Search Trees (BST)</a><a href="../01-dsa/09_heaps_and_priority_queues.html">Lesson 09: Heaps and Priority Queues</a><a href="../01-dsa/10_graphs_bfs_dfs.html">Lesson 10: Graphs, BFS and DFS (including grids)</a><a href="../01-dsa/11_topological_sort_and_union_find.html">Lesson 11: Topological Sort and Union-Find</a><a href="../01-dsa/12_shortest_paths.html">Lesson 12: Shortest Paths (Dijkstra in plain words)</a><a href="../01-dsa/13_intervals.html">Lesson 13: Intervals (merge intervals, meeting rooms)</a><a href="../01-dsa/14_backtracking.html">Lesson 14: Backtracking (subsets, permutations, combination </a><a href="../01-dsa/15_dynamic_programming_part1.html">Lesson 15: Dynamic Programming, Part 1 (remembering answers)</a><a href="../01-dsa/16_dynamic_programming_part2.html">Lesson 16: Dynamic Programming, Part 2 (LIS, word break, kna</a><a href="../01-dsa/17_tries_and_greedy.html">Lesson 17: Tries and Greedy</a><a href="../01-dsa/18_bit_tricks_and_math_basics.html">Lesson 18: Bit Tricks and Math Basics (short)</a><a href="../01-dsa/19_company_question_patterns.html">Lesson 19: Company Question Patterns (Google, Amazon, Meta, </a></details><details><summary>System design</summary><a href="../02-system-design/00_how_the_round_works.html">How the System Design Round Works</a><a href="../02-system-design/01a_client_server_and_http.html">Client, Server and HTTP</a><a href="../02-system-design/01b_dns_and_cdn.html">DNS and CDN</a><a href="../02-system-design/01c_load_balancers.html">Load Balancers</a><a href="../02-system-design/01d_databases.html">Databases: SQL vs NoSQL, Indexes, Transactions</a><a href="../02-system-design/01e_caching.html">Caching (and Why Invalidation Is Hard)</a><a href="../02-system-design/01f_sharding_and_replication.html">Sharding and Replication</a><a href="../02-system-design/01g_message_queues_and_streams.html">Message Queues and Streams (Kafka Basics)</a><a href="../02-system-design/01h_consistency_and_cap.html">Consistency and the CAP Idea (in Plain Words)</a><a href="../02-system-design/02_numbers_and_estimation.html">Numbers and Estimation</a><a href="../02-system-design/03_reliability_patterns.html">Reliability Patterns</a><a href="../02-system-design/10_url_shortener.html">Design a URL Shortener</a><a href="../02-system-design/11_rate_limiter.html">Design a Rate Limiter</a><a href="../02-system-design/12_chat_system.html">Design a Chat System (like WhatsApp or Slack)</a><a href="../02-system-design/13_news_feed.html">Design a News Feed (like Instagram, Facebook or Twitter/X ho</a><a href="../02-system-design/14_notification_service.html">Design a Notification Service</a><a href="../02-system-design/15_file_storage_like_drive.html">Design File Storage and Sync (like Google Drive or Dropbox)</a><a href="../02-system-design/16_search_autocomplete.html">Design Search Autocomplete (Typeahead)</a><a href="../02-system-design/17_video_streaming_basics.html">Design Video Streaming Basics (like YouTube or Netflix)</a><a href="../02-system-design/18_payment_system_like_stripe.html">Design a Payment System (like Stripe)</a><a href="../02-system-design/19_order_management_like_amazon.html">Design an Order Management System (like Amazon: inventory, o</a><a href="../02-system-design/20_job_scheduler_and_workflow_engine.html">Design a Job Scheduler and Workflow Engine</a><a href="../02-system-design/21_api_gateway_and_auth_system.html">Design an API Gateway and Auth System</a><a href="../02-system-design/22_logging_and_metrics_platform.html">Design a Logging and Metrics Platform</a><a href="../02-system-design/90_cheat_sheet.html">Cheat Sheet (one page)</a><a href="../02-system-design/91_practice_questions.html">Practice Questions (30)</a></details><details><summary>Low-level design</summary><a href="../03-low-level-design/00_how_the_lld_round_works.html">- How the LLD round works</a><a href="../03-low-level-design/01_oop_in_plain_words.html">- OOP in plain words</a><a href="../03-low-level-design/02_solid_principles.html">- SOLID principles</a><a href="../03-low-level-design/03_design_patterns_you_need.html">- The 8 design patterns you need</a><a href="../03-low-level-design/10_parking_lot.html">- Parking Lot</a><a href="../03-low-level-design/11_lru_cache.html">- LRU Cache</a><a href="../03-low-level-design/12_elevator_system.html">- Elevator System</a><a href="../03-low-level-design/13_library_management.html">- Library Management System</a><a href="../03-low-level-design/14_vending_machine.html">- Vending Machine (State pattern)</a><a href="../03-low-level-design/15_atm.html">- ATM</a><a href="../03-low-level-design/16_rate_limiter_class.html">- Rate Limiter (class design: token bucket and sliding windo</a><a href="../03-low-level-design/17_amazon_locker.html">- Amazon Locker</a><a href="../03-low-level-design/18_splitwise_expense_sharing.html">- Splitwise (Expense Sharing)</a><a href="../03-low-level-design/19_logger_and_notification_system.html">- Logger and Notification System (Observer and Strategy)</a><a href="../03-low-level-design/20_tic_tac_toe_or_chess_basics.html">- Tic-Tac-Toe (full) and Chess basics</a><a href="../03-low-level-design/90_cheat_sheet.html">- Cheat sheet (read the night before)</a><a href="../03-low-level-design/91_practice_questions.html">- Practice questions (20)</a></details><details open><summary>DevOps and platform basics</summary><a href="01_linux_processes_memory_files.html">Linux: processes, memory, and files</a><a href="02_networking.html">Networking: TCP, DNS, TLS, NAT</a><a href="03_containers_and_docker.html">Containers and Docker</a><a href="04_kubernetes_from_zero.html">Kubernetes from zero</a><a href="05_helm.html">Helm</a><a href="06_terraform.html">Terraform</a><a href="07_ci_cd_github_actions.html">CI/CD with GitHub Actions</a><a href="08_observability_and_sre.html">Observability and SRE</a><a href="09_concurrency_and_distributed_basics.html">Concurrency and distributed basics</a><a class="cur" href="10_databases_basics.html">Databases basics</a><a href="11_security_basics.html">Security basics (IAM, OAuth2/OIDC/JWT, secrets, supply chain</a><a href="12_gcp_pca_quick_map.html">Google Cloud quick map (for Professional Cloud Architect hol</a><a href="20_interview_questions_with_answers.html">Sixty interview questions with model answers (platform / SRE</a><a href="21_scenario_questions.html">Fifteen &quot;production is down&quot; scenarios, with step-by-step an</a></details><details><summary>Company processes</summary><a href="../06-company-process-and-behavioural/10_google.html">Google</a><a href="../06-company-process-and-behavioural/11_amazon.html">Amazon</a><a href="../06-company-process-and-behavioural/12_stripe.html">Stripe</a><a href="../06-company-process-and-behavioural/13_microsoft_and_azure_roles.html">Microsoft and Azure roles</a><a href="../06-company-process-and-behavioural/14_indian_product_and_gcc_companies.html">Indian product companies and GCCs</a><a href="../06-company-process-and-behavioural/15_european_scaleups.html">European scale-ups and visa basics</a><a href="../06-company-process-and-behavioural/16_ai_startups_like_smallest_ai.html">AI startups like Smallest AI</a><a href="../06-company-process-and-behavioural/24_questions_to_ask_interviewers.html">Questions to ask interviewers</a><a href="../06-company-process-and-behavioural/25_salary_notice_period_and_offer_negotiation_india_and_abroad.html">Salary, notice period and offer negotiation (India and abroa</a><a href="../06-company-process-and-behavioural/26_interview_day_checklists.html">Interview day checklists</a></details></nav><main><h1 id="10-databases-basics">10. Databases basics</h1>
+
+<p>Legend: <code>[REAL]</code> = I ran it on this Mac (SQLite 3.51.0 through Python) on 2026-11-15. <code>[SAMPLE]</code> = typical output written to show the shape (PostgreSQL), not run here. <strong>No PostgreSQL was available on this Mac, so all PostgreSQL output is <code>[SAMPLE]</code> or quoted from the docs.</strong> SQLite is a different database but the idea of indexes and query plans is the same. Isolation levels, <code>EXPLAIN</code>, and replication facts were read from the PostgreSQL docs (links at the end).</p>
+
+<hr />
+
+<h2 id="1-what-it-is-plain-words-analogy">1. What it is (plain words + analogy)</h2>
+
+<p>A <strong>database</strong> stores data so you can find and change it fast and safely, even when many users act at once and even when the power fails.</p>
+
+<p>Analogy: a <strong>library</strong>.</p>
+
+<ul>
+<li><strong>Table</strong> = a shelf of one kind of book. <strong>Row</strong> = one book. <strong>Column</strong> = one fact about the book (title, year).</li>
+<li><strong>Index</strong> = the <strong>card catalog</strong>. Without it, to find "books by Tolstoy" you walk every shelf (a <strong>full table scan</strong>). With it, you look up the name and go straight to the shelf.</li>
+<li><strong>Query plan</strong> = the librarian's <strong>route</strong> for fetching your books.</li>
+<li><strong>Transaction</strong> = a <strong>borrowing slip</strong> with several steps (take book A, return book B). Either all steps happen or none.</li>
+<li><strong>Replica</strong> = a <strong>branch library</strong> that gets copies of new books a little later than the main one. That delay is <strong>replication lag</strong>.</li>
+</ul>
+
+<p>Words:</p>
+
+<ul>
+<li><strong>SQL</strong>: the language to ask for data.</li>
+<li><strong>ACID</strong>: Atomicity (all or nothing), Consistency (rules stay true), Isolation (transactions do not trample each other), Durability (committed data survives a crash).</li>
+<li><strong>Primary (leader)</strong>: accepts writes. <strong>Replica (standby, follower)</strong>: copies the primary, often serves reads.</li>
+<li><strong>OLTP</strong>: many small transactions (orders, logins). <strong>OLAP</strong>: fewer, big analysis queries (reports).</li>
+</ul>
+
+<h2 id="2-why-it-matters-in-interviews">2. Why it matters in interviews</h2>
+
+<p>Platform and SRE people run databases or depend on them: slow queries cause incidents, replication lag causes "I saved it but cannot see it" bugs, wrong isolation levels cause double-spends, and disks fill up. Expect "why is this query slow?", "what does an index cost?", "what is replication lag and how do you handle it?", "read committed vs repeatable read vs serializable", "row store vs column store, when each?". For Amazon and Google, add "design a system that reads from replicas".</p>
+
+<h2 id="3-how-it-works-step-by-step">3. How it works, step by step</h2>
+
+<h3 id="31-indexes">3.1 Indexes</h3>
+
+<p>Most databases use a <strong>B-tree</strong> index: a sorted tree of key values with pointers to rows. Searching is like a phone book: jump to the middle, narrow down in a few steps (logarithmic time) instead of reading every row.</p>
+
+<pre><code> no index:   read row 1, row 2, row 3 ... row 500,000   (SCAN everything)
+ with index: root -&gt; branch -&gt; leaf "user_id=4242" -&gt; row pointers  (a few reads)
+</code></pre>
+
+<p><code>[REAL]</code> SQLite, a table <code>orders</code> with 500,000 rows, look up one <code>user_id</code>. Same query, before and after <code>CREATE INDEX</code>:</p>
+
+<pre><code>PLAN before index: [(3, 0, 216, 'SCAN orders')]
+20 queries: 0.235s
+PLAN after index : [(4, 0, 62, 'SEARCH orders USING INDEX idx_orders_user (user_id=?)')]
+20 queries: 0.000s
+</code></pre>
+
+<p><code>SCAN</code> = read the whole table. <code>SEARCH ... USING INDEX</code> = use the index. (The "0.000s" means under a millisecond for 20 queries at the clock's resolution; the exact speed-up depends on the data. About 12 ms per query before, far less after.)</p>
+
+<p><strong>Costs of indexes</strong> (always mention both sides):</p>
+
+<ul>
+<li>Every <strong>write</strong> (insert, update, delete) must also update every index on that table, so more indexes mean slower writes.</li>
+<li>Indexes use <strong>disk and memory</strong>.</li>
+<li>Too many indexes make the planner's choices harder and maintenance (vacuum, reindex) heavier.</li>
+</ul>
+
+<p><strong>Rules of thumb</strong> (standard database knowledge):</p>
+
+<ol>
+<li>Index columns used in <code>WHERE</code>, <code>JOIN</code>, and <code>ORDER BY</code> for queries that matter and are selective.</li>
+<li><strong>Composite index</strong> <code>(a, b, c)</code> helps queries that filter on <code>a</code>, or <code>a and b</code>, ... but not on <code>b</code> alone. The <strong>leftmost column</strong> order matters. Put equality columns first, range column last.</li>
+<li><strong>Do not wrap the indexed column in a function</strong> in the <code>WHERE</code>: <code>WHERE lower(email) = 'x'</code> cannot use an index on <code>email</code> (make an index on <code>lower(email)</code> instead). <code>[REAL]</code> proof: <code>user_id + 0 = 4242</code> forced a scan again even with the index present: <code>[(2, 0, 216, 'SCAN orders')]</code>.</li>
+<li><strong>Low selectivity</strong> columns (a boolean, status with 3 values) are poor index candidates alone: the database may prefer a full scan if it must read a big share of the table.</li>
+<li><strong>Covering index</strong>: an index that contains all the columns the query needs, so the database does not even visit the table.</li>
+<li>A <strong>primary key</strong> has a unique index automatically. A <strong>unique index</strong> also enforces no duplicates.</li>
+<li>Leading wildcards (<code>LIKE '%abc'</code>) cannot use a normal B-tree.</li>
+<li>In production, create indexes <strong>concurrently</strong> where supported (PostgreSQL: <code>CREATE INDEX CONCURRENTLY</code>) so writes are not blocked.</li>
+</ol>
+
+<h3 id="32-query-plans-explain">3.2 Query plans: <code>EXPLAIN</code></h3>
+
+<p>The <strong>planner</strong> chooses how to run a query: which indexes, which join order, which join method. <code>EXPLAIN</code> shows the plan.</p>
+
+<p>From the PostgreSQL docs:</p>
+
+<ul>
+<li><code>EXPLAIN</code> shows the plan "the planner creates for any query" with <strong>estimates</strong>, and does <strong>not</strong> run the query.</li>
+<li><code>EXPLAIN ANALYZE</code> "actually executes the query, and then displays the true row counts and true run time". Warning: "any side-effects will happen as usual", so wrap data-changing statements in <code>BEGIN; ... ROLLBACK;</code>.</li>
+<li><strong>Seq Scan</strong> reads the whole table. <strong>Index Scan</strong> uses an index and is "most often" chosen when it fetches just a single row. <strong>Bitmap Heap Scan</strong> sits in between for moderately selective conditions.</li>
+<li>Costs are "measured in arbitrary units" (by convention, relative to one sequential page fetch = 1.0). Each node shows a start-up cost and a total cost. Cost is <strong>not</strong> milliseconds.</li>
+<li>The planner can be wrong; compare estimated rows with actual rows (a big gap means stale or poor statistics: run <code>ANALYZE</code>).</li>
+</ul>
+
+<p><code>[SAMPLE]</code> PostgreSQL (invented numbers, the shape follows the docs' examples):</p>
+
+<pre><code>EXPLAIN ANALYZE SELECT count(*) FROM orders WHERE user_id = 4242;
+
+ Aggregate  (cost=14.5..14.6 rows=1 width=8) (actual time=0.05..0.05 rows=1 loops=1)
+   -&gt;  Index Only Scan using idx_orders_user on orders  (cost=0.42..14.2 rows=10 width=0) (actual time=0.03..0.04 rows=10 loops=1)
+         Index Cond: (user_id = 4242)
+ Planning Time: 0.1 ms
+ Execution Time: 0.08 ms
+</code></pre>
+
+<p>How to read a plan: it is a tree, read from the <strong>innermost, most indented</strong> line outward. Look for: a <code>Seq Scan</code> on a big table with a selective filter (missing index?), a big difference between <code>rows=</code> estimate and actual, many <code>loops</code>, sorts that spill to disk, and nested loops over huge row counts.</p>
+
+<p>Slow-query checklist: capture the slow query (<code>pg_stat_statements</code>, slow query log) -> <code>EXPLAIN (ANALYZE, BUFFERS)</code> -> add or fix an index, rewrite the query (select only needed columns, avoid <code>SELECT *</code>, avoid N+1 queries), update statistics, check locks and connection saturation, then consider caching or read replicas. (The tools named are standard PostgreSQL features; I did not check their pages today.)</p>
+
+<p><strong>N+1 problem</strong>: one query for a list, then one more query per item (1 + N). Fix with a join or a batched <code>IN (...)</code> query.</p>
+
+<h3 id="33-transactions-and-isolation-levels">3.3 Transactions and isolation levels</h3>
+
+<p>A <strong>transaction</strong> groups statements: <code>BEGIN; ... COMMIT;</code> (or <code>ROLLBACK</code>). <strong>Isolation</strong> says how much one transaction can see of other transactions running at the same time.</p>
+
+<p>Four <strong>problems</strong> (PostgreSQL docs wording):</p>
+
+<ul>
+<li><strong>Dirty read</strong>: reading data written by a concurrent <strong>uncommitted</strong> transaction.</li>
+<li><strong>Nonrepeatable read</strong>: reading a row again and finding it <strong>changed</strong> by a transaction that committed meanwhile.</li>
+<li><strong>Phantom read</strong>: running the same query again and finding the <strong>set of rows</strong> changed (new or missing rows) by a recently committed transaction.</li>
+<li><strong>Serialization anomaly</strong>: the result of several committed transactions is inconsistent with <strong>any</strong> order of running them one at a time.</li>
+</ul>
+
+<p>The standard table (PostgreSQL docs):</p>
+
+<table>
+<thead>
+<tr>
+  <th>Level</th>
+  <th>Dirty read</th>
+  <th>Nonrepeatable read</th>
+  <th>Phantom read</th>
+  <th>Serialization anomaly</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Read uncommitted</td>
+  <td>allowed by standard, <strong>not in PostgreSQL</strong></td>
+  <td>possible</td>
+  <td>possible</td>
+  <td>possible</td>
+</tr>
+<tr>
+  <td>Read committed</td>
+  <td>no</td>
+  <td>possible</td>
+  <td>possible</td>
+  <td>possible</td>
+</tr>
+<tr>
+  <td>Repeatable read</td>
+  <td>no</td>
+  <td>no</td>
+  <td>allowed by standard, <strong>not in PostgreSQL</strong></td>
+  <td>possible</td>
+</tr>
+<tr>
+  <td>Serializable</td>
+  <td>no</td>
+  <td>no</td>
+  <td>no</td>
+  <td>no</td>
+</tr>
+</tbody>
+</table>
+
+<p>PostgreSQL facts:</p>
+
+<ul>
+<li>It accepts all four names, but "internally only three distinct isolation levels are implemented": <strong>Read Uncommitted behaves like Read Committed</strong>.</li>
+<li><strong>Read Committed is the default</strong>: each <strong>statement</strong> sees a snapshot from the moment it starts. Two selects in one transaction can see different data.</li>
+<li><strong>Repeatable Read</strong>: the snapshot is taken at the first non-transaction-control statement in the transaction. Conflicting updates raise "could not serialize access due to concurrent update", and the <strong>application must retry</strong>. In PostgreSQL it is stronger than the standard: it also blocks phantoms.</li>
+<li><strong>Serializable</strong>: like Repeatable Read, plus detection of dangerous patterns. It can raise "could not serialize access due to read/write dependencies among transactions". Applications must retry on SQLSTATE <code>40001</code>. Its predicate locks "do not cause any blocking" and cannot cause deadlocks.</li>
+<li>Set it with <code>BEGIN; SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;</code>.</li>
+<li>Different databases implement levels differently (MySQL InnoDB's default is Repeatable Read; general knowledge, not verified today). Never assume names mean the same thing everywhere.</li>
+</ul>
+
+<p>Example of why it matters, <strong>write skew</strong> (a serialization anomaly): two doctors on call; the rule is "at least one must stay on call". Both check "is another doctor on call?" (yes), and both go off duty. Under Repeatable Read both succeed (rows they changed are different, so no direct conflict). Under Serializable one transaction fails and must retry. Without serializable you must use explicit locks (<code>SELECT ... FOR UPDATE</code>) or constraints.</p>
+
+<p>Common pattern for counters and balances: <code>UPDATE accounts SET balance = balance - 10 WHERE id = 1 AND balance &gt;= 10;</code> as a single atomic statement, then check the affected row count.</p>
+
+<h3 id="34-replication-and-replication-lag">3.4 Replication and replication lag</h3>
+
+<p><strong>Replication</strong> copies changes from a primary to replicas, for: <strong>high availability</strong> (promote a replica if the primary dies), <strong>read scaling</strong> (send read queries to replicas), and backups.</p>
+
+<p>PostgreSQL streaming replication (docs): the primary "streams WAL records to the standby as they're generated". <strong>WAL</strong> = write-ahead log, the ordered record of every change. A replica replays the WAL.</p>
+
+<ul>
+<li><strong>Asynchronous</strong> (default): the commit does <strong>not</strong> wait for the standby. The docs: "there is a small delay between committing a transaction in the primary and the changes becoming visible in the standby", typically under one second. If the primary fails, transactions not yet sent can be <strong>lost</strong>.</li>
+<li><strong>Synchronous</strong>: the commit waits for one or more standbys (<code>synchronous_standby_names</code>, <code>synchronous_commit</code> with <code>remote_write</code> or <code>remote_apply</code> options). Safer for data, but slower: "The minimum wait time is the round-trip time between primary and standby."</li>
+<li>A standby that serves read-only queries is a <strong>hot standby</strong>. Replaying WAL can <strong>conflict</strong> with long queries (the primary may remove rows that a standby query still needs), so a long query on a replica can be cancelled, or replication can be paused for it.</li>
+</ul>
+
+<p><strong>Replication lag</strong> = how far a replica is behind the primary. Causes: heavy write bursts, long-running transactions or queries on the replica, slow disk or network, a weak replica instance. Measure it by comparing positions (LSNs): on the primary <code>pg_current_wal_lsn()</code> and the view <code>pg_stat_replication</code>; on the standby <code>pg_last_wal_receive_lsn()</code> and <code>pg_last_wal_replay_lsn()</code>; the standby view <code>pg_stat_wal_receiver</code>. The docs say: big differences between <code>pg_current_wal_lsn</code> and <code>sent_lsn</code> suggest a <strong>loaded primary</strong>, while differences between <code>sent_lsn</code> and <code>pg_last_wal_receive_lsn</code> suggest <strong>network delay or a loaded standby</strong>.</p>
+
+<p><code>[SAMPLE]</code> shape of lag measures on the primary (invented numbers):</p>
+
+<pre><code>SELECT application_name, state, sent_lsn, replay_lsn,
+       pg_wal_lsn_diff(sent_lsn, replay_lsn) AS bytes_behind
+FROM pg_stat_replication;
+
+ application_name |   state   | sent_lsn  | replay_lsn | bytes_behind
+------------------+-----------+-----------+------------+--------------
+ replica-1        | streaming | 0/5A000F8 | 0/5A00000  |          248
+</code></pre>
+
+<p>(<code>pg_wal_lsn_diff</code> is a standard PostgreSQL function; I did not check its page today.)</p>
+
+<p><strong>Symptoms and fixes for users</strong>:</p>
+
+<ul>
+<li>"I just saved and it is missing": the app read from a lagging replica. Fix with <strong>read-your-writes</strong>: read from the primary for a short time after a write (or for that user's session), or wait until the replica reaches the write's position.</li>
+<li>Alert on <strong>lag in seconds and bytes</strong>, and on replicas that are not <code>streaming</code>.</li>
+<li>Route heavy analytics to a dedicated replica so it does not block others; keep <code>max_standby_streaming_delay</code> and <code>hot_standby_feedback</code> trade-offs in mind (the docs say <code>hot_standby_feedback</code> "provides no protection" when the standby is disconnected).</li>
+<li>Never send writes to a replica; plan <strong>failover</strong> (who promotes, how apps find the new primary, how to avoid two primaries: split brain).</li>
+<li>Cloud managed databases (Cloud SQL, AlloyDB, Azure Database for PostgreSQL) hide most of this, but the lag still exists.</li>
+</ul>
+
+<h3 id="35-row-stores-vs-column-stores">3.5 Row stores vs column stores</h3>
+
+<p><strong>Row store</strong> (PostgreSQL, MySQL): data of one row is stored together on disk.</p>
+
+<pre><code> row layout:    [id1,name1,age1,city1] [id2,name2,age2,city2] [id3,...]
+</code></pre>
+
+<p>Great for <strong>OLTP</strong>: fetch or update one whole record quickly ("get order 123").</p>
+
+<p><strong>Column store</strong> (BigQuery, ClickHouse, Redshift, Parquet files): data of one column is stored together.</p>
+
+<pre><code> column layout: id:[1,2,3...]  name:[n1,n2,n3...]  age:[a1,a2,a3...]  city:[c1,c2,c3...]
+</code></pre>
+
+<p>Great for <strong>OLAP</strong>: "average age by city over 1 billion rows" reads only the <code>age</code> and <code>city</code> columns, not the whole rows. Same-type values side by side <strong>compress very well</strong> and can be processed in bulk by the CPU. Bad for: updating or fetching single rows often, and for many small inserts (usually batch loads).</p>
+
+<table>
+<thead>
+<tr>
+  <th></th>
+  <th>Row store</th>
+  <th>Column store</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Best for</td>
+  <td>transactions, point lookups</td>
+  <td>analytics, scans over few columns</td>
+</tr>
+<tr>
+  <td>Writes</td>
+  <td>fast single-row</td>
+  <td>best in big batches</td>
+</tr>
+<tr>
+  <td>Reads a few columns of many rows</td>
+  <td>reads everything (slow)</td>
+  <td>reads only needed columns (fast)</td>
+</tr>
+<tr>
+  <td>Examples</td>
+  <td>PostgreSQL, MySQL</td>
+  <td>BigQuery, ClickHouse, Redshift, Parquet</td>
+</tr>
+</tbody>
+</table>
+
+<p>Typical architecture: OLTP database (row store) -> pipeline (CDC, Kafka, batch) -> warehouse (column store) for reports. Do not run heavy reports on the production OLTP primary.</p>
+
+<p>(The row/column description is standard database knowledge; the Google Cloud database page I read says BigQuery is a "fully managed, highly scalable data warehouse" and Cloud SQL is for managed relational databases, which fits this split.)</p>
+
+<h3 id="36-a-few-more-things-that-come-up">3.6 A few more things that come up</h3>
+
+<ul>
+<li><strong>Connection pooling</strong> (PgBouncer, application pools): opening a database connection is expensive and the server has a connection limit. A pool reuses connections. Too many app instances times pool size can exhaust the database: size pools carefully.</li>
+<li><strong>Locks</strong>: <code>SELECT ... FOR UPDATE</code> locks rows; long transactions hold locks and block others, and also block cleanup (vacuum) in PostgreSQL.</li>
+<li><strong>Backups</strong>: a backup you have never restored is not a backup. Know your <strong>RPO</strong> (how much data you can lose) and <strong>RTO</strong> (how long you can be down). Point-in-time recovery uses base backup + WAL archive.</li>
+<li><strong>Schema migrations without downtime</strong>: expand and contract. Add the new column (nullable), deploy code that writes both, backfill in batches, switch reads, then drop the old column later. Avoid long locks (adding a column with a default, creating indexes without <code>CONCURRENTLY</code>).</li>
+<li><strong>Choosing a Google Cloud database</strong> (from Google's database page): Cloud SQL (managed MySQL, PostgreSQL, SQL Server), AlloyDB (PostgreSQL-compatible for demanding transactional workloads), Spanner (global-scale), Firestore (NoSQL document), Bigtable (wide-column, huge NoSQL), BigQuery (data warehouse), Memorystore (in-memory: Valkey, Redis). More in file 12.</li>
+</ul>
+
+<h2 id="4-commands-to-try">4. Commands to try</h2>
+
+<pre><code># SQLite is on every Mac and most Linux machines. Try an index yourself:
+python3 - &lt;&lt;'EOF'
+import sqlite3, random, time
+random.seed(0)
+c = sqlite3.connect(":memory:")
+c.execute("create table orders(id integer primary key, user_id int, amount real)")
+c.executemany("insert into orders(user_id,amount) values(?,?)",
+              [(random.randint(1,50000), random.random()*100) for _ in range(500000)])
+q = "select count(*), sum(amount) from orders where user_id = 4242"
+print(c.execute("explain query plan "+q).fetchall())
+c.execute("create index idx_user on orders(user_id)")
+print(c.execute("explain query plan "+q).fetchall())
+EOF
+
+# SQLite command-line shell (if installed): .eqp on  shows plans for each query
+sqlite3 test.db ".schema"
+
+# PostgreSQL (if you have it, or run: docker run -e POSTGRES_PASSWORD=x -p 5432:5432 postgres)
+psql -h localhost -U postgres -c "EXPLAIN SELECT 1;"
+psql -c "SHOW transaction_isolation;"                 # default: read committed
+psql -c "SELECT * FROM pg_stat_replication;"          # on a primary
+psql -c "SELECT pg_is_in_recovery();"                 # true on a standby
+psql -c "SELECT now() - pg_last_xact_replay_timestamp() AS lag;"   # on a standby
+</code></pre>
+
+<p><code>[SAMPLE]</code> <code>SHOW transaction_isolation;</code> on PostgreSQL:</p>
+
+<pre><code> transaction_isolation
+-----------------------
+ read committed
+</code></pre>
+
+<p>(The default is read committed, from the docs. The functions in the last two commands are standard; I did not check them on the docs today.)</p>
+
+<h2 id="5-common-mistakes">5. Common mistakes</h2>
+
+<ol>
+<li>No index on a column used for frequent, selective lookups (full scans).</li>
+<li>Indexing everything (slow writes, big disk) or using an index on a column wrapped in a function.</li>
+<li>Running <code>EXPLAIN ANALYZE</code> on a write query without a transaction and rollback.</li>
+<li>Reading from a replica right after writing and expecting to see the write.</li>
+<li>Not retrying on serialization failures and deadlocks.</li>
+<li>Running heavy reports on the primary OLTP database.</li>
+<li>Assuming isolation level names behave the same in every database.</li>
+<li>Never testing restores, or using <code>SELECT *</code> and N+1 queries in hot paths.</li>
+</ol>
+
+<h2 id="6-eight-interview-questions-with-answers">6. Eight interview questions with answers</h2>
+
+<p><strong>Q1. What is an index and what does it cost?</strong>
+A data structure (usually a B-tree) that lets the database find rows by a column's value without scanning the whole table. Costs: extra disk and memory, and every insert, update, or delete must update the index, so writes get slower. Index only what real queries need.</p>
+
+<p><strong>Q2. A query is slow. What do you do?</strong>
+Find the exact query, run <code>EXPLAIN (ANALYZE, BUFFERS)</code> (inside a transaction with rollback if it modifies data), read the plan from the inside out, look for sequential scans on large tables, a large gap between estimated and actual rows, and spills. Fix with a suitable index or query rewrite, update statistics, remove N+1 patterns; also check locks, connection saturation, and resource limits. Measure before and after.</p>
+
+<p><strong>Q3. What does <code>EXPLAIN</code> vs <code>EXPLAIN ANALYZE</code> do?</strong>
+<code>EXPLAIN</code> shows the plan and estimated costs without running the query. <code>EXPLAIN ANALYZE</code> runs the query and adds real row counts and times. Because it really runs, a data-changing statement really changes data unless wrapped in a transaction that is rolled back.</p>
+
+<p><strong>Q4. Explain the isolation levels and the problems they prevent.</strong>
+Read committed: no dirty reads, but a re-read can change (nonrepeatable) and phantoms can appear. Repeatable read: a stable snapshot, no nonrepeatable reads (and in PostgreSQL no phantoms either), but write skew can still happen. Serializable: results equal some one-at-a-time order, no anomalies, at the cost of serialization failures that the app must retry. PostgreSQL's default is Read Committed, and its Read Uncommitted behaves like Read Committed.</p>
+
+<p><strong>Q5. What is replication lag, what causes it, and how do you deal with it?</strong>
+The delay before a replica has applied the primary's changes. Causes: write bursts, slow network or disk, an overloaded replica, long queries on the replica that conflict with replay. Measure with WAL positions or replay timestamps. Handle it with alerts, read-your-writes (read from the primary right after a write), routing only lag-tolerant reads to replicas, bigger replicas, and synchronous replication where data loss is unacceptable (accepting higher commit latency).</p>
+
+<p><strong>Q6. Synchronous vs asynchronous replication?</strong>
+Asynchronous: the primary commits without waiting for the replica, so it is fast, but recent commits can be lost if the primary fails and replicas lag. Synchronous: the commit waits for at least one replica to confirm, so no loss of confirmed data on failover, but every commit pays the round trip and a dead replica can block writes unless configured otherwise.</p>
+
+<p><strong>Q7. Row store vs column store?</strong>
+Row stores keep each row together: best for transactions and fetching or updating whole records. Column stores keep each column together: best for analytics that scan a few columns across huge numbers of rows, with strong compression, but poor for single-row updates. Use a row store for the application database and a column store for the warehouse.</p>
+
+<p><strong>Q8. How would you run a schema change on a big table with no downtime?</strong>
+Use backward-compatible steps (expand and contract): add the new nullable column or table, deploy code that writes to both old and new, backfill in small batches, switch reads, then remove the old structure in a later release. Avoid long exclusive locks, create indexes concurrently, set lock timeouts, and have a rollback plan.</p>
+
+<h2 id="7-self-quiz-answers-at-the-end">7. Self-quiz (answers at the end)</h2>
+
+<ol>
+<li>Why does <code>WHERE lower(email) = 'a@b.com'</code> ignore a plain index on <code>email</code>?</li>
+<li>What is the PostgreSQL default isolation level?</li>
+<li>Name one problem that Serializable prevents but Repeatable Read does not.</li>
+<li>A user saves a profile and immediately sees old data. Likely cause and one fix?</li>
+<li>Which store is better for "average order value per country over 2 billion rows"?</li>
+</ol>
+
+<p><strong>Answers</strong></p>
+
+<ol>
+<li>The index is on the raw <code>email</code> values, but the query asks about the lowered value. Fix: an expression index on <code>lower(email)</code>, or store normalized email.</li>
+<li>Read Committed.</li>
+<li>A serialization anomaly such as write skew (two transactions each check a rule and both break it together).</li>
+<li>The read went to a lagging replica. Fix: read your own writes from the primary for a short time, or wait for the replica to reach the write's position.</li>
+<li>A column store (BigQuery, ClickHouse, Redshift).</li>
+</ol>
+
+<h2 id="8-sources">8. Sources</h2>
+
+<ul>
+<li>PostgreSQL, Transaction Isolation (phenomena, table, defaults, retry rules): https://www.postgresql.org/docs/current/transaction-iso.html</li>
+<li>PostgreSQL, Using EXPLAIN (EXPLAIN vs ANALYZE, scan types, cost units): https://www.postgresql.org/docs/current/using-explain.html</li>
+<li>PostgreSQL, Log-Shipping Standby Servers (streaming replication, async vs sync, lag, hot standby): https://www.postgresql.org/docs/current/warm-standby.html</li>
+<li>Google Cloud, database products overview: https://docs.cloud.google.com/docs/databases</li>
+<li>Local: SQLite 3.51.0 <code>explain query plan</code> output, 2026-11-15</li>
+</ul>
+
+<p>Not verified from a source: B-tree description, index rules of thumb (composite index order, covering index, leading wildcard), costs of indexes; <code>CREATE INDEX CONCURRENTLY</code>; <code>pg_stat_statements</code>; <code>pg_wal_lsn_diff</code> and <code>pg_last_xact_replay_timestamp</code>; MySQL InnoDB default isolation; row vs column store details and examples (ClickHouse, Redshift, Parquet); connection pooling, backups/RPO/RTO, expand-and-contract migrations (standard practice); the claim that write skew is allowed under Repeatable Read (standard result; the PostgreSQL page says Repeatable Read still allows serialization anomalies); every PostgreSQL <code>[SAMPLE]</code> output.</p>
+<div class="pn"><span><a href="09_concurrency_and_distributed_basics.html">&larr; 09. Concurrency and distributed basics</a></span><span><a href="11_security_basics.html">11. Security basics (IAM, OAuth2/OIDC/JW &rarr;</a></span></div></main></div></body></html>

@@ -1,0 +1,482 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>22. Design a Logging and Metrics Platform | Interview prep</title><style>
+:root{--bg:#fff;--fg:#1f2328;--mut:#59636e;--bd:#d1d9e0;--ac:#0b57d0;--cb:#f6f8fa;--sb:#f6f8fa}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9198a1;--bd:#30363d;--ac:#6cb6ff;--cb:#161b22;--sb:#010409}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{display:flex;min-height:100vh}nav{width:300px;flex:none;background:var(--sb);border-right:1px solid var(--bd);padding:16px;overflow:auto;position:sticky;top:0;height:100vh}
+nav a{color:var(--fg);text-decoration:none;display:block;padding:3px 6px;border-radius:6px;font-size:14px}nav a:hover{background:var(--cb)}nav a.cur{background:var(--ac);color:#fff}
+nav summary{cursor:pointer;font-weight:600;padding:6px 0}nav .home{font-weight:700;font-size:16px;margin-bottom:8px}
+main{flex:1;min-width:0;max-width:900px;padding:24px 32px 80px;margin:0 auto}
+h1,h2,h3{line-height:1.25}h1{border-bottom:1px solid var(--bd);padding-bottom:.3em}h2{border-bottom:1px solid var(--bd);padding-bottom:.25em;margin-top:2em}
+a{color:var(--ac)}pre{background:var(--cb);border:1px solid var(--bd);border-radius:8px;padding:14px;overflow:auto;font-size:13.5px;line-height:1.5}
+code{background:var(--cb);padding:.15em .35em;border-radius:5px;font-size:.92em}pre code{background:none;padding:0}
+table{border-collapse:collapse;display:block;overflow:auto;max-width:100%}th,td{border:1px solid var(--bd);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--cb)}
+blockquote{border-left:4px solid var(--bd);margin:0;padding:0 1em;color:var(--mut)}img{max-width:100%}
+.top{display:none}.pn{display:flex;justify-content:space-between;gap:12px;margin-top:48px;border-top:1px solid var(--bd);padding-top:16px;font-size:14px}
+@media(max-width:820px){.wrap{display:block}nav{width:auto;height:auto;position:static;border-right:0;border-bottom:1px solid var(--bd)}main{padding:16px}}
+</style></head><body><div class="wrap"><nav><a class="home" href="../index.html">Interview prep</a><details><summary>Data structures and algorithms</summary><a href="../01-dsa/00_how_to_start.html">How to start: reading a problem, the 5-step method, and Big-</a><a href="../01-dsa/01_arrays_and_strings.html">Lesson 01. Arrays and Strings</a><a href="../01-dsa/02_hash_maps_and_sets.html">Lesson 02. Hash Maps and Sets</a><a href="../01-dsa/03_two_pointers.html">Lesson 03. Two Pointers</a><a href="../01-dsa/04_sliding_window.html">Lesson 04. Sliding Window</a><a href="../01-dsa/05_stack_and_queue.html">Lesson 05. Stack and Queue (including the monotonic stack)</a><a href="../01-dsa/06_binary_search.html">Lesson 06. Binary Search (including search on the answer)</a><a href="../01-dsa/07_linked_lists.html">Lesson 07. Linked Lists</a><a href="../01-dsa/08_trees_and_bst.html">Lesson 08. Trees and Binary Search Trees (BST)</a><a href="../01-dsa/09_heaps_and_priority_queues.html">Lesson 09: Heaps and Priority Queues</a><a href="../01-dsa/10_graphs_bfs_dfs.html">Lesson 10: Graphs, BFS and DFS (including grids)</a><a href="../01-dsa/11_topological_sort_and_union_find.html">Lesson 11: Topological Sort and Union-Find</a><a href="../01-dsa/12_shortest_paths.html">Lesson 12: Shortest Paths (Dijkstra in plain words)</a><a href="../01-dsa/13_intervals.html">Lesson 13: Intervals (merge intervals, meeting rooms)</a><a href="../01-dsa/14_backtracking.html">Lesson 14: Backtracking (subsets, permutations, combination </a><a href="../01-dsa/15_dynamic_programming_part1.html">Lesson 15: Dynamic Programming, Part 1 (remembering answers)</a><a href="../01-dsa/16_dynamic_programming_part2.html">Lesson 16: Dynamic Programming, Part 2 (LIS, word break, kna</a><a href="../01-dsa/17_tries_and_greedy.html">Lesson 17: Tries and Greedy</a><a href="../01-dsa/18_bit_tricks_and_math_basics.html">Lesson 18: Bit Tricks and Math Basics (short)</a><a href="../01-dsa/19_company_question_patterns.html">Lesson 19: Company Question Patterns (Google, Amazon, Meta, </a></details><details open><summary>System design</summary><a href="00_how_the_round_works.html">How the System Design Round Works</a><a href="01a_client_server_and_http.html">Client, Server and HTTP</a><a href="01b_dns_and_cdn.html">DNS and CDN</a><a href="01c_load_balancers.html">Load Balancers</a><a href="01d_databases.html">Databases: SQL vs NoSQL, Indexes, Transactions</a><a href="01e_caching.html">Caching (and Why Invalidation Is Hard)</a><a href="01f_sharding_and_replication.html">Sharding and Replication</a><a href="01g_message_queues_and_streams.html">Message Queues and Streams (Kafka Basics)</a><a href="01h_consistency_and_cap.html">Consistency and the CAP Idea (in Plain Words)</a><a href="02_numbers_and_estimation.html">Numbers and Estimation</a><a href="03_reliability_patterns.html">Reliability Patterns</a><a href="10_url_shortener.html">Design a URL Shortener</a><a href="11_rate_limiter.html">Design a Rate Limiter</a><a href="12_chat_system.html">Design a Chat System (like WhatsApp or Slack)</a><a href="13_news_feed.html">Design a News Feed (like Instagram, Facebook or Twitter/X ho</a><a href="14_notification_service.html">Design a Notification Service</a><a href="15_file_storage_like_drive.html">Design File Storage and Sync (like Google Drive or Dropbox)</a><a href="16_search_autocomplete.html">Design Search Autocomplete (Typeahead)</a><a href="17_video_streaming_basics.html">Design Video Streaming Basics (like YouTube or Netflix)</a><a href="18_payment_system_like_stripe.html">Design a Payment System (like Stripe)</a><a href="19_order_management_like_amazon.html">Design an Order Management System (like Amazon: inventory, o</a><a href="20_job_scheduler_and_workflow_engine.html">Design a Job Scheduler and Workflow Engine</a><a href="21_api_gateway_and_auth_system.html">Design an API Gateway and Auth System</a><a class="cur" href="22_logging_and_metrics_platform.html">Design a Logging and Metrics Platform</a><a href="90_cheat_sheet.html">Cheat Sheet (one page)</a><a href="91_practice_questions.html">Practice Questions (30)</a></details><details><summary>Low-level design</summary><a href="../03-low-level-design/00_how_the_lld_round_works.html">- How the LLD round works</a><a href="../03-low-level-design/01_oop_in_plain_words.html">- OOP in plain words</a><a href="../03-low-level-design/02_solid_principles.html">- SOLID principles</a><a href="../03-low-level-design/03_design_patterns_you_need.html">- The 8 design patterns you need</a><a href="../03-low-level-design/10_parking_lot.html">- Parking Lot</a><a href="../03-low-level-design/11_lru_cache.html">- LRU Cache</a><a href="../03-low-level-design/12_elevator_system.html">- Elevator System</a><a href="../03-low-level-design/13_library_management.html">- Library Management System</a><a href="../03-low-level-design/14_vending_machine.html">- Vending Machine (State pattern)</a><a href="../03-low-level-design/15_atm.html">- ATM</a><a href="../03-low-level-design/16_rate_limiter_class.html">- Rate Limiter (class design: token bucket and sliding windo</a><a href="../03-low-level-design/17_amazon_locker.html">- Amazon Locker</a><a href="../03-low-level-design/18_splitwise_expense_sharing.html">- Splitwise (Expense Sharing)</a><a href="../03-low-level-design/19_logger_and_notification_system.html">- Logger and Notification System (Observer and Strategy)</a><a href="../03-low-level-design/20_tic_tac_toe_or_chess_basics.html">- Tic-Tac-Toe (full) and Chess basics</a><a href="../03-low-level-design/90_cheat_sheet.html">- Cheat sheet (read the night before)</a><a href="../03-low-level-design/91_practice_questions.html">- Practice questions (20)</a></details><details><summary>DevOps and platform basics</summary><a href="../05-devops-platform-basics/01_linux_processes_memory_files.html">Linux: processes, memory, and files</a><a href="../05-devops-platform-basics/02_networking.html">Networking: TCP, DNS, TLS, NAT</a><a href="../05-devops-platform-basics/03_containers_and_docker.html">Containers and Docker</a><a href="../05-devops-platform-basics/04_kubernetes_from_zero.html">Kubernetes from zero</a><a href="../05-devops-platform-basics/05_helm.html">Helm</a><a href="../05-devops-platform-basics/06_terraform.html">Terraform</a><a href="../05-devops-platform-basics/07_ci_cd_github_actions.html">CI/CD with GitHub Actions</a><a href="../05-devops-platform-basics/08_observability_and_sre.html">Observability and SRE</a><a href="../05-devops-platform-basics/09_concurrency_and_distributed_basics.html">Concurrency and distributed basics</a><a href="../05-devops-platform-basics/10_databases_basics.html">Databases basics</a><a href="../05-devops-platform-basics/11_security_basics.html">Security basics (IAM, OAuth2/OIDC/JWT, secrets, supply chain</a><a href="../05-devops-platform-basics/12_gcp_pca_quick_map.html">Google Cloud quick map (for Professional Cloud Architect hol</a><a href="../05-devops-platform-basics/20_interview_questions_with_answers.html">Sixty interview questions with model answers (platform / SRE</a><a href="../05-devops-platform-basics/21_scenario_questions.html">Fifteen &quot;production is down&quot; scenarios, with step-by-step an</a></details><details><summary>Company processes</summary><a href="../06-company-process-and-behavioural/10_google.html">Google</a><a href="../06-company-process-and-behavioural/11_amazon.html">Amazon</a><a href="../06-company-process-and-behavioural/12_stripe.html">Stripe</a><a href="../06-company-process-and-behavioural/13_microsoft_and_azure_roles.html">Microsoft and Azure roles</a><a href="../06-company-process-and-behavioural/14_indian_product_and_gcc_companies.html">Indian product companies and GCCs</a><a href="../06-company-process-and-behavioural/15_european_scaleups.html">European scale-ups and visa basics</a><a href="../06-company-process-and-behavioural/16_ai_startups_like_smallest_ai.html">AI startups like Smallest AI</a><a href="../06-company-process-and-behavioural/24_questions_to_ask_interviewers.html">Questions to ask interviewers</a><a href="../06-company-process-and-behavioural/25_salary_notice_period_and_offer_negotiation_india_and_abroad.html">Salary, notice period and offer negotiation (India and abroa</a><a href="../06-company-process-and-behavioural/26_interview_day_checklists.html">Interview day checklists</a></details></nav><main><h1 id="22-design-a-logging-and-metrics-platform">22. Design a Logging and Metrics Platform</h1>
+
+<p>This is close to your work: an observability stack with Prometheus (metrics), Grafana (dashboards) and Loki (logs). Google's system design questions reportedly include a logs and metrics pipeline, and Stripe's include a metrics service and an application performance monitoring system (see <code>91</code> for sources). You can say: "I operate this kind of stack, so I know the real pain points."</p>
+
+<hr />
+
+<h2 id="1-the-problem-in-plain-words">1. The problem in plain words</h2>
+
+<p>Hundreds of services and thousands of machines produce <strong>logs</strong> (text lines about what happened) and <strong>metrics</strong> (numbers over time, like CPU or request count). Engineers need to:</p>
+
+<ul>
+<li><strong>See</strong> the health of the system on dashboards (metrics),</li>
+<li><strong>Get alerted</strong> when something is wrong (metrics + rules),</li>
+<li><strong>Search</strong> what happened in detail when debugging (logs).</li>
+</ul>
+
+<p>The platform must collect, store, query and alert, without ever falling over when the thing being observed is on fire. (Exactly when systems fail, they produce the most data.)</p>
+
+<p><strong>Analogy: a hospital monitoring room.</strong></p>
+
+<ul>
+<li><strong>Metrics</strong> are the heart-rate monitors: small numbers, every second, drawn as lines. An alarm rings if the line crosses a threshold.</li>
+<li><strong>Logs</strong> are the doctor's detailed notes for each patient event. Big, text, searched when something went wrong.</li>
+<li><strong>Traces</strong> (extra) follow one patient through every department and show where time was lost.</li>
+<li>The monitoring room must stay powered even if the hospital loses power.</li>
+</ul>
+
+<hr />
+
+<h2 id="2-requirements">2. Requirements</h2>
+
+<p><strong>Must-have</strong></p>
+
+<ol>
+<li><strong>Collect</strong> metrics and logs from many services (agents/sidecars/SDKs).</li>
+<li><strong>Store</strong> them for a retention period (for example metrics: 15 days at full detail, 1 year downsampled; logs: 14 to 30 days; assumptions).</li>
+<li><strong>Query</strong>: metrics by name and labels over a time range (aggregations, rates); logs by time range, labels and text search.</li>
+<li><strong>Dashboards</strong>: charts that refresh quickly.</li>
+<li><strong>Alerting</strong>: rules evaluated continuously ("error rate above 5 percent for 5 minutes") with notifications (<code>14</code>), grouping, silencing.</li>
+<li>Multi-tenant: teams see their own data; limits per team.</li>
+</ol>
+
+<p><strong>Non-functional</strong></p>
+
+<ul>
+<li><strong>High write throughput</strong>, write-mostly workload (reads are rare compared to writes).</li>
+<li>The platform must be <strong>more available than what it monitors</strong>. Alerts must work during an outage.</li>
+<li>Tolerate <strong>loss of a little data</strong> (a few samples) but not blocked ingestion.</li>
+<li>Cost control: storage and cardinality limits.</li>
+<li>Query latency: dashboards in a few seconds.</li>
+</ul>
+
+<p><strong>Out of scope</strong></p>
+
+<ul>
+<li>Full distributed tracing storage and analysis (mention as a third pillar), anomaly detection with machine learning, long-term analytics warehouse, security event correlation (SIEM).</li>
+</ul>
+
+<hr />
+
+<h2 id="3-the-numbers-estimates">3. The numbers (estimates)</h2>
+
+<p>Let us size a big company (assumption): 100,000 pods/instances. Each exposes 500 metric series, scraped every 15 seconds. Each pod logs 50 lines per second at 200 bytes.</p>
+
+<table>
+<thead>
+<tr>
+  <th>Item</th>
+  <th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Metric series</td>
+  <td>100,000 x 500 = 50 million active series</td>
+</tr>
+<tr>
+  <td>Samples per second</td>
+  <td>50M / 15 s = about 3.3 million samples/s</td>
+</tr>
+<tr>
+  <td>Bytes per sample after compression</td>
+  <td>about 1 to 2 bytes (time-series databases compress well; Prometheus-style stores are commonly cited at this order; treat as an estimate)</td>
+</tr>
+<tr>
+  <td>Metric storage per day</td>
+  <td>3.3M x 86,400 = about 288 billion samples x 2 B = about 570 GB/day (about 8.6 TB for 15 days)</td>
+</tr>
+<tr>
+  <td>Log lines per second</td>
+  <td>100,000 x 50 = 5 million lines/s</td>
+</tr>
+<tr>
+  <td>Log bytes per second</td>
+  <td>5M x 200 B = 1 GB/s = about 86 TB/day raw. With compression about 10x = about 8.6 TB/day stored. For 14 days = about 120 TB</td>
+</tr>
+<tr>
+  <td>Queries</td>
+  <td>Dashboards and alerts: maybe 5,000 queries/s total, most are alert rules (cheap, repeated)</td>
+</tr>
+</tbody>
+</table>
+
+<p>Meaning: <strong>logs dominate size</strong> (and cost); metrics dominate <strong>sample rate</strong>; both are write-heavy. This is why Loki indexes only labels, not full text (see below), to save cost.</p>
+
+<p>(Your own stack is much smaller than this; use the method, not these exact numbers.)</p>
+
+<hr />
+
+<h2 id="4-the-api">4. The API</h2>
+
+<p><strong>Metrics ingest</strong> (push) or scrape (pull):</p>
+
+<pre><code>Pull (Prometheus style): server calls GET http://pod:9100/metrics every 15 s
+   text lines like:  http_requests_total{service="pay",code="200"} 12345
+
+Push (remote write): POST /api/v1/push   body: compressed batch of series [{labels, samples:[(ts,value)]}]
+</code></pre>
+
+<p><strong>Log ingest:</strong></p>
+
+<pre><code>POST /loki/api/v1/push   (Loki-style push API; shown for flavour)
+  body: { "streams": [ { "stream": {"service":"pay","env":"prod","pod":"p1"},
+                          "values": [ ["1731700000123000000", "payment failed: timeout"], ... ] } ] }
+</code></pre>
+
+<p><strong>Query:</strong></p>
+
+<pre><code>GET /api/v1/query_range?query=sum(rate(http_requests_total{service="pay",code=~"5.."}[5m]))&amp;start=...&amp;end=...&amp;step=15s
+GET /logs/query_range?query={service="pay",env="prod"} |= "timeout"&amp;start=...&amp;end=...&amp;limit=1000
+</code></pre>
+
+<p><strong>Alerts:</strong></p>
+
+<pre><code>rule: alert: HighErrorRate
+      expr: sum(rate(http_requests_total{code=~"5.."}[5m])) / sum(rate(http_requests_total[5m])) &gt; 0.05
+      for: 5m
+      labels: { severity: page }
+      annotations: { summary: "Error rate above 5 percent" }
+</code></pre>
+
+<p>(The syntax above follows the common Prometheus and Loki styles; check the official docs for exact details.)</p>
+
+<hr />
+
+<h2 id="5-the-data-model">5. The data model</h2>
+
+<h3 id="metrics-a-time-series">Metrics: a time series</h3>
+
+<p>A series = <strong>name + labels</strong> (key-value pairs), and a list of <code>(timestamp, value)</code> samples.</p>
+
+<pre><code>http_requests_total{service="pay", code="200", pod="p1"}  -&gt;  (t1, 100), (t2, 130), (t3, 170) ...
+</code></pre>
+
+<p>Types: <strong>counter</strong> (only goes up: requests), <strong>gauge</strong> (up and down: memory), <strong>histogram</strong> (counts in buckets: latency distribution; allows p50/p95/p99).</p>
+
+<p><strong>Cardinality</strong> = number of distinct series. Every unique label combination is a new series. Putting <code>user_id</code> as a label creates millions of series and kills the database. <strong>Cardinality is the number one cause of metrics outages.</strong> Rule: labels must have a small, bounded set of values.</p>
+
+<p>Storage layout (time-series DB): data is grouped in <strong>blocks of time</strong> (for example 2 hours), compressed (delta-of-delta for timestamps, XOR for values), with an <strong>inverted index</strong> from label values to series ids so queries like <code>service="pay"</code> find series fast. The newest data sits in memory plus a <strong>write-ahead log</strong>, then flushes to disk.</p>
+
+<h3 id="logs-lines-in-streams">Logs: lines in streams</h3>
+
+<p>Each log entry: <code>(timestamp, labels (stream), line)</code>. Two main design philosophies:</p>
+
+<table>
+<thead>
+<tr>
+  <th>Approach</th>
+  <th>Example</th>
+  <th>Index</th>
+  <th>Cost</th>
+  <th>Search</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Full-text index</strong></td>
+  <td>Elasticsearch/OpenSearch</td>
+  <td>Index every word</td>
+  <td>High (index can be as big as the data)</td>
+  <td>Very fast, rich text queries</td>
+</tr>
+<tr>
+  <td><strong>Label-only index</strong></td>
+  <td>Loki</td>
+  <td>Index only labels (service, env, pod); store compressed chunks of lines</td>
+  <td>Low (cheap object storage)</td>
+  <td>Select streams by labels, then <strong>scan</strong> the lines (grep) in the time range</td>
+</tr>
+</tbody>
+</table>
+
+<p>Trade-off to say: Loki-style is much cheaper and fits "I know which service and time, now find the line", but searching all logs for a random word across everything over days is slow. Elasticsearch-style is expensive but quick for ad-hoc text search.</p>
+
+<h3 id="other-data">Other data</h3>
+
+<ul>
+<li><strong>Alert rules</strong>, <strong>dashboards</strong> (JSON), <strong>tenants and quotas</strong> in a small SQL database.</li>
+<li><strong>Long-term storage</strong> in object storage (cheap, durable): old metric blocks (downsampled) and log chunks.</li>
+</ul>
+
+<hr />
+
+<h2 id="6-version-1-simple">6. Version 1 (simple)</h2>
+
+<pre><code> [Services] --&gt; write logs to local files (and /metrics endpoint)
+ [One Prometheus server] scrapes all /metrics, stores on local disk
+ [Grafana] --&gt; queries Prometheus
+ [Engineers] ssh to servers and grep log files
+</code></pre>
+
+<p>Works for a small company. Problems at scale: one Prometheus has limited memory and disk (millions of series is the limit of one node); if it dies, you lose data and alerts; logs on a dead machine disappear; grepping across hundreds of machines is impossible; no long-term retention.</p>
+
+<hr />
+
+<h2 id="7-growing-100x-step-by-step">7. Growing 100x, step by step</h2>
+
+<p><strong>Step 1. Agents collect and ship logs.</strong> A small agent on each node (DaemonSet in Kubernetes; for example Promtail/Fluent Bit/Alloy style) tails container logs, adds labels (namespace, pod, service) and ships batches to a central ingest. Local buffering on disk handles short outages. Logs are no longer lost with the machine.</p>
+
+<p><strong>Step 2. Split ingest from storage with a buffer.</strong> Put a <strong>durable queue (Kafka)</strong> between collectors and storage. If storage is slow or down, the queue holds data (hours). Spikes (an incident produces 10x logs) are smoothed. Consumers scale independently. (<code>01g</code>)</p>
+
+<pre><code> Agents -&gt; [Ingest gateway: auth, tenant, rate limit] -&gt; Kafka -&gt; [Writers/Ingesters] -&gt; Storage
+</code></pre>
+
+<p><strong>Step 3. Shard metrics by series.</strong> One Prometheus per team or per cluster (<strong>federation / sharding</strong>). Each scrapes its own targets (sharded by target or by hash of series). A global layer (Thanos, Mimir, Cortex style) provides:</p>
+
+<ul>
+<li><strong>Remote write</strong>: each Prometheus ships samples to a central, horizontally scalable store.</li>
+<li><strong>Distributor</strong> -> hashes each series to <strong>ingesters</strong> (consistent hashing, replication factor 3) -> flushes blocks to object storage.</li>
+<li><strong>Querier</strong> fans out to ingesters (recent data) and object storage (old data) and merges.</li>
+<li>A <strong>query frontend</strong> splits big range queries into daily pieces, caches results, and queues per tenant.</li>
+</ul>
+
+<pre><code> Prometheus (per cluster) --remote write--&gt; [Distributor] --hash(series)--&gt; [Ingesters x N, replicated x3]
+                                                                               | flush blocks every ~2h
+                                                                               v
+ Grafana --&gt; [Query frontend (cache, split)] --&gt; [Queriers] --&gt; ingesters + [Object storage (blocks)]
+                                                                               ^
+                                                              [Compactor: merge, downsample, apply retention]
+</code></pre>
+
+<p><strong>Step 4. Same pattern for logs.</strong> Distributor -> ingesters (in memory chunks per stream, WAL) -> flush compressed chunks to object storage; a small <strong>index</strong> (labels -> chunks) in a key-value store or object storage; queriers read index then fetch and scan chunks; caches for chunks and query results. (This is the architecture style of Loki; it is simple because object storage is the primary store.) </p>
+
+<p><strong>Step 5. Control cardinality and volume.</strong> The ingest gateway enforces <strong>per-tenant limits</strong>: max active series, max label count and length, max log line size, max ingest rate. Drop or reject beyond limits with clear errors (and a metric) rather than crash. Provide dashboards showing top series by cardinality so teams fix offenders. Sampling or dropping noisy debug logs at the agent. (Rate limiting design: <code>11</code>.)</p>
+
+<p><strong>Step 6. Retention and downsampling.</strong> Keep raw resolution (15 s) for 15 days; then downsample to 5-minute and 1-hour points (min/max/avg/count) for a year. Compactor job does it. Logs: shorter retention, or tiering (hot 7 days fast, then cold object storage). Storage cost drops by 10x or more.</p>
+
+<p><strong>Step 7. Alerting path (highest reliability).</strong> Alert rules are evaluated by a separate <strong>ruler</strong> that queries the store every minute (or evaluates in the Prometheus itself). Firing alerts go to an <strong>Alertmanager</strong> cluster that <strong>deduplicates, groups, silences, routes</strong> (by severity and team) to pager/Slack/email (<code>14</code>). Run Alertmanager as a gossip cluster (several nodes) so one dying does not lose alerts. Add a <strong>dead man's switch</strong>: an always-firing alert that must keep arriving at an external service; if it stops, the monitoring system itself is broken and someone gets paged. And keep <strong>an independent small monitoring path</strong> for the monitoring system (watch the watchers).</p>
+
+<p><strong>Step 8. Multi-tenancy.</strong> Each team = tenant id in a header; data separated by tenant in storage; per-tenant limits for ingest and queries (max query range, concurrency); fair queueing in the query frontend so one heavy dashboard cannot starve others. Access control through the gateway (<code>21</code>).</p>
+
+<p><strong>Step 9. Query performance.</strong> Dashboards reuse queries often: cache results (query frontend), pre-compute expensive aggregations with <strong>recording rules</strong> (for example per-service request rate saved as a new series), limit query range, and use downsampled data for long ranges. Avoid regex over huge series sets.</p>
+
+<p><strong>Step 10. Multi-region / high availability.</strong> Run the platform in at least two zones; replication factor 3 for ingesters across zones; Kafka replicated; object storage replicates; a second small independent copy of critical alerting in another region. Accept that cross-region queries are slower.</p>
+
+<p><strong>Step 11. Traces (third pillar, brief).</strong> Add distributed tracing (OpenTelemetry-style): sampled traces stored in a trace store, linked to logs and metrics via trace id and exemplars. Sample (for example 1 percent plus all errors) because full capture is too costly.</p>
+
+<p>Final picture:</p>
+
+<pre><code> Services/Pods (metrics endpoints, logs, traces via OpenTelemetry)
+      |             |
+  Prometheus/     Log agents
+  scrapers        (buffer on disk)
+      |remote write     |
+      v                 v
+ [Ingest gateway: auth, tenant, limits] ----&gt; Kafka (buffer, replicated)
+      |                                           |
+      v                                           v
+ [Distributors] -&gt; [Ingesters (replicated, WAL)] -&gt; Object storage (blocks/chunks) &lt;- [Compactor, retention, downsampling]
+                                 ^                                   ^
+ Grafana -&gt; [Query frontend (split, cache, fair queue)] -&gt; [Queriers]
+ [Ruler: alert + recording rules] -&gt; [Alertmanager cluster: dedupe, group, route] -&gt; Pager/Slack/Email
+ Watchdog (dead man's switch) -&gt; external service
+</code></pre>
+
+<hr />
+
+<h2 id="8-trade-offs-and-why">8. Trade-offs and why</h2>
+
+<table>
+<thead>
+<tr>
+  <th>Choice</th>
+  <th>Why</th>
+  <th>Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Pull (scrape) for metrics</td>
+  <td>Simple, service discovery, you know when a target is down</td>
+  <td>Hard for short-lived jobs (use push gateway) and across firewalls</td>
+</tr>
+<tr>
+  <td>Push (remote write) for central store</td>
+  <td>Scales out ingest</td>
+  <td>Need back-pressure and retries</td>
+</tr>
+<tr>
+  <td>Label-only log index</td>
+  <td>10x cheaper</td>
+  <td>Slow full-text across everything</td>
+</tr>
+<tr>
+  <td>Kafka buffer</td>
+  <td>Absorbs spikes, decouples</td>
+  <td>More infrastructure; latency of seconds</td>
+</tr>
+<tr>
+  <td>Object storage as main store</td>
+  <td>Cheap, durable</td>
+  <td>Slower reads; need caches</td>
+</tr>
+<tr>
+  <td>Replication factor 3 for ingesters</td>
+  <td>No loss when a node dies</td>
+  <td>3x memory/network for recent data</td>
+</tr>
+<tr>
+  <td>Downsampling</td>
+  <td>Cheap long retention</td>
+  <td>Loss of precision</td>
+</tr>
+<tr>
+  <td>Cardinality limits</td>
+  <td>Protect the platform</td>
+  <td>Teams must follow rules; some data rejected</td>
+</tr>
+<tr>
+  <td>Sampling traces/logs</td>
+  <td>Cost</td>
+  <td>May miss rare events (always keep errors)</td>
+</tr>
+<tr>
+  <td>Eventual consistency of data in queries</td>
+  <td>Scale</td>
+  <td>Data a few seconds late</td>
+</tr>
+</tbody>
+</table>
+
+<hr />
+
+<h2 id="9-what-breaks-and-how-to-fix-it">9. What breaks and how to fix it</h2>
+
+<table>
+<thead>
+<tr>
+  <th>Failure</th>
+  <th>Effect</th>
+  <th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Cardinality explosion (a label with user ids)</td>
+  <td>Memory blowup, slow queries, OOM</td>
+  <td>Per-tenant series limits, reject at ingest, top-cardinality dashboard, relabel/drop rules, education</td>
+</tr>
+<tr>
+  <td>Log storm during an incident</td>
+  <td>Ingest overwhelmed</td>
+  <td>Kafka buffer, per-tenant rate limits, drop debug level, agent-side sampling, autoscale</td>
+</tr>
+<tr>
+  <td>Ingester crashes</td>
+  <td>Recent unflushed data at risk</td>
+  <td>WAL replay, replication x3, restart quickly</td>
+</tr>
+<tr>
+  <td>Object storage slow</td>
+  <td>Slow queries</td>
+  <td>Caches, query frontend limits, retry with backoff</td>
+</tr>
+<tr>
+  <td>Expensive query</td>
+  <td>Everyone slow</td>
+  <td>Query limits (range, series, time), per-tenant concurrency, timeouts, fair queues, recording rules</td>
+</tr>
+<tr>
+  <td>Alerting pipeline down</td>
+  <td>No pages in an outage</td>
+  <td>Redundant Alertmanagers, dead-man's-switch, independent watcher</td>
+</tr>
+<tr>
+  <td>Alert flood (alert storm)</td>
+  <td>Pager fatigue</td>
+  <td>Grouping, inhibition (root-cause alert suppresses symptoms), rate-limit notifications, good thresholds</td>
+</tr>
+<tr>
+  <td>Clock skew on hosts</td>
+  <td>Samples rejected or misordered</td>
+  <td>NTP; accept small out-of-order window; reject too old/new</td>
+</tr>
+<tr>
+  <td>Disk full on agent buffer</td>
+  <td>Data loss</td>
+  <td>Bounded buffer, drop oldest, alert on buffer use</td>
+</tr>
+<tr>
+  <td>Silent data loss (collector broken)</td>
+  <td>Blind spot</td>
+  <td>Meta-monitoring: samples ingested per tenant, scrape success, last-seen per target; alert on drops</td>
+</tr>
+<tr>
+  <td>Sensitive data in logs (passwords, tokens, PII)</td>
+  <td>Security incident</td>
+  <td>Redaction at agent, log schema rules, access control, short retention</td>
+</tr>
+<tr>
+  <td>Monitoring needs monitoring</td>
+  <td>Circular failure</td>
+  <td>Separate small instance monitors the platform</td>
+</tr>
+</tbody>
+</table>
+
+<hr />
+
+<h2 id="10-questions-the-interviewer-asks-next">10. Questions the interviewer asks next</h2>
+
+<p><strong>Q1. Push or pull for metrics?</strong>
+A. Pull gives easy discovery and health (a failed scrape means a down target) and central control of scrape rate. Push is better for short-lived jobs and crossing networks. Many setups use pull at the edge and push (remote write) to the central store.</p>
+
+<p><strong>Q2. What is cardinality and why does it matter?</strong>
+A. The number of distinct label combinations, i.e. series. Memory and index size grow with it. One bad label like user id can create millions of series and crash the store. I enforce limits per tenant and review label design.</p>
+
+<p><strong>Q3. Why does Loki not index log text?</strong>
+A. Indexing every word makes the index as big as the logs and costs a lot. Loki indexes only labels and keeps compressed chunks in cheap object storage. Queries select streams by labels and time first, then scan. It is cheap and good for known-service debugging, weaker for broad free-text search.</p>
+
+<p><strong>Q4. How do you make sure alerts always fire?</strong>
+A. Redundant evaluators and Alertmanager cluster, rules close to the data, and a watchdog alert that must continuously reach an external system; if it stops, a separate path pages us. Also meta-monitoring of ingest and rule evaluation failures.</p>
+
+<p><strong>Q5. How do you keep dashboards fast?</strong>
+A. Query frontend with splitting and caching, recording rules for heavy aggregations, downsampled data for long ranges, query limits, and per-tenant fairness.</p>
+
+<p><strong>Q6. How do you handle 10x log volume during an incident?</strong>
+A. Kafka absorbs the burst; per-tenant rate limits protect others; agents can sample or drop low-level logs under pressure; storage scales out; and we keep errors with priority.</p>
+
+<p><strong>Q7. How do you store a year of metrics cheaply?</strong>
+A. Compact old blocks into object storage and downsample to coarse resolution (5 minute, 1 hour). Raw data kept only short term.</p>
+
+<p><strong>Q8. How do you design multi-tenant limits?</strong>
+A. Tenant id on every request; limits on ingest rate, active series, label sizes, query range, concurrency, and rejections returned with explicit errors and counted in metrics.</p>
+
+<p><strong>Q9. Metrics, logs, traces: when do you use each?</strong>
+A. Metrics tell you <strong>that</strong> something is wrong and how big (cheap, aggregated). Traces show <strong>where</strong> time is spent across services. Logs explain <strong>why</strong> with details. Alert on metrics, investigate with traces and logs.</p>
+
+<p><strong>Q10. What are SLO alerts?</strong>
+A. Alerts on burn rate of the error budget (for example, consuming the monthly budget 14 times faster than allowed over 1 hour) rather than raw thresholds; fewer false alarms and tied to user impact. (See <code>03</code>.)</p>
+
+<p><strong>Q11. What do you monitor about the platform itself?</strong>
+A. Ingest rate and rejections, active series per tenant, ingester memory and WAL replay time, queue lag, query latency and errors, rule evaluation duration and misses, object storage errors, Alertmanager delivery failures, and the watchdog.</p>
+
+<hr />
+
+<h2 id="11-say-it-out-loud-6-sentences">11. Say it out loud (6 sentences)</h2>
+
+<ol>
+<li>"A logging and metrics platform collects huge write-heavy streams of numbers and text, stores them cheaply, and powers dashboards and alerts, and it must be more reliable than the systems it watches."</li>
+<li>"In my estimate 50 million series scraped every 15 seconds give about 3.3 million samples per second, and logs dominate storage at tens of terabytes a day, so cost drives the design."</li>
+<li>"Agents ship data through an ingest gateway with per-tenant limits into Kafka, which absorbs incident spikes, and then to distributors and ingesters that hash by series or stream, replicate three times, and flush compressed blocks to object storage."</li>
+<li>"For logs I prefer a label-only index like Loki because it is far cheaper than full-text indexing, accepting slower broad text search."</li>
+<li>"Cardinality is the biggest risk, so I enforce series and label limits per tenant, and I protect queries with a frontend that splits, caches and fairly queues them, plus recording rules and downsampling."</li>
+<li>"Alerting runs on a redundant ruler and Alertmanager cluster with grouping and a dead-man's-switch watchdog, and I monitor the platform itself so silent data loss is detected."</li>
+</ol>
+<div class="pn"><span><a href="21_api_gateway_and_auth_system.html">&larr; 21. Design an API Gateway and Auth Syste</a></span><span><a href="90_cheat_sheet.html">90. Cheat Sheet (one page) &rarr;</a></span></div></main></div></body></html>

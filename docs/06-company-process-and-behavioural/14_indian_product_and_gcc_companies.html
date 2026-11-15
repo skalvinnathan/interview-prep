@@ -1,0 +1,170 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>14. Indian product companies and GCCs | Interview prep</title><style>
+:root{--bg:#fff;--fg:#1f2328;--mut:#59636e;--bd:#d1d9e0;--ac:#0b57d0;--cb:#f6f8fa;--sb:#f6f8fa}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9198a1;--bd:#30363d;--ac:#6cb6ff;--cb:#161b22;--sb:#010409}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{display:flex;min-height:100vh}nav{width:300px;flex:none;background:var(--sb);border-right:1px solid var(--bd);padding:16px;overflow:auto;position:sticky;top:0;height:100vh}
+nav a{color:var(--fg);text-decoration:none;display:block;padding:3px 6px;border-radius:6px;font-size:14px}nav a:hover{background:var(--cb)}nav a.cur{background:var(--ac);color:#fff}
+nav summary{cursor:pointer;font-weight:600;padding:6px 0}nav .home{font-weight:700;font-size:16px;margin-bottom:8px}
+main{flex:1;min-width:0;max-width:900px;padding:24px 32px 80px;margin:0 auto}
+h1,h2,h3{line-height:1.25}h1{border-bottom:1px solid var(--bd);padding-bottom:.3em}h2{border-bottom:1px solid var(--bd);padding-bottom:.25em;margin-top:2em}
+a{color:var(--ac)}pre{background:var(--cb);border:1px solid var(--bd);border-radius:8px;padding:14px;overflow:auto;font-size:13.5px;line-height:1.5}
+code{background:var(--cb);padding:.15em .35em;border-radius:5px;font-size:.92em}pre code{background:none;padding:0}
+table{border-collapse:collapse;display:block;overflow:auto;max-width:100%}th,td{border:1px solid var(--bd);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--cb)}
+blockquote{border-left:4px solid var(--bd);margin:0;padding:0 1em;color:var(--mut)}img{max-width:100%}
+.top{display:none}.pn{display:flex;justify-content:space-between;gap:12px;margin-top:48px;border-top:1px solid var(--bd);padding-top:16px;font-size:14px}
+@media(max-width:820px){.wrap{display:block}nav{width:auto;height:auto;position:static;border-right:0;border-bottom:1px solid var(--bd)}main{padding:16px}}
+</style></head><body><div class="wrap"><nav><a class="home" href="../index.html">Interview prep</a><details><summary>Data structures and algorithms</summary><a href="../01-dsa/00_how_to_start.html">How to start: reading a problem, the 5-step method, and Big-</a><a href="../01-dsa/01_arrays_and_strings.html">Lesson 01. Arrays and Strings</a><a href="../01-dsa/02_hash_maps_and_sets.html">Lesson 02. Hash Maps and Sets</a><a href="../01-dsa/03_two_pointers.html">Lesson 03. Two Pointers</a><a href="../01-dsa/04_sliding_window.html">Lesson 04. Sliding Window</a><a href="../01-dsa/05_stack_and_queue.html">Lesson 05. Stack and Queue (including the monotonic stack)</a><a href="../01-dsa/06_binary_search.html">Lesson 06. Binary Search (including search on the answer)</a><a href="../01-dsa/07_linked_lists.html">Lesson 07. Linked Lists</a><a href="../01-dsa/08_trees_and_bst.html">Lesson 08. Trees and Binary Search Trees (BST)</a><a href="../01-dsa/09_heaps_and_priority_queues.html">Lesson 09: Heaps and Priority Queues</a><a href="../01-dsa/10_graphs_bfs_dfs.html">Lesson 10: Graphs, BFS and DFS (including grids)</a><a href="../01-dsa/11_topological_sort_and_union_find.html">Lesson 11: Topological Sort and Union-Find</a><a href="../01-dsa/12_shortest_paths.html">Lesson 12: Shortest Paths (Dijkstra in plain words)</a><a href="../01-dsa/13_intervals.html">Lesson 13: Intervals (merge intervals, meeting rooms)</a><a href="../01-dsa/14_backtracking.html">Lesson 14: Backtracking (subsets, permutations, combination </a><a href="../01-dsa/15_dynamic_programming_part1.html">Lesson 15: Dynamic Programming, Part 1 (remembering answers)</a><a href="../01-dsa/16_dynamic_programming_part2.html">Lesson 16: Dynamic Programming, Part 2 (LIS, word break, kna</a><a href="../01-dsa/17_tries_and_greedy.html">Lesson 17: Tries and Greedy</a><a href="../01-dsa/18_bit_tricks_and_math_basics.html">Lesson 18: Bit Tricks and Math Basics (short)</a><a href="../01-dsa/19_company_question_patterns.html">Lesson 19: Company Question Patterns (Google, Amazon, Meta, </a></details><details><summary>System design</summary><a href="../02-system-design/00_how_the_round_works.html">How the System Design Round Works</a><a href="../02-system-design/01a_client_server_and_http.html">Client, Server and HTTP</a><a href="../02-system-design/01b_dns_and_cdn.html">DNS and CDN</a><a href="../02-system-design/01c_load_balancers.html">Load Balancers</a><a href="../02-system-design/01d_databases.html">Databases: SQL vs NoSQL, Indexes, Transactions</a><a href="../02-system-design/01e_caching.html">Caching (and Why Invalidation Is Hard)</a><a href="../02-system-design/01f_sharding_and_replication.html">Sharding and Replication</a><a href="../02-system-design/01g_message_queues_and_streams.html">Message Queues and Streams (Kafka Basics)</a><a href="../02-system-design/01h_consistency_and_cap.html">Consistency and the CAP Idea (in Plain Words)</a><a href="../02-system-design/02_numbers_and_estimation.html">Numbers and Estimation</a><a href="../02-system-design/03_reliability_patterns.html">Reliability Patterns</a><a href="../02-system-design/10_url_shortener.html">Design a URL Shortener</a><a href="../02-system-design/11_rate_limiter.html">Design a Rate Limiter</a><a href="../02-system-design/12_chat_system.html">Design a Chat System (like WhatsApp or Slack)</a><a href="../02-system-design/13_news_feed.html">Design a News Feed (like Instagram, Facebook or Twitter/X ho</a><a href="../02-system-design/14_notification_service.html">Design a Notification Service</a><a href="../02-system-design/15_file_storage_like_drive.html">Design File Storage and Sync (like Google Drive or Dropbox)</a><a href="../02-system-design/16_search_autocomplete.html">Design Search Autocomplete (Typeahead)</a><a href="../02-system-design/17_video_streaming_basics.html">Design Video Streaming Basics (like YouTube or Netflix)</a><a href="../02-system-design/18_payment_system_like_stripe.html">Design a Payment System (like Stripe)</a><a href="../02-system-design/19_order_management_like_amazon.html">Design an Order Management System (like Amazon: inventory, o</a><a href="../02-system-design/20_job_scheduler_and_workflow_engine.html">Design a Job Scheduler and Workflow Engine</a><a href="../02-system-design/21_api_gateway_and_auth_system.html">Design an API Gateway and Auth System</a><a href="../02-system-design/22_logging_and_metrics_platform.html">Design a Logging and Metrics Platform</a><a href="../02-system-design/90_cheat_sheet.html">Cheat Sheet (one page)</a><a href="../02-system-design/91_practice_questions.html">Practice Questions (30)</a></details><details><summary>Low-level design</summary><a href="../03-low-level-design/00_how_the_lld_round_works.html">- How the LLD round works</a><a href="../03-low-level-design/01_oop_in_plain_words.html">- OOP in plain words</a><a href="../03-low-level-design/02_solid_principles.html">- SOLID principles</a><a href="../03-low-level-design/03_design_patterns_you_need.html">- The 8 design patterns you need</a><a href="../03-low-level-design/10_parking_lot.html">- Parking Lot</a><a href="../03-low-level-design/11_lru_cache.html">- LRU Cache</a><a href="../03-low-level-design/12_elevator_system.html">- Elevator System</a><a href="../03-low-level-design/13_library_management.html">- Library Management System</a><a href="../03-low-level-design/14_vending_machine.html">- Vending Machine (State pattern)</a><a href="../03-low-level-design/15_atm.html">- ATM</a><a href="../03-low-level-design/16_rate_limiter_class.html">- Rate Limiter (class design: token bucket and sliding windo</a><a href="../03-low-level-design/17_amazon_locker.html">- Amazon Locker</a><a href="../03-low-level-design/18_splitwise_expense_sharing.html">- Splitwise (Expense Sharing)</a><a href="../03-low-level-design/19_logger_and_notification_system.html">- Logger and Notification System (Observer and Strategy)</a><a href="../03-low-level-design/20_tic_tac_toe_or_chess_basics.html">- Tic-Tac-Toe (full) and Chess basics</a><a href="../03-low-level-design/90_cheat_sheet.html">- Cheat sheet (read the night before)</a><a href="../03-low-level-design/91_practice_questions.html">- Practice questions (20)</a></details><details><summary>DevOps and platform basics</summary><a href="../05-devops-platform-basics/01_linux_processes_memory_files.html">Linux: processes, memory, and files</a><a href="../05-devops-platform-basics/02_networking.html">Networking: TCP, DNS, TLS, NAT</a><a href="../05-devops-platform-basics/03_containers_and_docker.html">Containers and Docker</a><a href="../05-devops-platform-basics/04_kubernetes_from_zero.html">Kubernetes from zero</a><a href="../05-devops-platform-basics/05_helm.html">Helm</a><a href="../05-devops-platform-basics/06_terraform.html">Terraform</a><a href="../05-devops-platform-basics/07_ci_cd_github_actions.html">CI/CD with GitHub Actions</a><a href="../05-devops-platform-basics/08_observability_and_sre.html">Observability and SRE</a><a href="../05-devops-platform-basics/09_concurrency_and_distributed_basics.html">Concurrency and distributed basics</a><a href="../05-devops-platform-basics/10_databases_basics.html">Databases basics</a><a href="../05-devops-platform-basics/11_security_basics.html">Security basics (IAM, OAuth2/OIDC/JWT, secrets, supply chain</a><a href="../05-devops-platform-basics/12_gcp_pca_quick_map.html">Google Cloud quick map (for Professional Cloud Architect hol</a><a href="../05-devops-platform-basics/20_interview_questions_with_answers.html">Sixty interview questions with model answers (platform / SRE</a><a href="../05-devops-platform-basics/21_scenario_questions.html">Fifteen &quot;production is down&quot; scenarios, with step-by-step an</a></details><details open><summary>Company processes</summary><a href="10_google.html">Google</a><a href="11_amazon.html">Amazon</a><a href="12_stripe.html">Stripe</a><a href="13_microsoft_and_azure_roles.html">Microsoft and Azure roles</a><a class="cur" href="14_indian_product_and_gcc_companies.html">Indian product companies and GCCs</a><a href="15_european_scaleups.html">European scale-ups and visa basics</a><a href="16_ai_startups_like_smallest_ai.html">AI startups like Smallest AI</a><a href="24_questions_to_ask_interviewers.html">Questions to ask interviewers</a><a href="25_salary_notice_period_and_offer_negotiation_india_and_abroad.html">Salary, notice period and offer negotiation (India and abroa</a><a href="26_interview_day_checklists.html">Interview day checklists</a></details></nav><main><h1 id="14-indian-product-companies-and-gccs">14. Indian product companies and GCCs</h1>
+
+<p>GCC = Global Capability Centre. It is the India office of a big foreign company (for example Walmart Global Tech, Intuit, Oracle, Mastercard, PayPal, Atlassian). It does real engineering work for the parent company.</p>
+
+<p>Checked 15 Nov 2026. I found <strong>no official</strong> interview descriptions for these companies. Everything below is [Anecdotal] from Glassdoor, LeetCode and prep sites, mixed years and levels. <strong>Confirm the format with your recruiter.</strong> Where the reports disagree, I say so.</p>
+
+<h2 id="quick-table-what-usually-appears">Quick table (what usually appears)</h2>
+
+<table>
+<thead>
+<tr>
+  <th>Company</th>
+  <th>Typical rounds reported</th>
+  <th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Walmart Global Tech</td>
+  <td>DSA, then design or LLD, then hiring manager</td>
+  <td>3 to 4 rounds, 2 to 3 weeks</td>
+</tr>
+<tr>
+  <td>Intuit</td>
+  <td>Online test, DSA/LLD, a "craft" or project demo, hiring manager</td>
+  <td>Rounds can be on one day</td>
+</tr>
+<tr>
+  <td>Atlassian</td>
+  <td>Coding, system design, "craft"/leadership, values, manager</td>
+  <td>Values round carries weight</td>
+</tr>
+<tr>
+  <td>Oracle (OCI)</td>
+  <td>3 to 4 technical rounds, then manager round</td>
+  <td>Java, Spring, DSA seen</td>
+</tr>
+<tr>
+  <td>Mastercard</td>
+  <td>3 to 4 rounds, Java/Spring heavy</td>
+  <td>Fewer reports for 2026</td>
+</tr>
+<tr>
+  <td>PayPal</td>
+  <td>DSA, 2 system design, hiring manager</td>
+  <td>Reported for Bengaluru MTS1</td>
+</tr>
+<tr>
+  <td>Razorpay</td>
+  <td>4 to 6 rounds incl. DSA and HLD</td>
+  <td>Machine coding unclear for backend</td>
+</tr>
+<tr>
+  <td>PhonePe</td>
+  <td>Machine coding/LLD, DSA, HLD, hiring manager</td>
+  <td>Machine coding is the big filter</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="words-explained">Words explained</h2>
+
+<ul>
+<li><strong>DSA:</strong> data structures and algorithms (coding puzzles).</li>
+<li><strong>LLD:</strong> low-level design. Write clean classes for a small system.</li>
+<li><strong>HLD:</strong> high-level design. Draw the big system.</li>
+<li><strong>Machine coding:</strong> a timed round (often 60 to 120 minutes) where you build a small working program (for example a parking lot or splitwise) on your own laptop or editor. It is judged on working code, clean structure and tests. Not only on the answer.</li>
+<li><strong>Hiring manager (HM) round:</strong> the future boss digs into your past projects.</li>
+<li><strong>MTS / SMTS:</strong> Member of Technical Staff, Senior MTS. These are titles at Oracle, PayPal and similar companies.</li>
+</ul>
+
+<h2 id="one-by-one">One by one</h2>
+
+<h3 id="walmart-global-tech-bengaluru">Walmart Global Tech (Bengaluru)</h3>
+
+<ul>
+<li>Reports: a DSA round (medium LeetCode), then LLD and/or system design, then a hiring manager discussion. 3 to 4 rounds. A 2026 prep blog is similar but is a commercial source.</li>
+<li>No report mentions a named machine-coding round. LLD does appear.</li>
+<li>HM round: deep questions about your projects and resume.</li>
+<li>Sources: <a href="https://www.glassdoor.com/Interview/Walmart-Global-Tech-Interview-E3293060-RVW87440165.htm">Glassdoor reports</a>, <a href="https://claveprep.com/blog/walmart-global-tech-india-interview-preparation-2026">prep blog</a>.</li>
+</ul>
+
+<h3 id="intuit-bengaluru">Intuit (Bengaluru)</h3>
+
+<ul>
+<li>Reports: an online assessment of about an hour, one or more technical rounds (DSA, LLD, or an API/project task), a <strong>craft</strong> round (a demo of something you build, often UI-flavoured; one report says a weather app task), and a hiring manager round.</li>
+<li>Timeline reports range from 1 week to 2 months. Some candidates had all rounds on one day.</li>
+<li>One report mentions a Spring Boot development exercise (90 minutes) with a project shared in advance.</li>
+<li>Sources: <a href="https://leetcode.com/discuss/interview-experience/6217757/">LeetCode Dec 2024</a>, <a href="https://www.1point3acres.com/interview/thread/1115789">1point3acres</a>, <a href="https://leetcode.com/discuss/interview-experience/7079757">LeetCode accepted</a>.</li>
+</ul>
+
+<h3 id="atlassian-bengaluru">Atlassian (Bengaluru)</h3>
+
+<ul>
+<li>Reports describe: application and some craft or coding assessment, recruiter screen, a virtual loop (coding, system design), a <strong>leadership and craft</strong> interview (delivery, stakeholders, mentoring), a <strong>values</strong> interview, then a decision by a committee. 3 to 6 weeks.</li>
+<li>Clean, runnable code is stressed over pseudocode.</li>
+<li>The values round has real weight. Atlassian has five company values. Read them on Atlassian's own website and prepare a story for each (I did not open the page; check it yourself).</li>
+<li>I found no source for a round called "data club". It is unverified, so ignore it unless the recruiter mentions it.</li>
+<li>Sources: <a href="https://www.designgurus.io/answers/detail/what-is-the-atlassian-interview-process-like-round-by-round">DesignGurus</a>, <a href="https://interviewquery.com/interview-guides/atlassian">Interview Query</a>, <a href="https://www.jointaro.com/interviews/companies/atlassian/experiences/principal-engineer-bengaluru-october-1-2021-accepted-offer-positive-0b47077c">Taro Bengaluru</a> (a Principal level, older).</li>
+</ul>
+
+<h3 id="oracle-oci-bengaluru">Oracle (OCI, Bengaluru)</h3>
+
+<ul>
+<li>Reports: 3 to 4 technical rounds and a manager round. A distributed hash map design question was reported. Java, Spring Boot, array programs, stacks and trees came up. One older report for a principal level also had a director round.</li>
+<li>Source: <a href="https://www.glassdoor.co.in/Interview/Oracle-Interview-E1737-RVW94411330.htm">Glassdoor</a> (and similar reviews).</li>
+</ul>
+
+<h3 id="mastercard-pune">Mastercard (Pune)</h3>
+
+<ul>
+<li>Reports: a June 2026 Software Engineer II report had four rounds (automation testing, technical discussion, problem solving, final talk with technical leaders). A Sept 2024 report had three technical rounds: coding, algorithms and system design. Java and Spring appear often. Glassdoor's average is based on only four interviews, so it is not reliable.</li>
+<li>Source: <a href="https://static.glassdoor.sg/Interview/Mastercard-Software-Engineer-II-Interview-Questions-EI_IE3677.0,10_KO11,31.htm">Glassdoor Mastercard Pune</a>.</li>
+</ul>
+
+<h3 id="paypal-bengaluru">PayPal (Bengaluru)</h3>
+
+<ul>
+<li>Reports: an Oct 2025 MTS1 report had 5 rounds: 1 DSA, 2 system design, 1 hiring manager (one more not described). An MTS-3 report in Aug 2024 had a DSA question and an API/DB design for a peer-to-peer chat. Questions touched RDBMS vs NoSQL and caching.</li>
+<li>Sources: <a href="https://www.jointaro.com/interviews/companies/paypal/experiences/mts1-software-engineer-bengaluru-october-14-2025-accepted-offer-positive-b2427079">Taro Oct 2025</a>.</li>
+</ul>
+
+<h3 id="razorpay">Razorpay</h3>
+
+<ul>
+<li>Sources disagree: 4 to 5 rounds in one guide, 4 to 6 in another. SDE-2: one medium DSA and one HLD problem. A frontend SDE-2 report has machine coding. I found no source confirming a machine-coding round for backend SDE-2.</li>
+<li>Sources: <a href="https://jobrise.io/en/blog/razorpay-interview-questions-2026/">JobRise</a>, <a href="https://www.techprep.app/blog/razorpay-interview-process">TechPrep</a>.</li>
+</ul>
+
+<h3 id="phonepe">PhonePe</h3>
+
+<ul>
+<li>A Sept 2026 LeetCode report for SDE-2 backend had 4 rounds: <strong>machine coding/LLD, DSA, HLD, hiring manager</strong>. TechPrep calls machine coding PhonePe's main filter.</li>
+<li>HLD centres on distributed systems. HM round is a deep dive into past work.</li>
+<li>Sources: <a href="https://leetcode.com/discuss/post/8547106">LeetCode</a>, <a href="https://www.techprep.app/blog/phonepe-interview-process">TechPrep</a>.</li>
+</ul>
+
+<h2 id="what-is-common-across-all-of-them">What is common across all of them</h2>
+
+<ol>
+<li><strong>DSA never goes away.</strong> Do mediums with a timer.</li>
+<li><strong>Design matters at SDE II.</strong> HLD and LLD both appear.</li>
+<li><strong>The HM round decides.</strong> They ask "tell me more" about every line of your resume. Know your projects deeply. Files in <code>04-my-work-explained</code> will help.</li>
+<li><strong>Payments companies</strong> (PayPal, Razorpay, PhonePe, Mastercard) often ask about consistency, retries, idempotency and failures. See file 12 for the idea of idempotency.</li>
+</ol>
+
+<h2 id="how-to-prepare-for-machine-coding-general-advice">How to prepare for machine coding (General advice)</h2>
+
+<ol>
+<li>Pick a classic: parking lot, elevator, splitwise, rate limiter, library system.</li>
+<li>Give yourself 90 minutes. Write: clear classes, simple interfaces, a few tests, a main file to demo.</li>
+<li>Do not over-engineer. Make it work, then clean it.</li>
+<li>Keep names plain. Add 3 tests. Write a short README of how to run.</li>
+</ol>
+<div class="pn"><span><a href="13_microsoft_and_azure_roles.html">&larr; 13. Microsoft and Azure roles</a></span><span><a href="15_european_scaleups.html">15. European scale-ups and visa basics &rarr;</a></span></div></main></div></body></html>

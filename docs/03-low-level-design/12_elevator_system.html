@@ -1,0 +1,409 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>12 - Elevator System | Interview prep</title><style>
+:root{--bg:#fff;--fg:#1f2328;--mut:#59636e;--bd:#d1d9e0;--ac:#0b57d0;--cb:#f6f8fa;--sb:#f6f8fa}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9198a1;--bd:#30363d;--ac:#6cb6ff;--cb:#161b22;--sb:#010409}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{display:flex;min-height:100vh}nav{width:300px;flex:none;background:var(--sb);border-right:1px solid var(--bd);padding:16px;overflow:auto;position:sticky;top:0;height:100vh}
+nav a{color:var(--fg);text-decoration:none;display:block;padding:3px 6px;border-radius:6px;font-size:14px}nav a:hover{background:var(--cb)}nav a.cur{background:var(--ac);color:#fff}
+nav summary{cursor:pointer;font-weight:600;padding:6px 0}nav .home{font-weight:700;font-size:16px;margin-bottom:8px}
+main{flex:1;min-width:0;max-width:900px;padding:24px 32px 80px;margin:0 auto}
+h1,h2,h3{line-height:1.25}h1{border-bottom:1px solid var(--bd);padding-bottom:.3em}h2{border-bottom:1px solid var(--bd);padding-bottom:.25em;margin-top:2em}
+a{color:var(--ac)}pre{background:var(--cb);border:1px solid var(--bd);border-radius:8px;padding:14px;overflow:auto;font-size:13.5px;line-height:1.5}
+code{background:var(--cb);padding:.15em .35em;border-radius:5px;font-size:.92em}pre code{background:none;padding:0}
+table{border-collapse:collapse;display:block;overflow:auto;max-width:100%}th,td{border:1px solid var(--bd);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--cb)}
+blockquote{border-left:4px solid var(--bd);margin:0;padding:0 1em;color:var(--mut)}img{max-width:100%}
+.top{display:none}.pn{display:flex;justify-content:space-between;gap:12px;margin-top:48px;border-top:1px solid var(--bd);padding-top:16px;font-size:14px}
+@media(max-width:820px){.wrap{display:block}nav{width:auto;height:auto;position:static;border-right:0;border-bottom:1px solid var(--bd)}main{padding:16px}}
+</style></head><body><div class="wrap"><nav><a class="home" href="../index.html">Interview prep</a><details><summary>Data structures and algorithms</summary><a href="../01-dsa/00_how_to_start.html">How to start: reading a problem, the 5-step method, and Big-</a><a href="../01-dsa/01_arrays_and_strings.html">Lesson 01. Arrays and Strings</a><a href="../01-dsa/02_hash_maps_and_sets.html">Lesson 02. Hash Maps and Sets</a><a href="../01-dsa/03_two_pointers.html">Lesson 03. Two Pointers</a><a href="../01-dsa/04_sliding_window.html">Lesson 04. Sliding Window</a><a href="../01-dsa/05_stack_and_queue.html">Lesson 05. Stack and Queue (including the monotonic stack)</a><a href="../01-dsa/06_binary_search.html">Lesson 06. Binary Search (including search on the answer)</a><a href="../01-dsa/07_linked_lists.html">Lesson 07. Linked Lists</a><a href="../01-dsa/08_trees_and_bst.html">Lesson 08. Trees and Binary Search Trees (BST)</a><a href="../01-dsa/09_heaps_and_priority_queues.html">Lesson 09: Heaps and Priority Queues</a><a href="../01-dsa/10_graphs_bfs_dfs.html">Lesson 10: Graphs, BFS and DFS (including grids)</a><a href="../01-dsa/11_topological_sort_and_union_find.html">Lesson 11: Topological Sort and Union-Find</a><a href="../01-dsa/12_shortest_paths.html">Lesson 12: Shortest Paths (Dijkstra in plain words)</a><a href="../01-dsa/13_intervals.html">Lesson 13: Intervals (merge intervals, meeting rooms)</a><a href="../01-dsa/14_backtracking.html">Lesson 14: Backtracking (subsets, permutations, combination </a><a href="../01-dsa/15_dynamic_programming_part1.html">Lesson 15: Dynamic Programming, Part 1 (remembering answers)</a><a href="../01-dsa/16_dynamic_programming_part2.html">Lesson 16: Dynamic Programming, Part 2 (LIS, word break, kna</a><a href="../01-dsa/17_tries_and_greedy.html">Lesson 17: Tries and Greedy</a><a href="../01-dsa/18_bit_tricks_and_math_basics.html">Lesson 18: Bit Tricks and Math Basics (short)</a><a href="../01-dsa/19_company_question_patterns.html">Lesson 19: Company Question Patterns (Google, Amazon, Meta, </a></details><details><summary>System design</summary><a href="../02-system-design/00_how_the_round_works.html">How the System Design Round Works</a><a href="../02-system-design/01a_client_server_and_http.html">Client, Server and HTTP</a><a href="../02-system-design/01b_dns_and_cdn.html">DNS and CDN</a><a href="../02-system-design/01c_load_balancers.html">Load Balancers</a><a href="../02-system-design/01d_databases.html">Databases: SQL vs NoSQL, Indexes, Transactions</a><a href="../02-system-design/01e_caching.html">Caching (and Why Invalidation Is Hard)</a><a href="../02-system-design/01f_sharding_and_replication.html">Sharding and Replication</a><a href="../02-system-design/01g_message_queues_and_streams.html">Message Queues and Streams (Kafka Basics)</a><a href="../02-system-design/01h_consistency_and_cap.html">Consistency and the CAP Idea (in Plain Words)</a><a href="../02-system-design/02_numbers_and_estimation.html">Numbers and Estimation</a><a href="../02-system-design/03_reliability_patterns.html">Reliability Patterns</a><a href="../02-system-design/10_url_shortener.html">Design a URL Shortener</a><a href="../02-system-design/11_rate_limiter.html">Design a Rate Limiter</a><a href="../02-system-design/12_chat_system.html">Design a Chat System (like WhatsApp or Slack)</a><a href="../02-system-design/13_news_feed.html">Design a News Feed (like Instagram, Facebook or Twitter/X ho</a><a href="../02-system-design/14_notification_service.html">Design a Notification Service</a><a href="../02-system-design/15_file_storage_like_drive.html">Design File Storage and Sync (like Google Drive or Dropbox)</a><a href="../02-system-design/16_search_autocomplete.html">Design Search Autocomplete (Typeahead)</a><a href="../02-system-design/17_video_streaming_basics.html">Design Video Streaming Basics (like YouTube or Netflix)</a><a href="../02-system-design/18_payment_system_like_stripe.html">Design a Payment System (like Stripe)</a><a href="../02-system-design/19_order_management_like_amazon.html">Design an Order Management System (like Amazon: inventory, o</a><a href="../02-system-design/20_job_scheduler_and_workflow_engine.html">Design a Job Scheduler and Workflow Engine</a><a href="../02-system-design/21_api_gateway_and_auth_system.html">Design an API Gateway and Auth System</a><a href="../02-system-design/22_logging_and_metrics_platform.html">Design a Logging and Metrics Platform</a><a href="../02-system-design/90_cheat_sheet.html">Cheat Sheet (one page)</a><a href="../02-system-design/91_practice_questions.html">Practice Questions (30)</a></details><details open><summary>Low-level design</summary><a href="00_how_the_lld_round_works.html">- How the LLD round works</a><a href="01_oop_in_plain_words.html">- OOP in plain words</a><a href="02_solid_principles.html">- SOLID principles</a><a href="03_design_patterns_you_need.html">- The 8 design patterns you need</a><a href="10_parking_lot.html">- Parking Lot</a><a href="11_lru_cache.html">- LRU Cache</a><a class="cur" href="12_elevator_system.html">- Elevator System</a><a href="13_library_management.html">- Library Management System</a><a href="14_vending_machine.html">- Vending Machine (State pattern)</a><a href="15_atm.html">- ATM</a><a href="16_rate_limiter_class.html">- Rate Limiter (class design: token bucket and sliding windo</a><a href="17_amazon_locker.html">- Amazon Locker</a><a href="18_splitwise_expense_sharing.html">- Splitwise (Expense Sharing)</a><a href="19_logger_and_notification_system.html">- Logger and Notification System (Observer and Strategy)</a><a href="20_tic_tac_toe_or_chess_basics.html">- Tic-Tac-Toe (full) and Chess basics</a><a href="90_cheat_sheet.html">- Cheat sheet (read the night before)</a><a href="91_practice_questions.html">- Practice questions (20)</a></details><details><summary>DevOps and platform basics</summary><a href="../05-devops-platform-basics/01_linux_processes_memory_files.html">Linux: processes, memory, and files</a><a href="../05-devops-platform-basics/02_networking.html">Networking: TCP, DNS, TLS, NAT</a><a href="../05-devops-platform-basics/03_containers_and_docker.html">Containers and Docker</a><a href="../05-devops-platform-basics/04_kubernetes_from_zero.html">Kubernetes from zero</a><a href="../05-devops-platform-basics/05_helm.html">Helm</a><a href="../05-devops-platform-basics/06_terraform.html">Terraform</a><a href="../05-devops-platform-basics/07_ci_cd_github_actions.html">CI/CD with GitHub Actions</a><a href="../05-devops-platform-basics/08_observability_and_sre.html">Observability and SRE</a><a href="../05-devops-platform-basics/09_concurrency_and_distributed_basics.html">Concurrency and distributed basics</a><a href="../05-devops-platform-basics/10_databases_basics.html">Databases basics</a><a href="../05-devops-platform-basics/11_security_basics.html">Security basics (IAM, OAuth2/OIDC/JWT, secrets, supply chain</a><a href="../05-devops-platform-basics/12_gcp_pca_quick_map.html">Google Cloud quick map (for Professional Cloud Architect hol</a><a href="../05-devops-platform-basics/20_interview_questions_with_answers.html">Sixty interview questions with model answers (platform / SRE</a><a href="../05-devops-platform-basics/21_scenario_questions.html">Fifteen &quot;production is down&quot; scenarios, with step-by-step an</a></details><details><summary>Company processes</summary><a href="../06-company-process-and-behavioural/10_google.html">Google</a><a href="../06-company-process-and-behavioural/11_amazon.html">Amazon</a><a href="../06-company-process-and-behavioural/12_stripe.html">Stripe</a><a href="../06-company-process-and-behavioural/13_microsoft_and_azure_roles.html">Microsoft and Azure roles</a><a href="../06-company-process-and-behavioural/14_indian_product_and_gcc_companies.html">Indian product companies and GCCs</a><a href="../06-company-process-and-behavioural/15_european_scaleups.html">European scale-ups and visa basics</a><a href="../06-company-process-and-behavioural/16_ai_startups_like_smallest_ai.html">AI startups like Smallest AI</a><a href="../06-company-process-and-behavioural/24_questions_to_ask_interviewers.html">Questions to ask interviewers</a><a href="../06-company-process-and-behavioural/25_salary_notice_period_and_offer_negotiation_india_and_abroad.html">Salary, notice period and offer negotiation (India and abroa</a><a href="../06-company-process-and-behavioural/26_interview_day_checklists.html">Interview day checklists</a></details></nav><main><h1 id="12-elevator-system">12 - Elevator System</h1>
+
+<p>Python 3.9. All code was run; the output is real.</p>
+
+<hr />
+
+<h2 id="1-the-problem-in-plain-words">1. The problem in plain words</h2>
+
+<p>A building has several floors and several elevators (lifts). People press a button <strong>in the hallway</strong> ("I am on floor 3, I want to go up"). Then, inside the elevator, they press the <strong>floor they want</strong>. The system must decide <strong>which elevator</strong> comes, and each elevator must <strong>move</strong> and <strong>open its doors</strong> at the right floors.</p>
+
+<p><strong>Analogy.</strong> A taxi dispatcher with a few taxis. A customer calls. The dispatcher sends the best taxi, not always the nearest one: a taxi already driving in that direction is better than a taxi that must turn around.</p>
+
+<hr />
+
+<h2 id="2-requirements-i-ask-the-interviewer">2. Requirements I ask the interviewer</h2>
+
+<ol>
+<li>How many elevators and floors? -> <em>3 elevators, 10-20 floors (configurable).</em></li>
+<li>Two kinds of buttons? -> <em>Hall call (floor + direction) and cabin button (destination floor).</em></li>
+<li>How does one elevator choose its path? -> <em>Keep going in one direction while there are stops ahead, then reverse (the classic "SCAN / LOOK" way, like a real lift).</em></li>
+<li>How do we choose which elevator answers a hall call? -> <em>The best one by a simple cost (distance, direction). Must be easy to change.</em></li>
+<li>Do I need weight limit, emergency stop, doors timing? -> <em>Out of scope for the core; mention as extension.</em></li>
+<li>Time: real clock or simulation? -> <em>Simulation with a <code>step()</code> that moves everything by one tick.</em></li>
+<li>Threads? -> <em>Many people press buttons at the same time.</em></li>
+</ol>
+
+<hr />
+
+<h2 id="3-classes-and-methods-the-picture">3. Classes and methods (the picture)</h2>
+
+<pre><code>                 +---------------------------------------+
+                 |          ElevatorController           |  &lt;- the boss
+                 |---------------------------------------|
+                 | elevators, strategy, lock             |
+                 | request_pickup(floor, direction)      |
+                 | select_floor(elevator_id, floor)      |
+                 | step()                                |
+                 +-------+-------------------+-----------+
+                         | has many          | uses (passed in)
+                         v                   v
+              +---------------------+   +---------------------------+
+              |      Elevator       |   |    DispatchStrategy       |
+              |---------------------|   |  (abstract)               |
+              | id, floor, stops    |   | choose(elevators, floor,  |
+              | state               |   |        direction)         |
+              | add_stop(floor)     |   +-------------+-------------+
+              | step()              |                 |
+              +----------+----------+       NearestElevatorStrategy
+                         | has one (State pattern)
+                         v
+              +---------------------+
+              |   ElevatorState     |  (abstract: step, accepts_requests)
+              +---------------------+
+                 ^        ^        ^         ^
+          IdleState  MovingUp  MovingDown  MaintenanceState (extension)
+</code></pre>
+
+<p><strong>Why State?</strong> An elevator behaves differently in different modes. "One tick" means: idle -> do nothing or start; moving up -> go up one floor; moving down -> go down. Instead of <code>if direction == ...</code> in every method, each mode is a class (State pattern, file 03).</p>
+
+<p><strong>Why Strategy?</strong> The rule "which elevator answers" is what an interviewer will change ("zones", "peak hours"). So it is a separate, swappable class.</p>
+
+<hr />
+
+<h2 id="4-full-code">4. Full code</h2>
+
+<pre><code>import threading                               # Lock for the controller
+from abc import ABC, abstractmethod            # for "promise" classes
+from enum import Enum                          # fixed named choices
+
+
+class Direction(Enum):                         # direction of a hall call
+    UP = 1
+    DOWN = 2
+
+
+# ---------- states of one elevator (State pattern) ----------
+
+class ElevatorState(ABC):
+    name = "STATE"                             # text used when printing
+
+    def accepts_requests(self):
+        return True                            # most states accept new stops
+
+    @abstractmethod
+    def step(self, elevator):                  # "one tick of time passes"
+        pass
+
+
+class IdleState(ElevatorState):
+    name = "IDLE"
+
+    def step(self, elevator):
+        if not elevator.stops:                 # nothing to do
+            return
+        # go toward the nearest stop (tie: lower floor)
+        nearest = min(elevator.stops, key=lambda s: (abs(s - elevator.floor), s))
+        if nearest == elevator.floor:
+            elevator.serve_current_floor()     # already here: just open the doors
+        elif nearest &gt; elevator.floor:
+            elevator.set_state(MovingUpState())
+            elevator.state.step(elevator)      # start moving in the same tick
+        else:
+            elevator.set_state(MovingDownState())
+            elevator.state.step(elevator)
+
+
+class MovingUpState(ElevatorState):
+    name = "UP"
+
+    def step(self, elevator):
+        if elevator.floor in elevator.stops:   # someone wants this floor
+            elevator.serve_current_floor()
+            return
+        if any(s &gt; elevator.floor for s in elevator.stops):
+            elevator.floor += 1                # keep going up (one floor per tick)
+            if elevator.floor in elevator.stops:
+                elevator.serve_current_floor() # arrived at a stop
+        elif elevator.stops:                   # stops remain, but only below: turn around
+            elevator.set_state(MovingDownState())
+        else:
+            elevator.set_state(IdleState())
+
+
+class MovingDownState(ElevatorState):
+    name = "DOWN"
+
+    def step(self, elevator):
+        if elevator.floor in elevator.stops:
+            elevator.serve_current_floor()
+            return
+        if any(s &lt; elevator.floor for s in elevator.stops):
+            elevator.floor -= 1                # keep going down
+            if elevator.floor in elevator.stops:
+                elevator.serve_current_floor()
+        elif elevator.stops:
+            elevator.set_state(MovingUpState())    # only stops above: turn around
+        else:
+            elevator.set_state(IdleState())
+
+
+class MaintenanceState(ElevatorState):         # EXTENSION: elevator out of service
+    name = "MAINT"
+
+    def accepts_requests(self):
+        return False                           # controller will not send it work
+
+    def step(self, elevator):
+        pass                                   # does nothing
+
+
+# ---------- one elevator ----------
+
+class Elevator:
+    def __init__(self, elevator_id, start_floor, log):
+        self.elevator_id = elevator_id         # e.g. 1, 2, 3
+        self.floor = start_floor               # where the cabin is now
+        self.stops = set()                     # floors where it must stop (a set: pressing twice is harmless)
+        self.state = IdleState()               # starts idle
+        self._log = log                        # function used to record events
+
+    def set_state(self, new_state):
+        self.state = new_state
+
+    def accepts_requests(self):
+        return self.state.accepts_requests()   # ask the state
+
+    def add_stop(self, floor):
+        if not self.accepts_requests():
+            raise RuntimeError("elevator " + str(self.elevator_id) + " is out of service")
+        self.stops.add(floor)
+
+    def serve_current_floor(self):
+        self.stops.discard(self.floor)         # this stop is done
+        self._log("E" + str(self.elevator_id) + " doors open at floor " + str(self.floor))
+        if not self.stops:
+            self.set_state(IdleState())        # nothing left: rest
+
+    def step(self):
+        self.state.step(self)                  # the state decides what one tick means
+
+    def __str__(self):
+        return "E" + str(self.elevator_id) + "@" + str(self.floor) + "(" + self.state.name + ")"
+
+
+# ---------- strategy: which elevator answers a hall call ----------
+
+class DispatchStrategy(ABC):
+    @abstractmethod
+    def choose(self, elevators, floor, direction):
+        pass
+
+
+class NearestElevatorStrategy(DispatchStrategy):
+    PENALTY = 100                              # big number: "this elevator must finish its trip first"
+
+    def cost(self, e, floor, direction):
+        distance = abs(e.floor - floor)
+        if isinstance(e.state, IdleState):
+            return distance                    # idle: just come
+        if isinstance(e.state, MovingUpState) and floor &gt;= e.floor and direction == Direction.UP:
+            return distance                    # on its way, same direction
+        if isinstance(e.state, MovingDownState) and floor &lt;= e.floor and direction == Direction.DOWN:
+            return distance
+        return distance + self.PENALTY         # would need to turn around first
+
+    def choose(self, elevators, floor, direction):
+        candidates = [e for e in elevators if e.accepts_requests()]   # skip broken elevators
+        if not candidates:
+            raise RuntimeError("no elevator available")
+        # smallest cost wins; ties go to the lowest id so results are repeatable
+        return min(candidates, key=lambda e: (self.cost(e, floor, direction), e.elevator_id))
+
+
+# ---------- the boss ----------
+
+class ElevatorController:
+    def __init__(self, elevators, strategy, floors, log):
+        self.elevators = elevators             # list of Elevator
+        self.strategy = strategy               # a DispatchStrategy
+        self.floors = floors                   # number of floors: valid floors are 0..floors-1
+        self._log = log
+        self._lock = threading.Lock()          # protects every elevator's stops and state
+
+    def _check_floor(self, floor):
+        if floor &lt; 0 or floor &gt;= self.floors:  # reject nonsense input early
+            raise ValueError("bad floor " + str(floor))
+
+    def request_pickup(self, floor, direction):
+        # someone in the hallway pressed UP or DOWN
+        self._check_floor(floor)
+        with self._lock:
+            e = self.strategy.choose(self.elevators, floor, direction)
+            e.add_stop(floor)
+            self._log("hall call floor " + str(floor) + " " + direction.name + " -&gt; E" + str(e.elevator_id))
+            return e.elevator_id
+
+    def select_floor(self, elevator_id, floor):
+        # someone inside a cabin pressed a floor button
+        self._check_floor(floor)
+        with self._lock:
+            for e in self.elevators:
+                if e.elevator_id == elevator_id:
+                    e.add_stop(floor)
+                    return
+            raise ValueError("no such elevator")
+
+    def step(self):
+        with self._lock:                       # move every elevator by one tick
+            for e in self.elevators:
+                e.step()
+
+    def status(self):
+        with self._lock:
+            return " ".join(str(e) for e in self.elevators)
+
+
+def main():
+    events = []                                # event log
+    log = events.append
+    ctrl = ElevatorController(
+        [Elevator(1, 0, log), Elevator(2, 10, log)],     # E1 at floor 0, E2 at floor 10
+        NearestElevatorStrategy(), floors=12, log=log)
+
+    print("start:", ctrl.status())
+    ctrl.request_pickup(3, Direction.UP)       # E1 is 3 away, E2 is 7 away -&gt; E1
+    ctrl.step()
+    print("tick 1:", ctrl.status())             # E1 is moving up
+    ctrl.step(); ctrl.step()                   # E1 reaches floor 3
+    print("tick 3:", ctrl.status())
+    ctrl.select_floor(1, 7)                    # passenger in E1 presses 7
+    ctrl.request_pickup(8, Direction.DOWN)     # E1 (going up) would need to turn; E2 is idle at 10 -&gt; E2
+    for _ in range(2):
+        ctrl.step()
+    print("tick 5:", ctrl.status())             # E1 still climbing to 7, E2 already reached 8
+    for _ in range(4):
+        ctrl.step()
+    print("tick 9:", ctrl.status())
+    for _ in range(4):
+        ctrl.step()
+    print("tick 13:", ctrl.status())
+    print("--- event log ---")
+    for line in events:
+        print(line)
+
+    # ---- extension: maintenance mode + zone strategy ----
+    print("--- extension: E1 goes out of service ---")
+    events.clear()
+    ctrl.elevators[0].set_state(MaintenanceState())
+    print("hall call goes to E%d" % ctrl.request_pickup(5, Direction.UP))
+    try:
+        ctrl.select_floor(1, 2)                # pressing a button in a broken elevator
+    except RuntimeError as e:
+        print("blocked:", e)
+
+    # ---- thread test ----
+    print("--- thread test ---")
+    ctrl2 = ElevatorController([Elevator(1, 0, log), Elevator(2, 5, log), Elevator(3, 9, log)],
+                               NearestElevatorStrategy(), floors=12, log=lambda m: None)
+    def press(n):
+        ctrl2.request_pickup(n % 12, Direction.UP if n % 2 == 0 else Direction.DOWN)
+    threads = [threading.Thread(target=press, args=(n,)) for n in range(24)]
+    for t in threads: t.start()
+    for t in threads: t.join()
+    all_stops = set()
+    for e in ctrl2.elevators:
+        all_stops |= e.stops
+    print("every floor 0..11 is assigned to some elevator:", all_stops == set(range(12)))
+
+
+if __name__ == "__main__":
+    main()
+</code></pre>
+
+<p>Output I got when I ran it:</p>
+
+<pre><code>start: E1@0(IDLE) E2@10(IDLE)
+tick 1: E1@1(UP) E2@10(IDLE)
+tick 3: E1@3(IDLE) E2@10(IDLE)
+tick 5: E1@5(UP) E2@8(IDLE)
+tick 9: E1@7(IDLE) E2@8(IDLE)
+tick 13: E1@7(IDLE) E2@8(IDLE)
+--- event log ---
+hall call floor 3 UP -&gt; E1
+E1 doors open at floor 3
+hall call floor 8 DOWN -&gt; E2
+E2 doors open at floor 8
+E1 doors open at floor 7
+--- extension: E1 goes out of service ---
+hall call goes to E2
+blocked: elevator 1 is out of service
+--- thread test ---
+every floor 0..11 is assigned to some elevator: True
+</code></pre>
+
+<hr />
+
+<h2 id="5-how-the-code-works-walk-through">5. How the code works (walk through)</h2>
+
+<ol>
+<li><code>request_pickup(3, UP)</code>: the controller asks the <strong>strategy</strong> for the best elevator. E1 (idle at 0, distance 3) beats E2 (idle at 10, distance 7). The stop is added.</li>
+<li><code>step()</code> gives every elevator one tick. <code>IdleState</code> sees a stop above, switches to <code>MovingUpState</code>, and the elevator climbs one floor per tick.</li>
+<li>When it reaches a stop, <code>serve_current_floor</code> removes the stop and writes "doors open".</li>
+<li>The second hall call (floor 8, DOWN): E1 is moving up and the call wants to go down, so E1 gets a <strong>penalty</strong> (it would have to finish its trip first). E2 is idle at floor 10, distance 2. E2 wins.</li>
+<li>When no stops remain, the elevator goes back to <code>IdleState</code>.</li>
+</ol>
+
+<p>This movement rule is "keep going while there are stops ahead, then reverse". It avoids the elevator going up and down for no reason.</p>
+
+<hr />
+
+<h2 id="6-how-to-extend-it">6. How to extend it</h2>
+
+<p><strong>"One elevator is under repair."</strong> I added <code>MaintenanceState</code> (a new state class). It says <code>accepts_requests() == False</code>, and the strategy skips such elevators. No <code>if</code> was added to the controller. See "extension" in the output.</p>
+
+<p><strong>"Add a new dispatch rule (zones, express lift, peak hours)."</strong> Write a new class that extends <code>DispatchStrategy</code>. Pass it to the controller. Nothing else changes (Open/Closed, file 02).</p>
+
+<p><strong>"Add a door state and a timer."</strong> Add <code>DoorOpenState</code> that stays for N ticks then moves on. It is just one more State class.</p>
+
+<p><strong>"Add a weight limit."</strong> Give <code>Elevator</code> a <code>load_kg</code> and a <code>max_kg</code>. In <code>add_stop</code> or at boarding, refuse extra people. A new <code>OverloadedState</code> can hold the doors open.</p>
+
+<hr />
+
+<h2 id="7-thread-safety-notes-plain-words">7. Thread-safety notes (plain words)</h2>
+
+<ul>
+<li><strong>The danger:</strong> one thread presses a button (adds to <code>stops</code>) while another thread calls <code>step()</code> (which reads <code>stops</code>). Python can raise "set changed size during iteration", or two threads can both pick "the best elevator" from the same stale data.</li>
+<li><strong>The fix:</strong> every public method of the controller takes one lock. All access to elevators goes through the controller, so the elevators themselves have no locks. (Rule: <strong>one owner for the lock</strong>.)</li>
+<li>In a real building, <code>step()</code> is called by a timer thread, and button presses come from other threads. With one lock that is safe, but a long <code>step()</code> blocks buttons. Steps are tiny here, so that is fine.</li>
+<li>For many buildings, give each building its own controller (and its own lock).</li>
+</ul>
+
+<hr />
+
+<h2 id="8-five-follow-up-questions-with-model-answers">8. Five follow-up questions with model answers</h2>
+
+<p><strong>Q1. Why use a set for <code>stops</code> instead of a list?</strong>
+Pressing the same floor twice must not stop the elevator twice. A set ignores duplicates and gives O(1) add and remove. The cost is that we lose "order of arrival", which we do not need, because the elevator's direction decides the order.</p>
+
+<p><strong>Q2. Why not always send the nearest elevator?</strong>
+The nearest elevator may be going the wrong way, so it would need to finish its trip first. A farther elevator that is idle or already heading toward the caller can arrive sooner. My cost adds a penalty when the elevator would have to turn around.</p>
+
+<p><strong>Q3. How would you handle 50 floors and "express" elevators that only stop at certain floors?</strong>
+Give each <code>Elevator</code> a set <code>allowed_floors</code>. In <code>add_stop</code>, reject floors outside it. In the strategy, only consider elevators that allow the requested floor. The change lives in the strategy and the elevator, not in the controller.</p>
+
+<p><strong>Q4. How do you test this without waiting?</strong>
+<code>step()</code> is a simulated tick, so a test just calls it N times and checks <code>floor</code> and the event log (that is what <code>main()</code> does). No sleeping and no real clock. This is the benefit of simulating time instead of using <code>time.sleep</code>.</p>
+
+<p><strong>Q5. What if two elevators are chosen for the same floor over time (both stop there)?</strong>
+When a hall call is assigned, only one elevator gets the stop, so only one comes. If you want re-assignment (for example the first elevator is overloaded), keep the pending hall calls in the controller. On each tick, re-run the strategy for unserved calls. That is a good extension, but I would first ask the interviewer if they need it.</p>
+
+<hr />
+
+<p><strong>Next:</strong> <code>13_library_management.md</code>.</p>
+<div class="pn"><span><a href="11_lru_cache.html">&larr; 11 - LRU Cache</a></span><span><a href="13_library_management.html">13 - Library Management System &rarr;</a></span></div></main></div></body></html>

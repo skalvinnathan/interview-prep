@@ -1,0 +1,174 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>01b. DNS and CDN | Interview prep</title><style>
+:root{--bg:#fff;--fg:#1f2328;--mut:#59636e;--bd:#d1d9e0;--ac:#0b57d0;--cb:#f6f8fa;--sb:#f6f8fa}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9198a1;--bd:#30363d;--ac:#6cb6ff;--cb:#161b22;--sb:#010409}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{display:flex;min-height:100vh}nav{width:300px;flex:none;background:var(--sb);border-right:1px solid var(--bd);padding:16px;overflow:auto;position:sticky;top:0;height:100vh}
+nav a{color:var(--fg);text-decoration:none;display:block;padding:3px 6px;border-radius:6px;font-size:14px}nav a:hover{background:var(--cb)}nav a.cur{background:var(--ac);color:#fff}
+nav summary{cursor:pointer;font-weight:600;padding:6px 0}nav .home{font-weight:700;font-size:16px;margin-bottom:8px}
+main{flex:1;min-width:0;max-width:900px;padding:24px 32px 80px;margin:0 auto}
+h1,h2,h3{line-height:1.25}h1{border-bottom:1px solid var(--bd);padding-bottom:.3em}h2{border-bottom:1px solid var(--bd);padding-bottom:.25em;margin-top:2em}
+a{color:var(--ac)}pre{background:var(--cb);border:1px solid var(--bd);border-radius:8px;padding:14px;overflow:auto;font-size:13.5px;line-height:1.5}
+code{background:var(--cb);padding:.15em .35em;border-radius:5px;font-size:.92em}pre code{background:none;padding:0}
+table{border-collapse:collapse;display:block;overflow:auto;max-width:100%}th,td{border:1px solid var(--bd);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--cb)}
+blockquote{border-left:4px solid var(--bd);margin:0;padding:0 1em;color:var(--mut)}img{max-width:100%}
+.top{display:none}.pn{display:flex;justify-content:space-between;gap:12px;margin-top:48px;border-top:1px solid var(--bd);padding-top:16px;font-size:14px}
+@media(max-width:820px){.wrap{display:block}nav{width:auto;height:auto;position:static;border-right:0;border-bottom:1px solid var(--bd)}main{padding:16px}}
+</style></head><body><div class="wrap"><nav><a class="home" href="../index.html">Interview prep</a><details><summary>Data structures and algorithms</summary><a href="../01-dsa/00_how_to_start.html">How to start: reading a problem, the 5-step method, and Big-</a><a href="../01-dsa/01_arrays_and_strings.html">Lesson 01. Arrays and Strings</a><a href="../01-dsa/02_hash_maps_and_sets.html">Lesson 02. Hash Maps and Sets</a><a href="../01-dsa/03_two_pointers.html">Lesson 03. Two Pointers</a><a href="../01-dsa/04_sliding_window.html">Lesson 04. Sliding Window</a><a href="../01-dsa/05_stack_and_queue.html">Lesson 05. Stack and Queue (including the monotonic stack)</a><a href="../01-dsa/06_binary_search.html">Lesson 06. Binary Search (including search on the answer)</a><a href="../01-dsa/07_linked_lists.html">Lesson 07. Linked Lists</a><a href="../01-dsa/08_trees_and_bst.html">Lesson 08. Trees and Binary Search Trees (BST)</a><a href="../01-dsa/09_heaps_and_priority_queues.html">Lesson 09: Heaps and Priority Queues</a><a href="../01-dsa/10_graphs_bfs_dfs.html">Lesson 10: Graphs, BFS and DFS (including grids)</a><a href="../01-dsa/11_topological_sort_and_union_find.html">Lesson 11: Topological Sort and Union-Find</a><a href="../01-dsa/12_shortest_paths.html">Lesson 12: Shortest Paths (Dijkstra in plain words)</a><a href="../01-dsa/13_intervals.html">Lesson 13: Intervals (merge intervals, meeting rooms)</a><a href="../01-dsa/14_backtracking.html">Lesson 14: Backtracking (subsets, permutations, combination </a><a href="../01-dsa/15_dynamic_programming_part1.html">Lesson 15: Dynamic Programming, Part 1 (remembering answers)</a><a href="../01-dsa/16_dynamic_programming_part2.html">Lesson 16: Dynamic Programming, Part 2 (LIS, word break, kna</a><a href="../01-dsa/17_tries_and_greedy.html">Lesson 17: Tries and Greedy</a><a href="../01-dsa/18_bit_tricks_and_math_basics.html">Lesson 18: Bit Tricks and Math Basics (short)</a><a href="../01-dsa/19_company_question_patterns.html">Lesson 19: Company Question Patterns (Google, Amazon, Meta, </a></details><details open><summary>System design</summary><a href="00_how_the_round_works.html">How the System Design Round Works</a><a href="01a_client_server_and_http.html">Client, Server and HTTP</a><a class="cur" href="01b_dns_and_cdn.html">DNS and CDN</a><a href="01c_load_balancers.html">Load Balancers</a><a href="01d_databases.html">Databases: SQL vs NoSQL, Indexes, Transactions</a><a href="01e_caching.html">Caching (and Why Invalidation Is Hard)</a><a href="01f_sharding_and_replication.html">Sharding and Replication</a><a href="01g_message_queues_and_streams.html">Message Queues and Streams (Kafka Basics)</a><a href="01h_consistency_and_cap.html">Consistency and the CAP Idea (in Plain Words)</a><a href="02_numbers_and_estimation.html">Numbers and Estimation</a><a href="03_reliability_patterns.html">Reliability Patterns</a><a href="10_url_shortener.html">Design a URL Shortener</a><a href="11_rate_limiter.html">Design a Rate Limiter</a><a href="12_chat_system.html">Design a Chat System (like WhatsApp or Slack)</a><a href="13_news_feed.html">Design a News Feed (like Instagram, Facebook or Twitter/X ho</a><a href="14_notification_service.html">Design a Notification Service</a><a href="15_file_storage_like_drive.html">Design File Storage and Sync (like Google Drive or Dropbox)</a><a href="16_search_autocomplete.html">Design Search Autocomplete (Typeahead)</a><a href="17_video_streaming_basics.html">Design Video Streaming Basics (like YouTube or Netflix)</a><a href="18_payment_system_like_stripe.html">Design a Payment System (like Stripe)</a><a href="19_order_management_like_amazon.html">Design an Order Management System (like Amazon: inventory, o</a><a href="20_job_scheduler_and_workflow_engine.html">Design a Job Scheduler and Workflow Engine</a><a href="21_api_gateway_and_auth_system.html">Design an API Gateway and Auth System</a><a href="22_logging_and_metrics_platform.html">Design a Logging and Metrics Platform</a><a href="90_cheat_sheet.html">Cheat Sheet (one page)</a><a href="91_practice_questions.html">Practice Questions (30)</a></details><details><summary>Low-level design</summary><a href="../03-low-level-design/00_how_the_lld_round_works.html">- How the LLD round works</a><a href="../03-low-level-design/01_oop_in_plain_words.html">- OOP in plain words</a><a href="../03-low-level-design/02_solid_principles.html">- SOLID principles</a><a href="../03-low-level-design/03_design_patterns_you_need.html">- The 8 design patterns you need</a><a href="../03-low-level-design/10_parking_lot.html">- Parking Lot</a><a href="../03-low-level-design/11_lru_cache.html">- LRU Cache</a><a href="../03-low-level-design/12_elevator_system.html">- Elevator System</a><a href="../03-low-level-design/13_library_management.html">- Library Management System</a><a href="../03-low-level-design/14_vending_machine.html">- Vending Machine (State pattern)</a><a href="../03-low-level-design/15_atm.html">- ATM</a><a href="../03-low-level-design/16_rate_limiter_class.html">- Rate Limiter (class design: token bucket and sliding windo</a><a href="../03-low-level-design/17_amazon_locker.html">- Amazon Locker</a><a href="../03-low-level-design/18_splitwise_expense_sharing.html">- Splitwise (Expense Sharing)</a><a href="../03-low-level-design/19_logger_and_notification_system.html">- Logger and Notification System (Observer and Strategy)</a><a href="../03-low-level-design/20_tic_tac_toe_or_chess_basics.html">- Tic-Tac-Toe (full) and Chess basics</a><a href="../03-low-level-design/90_cheat_sheet.html">- Cheat sheet (read the night before)</a><a href="../03-low-level-design/91_practice_questions.html">- Practice questions (20)</a></details><details><summary>DevOps and platform basics</summary><a href="../05-devops-platform-basics/01_linux_processes_memory_files.html">Linux: processes, memory, and files</a><a href="../05-devops-platform-basics/02_networking.html">Networking: TCP, DNS, TLS, NAT</a><a href="../05-devops-platform-basics/03_containers_and_docker.html">Containers and Docker</a><a href="../05-devops-platform-basics/04_kubernetes_from_zero.html">Kubernetes from zero</a><a href="../05-devops-platform-basics/05_helm.html">Helm</a><a href="../05-devops-platform-basics/06_terraform.html">Terraform</a><a href="../05-devops-platform-basics/07_ci_cd_github_actions.html">CI/CD with GitHub Actions</a><a href="../05-devops-platform-basics/08_observability_and_sre.html">Observability and SRE</a><a href="../05-devops-platform-basics/09_concurrency_and_distributed_basics.html">Concurrency and distributed basics</a><a href="../05-devops-platform-basics/10_databases_basics.html">Databases basics</a><a href="../05-devops-platform-basics/11_security_basics.html">Security basics (IAM, OAuth2/OIDC/JWT, secrets, supply chain</a><a href="../05-devops-platform-basics/12_gcp_pca_quick_map.html">Google Cloud quick map (for Professional Cloud Architect hol</a><a href="../05-devops-platform-basics/20_interview_questions_with_answers.html">Sixty interview questions with model answers (platform / SRE</a><a href="../05-devops-platform-basics/21_scenario_questions.html">Fifteen &quot;production is down&quot; scenarios, with step-by-step an</a></details><details><summary>Company processes</summary><a href="../06-company-process-and-behavioural/10_google.html">Google</a><a href="../06-company-process-and-behavioural/11_amazon.html">Amazon</a><a href="../06-company-process-and-behavioural/12_stripe.html">Stripe</a><a href="../06-company-process-and-behavioural/13_microsoft_and_azure_roles.html">Microsoft and Azure roles</a><a href="../06-company-process-and-behavioural/14_indian_product_and_gcc_companies.html">Indian product companies and GCCs</a><a href="../06-company-process-and-behavioural/15_european_scaleups.html">European scale-ups and visa basics</a><a href="../06-company-process-and-behavioural/16_ai_startups_like_smallest_ai.html">AI startups like Smallest AI</a><a href="../06-company-process-and-behavioural/24_questions_to_ask_interviewers.html">Questions to ask interviewers</a><a href="../06-company-process-and-behavioural/25_salary_notice_period_and_offer_negotiation_india_and_abroad.html">Salary, notice period and offer negotiation (India and abroa</a><a href="../06-company-process-and-behavioural/26_interview_day_checklists.html">Interview day checklists</a></details></nav><main><h1 id="01b-dns-and-cdn">01b. DNS and CDN</h1>
+
+<hr />
+
+<h2 id="part-a-dns-the-phone-book-of-the-internet">Part A. DNS (the phone book of the internet)</h2>
+
+<p>Computers find each other by numbers (IP addresses). Humans remember names. <strong>DNS</strong> (Domain Name System) turns a name like <code>shop.com</code> into an IP like <code>203.0.113.10</code>.</p>
+
+<p><strong>Analogy:</strong> You want to call "Ravi's Pizza". You look up the name in a phone book and get a number. DNS is that phone book.</p>
+
+<h3 id="how-a-lookup-works">How a lookup works</h3>
+
+<pre><code>Your laptop
+   |  1. "IP of shop.com?"
+   v
+Resolver (your ISP or 8.8.8.8)  -- has a cache? yes -&gt; answer right away
+   |  2. if not cached, ask in order:
+   v
+Root server  -&gt; "ask the .com servers"
+   v
+.com (TLD) server -&gt; "ask shop.com's own name server"
+   v
+Authoritative name server for shop.com -&gt; "203.0.113.10"
+</code></pre>
+
+<p>The answer is <strong>cached</strong> at many levels for a time called <strong>TTL</strong> (time to live). Example: TTL 300 seconds = cache for 5 minutes.</p>
+
+<h3 id="common-record-types">Common record types</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Record</th>
+  <th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>A</td>
+  <td>name -> IPv4 address</td>
+</tr>
+<tr>
+  <td>AAAA</td>
+  <td>name -> IPv6 address</td>
+</tr>
+<tr>
+  <td>CNAME</td>
+  <td>name -> another name (an alias)</td>
+</tr>
+<tr>
+  <td>MX</td>
+  <td>where to deliver email</td>
+</tr>
+<tr>
+  <td>TXT</td>
+  <td>free text (used for verification)</td>
+</tr>
+<tr>
+  <td>NS</td>
+  <td>which servers are authoritative</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="why-dns-matters-in-system-design">Why DNS matters in system design</h3>
+
+<ol>
+<li><strong>Load distribution.</strong> One name can return many IPs (DNS round robin). Simple, but DNS does not know if a server is dead.</li>
+<li><strong>Geo routing.</strong> Return the IP of the nearest data centre. A user in Bengaluru gets the Mumbai server; a user in Paris gets Frankfurt. (This is often called geo-DNS or latency-based routing.)</li>
+<li><strong>Failover.</strong> If region A is down, change the answer to region B. Because of TTL, some users keep the old answer for a while. So: use <strong>short TTL</strong> for things that may fail over (but short TTL means more lookups).</li>
+<li><strong>It is a hidden single point of failure.</strong> Many big outages were DNS problems. Use a reliable provider.</li>
+</ol>
+
+<p><strong>Trade-off to say:</strong> long TTL = faster and cheaper, but slow to change. Short TTL = quick to change, more lookups.</p>
+
+<hr />
+
+<h2 id="part-b-cdn-content-delivery-network">Part B. CDN (Content Delivery Network)</h2>
+
+<p>A <strong>CDN</strong> is a group of servers placed all over the world. They keep <strong>copies</strong> of your files (images, videos, scripts, even some pages). Users get the file from the closest copy.</p>
+
+<p><strong>Analogy:</strong> A book publisher in Delhi. If every reader in the country must order from Delhi, delivery is slow. So the publisher puts copies in a small shop in each city. Readers go to the nearest shop. The shop is the CDN <strong>edge</strong>; Delhi is the <strong>origin</strong>.</p>
+
+<pre><code>                      +--------------------+
+                      |  Origin (your app) |
+                      +---------^----------+
+                                | only on cache MISS
+        +-----------+  +--------+--+  +-----------+
+        | Edge      |  | Edge      |  | Edge      |
+        | Mumbai    |  | Frankfurt |  | Virginia  |
+        +-----^-----+  +-----^-----+  +-----^-----+
+              |              |              |
+         user India     user Europe     user USA
+</code></pre>
+
+<h3 id="cache-hit-and-miss">Cache hit and miss</h3>
+
+<ul>
+<li><strong>Hit</strong>: the edge has the file. Fast (maybe tens of milliseconds).</li>
+<li><strong>Miss</strong>: the edge does not have it. It asks the origin, saves a copy, and returns it. Slower, but only the first time.</li>
+</ul>
+
+<h3 id="two-ways-to-fill-a-cdn">Two ways to fill a CDN</h3>
+
+<ul>
+<li><strong>Pull</strong>: edge fetches from origin on the first request (most common, easy).</li>
+<li><strong>Push</strong>: you upload files to the CDN yourself ahead of time (good for big files you know will be popular, like a new video).</li>
+</ul>
+
+<h3 id="what-to-put-on-a-cdn">What to put on a CDN</h3>
+
+<p>Good: images, videos, CSS, JavaScript, downloadable files, public pages that rarely change.
+Bad: private data, per-user pages, things that change every second.</p>
+
+<h3 id="controlling-freshness">Controlling freshness</h3>
+
+<ul>
+<li><strong>Cache-Control header</strong> tells the CDN how long to keep a file (<code>max-age=3600</code>).</li>
+<li><strong>Versioned file names</strong> (<code>app.v123.js</code>): change the name when the file changes, so no stale copy ever. This is the best trick.</li>
+<li><strong>Purge / invalidate</strong>: tell the CDN to delete a file now. Works but costs time and money.</li>
+</ul>
+
+<h3 id="benefits-say-these-in-the-interview">Benefits (say these in the interview)</h3>
+
+<ol>
+<li><strong>Lower latency</strong> - physical distance matters (light is only so fast).</li>
+<li><strong>Less load on your servers</strong> - the origin sees only misses.</li>
+<li><strong>Absorbs traffic spikes</strong> - and some attacks.</li>
+<li><strong>Cheaper bandwidth</strong> than serving everything from your own data centre.</li>
+</ol>
+
+<h3 id="risks">Risks</h3>
+
+<ul>
+<li>Stale content if freshness is not handled.</li>
+<li>Cost for very large traffic.</li>
+<li>Security: never cache private or user-specific responses by mistake.</li>
+</ul>
+
+<hr />
+
+<h2 id="part-c-where-dns-cdn-sit-in-a-big-design">Part C. Where DNS + CDN sit in a big design</h2>
+
+<pre><code>User -&gt; DNS (pick nearest region/CDN) -&gt; CDN edge -&gt; (miss) -&gt; Load balancer -&gt; App servers -&gt; Cache -&gt; DB
+</code></pre>
+
+<p>In designs like the video streaming system (<code>17</code>) and the file storage system (<code>15</code>), the CDN is a main character. In the URL shortener (<code>10</code>), a CDN can cache hot redirects.</p>
+
+<hr />
+
+<h2 id="quick-check">Quick check</h2>
+
+<ol>
+<li>What does a TTL do? What is the trade-off of a short TTL?</li>
+<li>What is the difference between an origin and an edge?</li>
+<li>Name two things you should not put on a CDN.</li>
+<li>How does versioned file naming solve stale cache?</li>
+</ol>
+<div class="pn"><span><a href="01a_client_server_and_http.html">&larr; 01a. Client, Server and HTTP</a></span><span><a href="01c_load_balancers.html">01c. Load Balancers &rarr;</a></span></div></main></div></body></html>

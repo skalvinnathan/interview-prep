@@ -1,0 +1,711 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Lesson 16: Dynamic Programming, Part 2 (LIS, word break, knapsack, edit distance) | Interview prep</title><style>
+:root{--bg:#fff;--fg:#1f2328;--mut:#59636e;--bd:#d1d9e0;--ac:#0b57d0;--cb:#f6f8fa;--sb:#f6f8fa}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9198a1;--bd:#30363d;--ac:#6cb6ff;--cb:#161b22;--sb:#010409}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{display:flex;min-height:100vh}nav{width:300px;flex:none;background:var(--sb);border-right:1px solid var(--bd);padding:16px;overflow:auto;position:sticky;top:0;height:100vh}
+nav a{color:var(--fg);text-decoration:none;display:block;padding:3px 6px;border-radius:6px;font-size:14px}nav a:hover{background:var(--cb)}nav a.cur{background:var(--ac);color:#fff}
+nav summary{cursor:pointer;font-weight:600;padding:6px 0}nav .home{font-weight:700;font-size:16px;margin-bottom:8px}
+main{flex:1;min-width:0;max-width:900px;padding:24px 32px 80px;margin:0 auto}
+h1,h2,h3{line-height:1.25}h1{border-bottom:1px solid var(--bd);padding-bottom:.3em}h2{border-bottom:1px solid var(--bd);padding-bottom:.25em;margin-top:2em}
+a{color:var(--ac)}pre{background:var(--cb);border:1px solid var(--bd);border-radius:8px;padding:14px;overflow:auto;font-size:13.5px;line-height:1.5}
+code{background:var(--cb);padding:.15em .35em;border-radius:5px;font-size:.92em}pre code{background:none;padding:0}
+table{border-collapse:collapse;display:block;overflow:auto;max-width:100%}th,td{border:1px solid var(--bd);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--cb)}
+blockquote{border-left:4px solid var(--bd);margin:0;padding:0 1em;color:var(--mut)}img{max-width:100%}
+.top{display:none}.pn{display:flex;justify-content:space-between;gap:12px;margin-top:48px;border-top:1px solid var(--bd);padding-top:16px;font-size:14px}
+@media(max-width:820px){.wrap{display:block}nav{width:auto;height:auto;position:static;border-right:0;border-bottom:1px solid var(--bd)}main{padding:16px}}
+</style></head><body><div class="wrap"><nav><a class="home" href="../index.html">Interview prep</a><details open><summary>Data structures and algorithms</summary><a href="00_how_to_start.html">How to start: reading a problem, the 5-step method, and Big-</a><a href="01_arrays_and_strings.html">Lesson 01. Arrays and Strings</a><a href="02_hash_maps_and_sets.html">Lesson 02. Hash Maps and Sets</a><a href="03_two_pointers.html">Lesson 03. Two Pointers</a><a href="04_sliding_window.html">Lesson 04. Sliding Window</a><a href="05_stack_and_queue.html">Lesson 05. Stack and Queue (including the monotonic stack)</a><a href="06_binary_search.html">Lesson 06. Binary Search (including search on the answer)</a><a href="07_linked_lists.html">Lesson 07. Linked Lists</a><a href="08_trees_and_bst.html">Lesson 08. Trees and Binary Search Trees (BST)</a><a href="09_heaps_and_priority_queues.html">Lesson 09: Heaps and Priority Queues</a><a href="10_graphs_bfs_dfs.html">Lesson 10: Graphs, BFS and DFS (including grids)</a><a href="11_topological_sort_and_union_find.html">Lesson 11: Topological Sort and Union-Find</a><a href="12_shortest_paths.html">Lesson 12: Shortest Paths (Dijkstra in plain words)</a><a href="13_intervals.html">Lesson 13: Intervals (merge intervals, meeting rooms)</a><a href="14_backtracking.html">Lesson 14: Backtracking (subsets, permutations, combination </a><a href="15_dynamic_programming_part1.html">Lesson 15: Dynamic Programming, Part 1 (remembering answers)</a><a class="cur" href="16_dynamic_programming_part2.html">Lesson 16: Dynamic Programming, Part 2 (LIS, word break, kna</a><a href="17_tries_and_greedy.html">Lesson 17: Tries and Greedy</a><a href="18_bit_tricks_and_math_basics.html">Lesson 18: Bit Tricks and Math Basics (short)</a><a href="19_company_question_patterns.html">Lesson 19: Company Question Patterns (Google, Amazon, Meta, </a></details><details><summary>System design</summary><a href="../02-system-design/00_how_the_round_works.html">How the System Design Round Works</a><a href="../02-system-design/01a_client_server_and_http.html">Client, Server and HTTP</a><a href="../02-system-design/01b_dns_and_cdn.html">DNS and CDN</a><a href="../02-system-design/01c_load_balancers.html">Load Balancers</a><a href="../02-system-design/01d_databases.html">Databases: SQL vs NoSQL, Indexes, Transactions</a><a href="../02-system-design/01e_caching.html">Caching (and Why Invalidation Is Hard)</a><a href="../02-system-design/01f_sharding_and_replication.html">Sharding and Replication</a><a href="../02-system-design/01g_message_queues_and_streams.html">Message Queues and Streams (Kafka Basics)</a><a href="../02-system-design/01h_consistency_and_cap.html">Consistency and the CAP Idea (in Plain Words)</a><a href="../02-system-design/02_numbers_and_estimation.html">Numbers and Estimation</a><a href="../02-system-design/03_reliability_patterns.html">Reliability Patterns</a><a href="../02-system-design/10_url_shortener.html">Design a URL Shortener</a><a href="../02-system-design/11_rate_limiter.html">Design a Rate Limiter</a><a href="../02-system-design/12_chat_system.html">Design a Chat System (like WhatsApp or Slack)</a><a href="../02-system-design/13_news_feed.html">Design a News Feed (like Instagram, Facebook or Twitter/X ho</a><a href="../02-system-design/14_notification_service.html">Design a Notification Service</a><a href="../02-system-design/15_file_storage_like_drive.html">Design File Storage and Sync (like Google Drive or Dropbox)</a><a href="../02-system-design/16_search_autocomplete.html">Design Search Autocomplete (Typeahead)</a><a href="../02-system-design/17_video_streaming_basics.html">Design Video Streaming Basics (like YouTube or Netflix)</a><a href="../02-system-design/18_payment_system_like_stripe.html">Design a Payment System (like Stripe)</a><a href="../02-system-design/19_order_management_like_amazon.html">Design an Order Management System (like Amazon: inventory, o</a><a href="../02-system-design/20_job_scheduler_and_workflow_engine.html">Design a Job Scheduler and Workflow Engine</a><a href="../02-system-design/21_api_gateway_and_auth_system.html">Design an API Gateway and Auth System</a><a href="../02-system-design/22_logging_and_metrics_platform.html">Design a Logging and Metrics Platform</a><a href="../02-system-design/90_cheat_sheet.html">Cheat Sheet (one page)</a><a href="../02-system-design/91_practice_questions.html">Practice Questions (30)</a></details><details><summary>Low-level design</summary><a href="../03-low-level-design/00_how_the_lld_round_works.html">- How the LLD round works</a><a href="../03-low-level-design/01_oop_in_plain_words.html">- OOP in plain words</a><a href="../03-low-level-design/02_solid_principles.html">- SOLID principles</a><a href="../03-low-level-design/03_design_patterns_you_need.html">- The 8 design patterns you need</a><a href="../03-low-level-design/10_parking_lot.html">- Parking Lot</a><a href="../03-low-level-design/11_lru_cache.html">- LRU Cache</a><a href="../03-low-level-design/12_elevator_system.html">- Elevator System</a><a href="../03-low-level-design/13_library_management.html">- Library Management System</a><a href="../03-low-level-design/14_vending_machine.html">- Vending Machine (State pattern)</a><a href="../03-low-level-design/15_atm.html">- ATM</a><a href="../03-low-level-design/16_rate_limiter_class.html">- Rate Limiter (class design: token bucket and sliding windo</a><a href="../03-low-level-design/17_amazon_locker.html">- Amazon Locker</a><a href="../03-low-level-design/18_splitwise_expense_sharing.html">- Splitwise (Expense Sharing)</a><a href="../03-low-level-design/19_logger_and_notification_system.html">- Logger and Notification System (Observer and Strategy)</a><a href="../03-low-level-design/20_tic_tac_toe_or_chess_basics.html">- Tic-Tac-Toe (full) and Chess basics</a><a href="../03-low-level-design/90_cheat_sheet.html">- Cheat sheet (read the night before)</a><a href="../03-low-level-design/91_practice_questions.html">- Practice questions (20)</a></details><details><summary>DevOps and platform basics</summary><a href="../05-devops-platform-basics/01_linux_processes_memory_files.html">Linux: processes, memory, and files</a><a href="../05-devops-platform-basics/02_networking.html">Networking: TCP, DNS, TLS, NAT</a><a href="../05-devops-platform-basics/03_containers_and_docker.html">Containers and Docker</a><a href="../05-devops-platform-basics/04_kubernetes_from_zero.html">Kubernetes from zero</a><a href="../05-devops-platform-basics/05_helm.html">Helm</a><a href="../05-devops-platform-basics/06_terraform.html">Terraform</a><a href="../05-devops-platform-basics/07_ci_cd_github_actions.html">CI/CD with GitHub Actions</a><a href="../05-devops-platform-basics/08_observability_and_sre.html">Observability and SRE</a><a href="../05-devops-platform-basics/09_concurrency_and_distributed_basics.html">Concurrency and distributed basics</a><a href="../05-devops-platform-basics/10_databases_basics.html">Databases basics</a><a href="../05-devops-platform-basics/11_security_basics.html">Security basics (IAM, OAuth2/OIDC/JWT, secrets, supply chain</a><a href="../05-devops-platform-basics/12_gcp_pca_quick_map.html">Google Cloud quick map (for Professional Cloud Architect hol</a><a href="../05-devops-platform-basics/20_interview_questions_with_answers.html">Sixty interview questions with model answers (platform / SRE</a><a href="../05-devops-platform-basics/21_scenario_questions.html">Fifteen &quot;production is down&quot; scenarios, with step-by-step an</a></details><details><summary>Company processes</summary><a href="../06-company-process-and-behavioural/10_google.html">Google</a><a href="../06-company-process-and-behavioural/11_amazon.html">Amazon</a><a href="../06-company-process-and-behavioural/12_stripe.html">Stripe</a><a href="../06-company-process-and-behavioural/13_microsoft_and_azure_roles.html">Microsoft and Azure roles</a><a href="../06-company-process-and-behavioural/14_indian_product_and_gcc_companies.html">Indian product companies and GCCs</a><a href="../06-company-process-and-behavioural/15_european_scaleups.html">European scale-ups and visa basics</a><a href="../06-company-process-and-behavioural/16_ai_startups_like_smallest_ai.html">AI startups like Smallest AI</a><a href="../06-company-process-and-behavioural/24_questions_to_ask_interviewers.html">Questions to ask interviewers</a><a href="../06-company-process-and-behavioural/25_salary_notice_period_and_offer_negotiation_india_and_abroad.html">Salary, notice period and offer negotiation (India and abroa</a><a href="../06-company-process-and-behavioural/26_interview_day_checklists.html">Interview day checklists</a></details></nav><main><h1 id="lesson-16-dynamic-programming-part-2-lis-word-break-knapsack-edit-distance">Lesson 16: Dynamic Programming, Part 2 (LIS, word break, knapsack, edit distance)</h1>
+
+<p>All code is Python 3.9. Every code block in this file was run with <code>python3</code> (3.9.6) before it was written here.</p>
+
+<p>Read lesson 15 first. We use the same five-question recipe:</p>
+
+<ol>
+<li>What is the state? 2. What does <code>dp[state]</code> mean? 3. What is the recurrence? 4. What are the base cases? 5. In which order do I fill the table, and where is the answer?</li>
+</ol>
+
+<hr />
+
+<h2 id="words-you-need-first">Words you need first</h2>
+
+<ul>
+<li><strong>Subsequence</strong>: pick some letters (or numbers) from a list <strong>keeping their order</strong>, but you may skip some. From <code>a b c d e</code> you can get <code>a c e</code>. You cannot get <code>c a e</code>. (A <em>substring</em> must be a block with no skipping. A <em>subsequence</em> may skip.)</li>
+<li><strong>Knapsack</strong>: you have a bag with a limit (like 7 kg) and items with weight and value. Choose items to get the biggest value without breaking the bag.</li>
+<li><strong>0/1 knapsack</strong>: each item can be taken <strong>0 times or 1 time</strong> (take it or leave it).</li>
+<li><strong>Edit distance</strong>: the smallest number of changes (insert, delete, replace one letter) to turn word A into word B.</li>
+<li><strong>2D table</strong>: a table with rows and columns. Used when the state has two numbers (like "how many letters of word A, how many letters of word B").</li>
+<li><strong>Prefix</strong>: the first few letters. <code>"hor"</code> is a prefix of <code>"horse"</code>.</li>
+</ul>
+
+<hr />
+
+<h2 id="1-what-is-this">1. What is this?</h2>
+
+<p>Part 1 had problems with one number as the state. Here we meet three new shapes:</p>
+
+<p><strong>Shape 1: "the best ending at i" (LIS).</strong> <code>dp[i]</code> is about the best answer that <strong>ends at position i</strong>. To compute it, you look back at <strong>all</strong> earlier positions <code>j &lt; i</code>.</p>
+
+<p><strong>Shape 2: "can I build it?" (word break, subset sum, knapsack).</strong> <code>dp[x]</code> is <code>True</code> or <code>False</code>: "is it possible to reach this amount / this prefix?".</p>
+
+<p><strong>Shape 3: "two sequences, a 2D table" (edit distance, longest common subsequence).</strong> <code>dp[i][j]</code> is the answer for <strong>the first i letters of A and the first j letters of B</strong>.</p>
+
+<p><strong>Analogy for shape 3: comparing two shopping lists.</strong>
+You walk down both lists at the same time. At each pair of items, you ask: "same item? move on both. Different? Then I either skip one from list A, skip one from list B, or swap one." The table remembers the best answer for every pair of positions so you never compare the same parts again.</p>
+
+<hr />
+
+<h2 id="2-when-do-i-use-it">2. When do I use it?</h2>
+
+<table>
+<thead>
+<tr>
+  <th>Words in the problem</th>
+  <th>Idea</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>"<strong>longest increasing subsequence</strong>", "longest chain"</td>
+  <td>Shape 1 (LIS)</td>
+</tr>
+<tr>
+  <td>"can the string be <strong>split into dictionary words</strong>"</td>
+  <td>Shape 2 (word break)</td>
+</tr>
+<tr>
+  <td>"<strong>subset</strong> with a given sum", "split into two equal halves", "pick items under a limit"</td>
+  <td>Shape 2 / knapsack</td>
+</tr>
+<tr>
+  <td>"<strong>minimum number of operations</strong> to turn string A into B"</td>
+  <td>Shape 3 (edit distance)</td>
+</tr>
+<tr>
+  <td>"<strong>longest common subsequence</strong> of two strings"</td>
+  <td>Shape 3</td>
+</tr>
+<tr>
+  <td>"each item <strong>once</strong>" (take or leave)</td>
+  <td>0/1 knapsack</td>
+</tr>
+<tr>
+  <td>"unlimited copies of each item"</td>
+  <td>Unbounded knapsack (like Coin Change, lesson 15)</td>
+</tr>
+</tbody>
+</table>
+
+<hr />
+
+<h2 id="3-trace-of-a-tiny-example-longest-increasing-subsequence">3. Trace of a tiny example: Longest Increasing Subsequence</h2>
+
+<p><strong>Problem</strong>: Given a list of numbers, find the length of the longest subsequence where numbers go strictly up. Take <code>[10, 9, 2, 5, 3, 7, 101, 18]</code>.</p>
+
+<p><strong>Thinking.</strong> <code>dp[i]</code> = length of the longest increasing subsequence that <strong>ends with <code>nums[i]</code></strong>.
+For each <code>i</code>, look at every earlier <code>j</code>. If <code>nums[j] &lt; nums[i]</code>, we can put <code>nums[i]</code> after the sequence that ends at <code>j</code>. So <code>dp[i] = 1 + max(dp[j])</code> over all such <code>j</code>. If no <code>j</code> works, <code>dp[i] = 1</code> (just itself).</p>
+
+<pre><code>index:   0    1    2    3    4    5    6     7
+nums:    10   9    2    5    3    7    101   18
+dp:      ?    ?    ?    ?    ?    ?    ?     ?
+
+i=0 (10): no earlier numbers                                   dp[0] = 1
+i=1 (9):  earlier 10 is not &lt; 9                                dp[1] = 1
+i=2 (2):  earlier 10, 9 are not &lt; 2                            dp[2] = 1
+i=3 (5):  earlier smaller: 2 (dp=1)          -&gt; 1 + 1          dp[3] = 2
+i=4 (3):  earlier smaller: 2 (dp=1)          -&gt; 1 + 1          dp[4] = 2
+i=5 (7):  earlier smaller: 2 (1), 5 (2), 3 (2) -&gt; 1 + 2        dp[5] = 3
+i=6 (101): earlier smaller: all of them; best dp is 3 (from 7) -&gt; 1 + 3   dp[6] = 4
+i=7 (18): earlier smaller: 10(1) 9(1) 2(1) 5(2) 3(2) 7(3); not 101 -&gt; 1 + 3   dp[7] = 4
+
+index:   0    1    2    3    4    5    6     7
+nums:    10   9    2    5    3    7    101   18
+dp:      1    1    1    2    2    3    4     4
+
+answer = max(dp) = 4      (for example 2, 5, 7, 101 or 2, 3, 7, 18)
+</code></pre>
+
+<p>Note: the answer is <code>max(dp)</code>, not <code>dp[-1]</code>, because the best sequence does not have to end at the last number.</p>
+
+<hr />
+
+<h2 id="4-template-code">4. Template code</h2>
+
+<h3 id="4a-01-knapsack-take-it-or-leave-it">4a. 0/1 Knapsack (take it or leave it)</h3>
+
+<p>State: <code>dp[w]</code> = the best value we can get with a bag limit of exactly <code>w</code> (or less). For each item, we decide to take it or not. We loop <code>w</code> <strong>from high to low</strong> so each item is used at most once.</p>
+
+<pre><code>def knapsack(weights, values, capacity):      # best total value within the weight limit
+    dp = [0] * (capacity + 1)                 # dp[w] = best value with weight limit w; all zero at first
+    for i in range(len(weights)):             # consider the items one by one
+        wt, val = weights[i], values[i]       # this item's weight and value
+        for w in range(capacity, wt - 1, -1): # go from the biggest limit DOWN to wt (down, so we use the item once)
+            dp[w] = max(dp[w], dp[w - wt] + val)   # leave it (dp[w]) or take it (value + best of the remaining room)
+    return dp[capacity]                       # best value for the full limit
+
+
+print(knapsack([1, 3, 4, 5], [1, 4, 5, 7], 7))   # expect 9 (items with weight 3 and 4)
+assert knapsack([1, 3, 4, 5], [1, 4, 5, 7], 7) == 9   # take weights 3 and 4: value 4 + 5
+assert knapsack([5], [10], 3) == 0            # edge case: the only item does not fit
+assert knapsack([], [], 10) == 0              # edge case: no items
+</code></pre>
+
+<p><strong>Trace</strong> (weights <code>[1,3,4,5]</code>, values <code>[1,4,5,7]</code>, capacity 7). The row shows <code>dp[0..7]</code> after each item:</p>
+
+<pre><code>w:            0  1  2  3  4  5  6  7
+start:        0  0  0  0  0  0  0  0
+item (w1,v1): 0  1  1  1  1  1  1  1     (with 1 item, we can take it whenever w &gt;= 1)
+item (w3,v4): 0  1  1  4  5  5  5  5     (w=3: take it -&gt; 4.  w=4: 4+dp[1]=5 ...)
+item (w4,v5): 0  1  1  4  5  6  6  9     (w=7: take it -&gt; 5 + dp[3] = 5 + 4 = 9)
+item (w5,v7): 0  1  1  4  5  7  8  9     (w=5: 7.  w=6: 7 + dp[1] = 8.  w=7: 7 + dp[2] = 8, not better than 9)
+answer dp[7] = 9
+</code></pre>
+
+<h3 id="4b-2d-table-for-two-strings-the-skeleton">4b. 2D table for two strings (the skeleton)</h3>
+
+<pre><code>def two_string_table(a, b):                   # skeleton: dp[i][j] for the first i letters of a and first j of b
+    m, n = len(a), len(b)                     # lengths of the two strings
+    dp = [[0] * (n + 1) for _ in range(m + 1)]    # (m+1) rows, (n+1) columns; row 0 and column 0 mean "empty string"
+    for i in range(1, m + 1):                 # go through the letters of a
+        for j in range(1, n + 1):             # go through the letters of b
+            if a[i - 1] == b[j - 1]:          # the two current letters are equal (index i-1 because the table has an extra row)
+                dp[i][j] = dp[i - 1][j - 1] + 1    # they match: extend the answer from the diagonal
+            else:                             # the letters differ
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])   # take the better of "skip a's letter" or "skip b's letter"
+    return dp[m][n]                           # the answer uses all letters of both strings
+
+
+print(two_string_table("abcde", "ace"))       # this skeleton is the longest common subsequence; expect 3
+assert two_string_table("abcde", "ace") == 3  # "ace"
+</code></pre>
+
+<hr />
+
+<h2 id="5-classic-problems">5. Classic problems</h2>
+
+<h3 id="51-longest-increasing-subsequence-leetcode-300">5.1 Longest Increasing Subsequence (LeetCode 300)</h3>
+
+<p><strong>In plain words.</strong> Find the length of the longest strictly increasing subsequence of a list. <code>[10,9,2,5,3,7,101,18]</code> gives 4.</p>
+
+<p><strong>Brute force.</strong> Try every subsequence (<code>2^n</code> of them) and check if it is increasing. Too slow.</p>
+
+<p><strong>Better idea, slowly.</strong> The table in section 3. Cost O(n^2). Then there is an even faster idea (O(n log n)):</p>
+
+<p><strong>The "tails" idea (O(n log n)).</strong> Keep a list <code>tails</code> where <code>tails[k]</code> is the <strong>smallest possible last number of an increasing subsequence of length <code>k+1</code></strong>. For each number <code>x</code>:</p>
+
+<ul>
+<li>If <code>x</code> is bigger than all tails, it extends the longest one: append it.</li>
+<li>Otherwise, find the first tail that is <code>&gt;= x</code> (binary search with <code>bisect_left</code>) and replace it with <code>x</code>. This makes a length-<code>k+1</code> sequence end with a smaller number, which is better for the future.
+The length of <code>tails</code> is the answer. (Note: <code>tails</code> itself is not always a real subsequence, only its length is right.)</li>
+</ul>
+
+<pre><code>from bisect import bisect_left                # binary search helper
+from typing import List                       # type hints
+
+
+def length_of_lis_n2(nums: List[int]) -&gt; int:   # the simple O(n^2) table version
+    if not nums:                              # empty list
+        return 0                              # no sequence
+    dp = [1] * len(nums)                      # dp[i] = longest sequence ending at i; at least 1 (itself)
+    for i in range(len(nums)):                # for each position i
+        for j in range(i):                    # look at every earlier position j
+            if nums[j] &lt; nums[i]:             # nums[i] can come after nums[j]
+                dp[i] = max(dp[i], dp[j] + 1) # extend the sequence that ends at j
+    return max(dp)                            # the best sequence can end anywhere
+
+
+def length_of_lis(nums: List[int]) -&gt; int:    # the O(n log n) "tails" version
+    tails: List[int] = []                     # tails[k] = smallest last number of an increasing sequence of length k+1
+    for x in nums:                            # go through the numbers
+        pos = bisect_left(tails, x)           # first place where tails[pos] &gt;= x
+        if pos == len(tails):                 # x is bigger than every tail
+            tails.append(x)                   # we found a longer sequence
+        else:                                 # x can improve an existing length
+            tails[pos] = x                    # replace with the smaller ending number
+    return len(tails)                         # the number of lengths we reached
+
+
+data = [10, 9, 2, 5, 3, 7, 101, 18]           # the example
+print(length_of_lis_n2(data), length_of_lis(data))   # expect 4 4
+assert length_of_lis_n2(data) == 4 and length_of_lis(data) == 4   # example 1
+assert length_of_lis([0, 1, 0, 3, 2, 3]) == 4      # example 2
+assert length_of_lis([7, 7, 7, 7, 7]) == 1         # example 3: strictly increasing, equal numbers do not count
+assert length_of_lis([]) == 0                      # edge case: empty
+assert length_of_lis([5]) == 1                     # edge case: one number
+assert length_of_lis([5, 4, 3, 2, 1]) == 1         # edge case: strictly decreasing
+assert length_of_lis_n2([0, 1, 0, 3, 2, 3]) == 4   # the O(n^2) version agrees
+</code></pre>
+
+<p><strong>Trace</strong> of the <code>tails</code> version on <code>[10, 9, 2, 5, 3, 7, 101, 18]</code>:</p>
+
+<pre><code>x=10:  tails=[]          10 is bigger than all -&gt; append          tails=[10]
+x=9:   first tail &gt;= 9 is 10 (position 0) -&gt; replace              tails=[9]
+x=2:   first tail &gt;= 2 is 9 (position 0)  -&gt; replace              tails=[2]
+x=5:   5 is bigger than all -&gt; append                              tails=[2, 5]
+x=3:   first tail &gt;= 3 is 5 (position 1)  -&gt; replace              tails=[2, 3]
+x=7:   bigger than all -&gt; append                                   tails=[2, 3, 7]
+x=101: bigger than all -&gt; append                                   tails=[2, 3, 7, 101]
+x=18:  first tail &gt;= 18 is 101 (position 3) -&gt; replace            tails=[2, 3, 7, 18]
+answer = len(tails) = 4
+</code></pre>
+
+<p>The O(n^2) trace is in section 3.</p>
+
+<p><strong>Complexity.</strong> The table version: time O(n^2), space O(n). The tails version: time O(n log n) (n numbers, each a binary search), space O(n).</p>
+
+<p><strong>Edge cases.</strong></p>
+
+<ol>
+<li>Equal numbers do not count (strictly increasing). <code>bisect_left</code> handles this: an equal number replaces instead of extending.</li>
+<li>A strictly decreasing list gives 1.</li>
+</ol>
+
+<p><strong>How interviewers twist it.</strong></p>
+
+<ul>
+<li>"Return the actual subsequence": in the O(n^2) version, store <code>prev[i]</code> (the <code>j</code> that gave the best), then walk back from the best <code>i</code>.</li>
+<li>"Count how many LIS exist" (LeetCode 673): keep a second array of counts.</li>
+<li>"Russian Doll Envelopes" (LeetCode 354): sort by width (and height descending for equal widths), then LIS on heights.</li>
+</ul>
+
+<hr />
+
+<h3 id="52-word-break-leetcode-139">5.2 Word Break (LeetCode 139)</h3>
+
+<p><strong>In plain words.</strong> Given a string <code>s</code> and a dictionary of words, can <code>s</code> be split into one or more dictionary words (words may be reused)? <code>s = "leetcode"</code>, dictionary <code>["leet","code"]</code> gives <code>True</code>.</p>
+
+<p><strong>Brute force.</strong> Recursion: try every first word, then solve the rest. The same suffixes are solved again and again: exponential.</p>
+
+<p><strong>Better idea, slowly.</strong></p>
+
+<ol>
+<li>State: <code>dp[i]</code> = <code>True</code> if the <strong>first <code>i</code> letters</strong> (<code>s[:i]</code>) can be split into dictionary words.</li>
+<li>Base: <code>dp[0] = True</code> (the empty string needs no words).</li>
+<li>For each <code>i</code> from 1 to <code>len(s)</code>: look for a split point <code>j &lt; i</code> such that <code>dp[j]</code> is <code>True</code> (the first <code>j</code> letters work) <strong>and</strong> <code>s[j:i]</code> is in the dictionary. If we find one, <code>dp[i] = True</code>.</li>
+<li>Answer: <code>dp[len(s)]</code>.</li>
+</ol>
+
+<p>Using a <code>set</code> for the dictionary makes each word lookup fast.</p>
+
+<pre><code>from typing import List                       # type hints
+
+
+def word_break(s: str, word_dict: List[str]) -&gt; bool:   # can s be split into dictionary words?
+    words = set(word_dict)                    # a set for fast "is it a word?" checks
+    dp = [False] * (len(s) + 1)               # dp[i] = can s[:i] be split? all False at first
+    dp[0] = True                              # base: the empty prefix is fine
+    for i in range(1, len(s) + 1):            # for each prefix length i
+        for j in range(i):                    # try each split point j
+            if dp[j] and s[j:i] in words:     # the first j letters work AND the piece s[j:i] is a word
+                dp[i] = True                  # then the first i letters work
+                break                         # one valid split is enough, stop searching
+    return dp[len(s)]                         # can the whole string be split?
+
+
+print(word_break("leetcode", ["leet", "code"]))   # expect True
+assert word_break("leetcode", ["leet", "code"]) is True        # example 1
+assert word_break("applepenapple", ["apple", "pen"]) is True   # example 2: words reused
+assert word_break("catsandog", ["cats", "dog", "sand", "and", "cat"]) is False   # example 3
+assert word_break("", ["a"]) is True          # edge case: empty string
+assert word_break("a", []) is False           # edge case: empty dictionary
+assert word_break("aaaaaaa", ["aaaa", "aaa"]) is True   # edge case: 4 + 3
+</code></pre>
+
+<p><strong>Trace</strong> on <code>s = "leetcode"</code>, dictionary <code>{leet, code}</code>. Index <code>i</code> means "first i letters". <code>T</code> for True, <code>F</code> for False.</p>
+
+<pre><code>index i:   0   1   2   3   4   5   6   7   8
+prefix:    ""  l   le  lee leet leetc leetco leetcod leetcode
+Step A: base
+dp:        T   F   F   F   F   F   F   F   F
+
+i=1..3: any j with dp[j]=True? only j=0.  s[0:1]="l", s[0:2]="le", s[0:3]="lee": none are words.   dp stays F
+i=4:    j=0: dp[0]=T and s[0:4]="leet" is a word -&gt; dp[4] = T
+dp:        T   F   F   F   T   F   F   F   F
+i=5..7: dp[0]=T with s[0:5]="leetc", "leetco", "leetcod": not words.
+        dp[4]=T with s[4:5]="c", s[4:6]="co", s[4:7]="cod": not words.   dp stays F
+i=8:    j=0: s[0:8]="leetcode" is not a word.
+        j=4: dp[4]=T and s[4:8]="code" is a word -&gt; dp[8] = T
+dp:        T   F   F   F   T   F   F   F   T      &lt;- answer dp[8] = True
+</code></pre>
+
+<p><strong>Complexity.</strong> Time O(n^2) checks of a piece, and each slice or lookup costs up to O(n), so O(n^3) in the worst case if you count the slicing. (You can reduce it by only trying <code>j</code> where <code>i - j</code> is at most the longest word length.) Space O(n) for <code>dp</code> plus the set.</p>
+
+<p><strong>Edge cases.</strong></p>
+
+<ol>
+<li>Empty string: <code>True</code> (by the base case).</li>
+<li>Words that overlap in a tricky way (<code>"aaaaaaa"</code> with <code>["aaaa","aaa"]</code>): DP tries all splits, so it finds <code>4 + 3</code>.</li>
+</ol>
+
+<p><strong>How interviewers twist it.</strong></p>
+
+<ul>
+<li>"Return <strong>all</strong> the possible sentences" (Word Break II, LeetCode 140): backtracking with a memo, or build the sentences from DP.</li>
+<li>"Use a <strong>trie</strong> for the dictionary" (lesson 17): quick prefix checks.</li>
+<li>"Minimum number of words" or "number of ways": change <code>dp</code> from <code>True/False</code> to a count or a minimum.</li>
+</ul>
+
+<hr />
+
+<h3 id="53-partition-equal-subset-sum-leetcode-416-the-knapsack-idea">5.3 Partition Equal Subset Sum (LeetCode 416, the knapsack idea)</h3>
+
+<p><strong>In plain words.</strong> Given positive numbers, can you split them into two groups with <strong>equal sum</strong>? <code>[1,5,11,5]</code> gives <code>True</code> (<code>11</code> and <code>1+5+5</code>).</p>
+
+<p><strong>Brute force.</strong> Try every subset (<code>2^n</code>), and check whether one sums to half the total.</p>
+
+<p><strong>Better idea, slowly.</strong></p>
+
+<ol>
+<li>If the total is odd, return <code>False</code> at once. You cannot split an odd number into two equal integers.</li>
+<li>Now the question is: <strong>can some subset add up to <code>total / 2</code>?</strong> This is the 0/1 knapsack idea: each number is taken once or not at all.</li>
+<li>State: <code>dp[s]</code> = <code>True</code> if some subset of the numbers seen so far sums to exactly <code>s</code>.</li>
+<li>Base: <code>dp[0] = True</code> (the empty subset sums to 0).</li>
+<li>For each number <code>x</code>, go <strong>backwards</strong> from <code>target</code> down to <code>x</code>: <code>dp[s] = dp[s] or dp[s - x]</code>. Going backwards makes sure we use each number only once.</li>
+</ol>
+
+<pre><code>from typing import List                       # type hints
+
+
+def can_partition(nums: List[int]) -&gt; bool:   # can we split into two equal-sum groups?
+    total = sum(nums)                         # total of all numbers
+    if total % 2 == 1:                        # odd total: impossible
+        return False                          # cannot split evenly
+    target = total // 2                       # each group must sum to this
+    dp = [False] * (target + 1)               # dp[s] = is sum s reachable by some subset?
+    dp[0] = True                              # the empty subset gives sum 0
+    for x in nums:                            # take the numbers one by one
+        for s in range(target, x - 1, -1):    # go from target DOWN to x (so each number is used once)
+            if dp[s - x]:                     # if sum (s - x) was reachable before ...
+                dp[s] = True                  # ... then sum s is reachable by adding x
+    return dp[target]                         # can we reach exactly half?
+
+
+print(can_partition([1, 5, 11, 5]))           # expect True
+assert can_partition([1, 5, 11, 5]) is True   # example 1
+assert can_partition([1, 2, 3, 5]) is False   # example 2: total 11 is odd
+assert can_partition([1, 2, 5]) is False      # edge case: total 8, but nothing sums to 4
+assert can_partition([2, 2]) is True          # edge case: two equal numbers
+assert can_partition([100]) is False          # edge case: one number cannot be split
+</code></pre>
+
+<p><strong>Trace</strong> on <code>[1, 5, 11, 5]</code>. Total = 22, target = 11. The row shows which sums <code>0..11</code> are reachable (<code>T</code>) after each number.</p>
+
+<pre><code>sum s:        0  1  2  3  4  5  6  7  8  9  10 11
+start:        T  F  F  F  F  F  F  F  F  F  F  F
+after 1:      T  T  F  F  F  F  F  F  F  F  F  F     (sum 1 = 0 + 1)
+after 5:      T  T  F  F  F  T  T  F  F  F  F  F     (sum 5 = 0 + 5, sum 6 = 1 + 5)
+after 11:     T  T  F  F  F  T  T  F  F  F  F  T     (sum 11 = 0 + 11)  &lt;- the target is reachable
+after 5:      T  T  F  F  F  T  T  F  F  F  T  T     (sum 10 = 5 + 5, sum 11 stays T; 11 = 1 + 5 + 5 as well)
+answer dp[11] = True
+</code></pre>
+
+<p><strong>Complexity.</strong> Time O(n x target): for each number we loop over the sums. Space O(target) for the one-dimensional table.</p>
+
+<p><strong>Edge cases.</strong></p>
+
+<ol>
+<li>Odd total: return <code>False</code> before doing any work.</li>
+<li>A single number cannot be split (the other group would be empty with sum 0, unequal for a positive number).</li>
+</ol>
+
+<p><strong>How interviewers twist it.</strong></p>
+
+<ul>
+<li>"Target Sum" (LeetCode 494): put <code>+</code> or <code>-</code> in front of each number to reach a target. Reduce it to "count subsets with a given sum".</li>
+<li>"Last Stone Weight II" (LeetCode 1049): the same subset-sum idea to minimise the difference.</li>
+<li>"Print the subset": keep a 2D table and walk back.</li>
+</ul>
+
+<hr />
+
+<h3 id="54-edit-distance-leetcode-72">5.4 Edit Distance (LeetCode 72)</h3>
+
+<p><strong>In plain words.</strong> Turn word <code>a</code> into word <code>b</code> using the fewest operations. One operation is: insert a letter, delete a letter, or replace a letter. <code>"horse"</code> to <code>"ros"</code> needs 3.</p>
+
+<p><strong>Brute force.</strong> Try every sequence of operations. Exponential.</p>
+
+<p><strong>Better idea, slowly.</strong></p>
+
+<ol>
+<li>State: <code>dp[i][j]</code> = the fewest operations to turn the <strong>first <code>i</code> letters of <code>a</code></strong> into the <strong>first <code>j</code> letters of <code>b</code></strong>.</li>
+<li>Base cases: turning <code>a[:i]</code> into the empty string needs <code>i</code> deletes: <code>dp[i][0] = i</code>. Turning an empty string into <code>b[:j]</code> needs <code>j</code> inserts: <code>dp[0][j] = j</code>.</li>
+<li>Look at the last letters <code>a[i-1]</code> and <code>b[j-1]</code>:
+<ul>
+<li>If they are <strong>equal</strong>: no work needed for them: <code>dp[i][j] = dp[i-1][j-1]</code>.</li>
+<li>If they <strong>differ</strong>: choose the cheapest of three, and add 1:
+<ul>
+<li><strong>replace</strong> <code>a[i-1]</code> by <code>b[j-1]</code>: <code>dp[i-1][j-1]</code></li>
+<li><strong>delete</strong> <code>a[i-1]</code>: <code>dp[i-1][j]</code></li>
+<li><strong>insert</strong> <code>b[j-1]</code> at the end of <code>a</code>: <code>dp[i][j-1]</code></li>
+</ul></li>
+</ul></li>
+<li>Answer: <code>dp[len(a)][len(b)]</code>.</li>
+</ol>
+
+<pre><code>def min_distance(a: str, b: str) -&gt; int:      # the edit distance between a and b
+    m, n = len(a), len(b)                     # lengths
+    dp = [[0] * (n + 1) for _ in range(m + 1)]    # dp[i][j]: first i letters of a to first j letters of b
+    for i in range(m + 1):                    # first column: turn a[:i] into ""
+        dp[i][0] = i                          # needs i deletes
+    for j in range(n + 1):                    # first row: turn "" into b[:j]
+        dp[0][j] = j                          # needs j inserts
+    for i in range(1, m + 1):                 # fill row by row
+        for j in range(1, n + 1):             # and column by column
+            if a[i - 1] == b[j - 1]:          # last letters are equal
+                dp[i][j] = dp[i - 1][j - 1]   # no operation needed for them
+            else:                             # last letters differ
+                dp[i][j] = 1 + min(dp[i - 1][j - 1],   # replace
+                                   dp[i - 1][j],       # delete from a
+                                   dp[i][j - 1])       # insert into a
+    return dp[m][n]                           # the answer is the bottom-right cell
+
+
+print(min_distance("horse", "ros"))           # expect 3
+assert min_distance("horse", "ros") == 3      # example 1
+assert min_distance("intention", "execution") == 5   # example 2
+assert min_distance("", "abc") == 3           # edge case: three inserts
+assert min_distance("abc", "") == 3           # edge case: three deletes
+assert min_distance("same", "same") == 0      # edge case: equal words
+assert min_distance("a", "b") == 1            # edge case: one replace
+</code></pre>
+
+<p><strong>Trace</strong> on <code>a = "horse"</code>, <code>b = "ros"</code>. Rows are letters of <code>horse</code>, columns are letters of <code>ros</code>.</p>
+
+<pre><code>Step A: base cases (first row and first column)
+        ""   r   o   s
+""      0    1   2   3
+h       1
+o       2
+r       3
+s       4
+e       5
+
+Step B: row "h"
+   (h,r): h != r. replace dp[0][0]=0, delete dp[0][1]=1, insert dp[1][0]=1. min=0, +1 = 1
+   (h,o): h != o. replace dp[0][1]=1, delete dp[0][2]=2, insert dp[1][1]=1. min=1, +1 = 2
+   (h,s): h != s. replace dp[0][2]=2, delete dp[0][3]=3, insert dp[1][2]=2. min=2, +1 = 3
+        ""   r   o   s
+h       1    1   2   3
+
+Step C: row "o"
+   (o,r): o != r. replace dp[1][0]=1, delete dp[1][1]=1, insert dp[2][0]=2. min=1, +1 = 2
+   (o,o): equal! take the diagonal dp[1][1] = 1
+   (o,s): o != s. replace dp[1][2]=2, delete dp[1][3]=3, insert dp[2][2]=1. min=1, +1 = 2
+o       2    2   1   2
+
+Step D: row "r"
+   (r,r): equal! diagonal dp[2][0] = 2
+   (r,o): r != o. replace dp[2][1]=2, delete dp[2][2]=1, insert dp[3][1]=2. min=1, +1 = 2
+   (r,s): r != s. replace dp[2][2]=1, delete dp[2][3]=2, insert dp[3][2]=2. min=1, +1 = 2
+r       3    2   2   2
+
+Step E: row "s"
+   (s,r): s != r. replace dp[3][0]=3, delete dp[3][1]=2, insert dp[4][0]=4. min=2, +1 = 3
+   (s,o): s != o. replace dp[3][1]=2, delete dp[3][2]=2, insert dp[4][1]=3. min=2, +1 = 3
+   (s,s): equal! diagonal dp[3][2] = 2
+s       4    3   3   2
+
+Step F: row "e"
+   (e,r): e != r. replace dp[4][0]=4, delete dp[4][1]=3, insert dp[5][0]=5. min=3, +1 = 4
+   (e,o): e != o. replace dp[4][1]=3, delete dp[4][2]=3, insert dp[5][1]=4. min=3, +1 = 4
+   (e,s): e != s. replace dp[4][2]=3, delete dp[4][3]=2, insert dp[5][2]=4. min=2, +1 = 3
+e       5    4   4   3
+
+final table:
+        ""   r   o   s
+""      0    1   2   3
+h       1    1   2   3
+o       2    2   1   2
+r       3    2   2   2
+s       4    3   3   2
+e       5    4   4   3      &lt;- answer dp[5][3] = 3
+</code></pre>
+
+<p>One way to do it with 3 operations: <code>horse</code> -> <code>rorse</code> (replace h with r) -> <code>rose</code> (delete r) -> <code>ros</code> (delete e).</p>
+
+<p><strong>Complexity.</strong> Time O(m x n): each cell is filled in O(1). Space O(m x n); it can be O(n) by keeping only two rows.</p>
+
+<p><strong>Edge cases.</strong></p>
+
+<ol>
+<li>One word is empty: the answer is the length of the other word.</li>
+<li>Equal words: 0.</li>
+</ol>
+
+<p><strong>How interviewers twist it.</strong></p>
+
+<ul>
+<li>"Print the sequence of operations": walk back from the bottom-right, choosing the cell that gave each value.</li>
+<li>"Only insert and delete" (Delete Operation for Two Strings, LeetCode 583): answer is <code>m + n - 2 x LCS</code>.</li>
+<li>"One Edit Distance" (LeetCode 161): only checks if the distance is exactly 1, which is simpler, O(n), no table.</li>
+</ul>
+
+<hr />
+
+<h3 id="55-longest-common-subsequence-leetcode-1143">5.5 Longest Common Subsequence (LeetCode 1143)</h3>
+
+<p><strong>In plain words.</strong> Given two strings, find the length of their longest common subsequence. <code>"abcde"</code> and <code>"ace"</code> gives 3 (<code>"ace"</code>).</p>
+
+<p><strong>Brute force.</strong> Generate all subsequences of one string (<code>2^n</code>) and check each against the other.</p>
+
+<p><strong>Better idea, slowly.</strong></p>
+
+<ol>
+<li>State: <code>dp[i][j]</code> = LCS length of the <strong>first <code>i</code> letters of <code>a</code></strong> and the <strong>first <code>j</code> letters of <code>b</code></strong>.</li>
+<li>Base: if either string is empty, the LCS is 0. So row 0 and column 0 are all 0 (that is what an all-zero table gives us).</li>
+<li>If the last letters are <strong>equal</strong>, they are part of the common subsequence: <code>dp[i][j] = dp[i-1][j-1] + 1</code>.</li>
+<li>If they <strong>differ</strong>, the answer is the better of dropping one letter from either side: <code>dp[i][j] = max(dp[i-1][j], dp[i][j-1])</code>.</li>
+<li>Answer: <code>dp[len(a)][len(b)]</code>.</li>
+</ol>
+
+<pre><code>def longest_common_subsequence(a: str, b: str) -&gt; int:   # LCS length
+    m, n = len(a), len(b)                     # lengths of the two strings
+    dp = [[0] * (n + 1) for _ in range(m + 1)]    # zeros: an empty string has LCS 0 with anything
+    for i in range(1, m + 1):                 # letters of a
+        for j in range(1, n + 1):             # letters of b
+            if a[i - 1] == b[j - 1]:          # the last letters match
+                dp[i][j] = dp[i - 1][j - 1] + 1    # extend the LCS found without these two letters
+            else:                             # they do not match
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])   # drop a letter from a, or from b
+    return dp[m][n]                           # the answer
+
+
+print(longest_common_subsequence("abcde", "ace"))   # expect 3
+assert longest_common_subsequence("abcde", "ace") == 3     # example 1
+assert longest_common_subsequence("abc", "abc") == 3       # example 2
+assert longest_common_subsequence("abc", "def") == 0       # example 3: nothing in common
+assert longest_common_subsequence("", "abc") == 0          # edge case: empty string
+assert longest_common_subsequence("bl", "yby") == 1        # edge case: only one shared letter
+</code></pre>
+
+<p><strong>Trace</strong> on <code>a = "abcde"</code>, <code>b = "ace"</code>:</p>
+
+<pre><code>        ""   a   c   e
+""      0    0   0   0
+a       0    1   1   1     (a,a) equal -&gt; diagonal 0 + 1 = 1.  Then (a,c), (a,e): max(up, left) = 1
+b       0    1   1   1     b matches none: max(up, left)
+c       0    1   2   2     (c,c) equal -&gt; diagonal dp[2][1]=1, +1 = 2
+d       0    1   2   2     d matches none
+e       0    1   2   3     (e,e) equal -&gt; diagonal dp[4][2]=2, +1 = 3
+answer dp[5][3] = 3
+</code></pre>
+
+<p><strong>Complexity.</strong> Time O(m x n). Space O(m x n), or O(n) with two rows.</p>
+
+<p><strong>Edge cases.</strong></p>
+
+<ol>
+<li>No common letters: 0.</li>
+<li>Identical strings: the full length.</li>
+</ol>
+
+<p><strong>How interviewers twist it.</strong></p>
+
+<ul>
+<li>"Return the actual subsequence": walk back from the bottom-right. If letters are equal, take the letter and go diagonally. Else move to the larger neighbour (up or left).</li>
+<li>"Longest Palindromic Subsequence" (LeetCode 516): LCS of a string and its reverse.</li>
+<li>"Shortest Common Supersequence": length = <code>m + n - LCS</code>.</li>
+</ul>
+
+<hr />
+
+<h2 id="6-common-mistakes">6. Common mistakes</h2>
+
+<ol>
+<li><strong>Knapsack loop in the wrong direction.</strong> For 0/1 (each item once), loop the capacity <strong>downward</strong>. Upward lets one item be used many times (that is the unbounded knapsack, like Coin Change).</li>
+<li><strong>LIS: returning <code>dp[-1]</code></strong> instead of <code>max(dp)</code>.</li>
+<li><strong>LIS: using <code>bisect_right</code></strong> (this allows equal numbers, which makes a non-strict sequence).</li>
+<li><strong>String tables: mixing <code>a[i]</code> with <code>a[i-1]</code>.</strong> The table has an extra row and column, so row <code>i</code> means "first <code>i</code> letters", and the last of them is <code>a[i-1]</code>.</li>
+<li><strong>Forgetting base cases</strong> for edit distance (first row and column are <code>0..n</code> and <code>0..m</code>, not all zeros).</li>
+<li><strong>Word Break: not using a set</strong> for the dictionary, or not stopping at the first success (<code>break</code>).</li>
+<li><strong>Partition: forgetting the odd-total check.</strong></li>
+<li><strong>Subsequence vs substring confusion.</strong> Subsequence may skip letters.</li>
+</ol>
+
+<hr />
+
+<h2 id="7-practice-list-8-more-problems">7. Practice list (8 more problems)</h2>
+
+<p>Tags come from public LeetCode company-tag lists I read (GitHub mirror, snapshot Oct 2025; see lesson 19). A tag means "the problem is in that company's list". No tag means not verified. The problems taught above are tagged too: Longest Increasing Subsequence, Word Break, Partition Equal Subset Sum and Edit Distance are each in the lists of Amazon, Google, Meta and Microsoft. Longest Common Subsequence is in the lists of Amazon and Google.</p>
+
+<table>
+<thead>
+<tr>
+  <th>#</th>
+  <th>Problem</th>
+  <th>Difficulty</th>
+  <th>Tagged for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1</td>
+  <td>Maximum Subarray (53)</td>
+  <td>Medium</td>
+  <td>Amazon, Google, Microsoft</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>Longest Palindromic Substring (5)</td>
+  <td>Medium</td>
+  <td>Amazon, Google, Microsoft</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td>Palindromic Substrings (647)</td>
+  <td>Medium</td>
+  <td>not verified</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td>Longest Palindromic Subsequence (516)</td>
+  <td>Medium</td>
+  <td>not verified</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td>Target Sum (494)</td>
+  <td>Medium</td>
+  <td>not verified</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td>Word Break II (140)</td>
+  <td>Hard</td>
+  <td>not verified</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td>Distinct Subsequences (115)</td>
+  <td>Hard</td>
+  <td>not verified</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td>Regular Expression Matching (10)</td>
+  <td>Hard</td>
+  <td>not verified</td>
+</tr>
+</tbody>
+</table>
+
+<hr />
+
+<h2 id="8-self-quiz-5-questions">8. Self-quiz (5 questions)</h2>
+
+<ol>
+<li>In LIS, what does <code>dp[i]</code> mean, and why is the answer <code>max(dp)</code>?</li>
+<li>In Word Break, what two things must be true for <code>dp[i]</code> to become <code>True</code>?</li>
+<li>In 0/1 knapsack, why do we loop the capacity from high to low?</li>
+<li>In Edit Distance, which three cells do we look at when the letters differ, and what does each mean?</li>
+<li>What is the difference between a subsequence and a substring?</li>
+</ol>
+
+<p><strong>Answers.</strong></p>
+
+<ol>
+<li><code>dp[i]</code> is the length of the longest increasing subsequence that ends exactly at position <code>i</code>. The best sequence can end at any position, so we take the maximum over all <code>i</code>.</li>
+<li><code>dp[j]</code> is <code>True</code> for some earlier <code>j</code> (the first <code>j</code> letters can be split), and the piece <code>s[j:i]</code> is a dictionary word.</li>
+<li>Going from high to low means <code>dp[s - x]</code> still holds the value from <strong>before</strong> we used the current item. So the item is used at most once. Going upward would reuse the item.</li>
+<li>Diagonal <code>dp[i-1][j-1]</code> = replace a letter. Up <code>dp[i-1][j]</code> = delete a letter from <code>a</code>. Left <code>dp[i][j-1]</code> = insert a letter into <code>a</code>. Take the smallest and add 1.</li>
+<li>A substring is a continuous block of letters. A subsequence keeps the order but may skip letters.</li>
+</ol>
+<div class="pn"><span><a href="15_dynamic_programming_part1.html">&larr; Lesson 15: Dynamic Programming, Part 1 (</a></span><span><a href="17_tries_and_greedy.html">Lesson 17: Tries and Greedy &rarr;</a></span></div></main></div></body></html>

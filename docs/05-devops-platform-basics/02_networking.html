@@ -1,0 +1,421 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>02. Networking: TCP, DNS, TLS, NAT | Interview prep</title><style>
+:root{--bg:#fff;--fg:#1f2328;--mut:#59636e;--bd:#d1d9e0;--ac:#0b57d0;--cb:#f6f8fa;--sb:#f6f8fa}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9198a1;--bd:#30363d;--ac:#6cb6ff;--cb:#161b22;--sb:#010409}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{display:flex;min-height:100vh}nav{width:300px;flex:none;background:var(--sb);border-right:1px solid var(--bd);padding:16px;overflow:auto;position:sticky;top:0;height:100vh}
+nav a{color:var(--fg);text-decoration:none;display:block;padding:3px 6px;border-radius:6px;font-size:14px}nav a:hover{background:var(--cb)}nav a.cur{background:var(--ac);color:#fff}
+nav summary{cursor:pointer;font-weight:600;padding:6px 0}nav .home{font-weight:700;font-size:16px;margin-bottom:8px}
+main{flex:1;min-width:0;max-width:900px;padding:24px 32px 80px;margin:0 auto}
+h1,h2,h3{line-height:1.25}h1{border-bottom:1px solid var(--bd);padding-bottom:.3em}h2{border-bottom:1px solid var(--bd);padding-bottom:.25em;margin-top:2em}
+a{color:var(--ac)}pre{background:var(--cb);border:1px solid var(--bd);border-radius:8px;padding:14px;overflow:auto;font-size:13.5px;line-height:1.5}
+code{background:var(--cb);padding:.15em .35em;border-radius:5px;font-size:.92em}pre code{background:none;padding:0}
+table{border-collapse:collapse;display:block;overflow:auto;max-width:100%}th,td{border:1px solid var(--bd);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--cb)}
+blockquote{border-left:4px solid var(--bd);margin:0;padding:0 1em;color:var(--mut)}img{max-width:100%}
+.top{display:none}.pn{display:flex;justify-content:space-between;gap:12px;margin-top:48px;border-top:1px solid var(--bd);padding-top:16px;font-size:14px}
+@media(max-width:820px){.wrap{display:block}nav{width:auto;height:auto;position:static;border-right:0;border-bottom:1px solid var(--bd)}main{padding:16px}}
+</style></head><body><div class="wrap"><nav><a class="home" href="../index.html">Interview prep</a><details><summary>Data structures and algorithms</summary><a href="../01-dsa/00_how_to_start.html">How to start: reading a problem, the 5-step method, and Big-</a><a href="../01-dsa/01_arrays_and_strings.html">Lesson 01. Arrays and Strings</a><a href="../01-dsa/02_hash_maps_and_sets.html">Lesson 02. Hash Maps and Sets</a><a href="../01-dsa/03_two_pointers.html">Lesson 03. Two Pointers</a><a href="../01-dsa/04_sliding_window.html">Lesson 04. Sliding Window</a><a href="../01-dsa/05_stack_and_queue.html">Lesson 05. Stack and Queue (including the monotonic stack)</a><a href="../01-dsa/06_binary_search.html">Lesson 06. Binary Search (including search on the answer)</a><a href="../01-dsa/07_linked_lists.html">Lesson 07. Linked Lists</a><a href="../01-dsa/08_trees_and_bst.html">Lesson 08. Trees and Binary Search Trees (BST)</a><a href="../01-dsa/09_heaps_and_priority_queues.html">Lesson 09: Heaps and Priority Queues</a><a href="../01-dsa/10_graphs_bfs_dfs.html">Lesson 10: Graphs, BFS and DFS (including grids)</a><a href="../01-dsa/11_topological_sort_and_union_find.html">Lesson 11: Topological Sort and Union-Find</a><a href="../01-dsa/12_shortest_paths.html">Lesson 12: Shortest Paths (Dijkstra in plain words)</a><a href="../01-dsa/13_intervals.html">Lesson 13: Intervals (merge intervals, meeting rooms)</a><a href="../01-dsa/14_backtracking.html">Lesson 14: Backtracking (subsets, permutations, combination </a><a href="../01-dsa/15_dynamic_programming_part1.html">Lesson 15: Dynamic Programming, Part 1 (remembering answers)</a><a href="../01-dsa/16_dynamic_programming_part2.html">Lesson 16: Dynamic Programming, Part 2 (LIS, word break, kna</a><a href="../01-dsa/17_tries_and_greedy.html">Lesson 17: Tries and Greedy</a><a href="../01-dsa/18_bit_tricks_and_math_basics.html">Lesson 18: Bit Tricks and Math Basics (short)</a><a href="../01-dsa/19_company_question_patterns.html">Lesson 19: Company Question Patterns (Google, Amazon, Meta, </a></details><details><summary>System design</summary><a href="../02-system-design/00_how_the_round_works.html">How the System Design Round Works</a><a href="../02-system-design/01a_client_server_and_http.html">Client, Server and HTTP</a><a href="../02-system-design/01b_dns_and_cdn.html">DNS and CDN</a><a href="../02-system-design/01c_load_balancers.html">Load Balancers</a><a href="../02-system-design/01d_databases.html">Databases: SQL vs NoSQL, Indexes, Transactions</a><a href="../02-system-design/01e_caching.html">Caching (and Why Invalidation Is Hard)</a><a href="../02-system-design/01f_sharding_and_replication.html">Sharding and Replication</a><a href="../02-system-design/01g_message_queues_and_streams.html">Message Queues and Streams (Kafka Basics)</a><a href="../02-system-design/01h_consistency_and_cap.html">Consistency and the CAP Idea (in Plain Words)</a><a href="../02-system-design/02_numbers_and_estimation.html">Numbers and Estimation</a><a href="../02-system-design/03_reliability_patterns.html">Reliability Patterns</a><a href="../02-system-design/10_url_shortener.html">Design a URL Shortener</a><a href="../02-system-design/11_rate_limiter.html">Design a Rate Limiter</a><a href="../02-system-design/12_chat_system.html">Design a Chat System (like WhatsApp or Slack)</a><a href="../02-system-design/13_news_feed.html">Design a News Feed (like Instagram, Facebook or Twitter/X ho</a><a href="../02-system-design/14_notification_service.html">Design a Notification Service</a><a href="../02-system-design/15_file_storage_like_drive.html">Design File Storage and Sync (like Google Drive or Dropbox)</a><a href="../02-system-design/16_search_autocomplete.html">Design Search Autocomplete (Typeahead)</a><a href="../02-system-design/17_video_streaming_basics.html">Design Video Streaming Basics (like YouTube or Netflix)</a><a href="../02-system-design/18_payment_system_like_stripe.html">Design a Payment System (like Stripe)</a><a href="../02-system-design/19_order_management_like_amazon.html">Design an Order Management System (like Amazon: inventory, o</a><a href="../02-system-design/20_job_scheduler_and_workflow_engine.html">Design a Job Scheduler and Workflow Engine</a><a href="../02-system-design/21_api_gateway_and_auth_system.html">Design an API Gateway and Auth System</a><a href="../02-system-design/22_logging_and_metrics_platform.html">Design a Logging and Metrics Platform</a><a href="../02-system-design/90_cheat_sheet.html">Cheat Sheet (one page)</a><a href="../02-system-design/91_practice_questions.html">Practice Questions (30)</a></details><details><summary>Low-level design</summary><a href="../03-low-level-design/00_how_the_lld_round_works.html">- How the LLD round works</a><a href="../03-low-level-design/01_oop_in_plain_words.html">- OOP in plain words</a><a href="../03-low-level-design/02_solid_principles.html">- SOLID principles</a><a href="../03-low-level-design/03_design_patterns_you_need.html">- The 8 design patterns you need</a><a href="../03-low-level-design/10_parking_lot.html">- Parking Lot</a><a href="../03-low-level-design/11_lru_cache.html">- LRU Cache</a><a href="../03-low-level-design/12_elevator_system.html">- Elevator System</a><a href="../03-low-level-design/13_library_management.html">- Library Management System</a><a href="../03-low-level-design/14_vending_machine.html">- Vending Machine (State pattern)</a><a href="../03-low-level-design/15_atm.html">- ATM</a><a href="../03-low-level-design/16_rate_limiter_class.html">- Rate Limiter (class design: token bucket and sliding windo</a><a href="../03-low-level-design/17_amazon_locker.html">- Amazon Locker</a><a href="../03-low-level-design/18_splitwise_expense_sharing.html">- Splitwise (Expense Sharing)</a><a href="../03-low-level-design/19_logger_and_notification_system.html">- Logger and Notification System (Observer and Strategy)</a><a href="../03-low-level-design/20_tic_tac_toe_or_chess_basics.html">- Tic-Tac-Toe (full) and Chess basics</a><a href="../03-low-level-design/90_cheat_sheet.html">- Cheat sheet (read the night before)</a><a href="../03-low-level-design/91_practice_questions.html">- Practice questions (20)</a></details><details open><summary>DevOps and platform basics</summary><a href="01_linux_processes_memory_files.html">Linux: processes, memory, and files</a><a class="cur" href="02_networking.html">Networking: TCP, DNS, TLS, NAT</a><a href="03_containers_and_docker.html">Containers and Docker</a><a href="04_kubernetes_from_zero.html">Kubernetes from zero</a><a href="05_helm.html">Helm</a><a href="06_terraform.html">Terraform</a><a href="07_ci_cd_github_actions.html">CI/CD with GitHub Actions</a><a href="08_observability_and_sre.html">Observability and SRE</a><a href="09_concurrency_and_distributed_basics.html">Concurrency and distributed basics</a><a href="10_databases_basics.html">Databases basics</a><a href="11_security_basics.html">Security basics (IAM, OAuth2/OIDC/JWT, secrets, supply chain</a><a href="12_gcp_pca_quick_map.html">Google Cloud quick map (for Professional Cloud Architect hol</a><a href="20_interview_questions_with_answers.html">Sixty interview questions with model answers (platform / SRE</a><a href="21_scenario_questions.html">Fifteen &quot;production is down&quot; scenarios, with step-by-step an</a></details><details><summary>Company processes</summary><a href="../06-company-process-and-behavioural/10_google.html">Google</a><a href="../06-company-process-and-behavioural/11_amazon.html">Amazon</a><a href="../06-company-process-and-behavioural/12_stripe.html">Stripe</a><a href="../06-company-process-and-behavioural/13_microsoft_and_azure_roles.html">Microsoft and Azure roles</a><a href="../06-company-process-and-behavioural/14_indian_product_and_gcc_companies.html">Indian product companies and GCCs</a><a href="../06-company-process-and-behavioural/15_european_scaleups.html">European scale-ups and visa basics</a><a href="../06-company-process-and-behavioural/16_ai_startups_like_smallest_ai.html">AI startups like Smallest AI</a><a href="../06-company-process-and-behavioural/24_questions_to_ask_interviewers.html">Questions to ask interviewers</a><a href="../06-company-process-and-behavioural/25_salary_notice_period_and_offer_negotiation_india_and_abroad.html">Salary, notice period and offer negotiation (India and abroa</a><a href="../06-company-process-and-behavioural/26_interview_day_checklists.html">Interview day checklists</a></details></nav><main><h1 id="02-networking-tcp-dns-tls-nat">02. Networking: TCP, DNS, TLS, NAT</h1>
+
+<p>Legend: <code>[REAL]</code> = I ran it on this Mac (macOS 26) on 2026-11-15. <code>[SAMPLE]</code> = typical output written to show the shape, numbers made up, not run here.
+Mac vs Linux: <code>ss</code> and <code>ip</code> are Linux tools. On this Mac I used <code>netstat</code> and <code>lsof</code>, which show the same facts.</p>
+
+<hr />
+
+<h2 id="1-what-it-is-plain-words-analogy">1. What it is (plain words + analogy)</h2>
+
+<p>Networking is how two programs on different machines talk. Think of the <strong>post office</strong> and the <strong>phone</strong>:</p>
+
+<ul>
+<li><strong>IP address</strong> = the street address of a machine (<code>93.184.x.x</code>).</li>
+<li><strong>Port</strong> = the apartment number inside the building (443 = web over TLS, 22 = SSH, 53 = DNS).</li>
+<li><strong>TCP</strong> = a <strong>phone call</strong>. You dial, the other side picks up, you both confirm, then you talk. Nothing is lost; if a word is missed it is repeated, and words arrive in order.</li>
+<li><strong>UDP</strong> = <strong>postcards</strong>. You send them and hope. No call setup, no resend, no order. Very fast and light.</li>
+<li><strong>DNS</strong> = the <strong>phone book</strong>: it turns <code>example.com</code> into an IP address.</li>
+<li><strong>TLS</strong> = a <strong>sealed, signed envelope</strong>: nobody on the road can read or change the letter, and you know who signed it.</li>
+<li><strong>NAT</strong> = the <strong>office reception desk</strong>: many people inside share one public phone number; reception remembers who called out so replies go to the right desk.</li>
+</ul>
+
+<h2 id="2-why-it-matters-in-interviews">2. Why it matters in interviews</h2>
+
+<p>"A request is slow / fails / times out. Where do you look?" is the classic platform and SRE question. You must know the steps a request goes through (DNS, TCP connect, TLS, send, wait, read) and which tool shows each step. Typical follow-ups: what is TIME_WAIT, why do we see many CLOSE_WAIT, what is the difference between connect timeout and read timeout, what does a load balancer idle timeout do. 2026 prep guides also list networking and DNS inside Kubernetes (services, CoreDNS, NetworkPolicy) as scenario topics.</p>
+
+<h2 id="3-how-it-works-step-by-step">3. How it works, step by step</h2>
+
+<h3 id="31-what-happens-when-you-run-curl-httpsexamplecom">3.1 What happens when you run <code>curl https://example.com</code></h3>
+
+<pre><code> 1. DNS lookup        name -&gt; IP                         (UDP port 53 usually)
+ 2. TCP handshake     SYN -&gt; SYN/ACK -&gt; ACK              (1 round trip)
+ 3. TLS handshake     hellos, certificate check, keys    (1 round trip for TLS 1.3)
+ 4. HTTP request      GET / ...
+ 5. wait              server thinks                      (time to first byte)
+ 6. HTTP response     headers + body
+ 7. close             FIN / ACK ...
+</code></pre>
+
+<p><code>[REAL]</code> <code>curl</code> can print the time of each step. The numbers are <strong>cumulative</strong> (each one includes the earlier steps):</p>
+
+<pre><code>$ curl -s -o /dev/null -w "dns=%{time_namelookup} connect=%{time_connect} tls=%{time_appconnect} ttfb=%{time_starttransfer} total=%{time_total}\n" https://example.com
+dns=0.061493 connect=0.067212 tls=0.080103 ttfb=0.091943 total=0.092069
+</code></pre>
+
+<p>Read it like this:</p>
+
+<ul>
+<li>DNS took about 61 ms.</li>
+<li>TCP connect finished at 67 ms, so the handshake itself cost about 6 ms (a short trip here, because the server is close).</li>
+<li>TLS finished at 80 ms, so TLS cost about 13 ms.</li>
+<li>First byte at 92 ms, so the server waited about 12 ms.</li>
+</ul>
+
+<p>If <code>dns</code> is big, suspect DNS. If <code>connect - dns</code> is big, suspect the network path or a full server queue. If <code>tls - connect</code> is big, suspect certificates or slow crypto. If <code>ttfb - tls</code> is big, the application is slow.</p>
+
+<h3 id="32-the-tcp-handshake-rfc-9293">3.2 The TCP handshake (RFC 9293)</h3>
+
+<p>TCP sets up a connection with a <strong>three-way handshake</strong>:</p>
+
+<pre><code> Client                         Server
+   |  ---- SYN (seq=100) ----&gt;    |   "I want to talk. My counter starts at 100."
+   |  &lt;--- SYN+ACK (seq=300, ack=101) --- |   "OK. Mine starts at 300. I got your 100."
+   |  ---- ACK (ack=301) ----&gt;    |   "Got it. Go."
+   |         ESTABLISHED          |
+</code></pre>
+
+<p>(The numbers are the RFC's own example: A sends SYN 100, B answers with SYN 300 and ACK 101.)</p>
+
+<p>SYN = "synchronize", ACK = "acknowledge". The cost is one <strong>round trip time (RTT)</strong> before you can send data. That is why connection reuse (keep-alive, connection pools, HTTP/2) matters.</p>
+
+<h3 id="33-tcp-states">3.3 TCP states</h3>
+
+<p>The RFC lists these states. The ones you must know:</p>
+
+<table>
+<thead>
+<tr>
+  <th>State</th>
+  <th>Meaning (simple)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>LISTEN</td>
+  <td>server waiting for new connections</td>
+</tr>
+<tr>
+  <td>SYN-SENT</td>
+  <td>client sent SYN, waiting for answer</td>
+</tr>
+<tr>
+  <td>SYN-RECEIVED</td>
+  <td>server got SYN, sent SYN+ACK, waiting for the final ACK</td>
+</tr>
+<tr>
+  <td>ESTABLISHED</td>
+  <td>connection open, data flows</td>
+</tr>
+<tr>
+  <td>FIN-WAIT-1 / FIN-WAIT-2</td>
+  <td>I started closing, waiting for the other side</td>
+</tr>
+<tr>
+  <td>CLOSE-WAIT</td>
+  <td>the other side closed; <strong>my application has not closed yet</strong></td>
+</tr>
+<tr>
+  <td>LAST-ACK</td>
+  <td>I closed after the other side; waiting for the last ACK</td>
+</tr>
+<tr>
+  <td>TIME-WAIT</td>
+  <td>I closed first; waiting a while before the connection can be fully forgotten</td>
+</tr>
+</tbody>
+</table>
+
+<p>Closing uses FIN packets:</p>
+
+<pre><code> Active closer (client)                 Passive closer (server)
+   | ---- FIN ----&gt;                          |  client: FIN-WAIT-1
+   | &lt;--- ACK -----                          |  client: FIN-WAIT-2   server: CLOSE-WAIT
+   |        (server app still has to call close())
+   | &lt;--- FIN -----                          |  server: LAST-ACK
+   | ---- ACK ----&gt;                          |  server: CLOSED
+   |  client: TIME-WAIT (waits 2 x MSL)      |
+</code></pre>
+
+<p><strong>TIME_WAIT</strong>: the side that closes first stays in TIME-WAIT. The RFC says it "MUST linger in the TIME-WAIT state for a time 2xMSL" (MSL = Maximum Segment Lifetime; the RFC takes MSL as 2 minutes). Two reasons: (1) make sure the other side got the last ACK; (2) stop late packets from an old connection being mixed into a new one on the same address/port pair. TIME_WAIT is <strong>normal</strong>. Many TIME_WAIT sockets on a busy client or proxy only matter when you run out of free local ports (about 28,000 by default on Linux, <code>net.ipv4.ip_local_port_range</code>; check yours). Linux's timeout is commonly said to be 60 seconds, not 4 minutes (not verified here).</p>
+
+<p><strong>CLOSE_WAIT</strong> is different and is a <strong>bug signal</strong>: the other side closed, but your program never called <code>close()</code>. A growing pile of CLOSE_WAIT = a socket leak in the application.</p>
+
+<p><code>[REAL]</code> I started a listener on localhost port 9099, connected, closed. The states, in order:</p>
+
+<pre><code>tcp4  0  0  127.0.0.1.9099      *.*               LISTEN
+tcp4  0  0  127.0.0.1.9099      127.0.0.1.50107   ESTABLISHED     &lt;-- server side of connection
+tcp4  0  0  127.0.0.1.50107     127.0.0.1.9099    ESTABLISHED     &lt;-- client side (random port 50107)
+... a few seconds later, after the client closed:
+tcp4  0  0  127.0.0.1.50107     127.0.0.1.9099    TIME_WAIT       &lt;-- the closer waits
+</code></pre>
+
+<h3 id="34-timeouts-three-different-ones">3.4 Timeouts (three different ones)</h3>
+
+<ol>
+<li><strong>Connect timeout</strong>: how long to wait for the handshake. If the target drops packets silently (firewall), you wait the full timeout. If nothing listens, you get an instant "connection refused" (a RST packet).</li>
+<li><strong>Read (response) timeout</strong>: how long to wait for data after you sent the request.</li>
+<li><strong>Idle timeout</strong> in middleboxes (load balancers, NAT, proxies): a quiet connection is cut after N seconds. The next write fails with "connection reset". Fix with keep-alive pings shorter than the idle timeout, or reconnect on error.</li>
+</ol>
+
+<p>Rule from the AWS Builders' Library: set a timeout on every remote call, "based on downstream latency percentiles" (their idea: look at the p99.9 of the dependency, then add margin). Too high wastes resources; too low causes extra retries.</p>
+
+<p><code>[REAL]</code> three failure shapes and their curl exit codes:</p>
+
+<pre><code>$ curl -sS -m 3 http://127.0.0.1:1
+curl: (7) Failed to connect to 127.0.0.1 port 1 after 0 ms: Couldn't connect to server     &lt;-- refused, instant
+$ curl -sS -m 2 http://10.255.255.1
+curl: (28) Connection timed out after 2002 milliseconds                                    &lt;-- silent drop, waits full timeout
+$ curl -sS https://nonexistent-zzz-12345.invalid
+curl: (6) Could not resolve host: nonexistent-zzz-12345.invalid                            &lt;-- DNS failure
+</code></pre>
+
+<p>Memory trick: 6 = DNS, 7 = connect refused, 28 = timeout.</p>
+
+<h3 id="35-dns-lookup-and-caching">3.5 DNS lookup and caching</h3>
+
+<p>DNS is a tree. Your computer asks a <strong>recursive resolver</strong> (your router, your company DNS, or 8.8.8.8). The resolver does the work:</p>
+
+<pre><code> you ──&gt; resolver ──&gt; root server  ("who knows .com?")      -&gt; list of .com servers
+                  ──&gt; .com TLD server ("who knows example.com?") -&gt; its name servers
+                  ──&gt; example.com's authoritative name server ("what is the A record?") -&gt; 104.20.23.154
+ resolver caches the answer for TTL seconds, then answers you
+</code></pre>
+
+<ul>
+<li><strong>Record types</strong>: <code>A</code> (name -> IPv4), <code>AAAA</code> (IPv6), <code>CNAME</code> (alias to another name), <code>NS</code> (which servers are in charge), <code>MX</code> (mail), <code>TXT</code> (text, used for verification).</li>
+<li><strong>TTL</strong> (time to live): how many seconds a cache may keep the answer. After that it must ask again.</li>
+<li><strong>Caching happens at many layers</strong>: browser, OS, your app/library, the resolver. This is why "I changed the DNS record but some users still see the old IP" happens: wait for the TTL.</li>
+<li>A <strong>short TTL</strong> gives fast changes but more DNS load. A <strong>long TTL</strong> is cheaper but slow to change. Lower the TTL <em>before</em> a planned migration.</li>
+<li>Failure answers: <code>NXDOMAIN</code> (name does not exist), <code>SERVFAIL</code> (the resolver could not get an answer).</li>
+<li>In Kubernetes, pods use <strong>CoreDNS</strong> inside the cluster. A service name like <code>web.default.svc.cluster.local</code> resolves to the Service's cluster IP. Slow or failing DNS inside a cluster is a very common cause of "random timeouts" (a favorite scenario).</li>
+</ul>
+
+<p><code>[REAL]</code> the TTL counting down (it is a cache, so the number drops each second):</p>
+
+<pre><code>$ dig +noall +answer example.com
+example.com.   217   IN   A   172.66.147.243      &lt;-- first call: TTL 217 seconds left
+example.com.   217   IN   A   104.20.23.154
+(some seconds later)
+example.com.   191   IN   A   172.66.147.243      &lt;-- same cache entry, TTL smaller
+</code></pre>
+
+<p><code>[REAL]</code> the delegation chain (who is in charge at each level):</p>
+
+<pre><code>$ dig +short NS com. | head -3
+k.gtld-servers.net.
+h.gtld-servers.net.
+d.gtld-servers.net.
+$ dig +short NS example.com | head -3
+hera.ns.cloudflare.com.
+elliott.ns.cloudflare.com.
+</code></pre>
+
+<p><code>[REAL]</code> the <code>dig</code> stats line: <code>;; Query time: 59 msec</code> and <code>;; SERVER: ...#53(...)</code> tell you which resolver answered and how fast.</p>
+
+<h3 id="36-tls-handshake-cost">3.6 TLS handshake cost</h3>
+
+<p>TLS gives three things: <strong>authentication</strong> (the server proves who it is with a certificate), <strong>key exchange</strong> (both sides create a shared secret), and <strong>protection</strong> of data. RFC 8446 says the server is always authenticated and the client is optional.</p>
+
+<ul>
+<li>TLS 1.3 needs <strong>one round trip</strong> for a full handshake (the RFC calls it the "1-RTT handshake"). TLS 1.2 needed two.</li>
+<li>With a saved session key, TLS 1.3 can do <strong>0-RTT</strong>: the client sends data in the first flight. Warning from the RFC: "There are no guarantees of non-replay between connections", so 0-RTT is only safe for requests that can be repeated safely (idempotent, see file 09).</li>
+<li>Cost = network round trips + some CPU for crypto + certificate checks. The fix for repeated cost is <strong>connection reuse</strong> and <strong>session resumption</strong>.</li>
+<li>HTTP/2 lets many requests share one TLS connection.</li>
+</ul>
+
+<p><code>[REAL]</code> <code>openssl</code> shows what was negotiated:</p>
+
+<pre><code>$ openssl s_client -connect example.com:443 -tls1_3 -brief &lt;/dev/null
+CONNECTION ESTABLISHED
+Protocol version: TLSv1.3
+Ciphersuite: TLS_AES_256_GCM_SHA384
+Peer certificate: CN=example.com
+Signature type: ecdsa_secp256r1_sha256
+Verification: OK
+</code></pre>
+
+<p><code>[REAL]</code> <code>curl -v</code> says <code>* ALPN: server accepted h2</code> and <code>&lt; HTTP/2 200</code> (it spoke HTTP/2 over TLS 1.3).</p>
+
+<p>Common TLS failures: expired certificate, wrong host name (the name in the cert does not match), missing intermediate certificate, clock wrong on the client, client does not trust the CA.</p>
+
+<h3 id="37-nat">3.7 NAT</h3>
+
+<p><strong>NAT</strong> (network address translation): many private machines (10.x, 192.168.x, pod IPs) share one or a few public IPs. The NAT device <strong>rewrites</strong> the source address and port of outgoing packets and keeps a table to rewrite replies back.</p>
+
+<pre><code> pod 10.0.1.5:40001 ──&gt; [NAT]  src becomes 52.1.2.3:61001 ──&gt; internet server
+ pod 10.0.1.5:40001 &lt;── [NAT]  dst 52.1.2.3:61001 -&gt; back to 10.0.1.5:40001
+                          table: (10.0.1.5:40001) &lt;-&gt; (52.1.2.3:61001)
+</code></pre>
+
+<p>Facts that come up:</p>
+
+<ul>
+<li>The table entry has a timeout. Idle connections lose their entry; the next packet gets a reset.</li>
+<li>Each outgoing connection to the same destination needs its own public source port. With few public IPs you can run out of ports (<strong>SNAT port exhaustion</strong>): symptom is random connect timeouts under high traffic to the same destination. Fix: more IPs on the NAT, connection reuse, fewer short-lived connections. (This is well known on cloud NAT gateways and AKS; I did not verify the exact limits, so check your cloud's doc.)</li>
+<li>Inbound needs port forwarding or a load balancer. That is why servers behind NAT are not reachable from the internet by default.</li>
+</ul>
+
+<h3 id="38-udp-vs-tcp">3.8 UDP vs TCP</h3>
+
+<table>
+<thead>
+<tr>
+  <th></th>
+  <th>TCP</th>
+  <th>UDP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Setup</td>
+  <td>handshake</td>
+  <td>none</td>
+</tr>
+<tr>
+  <td>Reliable and in order</td>
+  <td>yes</td>
+  <td>no</td>
+</tr>
+<tr>
+  <td>Speed / overhead</td>
+  <td>more</td>
+  <td>less</td>
+</tr>
+<tr>
+  <td>Use</td>
+  <td>web, SSH, databases</td>
+  <td>DNS queries, video calls, games, QUIC (HTTP/3 runs over UDP)</td>
+</tr>
+</tbody>
+</table>
+
+<p>DNS uses UDP first and falls back to TCP when the answer is too big.</p>
+
+<h2 id="4-commands-to-try">4. Commands to try</h2>
+
+<pre><code># names
+dig example.com                 # full answer with stats
+dig +short example.com          # only the IPs
+dig @8.8.8.8 example.com        # ask a specific resolver
+dig +trace example.com          # walk root -&gt; TLD -&gt; authoritative
+dig +noall +answer example.com  # only the answer lines (shows TTL)
+nslookup example.com            # older tool, works everywhere
+
+# connect and time
+curl -v https://example.com                   # shows each step
+curl -sS -o /dev/null -w "%{http_code} %{time_total}s\n" https://example.com
+curl --connect-timeout 3 -m 10 https://example.com   # connect timeout 3s, total 10s
+nc -zv host 443                 # "can I open a TCP connection to port 443?"
+openssl s_client -connect host:443 -servername host   # inspect the certificate
+
+# sockets on this machine (Linux)
+ss -tan                         # all TCP sockets with state
+ss -tanp state established      # with process (needs privileges for others' processes)
+ss -ltnp                        # listening sockets + process
+ss -s                           # summary counts (look at timewait)
+ip addr   ip route   ip neigh   # addresses, routes, ARP table
+
+# sockets on Mac
+netstat -an -p tcp | grep -E "LISTEN|TIME_WAIT"
+lsof -nP -iTCP -sTCP:LISTEN
+
+# packets (needs root; do not run on production without a filter)
+sudo tcpdump -i any -nn port 53                 # DNS only
+sudo tcpdump -i any -nn host 10.0.0.5 and port 443 -c 20
+sudo tcpdump -i any -nn 'tcp[tcpflags] &amp; (tcp-syn) != 0'   # only SYN packets
+</code></pre>
+
+<p><code>[SAMPLE]</code> <code>ss -s</code> on Linux:</p>
+
+<pre><code>Total: 812
+TCP:   640 (estab 410, closed 180, orphaned 2, timewait 175)
+</code></pre>
+
+<p><code>[SAMPLE]</code> <code>tcpdump</code> DNS lookup (Linux, the format is <code>time IP src &gt; dst: id type? name</code>):</p>
+
+<pre><code>21:50:01.123456 IP 10.0.0.5.53211 &gt; 10.0.0.2.53: 4821+ A? example.com. (29)
+21:50:01.140100 IP 10.0.0.2.53 &gt; 10.0.0.5.53211: 4821 2/0/0 A 104.20.23.154, A 172.66.147.243 (61)
+</code></pre>
+
+<p><code>[SAMPLE]</code> SYN with no answer (what a silent firewall drop looks like; you see SYN again and again, never SYN-ACK):</p>
+
+<pre><code>IP 10.0.0.5.40422 &gt; 10.9.9.9.443: Flags [S], seq 1, win 64240, length 0
+IP 10.0.0.5.40422 &gt; 10.9.9.9.443: Flags [S], seq 1, win 64240, length 0   (retransmit after ~1 s)
+</code></pre>
+
+<p>(Flags: <code>[S]</code> SYN, <code>[S.]</code> SYN-ACK, <code>[.]</code> ACK, <code>[F.]</code> FIN, <code>[R]</code> RST.) I did not run tcpdump here because it needs root.</p>
+
+<h2 id="5-common-mistakes">5. Common mistakes</h2>
+
+<ol>
+<li>Blaming "the network" before checking DNS. Always time the steps (<code>curl -w</code>).</li>
+<li>Panicking at many TIME_WAIT sockets. They are normal; only port exhaustion hurts.</li>
+<li>Ignoring CLOSE_WAIT. That one is an application bug.</li>
+<li>Same timeout everywhere, or no timeout at all (default "wait forever" in many libraries).</li>
+<li>Retrying without backoff and jitter (see file 09). It turns a small outage into a big one.</li>
+<li>Forgetting DNS caching when changing records or moving to a new IP.</li>
+<li>Opening a new TCP+TLS connection for every request instead of reusing connections.</li>
+<li>Assuming <code>ping</code> works means the service works. Ping uses ICMP, not your port. Use <code>nc -zv</code> or <code>curl</code>.</li>
+</ol>
+
+<h2 id="6-eight-interview-questions-with-answers">6. Eight interview questions with answers</h2>
+
+<p><strong>Q1. Explain the TCP three-way handshake. Why three steps?</strong>
+Client sends SYN with its starting sequence number. Server replies SYN+ACK with its own number and acknowledges the client's. Client sends ACK. Both sides now know the other can send and receive and have agreed on starting numbers. The server's SYN and ACK travel together, so it is three messages instead of four.</p>
+
+<p><strong>Q2. What is TIME_WAIT and should I worry about it?</strong>
+The side that closes first waits 2 x MSL before forgetting the connection. It makes sure the last ACK arrived and keeps late packets of the old connection away from a new one. It is normal. Worry only if you run out of local ports (clients or proxies making huge numbers of short connections). Fix by reusing connections (keep-alive, pools), not by tweaking kernel flags first.</p>
+
+<p><strong>Q3. Many sockets are in CLOSE_WAIT. What does it mean?</strong>
+The remote side closed the connection but our application never called <code>close()</code>. It is a leak in our code (for example an HTTP client that never closes response bodies). Find the process with <code>ss -tanp state close-wait</code>, then fix the code.</p>
+
+<p><strong>Q4. Walk me through what happens when I type a URL and press Enter.</strong>
+Browser checks cache, then the OS resolver asks DNS (recursive resolver -> root -> TLD -> authoritative) and caches the answer for the TTL. It opens a TCP connection (handshake), then TLS (certificate check, key exchange, one round trip in TLS 1.3), then sends an HTTP request. Server may sit behind a load balancer and CDN. The response comes back, the browser renders and may open more connections.</p>
+
+<p><strong>Q5. A service is "slow sometimes". How do you tell if it is DNS, TCP, TLS, or the app?</strong>
+Time each step: <code>curl -w</code> with <code>time_namelookup</code>, <code>time_connect</code>, <code>time_appconnect</code>, <code>time_starttransfer</code>. The big jump shows the slow step. Then go deeper with the right tool: <code>dig</code> for DNS, <code>tcpdump</code>/<code>ss</code> for TCP retransmits, <code>openssl s_client</code> for TLS, app metrics and traces for the application.</p>
+
+<p><strong>Q6. Connection refused vs connection timed out?</strong>
+Refused: the machine answered with a RST, so the host is reachable but nothing listens on that port (or a firewall rejects actively). It fails instantly. Timed out: no answer at all, usually a firewall dropping packets, a wrong route, or a dead host. It fails only after the full timeout.</p>
+
+<p><strong>Q7. What is NAT and what problem can it cause at scale?</strong>
+NAT rewrites source IP and port so many private hosts share a public IP. It keeps a table. Problems: entries expire for idle connections (surprise resets), and port exhaustion when many connections go to the same destination from one public IP (random connect timeouts). Fixes: more public IPs, connection reuse, keep-alives, fewer short connections.</p>
+
+<p><strong>Q8. Why is TLS 1.3 faster to set up than TLS 1.2, and what is the risk of 0-RTT?</strong>
+A full TLS 1.3 handshake takes one round trip (TLS 1.2 took two). With a saved key, 0-RTT lets the client send data in the first message, saving another trip. The risk: an attacker can replay that first message, so only idempotent requests (safe to repeat) should use it.</p>
+
+<h2 id="7-self-quiz-answers-at-the-end">7. Self-quiz (answers at the end)</h2>
+
+<ol>
+<li>In a <code>curl -w</code> output, <code>connect=0.067</code> and <code>dns=0.061</code>. How long did the TCP handshake take?</li>
+<li>Which side stays in TIME_WAIT?</li>
+<li>What does <code>curl: (28)</code> tell you, and how is it different from <code>(7)</code>?</li>
+<li>You change an A record. Some users still hit the old IP for 10 minutes. Why?</li>
+<li>Name one reason a NAT gateway causes random connect timeouts.</li>
+</ol>
+
+<p><strong>Answers</strong></p>
+
+<ol>
+<li>About 6 ms (0.067 - 0.061), because curl's numbers are cumulative.</li>
+<li>The side that closes first (the active closer).</li>
+<li>28 = timeout (no answer within the limit, often a silent drop). 7 = refused or could not connect immediately (host answered "no" or no route).</li>
+<li>DNS caching. Resolvers and clients keep the old answer until its TTL runs out.</li>
+<li>Port exhaustion (too many connections to one destination share too few public IP:port pairs), or idle NAT table entries expiring.</li>
+</ol>
+
+<h2 id="8-sources">8. Sources</h2>
+
+<ul>
+<li>RFC 9293 (TCP): handshake, states, TIME-WAIT: https://www.rfc-editor.org/rfc/rfc9293.html</li>
+<li>RFC 8446 (TLS 1.3): 1-RTT, 0-RTT replay warning: https://www.rfc-editor.org/rfc/rfc8446.html</li>
+<li>AWS Builders' Library, timeouts, retries, backoff with jitter: https://builder.aws.com/content/3EumjoZascWd1oZiEgL8ORlv3qE/timeouts-retries-and-backoff-with-jitter</li>
+</ul>
+
+<p>Not verified from a source (general knowledge): TLS 1.2 needing two round trips; Linux TIME_WAIT being 60 s; Linux ephemeral port range about 28,000; SNAT exhaustion details and limits per cloud; DNS record type list; DNS using UDP then TCP for large answers; curl exit codes 6, 7, 28 (I saw them on this Mac, they are documented in the curl man page); CoreDNS being the default DNS in Kubernetes; tcpdump flag notation (documented in the tcpdump man page).</p>
+<div class="pn"><span><a href="01_linux_processes_memory_files.html">&larr; 01. Linux: processes, memory, and files</a></span><span><a href="03_containers_and_docker.html">03. Containers and Docker &rarr;</a></span></div></main></div></body></html>

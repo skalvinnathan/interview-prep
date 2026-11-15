@@ -1,0 +1,367 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>05. Helm | Interview prep</title><style>
+:root{--bg:#fff;--fg:#1f2328;--mut:#59636e;--bd:#d1d9e0;--ac:#0b57d0;--cb:#f6f8fa;--sb:#f6f8fa}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9198a1;--bd:#30363d;--ac:#6cb6ff;--cb:#161b22;--sb:#010409}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{display:flex;min-height:100vh}nav{width:300px;flex:none;background:var(--sb);border-right:1px solid var(--bd);padding:16px;overflow:auto;position:sticky;top:0;height:100vh}
+nav a{color:var(--fg);text-decoration:none;display:block;padding:3px 6px;border-radius:6px;font-size:14px}nav a:hover{background:var(--cb)}nav a.cur{background:var(--ac);color:#fff}
+nav summary{cursor:pointer;font-weight:600;padding:6px 0}nav .home{font-weight:700;font-size:16px;margin-bottom:8px}
+main{flex:1;min-width:0;max-width:900px;padding:24px 32px 80px;margin:0 auto}
+h1,h2,h3{line-height:1.25}h1{border-bottom:1px solid var(--bd);padding-bottom:.3em}h2{border-bottom:1px solid var(--bd);padding-bottom:.25em;margin-top:2em}
+a{color:var(--ac)}pre{background:var(--cb);border:1px solid var(--bd);border-radius:8px;padding:14px;overflow:auto;font-size:13.5px;line-height:1.5}
+code{background:var(--cb);padding:.15em .35em;border-radius:5px;font-size:.92em}pre code{background:none;padding:0}
+table{border-collapse:collapse;display:block;overflow:auto;max-width:100%}th,td{border:1px solid var(--bd);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--cb)}
+blockquote{border-left:4px solid var(--bd);margin:0;padding:0 1em;color:var(--mut)}img{max-width:100%}
+.top{display:none}.pn{display:flex;justify-content:space-between;gap:12px;margin-top:48px;border-top:1px solid var(--bd);padding-top:16px;font-size:14px}
+@media(max-width:820px){.wrap{display:block}nav{width:auto;height:auto;position:static;border-right:0;border-bottom:1px solid var(--bd)}main{padding:16px}}
+</style></head><body><div class="wrap"><nav><a class="home" href="../index.html">Interview prep</a><details><summary>Data structures and algorithms</summary><a href="../01-dsa/00_how_to_start.html">How to start: reading a problem, the 5-step method, and Big-</a><a href="../01-dsa/01_arrays_and_strings.html">Lesson 01. Arrays and Strings</a><a href="../01-dsa/02_hash_maps_and_sets.html">Lesson 02. Hash Maps and Sets</a><a href="../01-dsa/03_two_pointers.html">Lesson 03. Two Pointers</a><a href="../01-dsa/04_sliding_window.html">Lesson 04. Sliding Window</a><a href="../01-dsa/05_stack_and_queue.html">Lesson 05. Stack and Queue (including the monotonic stack)</a><a href="../01-dsa/06_binary_search.html">Lesson 06. Binary Search (including search on the answer)</a><a href="../01-dsa/07_linked_lists.html">Lesson 07. Linked Lists</a><a href="../01-dsa/08_trees_and_bst.html">Lesson 08. Trees and Binary Search Trees (BST)</a><a href="../01-dsa/09_heaps_and_priority_queues.html">Lesson 09: Heaps and Priority Queues</a><a href="../01-dsa/10_graphs_bfs_dfs.html">Lesson 10: Graphs, BFS and DFS (including grids)</a><a href="../01-dsa/11_topological_sort_and_union_find.html">Lesson 11: Topological Sort and Union-Find</a><a href="../01-dsa/12_shortest_paths.html">Lesson 12: Shortest Paths (Dijkstra in plain words)</a><a href="../01-dsa/13_intervals.html">Lesson 13: Intervals (merge intervals, meeting rooms)</a><a href="../01-dsa/14_backtracking.html">Lesson 14: Backtracking (subsets, permutations, combination </a><a href="../01-dsa/15_dynamic_programming_part1.html">Lesson 15: Dynamic Programming, Part 1 (remembering answers)</a><a href="../01-dsa/16_dynamic_programming_part2.html">Lesson 16: Dynamic Programming, Part 2 (LIS, word break, kna</a><a href="../01-dsa/17_tries_and_greedy.html">Lesson 17: Tries and Greedy</a><a href="../01-dsa/18_bit_tricks_and_math_basics.html">Lesson 18: Bit Tricks and Math Basics (short)</a><a href="../01-dsa/19_company_question_patterns.html">Lesson 19: Company Question Patterns (Google, Amazon, Meta, </a></details><details><summary>System design</summary><a href="../02-system-design/00_how_the_round_works.html">How the System Design Round Works</a><a href="../02-system-design/01a_client_server_and_http.html">Client, Server and HTTP</a><a href="../02-system-design/01b_dns_and_cdn.html">DNS and CDN</a><a href="../02-system-design/01c_load_balancers.html">Load Balancers</a><a href="../02-system-design/01d_databases.html">Databases: SQL vs NoSQL, Indexes, Transactions</a><a href="../02-system-design/01e_caching.html">Caching (and Why Invalidation Is Hard)</a><a href="../02-system-design/01f_sharding_and_replication.html">Sharding and Replication</a><a href="../02-system-design/01g_message_queues_and_streams.html">Message Queues and Streams (Kafka Basics)</a><a href="../02-system-design/01h_consistency_and_cap.html">Consistency and the CAP Idea (in Plain Words)</a><a href="../02-system-design/02_numbers_and_estimation.html">Numbers and Estimation</a><a href="../02-system-design/03_reliability_patterns.html">Reliability Patterns</a><a href="../02-system-design/10_url_shortener.html">Design a URL Shortener</a><a href="../02-system-design/11_rate_limiter.html">Design a Rate Limiter</a><a href="../02-system-design/12_chat_system.html">Design a Chat System (like WhatsApp or Slack)</a><a href="../02-system-design/13_news_feed.html">Design a News Feed (like Instagram, Facebook or Twitter/X ho</a><a href="../02-system-design/14_notification_service.html">Design a Notification Service</a><a href="../02-system-design/15_file_storage_like_drive.html">Design File Storage and Sync (like Google Drive or Dropbox)</a><a href="../02-system-design/16_search_autocomplete.html">Design Search Autocomplete (Typeahead)</a><a href="../02-system-design/17_video_streaming_basics.html">Design Video Streaming Basics (like YouTube or Netflix)</a><a href="../02-system-design/18_payment_system_like_stripe.html">Design a Payment System (like Stripe)</a><a href="../02-system-design/19_order_management_like_amazon.html">Design an Order Management System (like Amazon: inventory, o</a><a href="../02-system-design/20_job_scheduler_and_workflow_engine.html">Design a Job Scheduler and Workflow Engine</a><a href="../02-system-design/21_api_gateway_and_auth_system.html">Design an API Gateway and Auth System</a><a href="../02-system-design/22_logging_and_metrics_platform.html">Design a Logging and Metrics Platform</a><a href="../02-system-design/90_cheat_sheet.html">Cheat Sheet (one page)</a><a href="../02-system-design/91_practice_questions.html">Practice Questions (30)</a></details><details><summary>Low-level design</summary><a href="../03-low-level-design/00_how_the_lld_round_works.html">- How the LLD round works</a><a href="../03-low-level-design/01_oop_in_plain_words.html">- OOP in plain words</a><a href="../03-low-level-design/02_solid_principles.html">- SOLID principles</a><a href="../03-low-level-design/03_design_patterns_you_need.html">- The 8 design patterns you need</a><a href="../03-low-level-design/10_parking_lot.html">- Parking Lot</a><a href="../03-low-level-design/11_lru_cache.html">- LRU Cache</a><a href="../03-low-level-design/12_elevator_system.html">- Elevator System</a><a href="../03-low-level-design/13_library_management.html">- Library Management System</a><a href="../03-low-level-design/14_vending_machine.html">- Vending Machine (State pattern)</a><a href="../03-low-level-design/15_atm.html">- ATM</a><a href="../03-low-level-design/16_rate_limiter_class.html">- Rate Limiter (class design: token bucket and sliding windo</a><a href="../03-low-level-design/17_amazon_locker.html">- Amazon Locker</a><a href="../03-low-level-design/18_splitwise_expense_sharing.html">- Splitwise (Expense Sharing)</a><a href="../03-low-level-design/19_logger_and_notification_system.html">- Logger and Notification System (Observer and Strategy)</a><a href="../03-low-level-design/20_tic_tac_toe_or_chess_basics.html">- Tic-Tac-Toe (full) and Chess basics</a><a href="../03-low-level-design/90_cheat_sheet.html">- Cheat sheet (read the night before)</a><a href="../03-low-level-design/91_practice_questions.html">- Practice questions (20)</a></details><details open><summary>DevOps and platform basics</summary><a href="01_linux_processes_memory_files.html">Linux: processes, memory, and files</a><a href="02_networking.html">Networking: TCP, DNS, TLS, NAT</a><a href="03_containers_and_docker.html">Containers and Docker</a><a href="04_kubernetes_from_zero.html">Kubernetes from zero</a><a class="cur" href="05_helm.html">Helm</a><a href="06_terraform.html">Terraform</a><a href="07_ci_cd_github_actions.html">CI/CD with GitHub Actions</a><a href="08_observability_and_sre.html">Observability and SRE</a><a href="09_concurrency_and_distributed_basics.html">Concurrency and distributed basics</a><a href="10_databases_basics.html">Databases basics</a><a href="11_security_basics.html">Security basics (IAM, OAuth2/OIDC/JWT, secrets, supply chain</a><a href="12_gcp_pca_quick_map.html">Google Cloud quick map (for Professional Cloud Architect hol</a><a href="20_interview_questions_with_answers.html">Sixty interview questions with model answers (platform / SRE</a><a href="21_scenario_questions.html">Fifteen &quot;production is down&quot; scenarios, with step-by-step an</a></details><details><summary>Company processes</summary><a href="../06-company-process-and-behavioural/10_google.html">Google</a><a href="../06-company-process-and-behavioural/11_amazon.html">Amazon</a><a href="../06-company-process-and-behavioural/12_stripe.html">Stripe</a><a href="../06-company-process-and-behavioural/13_microsoft_and_azure_roles.html">Microsoft and Azure roles</a><a href="../06-company-process-and-behavioural/14_indian_product_and_gcc_companies.html">Indian product companies and GCCs</a><a href="../06-company-process-and-behavioural/15_european_scaleups.html">European scale-ups and visa basics</a><a href="../06-company-process-and-behavioural/16_ai_startups_like_smallest_ai.html">AI startups like Smallest AI</a><a href="../06-company-process-and-behavioural/24_questions_to_ask_interviewers.html">Questions to ask interviewers</a><a href="../06-company-process-and-behavioural/25_salary_notice_period_and_offer_negotiation_india_and_abroad.html">Salary, notice period and offer negotiation (India and abroa</a><a href="../06-company-process-and-behavioural/26_interview_day_checklists.html">Interview day checklists</a></details></nav><main><h1 id="05-helm">05. Helm</h1>
+
+<p>Legend: <code>[REAL]</code> = ran on this Mac on 2026-11-15 with Helm v4.3.1 (only offline commands: <code>create</code>, <code>lint</code>, <code>template</code>, <code>--help</code>; nothing was installed in any cluster). <code>[SAMPLE]</code> = typical output written to show the shape, not run here.</p>
+
+<p>Important version note: this Mac has <strong>Helm 4</strong> (v4.3.1). Some flags changed from Helm 3 (see section 3.6). Know both, because many companies still use Helm 3 scripts.</p>
+
+<hr />
+
+<h2 id="1-what-it-is-plain-words-analogy">1. What it is (plain words + analogy)</h2>
+
+<p>Kubernetes YAML files are long and repeat a lot (dev, staging, prod are almost the same, but a few numbers differ). <strong>Helm</strong> is a <strong>package manager and template engine</strong> for Kubernetes.</p>
+
+<p>Analogy: a <strong>cake recipe with blanks</strong>.</p>
+
+<ul>
+<li>The <strong>chart</strong> is the recipe with blanks: "bake for ___ minutes, add ___ sugar".</li>
+<li><strong>values</strong> are what you write in the blanks for this cake (dev cake, prod cake).</li>
+<li>A <strong>release</strong> is one cake you actually baked from that recipe, with a name, that Helm remembers.</li>
+<li>A <strong>revision</strong> is each time you baked or changed that same cake (revision 1, 2, 3 ...). Helm can go back to an earlier one.</li>
+</ul>
+
+<p>Words:</p>
+
+<ul>
+<li><strong>Chart</strong>: a folder of templates plus defaults.</li>
+<li><strong>Template</strong>: a Kubernetes YAML file with <code>{{ ... }}</code> blanks (Go template language).</li>
+<li><strong>values.yaml</strong>: the default values. You override them with <code>-f myvalues.yaml</code> or <code>--set key=value</code>.</li>
+<li><strong>Release</strong>: an installed instance of a chart in a cluster (stored as a Secret in the namespace).</li>
+<li><strong>Repository / OCI registry</strong>: where charts are published.</li>
+</ul>
+
+<h2 id="2-why-it-matters-in-interviews">2. Why it matters in interviews</h2>
+
+<p>Your own experience includes Helm on AKS, and umbrella charts (a parent chart that installs many child charts) are on your topic list. Interviewers will ask: how do values override, what does <code>--atomic</code> do, how do you roll back, how do you keep secrets out of Git, how do you preview changes (<code>helm diff</code>), what are hooks. They also ask the honest question: "when does Helm hurt?" (templating complexity, hidden state, hard-to-read diffs).</p>
+
+<h2 id="3-how-it-works-step-by-step">3. How it works, step by step</h2>
+
+<h3 id="31-chart-structure-verified-from-helm-docs">3.1 Chart structure (verified from Helm docs)</h3>
+
+<pre><code>mychart/
+├── Chart.yaml        # name, version (chart), appVersion (the app), dependencies
+├── values.yaml       # default values
+├── charts/           # dependency charts (subcharts) land here
+├── crds/             # CRDs, plain YAML, NOT templated
+└── templates/        # Go-template YAML -&gt; becomes Kubernetes manifests
+    ├── deployment.yaml
+    ├── service.yaml
+    ├── _helpers.tpl  # named template snippets (not rendered by themselves)
+    └── NOTES.txt     # text printed after install
+</code></pre>
+
+<p><code>version</code> in <code>Chart.yaml</code> is the <strong>chart's</strong> version (SemVer). <code>appVersion</code> describes the <strong>application</strong>; "it doesn't affect chart versioning".</p>
+
+<p><code>[REAL]</code> <code>helm create mychart</code> made this (Helm 4.3.1):</p>
+
+<pre><code>mychart:
+Chart.yaml  charts  templates  values.yaml
+mychart/templates:
+NOTES.txt  _helpers.tpl  deployment.yaml  hpa.yaml  httproute.yaml  ingress.yaml  service.yaml  serviceaccount.yaml  tests
+</code></pre>
+
+<p>(Note <code>httproute.yaml</code>: new charts now include a Gateway API route, in line with the Kubernetes move from Ingress to Gateway.)</p>
+
+<h3 id="32-render-a-template-no-cluster-needed">3.2 Render a template (no cluster needed)</h3>
+
+<p><code>helm template</code> turns chart + values into plain YAML on your screen. It does not contact a cluster. Use it in CI and to learn.</p>
+
+<p><code>[REAL]</code></p>
+
+<pre><code>$ helm lint mychart
+==&gt; Linting mychart
+[INFO] Chart.yaml: icon is recommended
+1 chart(s) linted, 0 chart(s) failed
+
+$ helm template demo mychart --set replicaCount=3 | grep -E "^kind:|replicas:|image:"
+kind: ServiceAccount
+kind: Service
+kind: Deployment
+  replicas: 3                       &lt;-- our --set value
+          image: "nginx:1.16.0"     &lt;-- default from values.yaml / appVersion
+
+$ helm template demo mychart --set replicaCount=3 --set image.tag=1.2.3 | grep "image:"
+          image: "nginx:1.2.3"      &lt;-- overridden
+</code></pre>
+
+<h3 id="33-values-who-wins">3.3 Values: who wins?</h3>
+
+<p>Order, from weakest to strongest (Helm docs, standard behavior):</p>
+
+<ol>
+<li>The chart's <code>values.yaml</code></li>
+<li>A parent chart's values (for a subchart)</li>
+<li>Files given with <code>-f</code> (later <code>-f</code> files win over earlier ones)</li>
+<li><code>--set</code> / <code>--set-string</code> / <code>--set-file</code> (win over files)</li>
+</ol>
+
+<pre><code> values.yaml (defaults)  &lt;  -f base.yaml  &lt;  -f prod.yaml  &lt;  --set replicaCount=5
+</code></pre>
+
+<p>Template snippet:</p>
+
+<pre><code>replicas: {{ .Values.replicaCount }}
+image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+</code></pre>
+
+<p>Tip: <strong>keep one <code>values-&lt;env&gt;.yaml</code> per environment in Git</strong> and do not scatter <code>--set</code> in scripts. <code>--set</code> is invisible in review.</p>
+
+<h3 id="34-umbrella-charts-and-subcharts">3.4 Umbrella charts and subcharts</h3>
+
+<p>An <strong>umbrella chart</strong> is a parent chart that depends on child charts (subcharts). You list them in <code>Chart.yaml</code>:</p>
+
+<pre><code>dependencies:
+  - name: mysql
+    version: 3.2.1
+    repository: https://another.example.com/charts
+</code></pre>
+
+<p><code>helm dependency update</code> (short: <code>helm dep up</code>) downloads them into <code>charts/</code>.</p>
+
+<p>Values rules (verified):</p>
+
+<ul>
+<li>A parent sets a subchart's values under a key equal to the <strong>subchart name</strong>:
+<pre><code>mysql:
+  password: "secret"      # parent reads .Values.mysql.password; the subchart sees .Values.password
+</code></pre></li>
+<li>"Values are namespaced, but namespaces are pruned": the subchart cannot see the parent's values.</li>
+<li><code>global:</code> values are passed to <strong>every</strong> chart in the tree and read as <code>.Values.global.&lt;key&gt;</code>. They flow downward only. If both define the same global, the parent wins.</li>
+<li>Fields <code>condition</code>, <code>tags</code>, and <code>alias</code> let you switch subcharts on or off or install one twice.</li>
+</ul>
+
+<pre><code> platform (umbrella)
+ ├── values.yaml           global: {env: prod, domain: x.example.com}
+ │                         api:    {replicaCount: 3}
+ ├── charts/api            sees .Values.replicaCount = 3 and .Values.global.env = prod
+ ├── charts/worker
+ └── charts/frontend
+</code></pre>
+
+<p>Trade-offs to say out loud: umbrella charts give <strong>one release, one version, one rollback</strong> for the whole stack (good for a platform bundle that ships as one numbered version). The cost: one bad subchart fails the whole release, upgrades are all-or-nothing, and values files get large. Alternatives: one release per service, with a GitOps tool such as Argo CD or Flux ordering them.</p>
+
+<h3 id="35-the-release-lifecycle">3.5 The release lifecycle</h3>
+
+<pre><code>helm install  myrel ./chart -f values.yaml     -&gt; revision 1
+helm upgrade  myrel ./chart -f values.yaml     -&gt; revision 2
+helm upgrade  myrel ./chart -f values.yaml     -&gt; revision 3 (bad!)
+helm rollback myrel 2                          -&gt; revision 4 (same content as 2)
+helm uninstall myrel
+</code></pre>
+
+<p>A rollback does <strong>not</strong> erase history: it creates a <strong>new revision</strong> with the old content (standard Helm behavior; I could not open the rollback docs page today, it returned 404, so treat the detail as general knowledge). <code>helm history myrel</code> lists the revisions. Helm keeps up to <code>--history-max</code> revisions per release (default <strong>10</strong>, <code>0</code> = unlimited, from <code>helm upgrade --help</code>).</p>
+
+<p>Idempotent deploy command used in CI:</p>
+
+<pre><code>helm upgrade --install myrel ./chart -n myns --create-namespace -f values-prod.yaml --wait --timeout 10m --rollback-on-failure
+</code></pre>
+
+<p><code>--install</code>: "if a release by this name doesn't already exist, run an install".</p>
+
+<h3 id="36-wait-timeout-and-atomic-helm-3-vs-helm-4">3.6 <code>--wait</code>, <code>--timeout</code>, and atomic (Helm 3 vs Helm 4)</h3>
+
+<ul>
+<li><code>--wait</code>: do not say success until the resources are ready, "up to --timeout". Without it, Helm returns as soon as the objects are <em>created</em>, not when pods are healthy.</li>
+<li><code>--timeout</code>: here, "time to wait for any individual Kubernetes operation (like Jobs for hooks)" (default <strong>5m0s</strong>).</li>
+<li><strong>Helm 3</strong>: <code>--atomic</code> = wait, and if the upgrade fails, <strong>automatically roll back</strong> (for <code>install</code>, uninstall). It implies <code>--wait</code>.</li>
+<li><strong>Helm 4</strong>: <code>--atomic</code> was <strong>renamed</strong> <code>--rollback-on-failure</code> (<code>--force</code> became <code>--force-replace</code>). Helm's overview lists the renames, and says the old names still work with a deprecation warning (that sentence came from a search summary, not read on the Helm page itself). The <code>helm upgrade --help</code> of Helm 4.3.1 on this Mac shows only the new name:</li>
+</ul>
+
+<p><code>[REAL]</code></p>
+
+<pre><code>$ helm upgrade --help | grep -E "rollback-on-failure|--wait |--timeout|--install"
+  -i, --install                        if a release by this name doesn't already exist, run an install
+      --rollback-on-failure            if set, Helm will rollback the upgrade to previous success release upon failure. The --wait flag will ...
+      --timeout duration               time to wait for any individual Kubernetes operation (like Jobs for hooks) (default 5m0s)
+      --wait WaitStrategy[=watcher]    wait until resources are ready (up to --timeout). Use '--wait' alone for 'watcher' strategy ...
+</code></pre>
+
+<p>Also in Helm 4: <code>--wait</code> has strategies, and a "watcher" strategy is the default when you set rollback-on-failure; <strong>server-side apply</strong> is the default for <strong>new</strong> installs (older releases keep their previous apply method). (From a Helm 4 migration summary; confirm in the Helm docs before relying on it.)</p>
+
+<p>Pros and cons of automatic rollback: it protects the cluster from a half-broken release, but it <strong>hides the failure reason</strong> if you do not capture events and logs, and it can roll back a database-migration hook's effect only if your migration is reversible. Always print <code>kubectl get events</code> and pod logs on failure in CI.</p>
+
+<h3 id="37-values-merging-on-upgrade-reuse-values-vs-reset-values">3.7 Values merging on upgrade: <code>--reuse-values</code> vs <code>--reset-values</code></h3>
+
+<ul>
+<li><code>--reuse-values</code>: "reuse the last release's values and merge in any overrides from the command line".</li>
+<li><code>--reset-values</code>: "reset the values to the ones built into the chart".</li>
+<li>Helm 4 also has <code>--reset-then-reuse-values</code> (seen in the local help): reset to chart defaults, then apply the last release's values, then your overrides.</li>
+</ul>
+
+<p>Trap: <code>--reuse-values</code> ignores <strong>new defaults</strong> added to <code>values.yaml</code> in the new chart version, so new keys can be missing. Safest habit: pass the <strong>full values files</strong> every time (GitOps style) and avoid <code>--reuse-values</code>.</p>
+
+<h3 id="38-helm-diff-preview-before-you-apply">3.8 <code>helm diff</code> (preview before you apply)</h3>
+
+<p><code>helm diff</code> is a <strong>plugin</strong>. It "generates a diff between the latest deployed version of a release" and what the chart would produce now.</p>
+
+<pre><code>helm plugin install https://github.com/databus23/helm-diff     # Helm 3.18+ required per the project
+helm diff upgrade myrel ./chart -f values-prod.yaml            # what would change?
+helm diff upgrade myrel ./chart -f values-prod.yaml --install  # also for a release that does not exist yet
+helm diff upgrade myrel ./chart -f values-prod.yaml --detailed-exitcode   # exit code 2 when changes exist -&gt; good for CI gates
+helm diff revision myrel 3 4                                   # compare two revisions
+helm diff rollback myrel 2                                     # what a rollback would change
+</code></pre>
+
+<p>Helm 4 note from the plugin page: Helm 4 verifies plugin provenance by default and "git repo URLs do not support provenance verification", so Helm 4 users should install from a release tarball URL after importing the maintainer's public key. (Details on that page.) On this Mac <code>helm plugin list</code> is empty, so I did not run a diff.</p>
+
+<p><code>[SAMPLE]</code> diff output shape (the <code>-</code>/<code>+</code> lines):</p>
+
+<pre><code>default, web, Deployment (apps) has changed:
+  spec:
+    replicas: 2
+-   image: web:1.4.0
++   image: web:1.5.0
+</code></pre>
+
+<p>In CI the usual flow is: <code>helm lint</code> -> <code>helm template | kubeconform</code> (validate against schemas) -> <code>helm diff</code> (post as a PR comment) -> <code>helm upgrade --install --wait --rollback-on-failure</code>.</p>
+
+<h3 id="39-hooks">3.9 Hooks</h3>
+
+<p>A <strong>hook</strong> is a resource (often a Job) that Helm runs at a point in the lifecycle. Mark it with <code>helm.sh/hook</code>:</p>
+
+<ul>
+<li><code>pre-install</code>, <code>post-install</code>, <code>pre-upgrade</code>, <code>post-upgrade</code>, <code>pre-delete</code>, <code>post-delete</code>, <code>pre-rollback</code>, <code>post-rollback</code>, <code>test</code> (runs with <code>helm test</code>).</li>
+<li><code>helm.sh/hook-weight</code>: order (lowest runs first).</li>
+<li><code>helm.sh/hook-delete-policy</code>: <code>before-hook-creation</code> (default), <code>hook-succeeded</code>, <code>hook-failed</code>.</li>
+</ul>
+
+<pre><code>apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Release.Name }}-db-migrate
+  annotations:
+    "helm.sh/hook": pre-upgrade
+    "helm.sh/hook-weight": "0"
+    "helm.sh/hook-delete-policy": before-hook-creation
+</code></pre>
+
+<p>Hooks are <strong>not part of the release's tracked resources</strong>, so <code>helm uninstall</code> and <code>rollback</code> do not manage them like normal objects. A failing hook fails the release. A migration in a <code>pre-upgrade</code> hook runs <strong>before</strong> the new pods, so the migration must work with the old code too (backward compatible).</p>
+
+<h3 id="310-secrets-with-helm">3.10 Secrets with Helm</h3>
+
+<p>Rule: <strong>never put plain secrets in <code>values.yaml</code> in Git</strong>. Also remember a release record (a Secret in the cluster, <code>sh.helm.release.v1...</code>) stores the <strong>rendered values and manifests</strong>, so anyone who can read Secrets in that namespace can read your values. Options (general practice, I did not verify each tool's docs today):</p>
+
+<ol>
+<li><strong>External secret store + operator</strong>: chart creates an <code>ExternalSecret</code> (External Secrets Operator) or uses the Secrets Store CSI driver; the real value stays in Key Vault / Secret Manager / Vault. Best option for most teams.</li>
+<li><strong>Encrypted values in Git</strong>: SOPS with <code>helm-secrets</code> plugin, or Sealed Secrets (encrypted in Git, decrypted only in-cluster).</li>
+<li><strong>Inject at deploy time</strong> from the CI secret store: <code>--set-file</code> or <code>--set</code> from a masked variable (risky: the value ends up in the release record, and in shell history if typed).</li>
+<li><strong>Workload identity</strong> (no secret at all): pods get cloud access through federation (AKS Workload Identity; see file 11).</li>
+</ol>
+
+<h2 id="4-commands-to-try">4. Commands to try</h2>
+
+<pre><code>helm create mychart                       # sample chart
+helm lint ./mychart
+helm template demo ./mychart -f values.yaml            # render locally
+helm template demo ./mychart --set image.tag=1.2.3 | less
+helm install demo ./mychart --dry-run=client           # (Helm 4 syntax; Helm 3: --dry-run)
+helm upgrade --install demo ./mychart -n dev --create-namespace --wait --timeout 5m
+helm list -A                              # all releases in all namespaces
+helm status demo -n dev
+helm history demo -n dev
+helm get values demo -n dev               # user-supplied values
+helm get values demo -n dev --all         # merged with defaults
+helm get manifest demo -n dev             # YAML as applied
+helm rollback demo 1 -n dev
+helm uninstall demo -n dev
+helm dependency update ./umbrella
+helm package ./mychart                    # make a .tgz
+helm show values bitnami/postgresql       # defaults of a published chart (after helm repo add)
+</code></pre>
+
+<p><code>[SAMPLE]</code> <code>helm history</code>:</p>
+
+<pre><code>REVISION  UPDATED                   STATUS      CHART        APP VERSION  DESCRIPTION
+1         Sun Nov 15 20:00:01 2026  superseded  web-0.1.0    1.4.0        Install complete
+2         Sun Nov 15 20:30:12 2026  superseded  web-0.1.0    1.5.0        Upgrade complete
+3         Sun Nov 15 21:00:40 2026  failed      web-0.2.0    1.6.0        Upgrade "web" failed: context deadline exceeded
+4         Sun Nov 15 21:05:00 2026  deployed    web-0.1.0    1.5.0        Rollback to 2
+</code></pre>
+
+<h2 id="5-common-mistakes">5. Common mistakes</h2>
+
+<ol>
+<li>Secrets in <code>values.yaml</code> or <code>--set</code> on the command line.</li>
+<li>Using <code>--reuse-values</code> and then missing new default keys.</li>
+<li>Not using <code>--wait</code>, so CI says "success" while pods crash.</li>
+<li>Using <code>helm upgrade</code> without <code>--install</code> in a script that must work on a fresh cluster.</li>
+<li>Using <code>--atomic</code> and losing the error evidence (no logs saved).</li>
+<li>Putting CRDs in <code>templates/</code> (they cannot be upgraded or deleted safely that way); <code>crds/</code> installs them but Helm does not upgrade them (known limitation, general knowledge).</li>
+<li>Not pinning chart versions of dependencies (<code>~1.2.0</code> or none), so a rebuild pulls different code.</li>
+<li>Huge <code>{{ if }}</code> logic nobody can read. If a chart is mostly templating, consider Kustomize or simpler charts.</li>
+</ol>
+
+<h2 id="6-eight-interview-questions-with-answers">6. Eight interview questions with answers</h2>
+
+<p><strong>Q1. What is Helm and why use it instead of plain YAML?</strong>
+Helm packages Kubernetes manifests as a chart with templates and default values. One chart serves many environments by changing values. It tracks each install as a release with revisions, so you can upgrade and roll back as one unit. It also gives dependency management (subcharts) and hooks.</p>
+
+<p><strong>Q2. How do values override each other?</strong>
+Chart <code>values.yaml</code> is weakest, then a parent chart's values for a subchart, then <code>-f</code> files in order (later wins), then <code>--set</code> flags (strongest). A parent sets subchart values under the subchart's name; <code>global:</code> values reach all charts.</p>
+
+<p><strong>Q3. What is an umbrella chart, and what are its pros and cons?</strong>
+A parent chart whose job is to depend on several subcharts, deployed as one release. Pros: one version, one command, one rollback, shared <code>global</code> values. Cons: all-or-nothing upgrades, one failure blocks all, big values files, subchart coupling. Good for a platform bundle; for independent services, separate releases (often via GitOps) can be better.</p>
+
+<p><strong>Q4. What does <code>--atomic</code> do? What changed in Helm 4?</strong>
+In Helm 3, <code>--atomic</code> waits for readiness and, if the upgrade fails or times out, rolls back automatically (and for install it removes the release); it implies <code>--wait</code>. In Helm 4 it is renamed <code>--rollback-on-failure</code>. Caveat: always keep logs and events, since the failed state is gone after rollback.</p>
+
+<p><strong>Q5. How do you roll back, and what happens to revision numbers?</strong>
+<code>helm history &lt;rel&gt;</code> to find a good revision, then <code>helm rollback &lt;rel&gt; &lt;revision&gt;</code>. Helm creates a new revision with the old content (history is kept, up to <code>--history-max</code>, default 10). Rollback only reverts Kubernetes objects Helm manages; it does not undo database changes or manual edits.</p>
+
+<p><strong>Q6. How do you see what an upgrade will change before running it?</strong>
+<code>helm template</code> to render, and the <code>helm diff upgrade</code> plugin to compare against the deployed release (<code>--detailed-exitcode</code> for CI gates). Also <code>helm lint</code> and schema validation. Post the diff on the pull request so reviewers see the real impact.</p>
+
+<p><strong>Q7. How do you handle secrets in Helm charts?</strong>
+Not in plain values in Git. Use an external secret store with External Secrets Operator or CSI driver, or encrypt in Git (SOPS/helm-secrets, Sealed Secrets), or use workload identity so no secret exists. Remember that release records in the cluster contain rendered values, so lock down RBAC for Secrets.</p>
+
+<p><strong>Q8. What are Helm hooks, and what is a risk of using them?</strong>
+Annotated resources (usually Jobs) that run at lifecycle points (pre-install, pre-upgrade, post-upgrade, pre-rollback, test, and so on), ordered by weight, cleaned by delete policy. Risks: they are not tracked like normal resources, a failing hook fails the release, and a pre-upgrade migration runs while old pods still serve traffic, so it must be backward compatible and idempotent.</p>
+
+<h2 id="7-self-quiz-answers-at-the-end">7. Self-quiz (answers at the end)</h2>
+
+<ol>
+<li>Which command renders YAML locally without a cluster?</li>
+<li>In Helm 4, what is the new name of <code>--atomic</code>?</li>
+<li>How does a parent chart set a value inside subchart <code>mysql</code>?</li>
+<li>After <code>helm rollback web 2</code> from revision 3, which revision number is created?</li>
+<li>Why is <code>--reuse-values</code> risky?</li>
+</ol>
+
+<p><strong>Answers</strong></p>
+
+<ol>
+<li><code>helm template</code>.</li>
+<li><code>--rollback-on-failure</code>.</li>
+<li>Under a key named after the subchart: <code>mysql: { password: ... }</code>.</li>
+<li>Revision 4 (a new revision with revision 2's content).</li>
+<li>It reuses the old release's values and so ignores new defaults introduced by the new chart version; missing keys can break templates.</li>
+</ol>
+
+<h2 id="8-sources">8. Sources</h2>
+
+<ul>
+<li>Helm, chart structure, dependencies, values scoping, globals: https://helm.sh/docs/topics/charts/</li>
+<li>Helm, hooks: https://helm.sh/docs/topics/charts_hooks/</li>
+<li>Helm, <code>helm upgrade</code> reference (<code>--rollback-on-failure</code>, <code>--wait</code>, <code>--timeout</code>, <code>--reuse-values</code>, <code>--history-max</code>): https://helm.sh/docs/helm/helm_upgrade/</li>
+<li>helm-diff plugin: https://github.com/databus23/helm-diff</li>
+<li>Helm 4 overview (renamed flags, per search summary): https://helm.sh/docs/overview</li>
+<li>Local: <code>helm upgrade --help</code>, <code>helm install --help</code> on Helm v4.3.1, captured 2026-11-15</li>
+<li>Kubernetes Secrets good practices (for the secrets section): https://kubernetes.io/docs/concepts/security/secrets-good-practices/</li>
+</ul>
+
+<p>Not verified from a source: Helm 3 <code>--atomic</code> exact behavior (known behavior; Helm 4 help text confirms the renamed flag); old flag names still working in Helm 4; server-side apply default in Helm 4 (secondary summary only); rollback creating a new revision (the Helm rollback page returned 404); values precedence list (standard Helm behavior, I did not re-read the page); <code>helm install --dry-run=client</code> syntax; the <code>crds/</code> upgrade limitation; SOPS, helm-secrets, Sealed Secrets, External Secrets Operator specifics; hooks not being tracked by rollback/uninstall; kubeconform usage.</p>
+<div class="pn"><span><a href="04_kubernetes_from_zero.html">&larr; 04. Kubernetes from zero</a></span><span><a href="06_terraform.html">06. Terraform &rarr;</a></span></div></main></div></body></html>

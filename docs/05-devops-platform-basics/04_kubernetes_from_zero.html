@@ -1,0 +1,545 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>04. Kubernetes from zero | Interview prep</title><style>
+:root{--bg:#fff;--fg:#1f2328;--mut:#59636e;--bd:#d1d9e0;--ac:#0b57d0;--cb:#f6f8fa;--sb:#f6f8fa}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9198a1;--bd:#30363d;--ac:#6cb6ff;--cb:#161b22;--sb:#010409}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{display:flex;min-height:100vh}nav{width:300px;flex:none;background:var(--sb);border-right:1px solid var(--bd);padding:16px;overflow:auto;position:sticky;top:0;height:100vh}
+nav a{color:var(--fg);text-decoration:none;display:block;padding:3px 6px;border-radius:6px;font-size:14px}nav a:hover{background:var(--cb)}nav a.cur{background:var(--ac);color:#fff}
+nav summary{cursor:pointer;font-weight:600;padding:6px 0}nav .home{font-weight:700;font-size:16px;margin-bottom:8px}
+main{flex:1;min-width:0;max-width:900px;padding:24px 32px 80px;margin:0 auto}
+h1,h2,h3{line-height:1.25}h1{border-bottom:1px solid var(--bd);padding-bottom:.3em}h2{border-bottom:1px solid var(--bd);padding-bottom:.25em;margin-top:2em}
+a{color:var(--ac)}pre{background:var(--cb);border:1px solid var(--bd);border-radius:8px;padding:14px;overflow:auto;font-size:13.5px;line-height:1.5}
+code{background:var(--cb);padding:.15em .35em;border-radius:5px;font-size:.92em}pre code{background:none;padding:0}
+table{border-collapse:collapse;display:block;overflow:auto;max-width:100%}th,td{border:1px solid var(--bd);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--cb)}
+blockquote{border-left:4px solid var(--bd);margin:0;padding:0 1em;color:var(--mut)}img{max-width:100%}
+.top{display:none}.pn{display:flex;justify-content:space-between;gap:12px;margin-top:48px;border-top:1px solid var(--bd);padding-top:16px;font-size:14px}
+@media(max-width:820px){.wrap{display:block}nav{width:auto;height:auto;position:static;border-right:0;border-bottom:1px solid var(--bd)}main{padding:16px}}
+</style></head><body><div class="wrap"><nav><a class="home" href="../index.html">Interview prep</a><details><summary>Data structures and algorithms</summary><a href="../01-dsa/00_how_to_start.html">How to start: reading a problem, the 5-step method, and Big-</a><a href="../01-dsa/01_arrays_and_strings.html">Lesson 01. Arrays and Strings</a><a href="../01-dsa/02_hash_maps_and_sets.html">Lesson 02. Hash Maps and Sets</a><a href="../01-dsa/03_two_pointers.html">Lesson 03. Two Pointers</a><a href="../01-dsa/04_sliding_window.html">Lesson 04. Sliding Window</a><a href="../01-dsa/05_stack_and_queue.html">Lesson 05. Stack and Queue (including the monotonic stack)</a><a href="../01-dsa/06_binary_search.html">Lesson 06. Binary Search (including search on the answer)</a><a href="../01-dsa/07_linked_lists.html">Lesson 07. Linked Lists</a><a href="../01-dsa/08_trees_and_bst.html">Lesson 08. Trees and Binary Search Trees (BST)</a><a href="../01-dsa/09_heaps_and_priority_queues.html">Lesson 09: Heaps and Priority Queues</a><a href="../01-dsa/10_graphs_bfs_dfs.html">Lesson 10: Graphs, BFS and DFS (including grids)</a><a href="../01-dsa/11_topological_sort_and_union_find.html">Lesson 11: Topological Sort and Union-Find</a><a href="../01-dsa/12_shortest_paths.html">Lesson 12: Shortest Paths (Dijkstra in plain words)</a><a href="../01-dsa/13_intervals.html">Lesson 13: Intervals (merge intervals, meeting rooms)</a><a href="../01-dsa/14_backtracking.html">Lesson 14: Backtracking (subsets, permutations, combination </a><a href="../01-dsa/15_dynamic_programming_part1.html">Lesson 15: Dynamic Programming, Part 1 (remembering answers)</a><a href="../01-dsa/16_dynamic_programming_part2.html">Lesson 16: Dynamic Programming, Part 2 (LIS, word break, kna</a><a href="../01-dsa/17_tries_and_greedy.html">Lesson 17: Tries and Greedy</a><a href="../01-dsa/18_bit_tricks_and_math_basics.html">Lesson 18: Bit Tricks and Math Basics (short)</a><a href="../01-dsa/19_company_question_patterns.html">Lesson 19: Company Question Patterns (Google, Amazon, Meta, </a></details><details><summary>System design</summary><a href="../02-system-design/00_how_the_round_works.html">How the System Design Round Works</a><a href="../02-system-design/01a_client_server_and_http.html">Client, Server and HTTP</a><a href="../02-system-design/01b_dns_and_cdn.html">DNS and CDN</a><a href="../02-system-design/01c_load_balancers.html">Load Balancers</a><a href="../02-system-design/01d_databases.html">Databases: SQL vs NoSQL, Indexes, Transactions</a><a href="../02-system-design/01e_caching.html">Caching (and Why Invalidation Is Hard)</a><a href="../02-system-design/01f_sharding_and_replication.html">Sharding and Replication</a><a href="../02-system-design/01g_message_queues_and_streams.html">Message Queues and Streams (Kafka Basics)</a><a href="../02-system-design/01h_consistency_and_cap.html">Consistency and the CAP Idea (in Plain Words)</a><a href="../02-system-design/02_numbers_and_estimation.html">Numbers and Estimation</a><a href="../02-system-design/03_reliability_patterns.html">Reliability Patterns</a><a href="../02-system-design/10_url_shortener.html">Design a URL Shortener</a><a href="../02-system-design/11_rate_limiter.html">Design a Rate Limiter</a><a href="../02-system-design/12_chat_system.html">Design a Chat System (like WhatsApp or Slack)</a><a href="../02-system-design/13_news_feed.html">Design a News Feed (like Instagram, Facebook or Twitter/X ho</a><a href="../02-system-design/14_notification_service.html">Design a Notification Service</a><a href="../02-system-design/15_file_storage_like_drive.html">Design File Storage and Sync (like Google Drive or Dropbox)</a><a href="../02-system-design/16_search_autocomplete.html">Design Search Autocomplete (Typeahead)</a><a href="../02-system-design/17_video_streaming_basics.html">Design Video Streaming Basics (like YouTube or Netflix)</a><a href="../02-system-design/18_payment_system_like_stripe.html">Design a Payment System (like Stripe)</a><a href="../02-system-design/19_order_management_like_amazon.html">Design an Order Management System (like Amazon: inventory, o</a><a href="../02-system-design/20_job_scheduler_and_workflow_engine.html">Design a Job Scheduler and Workflow Engine</a><a href="../02-system-design/21_api_gateway_and_auth_system.html">Design an API Gateway and Auth System</a><a href="../02-system-design/22_logging_and_metrics_platform.html">Design a Logging and Metrics Platform</a><a href="../02-system-design/90_cheat_sheet.html">Cheat Sheet (one page)</a><a href="../02-system-design/91_practice_questions.html">Practice Questions (30)</a></details><details><summary>Low-level design</summary><a href="../03-low-level-design/00_how_the_lld_round_works.html">- How the LLD round works</a><a href="../03-low-level-design/01_oop_in_plain_words.html">- OOP in plain words</a><a href="../03-low-level-design/02_solid_principles.html">- SOLID principles</a><a href="../03-low-level-design/03_design_patterns_you_need.html">- The 8 design patterns you need</a><a href="../03-low-level-design/10_parking_lot.html">- Parking Lot</a><a href="../03-low-level-design/11_lru_cache.html">- LRU Cache</a><a href="../03-low-level-design/12_elevator_system.html">- Elevator System</a><a href="../03-low-level-design/13_library_management.html">- Library Management System</a><a href="../03-low-level-design/14_vending_machine.html">- Vending Machine (State pattern)</a><a href="../03-low-level-design/15_atm.html">- ATM</a><a href="../03-low-level-design/16_rate_limiter_class.html">- Rate Limiter (class design: token bucket and sliding windo</a><a href="../03-low-level-design/17_amazon_locker.html">- Amazon Locker</a><a href="../03-low-level-design/18_splitwise_expense_sharing.html">- Splitwise (Expense Sharing)</a><a href="../03-low-level-design/19_logger_and_notification_system.html">- Logger and Notification System (Observer and Strategy)</a><a href="../03-low-level-design/20_tic_tac_toe_or_chess_basics.html">- Tic-Tac-Toe (full) and Chess basics</a><a href="../03-low-level-design/90_cheat_sheet.html">- Cheat sheet (read the night before)</a><a href="../03-low-level-design/91_practice_questions.html">- Practice questions (20)</a></details><details open><summary>DevOps and platform basics</summary><a href="01_linux_processes_memory_files.html">Linux: processes, memory, and files</a><a href="02_networking.html">Networking: TCP, DNS, TLS, NAT</a><a href="03_containers_and_docker.html">Containers and Docker</a><a class="cur" href="04_kubernetes_from_zero.html">Kubernetes from zero</a><a href="05_helm.html">Helm</a><a href="06_terraform.html">Terraform</a><a href="07_ci_cd_github_actions.html">CI/CD with GitHub Actions</a><a href="08_observability_and_sre.html">Observability and SRE</a><a href="09_concurrency_and_distributed_basics.html">Concurrency and distributed basics</a><a href="10_databases_basics.html">Databases basics</a><a href="11_security_basics.html">Security basics (IAM, OAuth2/OIDC/JWT, secrets, supply chain</a><a href="12_gcp_pca_quick_map.html">Google Cloud quick map (for Professional Cloud Architect hol</a><a href="20_interview_questions_with_answers.html">Sixty interview questions with model answers (platform / SRE</a><a href="21_scenario_questions.html">Fifteen &quot;production is down&quot; scenarios, with step-by-step an</a></details><details><summary>Company processes</summary><a href="../06-company-process-and-behavioural/10_google.html">Google</a><a href="../06-company-process-and-behavioural/11_amazon.html">Amazon</a><a href="../06-company-process-and-behavioural/12_stripe.html">Stripe</a><a href="../06-company-process-and-behavioural/13_microsoft_and_azure_roles.html">Microsoft and Azure roles</a><a href="../06-company-process-and-behavioural/14_indian_product_and_gcc_companies.html">Indian product companies and GCCs</a><a href="../06-company-process-and-behavioural/15_european_scaleups.html">European scale-ups and visa basics</a><a href="../06-company-process-and-behavioural/16_ai_startups_like_smallest_ai.html">AI startups like Smallest AI</a><a href="../06-company-process-and-behavioural/24_questions_to_ask_interviewers.html">Questions to ask interviewers</a><a href="../06-company-process-and-behavioural/25_salary_notice_period_and_offer_negotiation_india_and_abroad.html">Salary, notice period and offer negotiation (India and abroa</a><a href="../06-company-process-and-behavioural/26_interview_day_checklists.html">Interview day checklists</a></details></nav><main><h1 id="04-kubernetes-from-zero">04. Kubernetes from zero</h1>
+
+<p>Legend: <code>[REAL]</code> = ran on this Mac on 2026-11-15 (only offline <code>--dry-run=client</code> commands; I did not talk to any cluster). <code>[SAMPLE]</code> = typical output written to show the shape, names and numbers made up, not run here.</p>
+
+<hr />
+
+<h2 id="1-what-it-is-plain-words-analogy">1. What it is (plain words + analogy)</h2>
+
+<p><strong>Kubernetes (K8s)</strong> is a system that runs containers on many machines and keeps them healthy. You do not say "start this container on that machine". You say <strong>"I want 3 copies of this app running"</strong>, and Kubernetes keeps making it true. If a copy dies, it starts a new one.</p>
+
+<p>Analogy: a <strong>restaurant manager</strong>.</p>
+
+<ul>
+<li>You give the manager the <strong>menu and the staffing plan</strong> (the YAML files = the <em>desired state</em>).</li>
+<li>The manager watches the floor (the <em>actual state</em>). If a cook leaves, the manager calls another one. This "watch and fix" loop is called a <strong>control loop</strong> (or reconciliation). It is the one big idea of Kubernetes.</li>
+</ul>
+
+<p>Pieces:</p>
+
+<pre><code> Control plane (the manager's office)               Worker nodes (the kitchens)
+ ┌────────────────────────────────────┐             ┌───────────────────────────┐
+ │ API server  &lt;- kubectl talks here  │             │ kubelet  (runs the pods)  │
+ │ etcd        (database of state)    │ &lt;---------&gt; │ container runtime         │
+ │ scheduler   (picks a node per pod) │             │ kube-proxy / CNI (network)│
+ │ controllers (the control loops)    │             │  [pod][pod][pod]          │
+ └────────────────────────────────────┘             └───────────────────────────┘
+</code></pre>
+
+<p>On AKS (Azure), GKE (Google), and EKS (Amazon) the cloud runs the control plane for you.</p>
+
+<p>Words:</p>
+
+<ul>
+<li><strong>Pod</strong>: the smallest unit. One or more containers that share one IP and run together on one node. Pods are <strong>disposable</strong>: when they die they are replaced by <em>new</em> pods with <em>new</em> IPs.</li>
+<li><strong>Node</strong>: a worker machine (a VM).</li>
+<li><strong>Namespace</strong>: a folder to split a cluster into parts (<code>dev</code>, <code>prod</code>, <code>team-a</code>).</li>
+<li><strong>Label</strong>: a key=value tag on an object (<code>app=web</code>). <strong>Selector</strong>: a query on labels.</li>
+</ul>
+
+<h2 id="2-why-it-matters-in-interviews">2. Why it matters in interviews</h2>
+
+<p>For platform engineering roles (FIS, ScienceLogic, Amazon, Google platform teams), Kubernetes is the main subject. Recent 2026 guides say Kubernetes questions are "scenario-based" (a pod is Pending, a rollout is stuck, a node is NotReady), not trivia, and that they want you to connect user impact to the control loop and workload. You have 3.5 years on AKS, so expect deep follow-up on your own experience. Be ready to run the debug commands from memory.</p>
+
+<h2 id="3-how-it-works-step-by-step">3. How it works, step by step</h2>
+
+<h3 id="31-pod">3.1 Pod</h3>
+
+<p>A pod is a wrapper around containers. You rarely create bare pods. You create a <strong>Deployment</strong> that creates pods for you.</p>
+
+<h3 id="32-deployment-replicaset-pods">3.2 Deployment -> ReplicaSet -> Pods</h3>
+
+<pre><code> Deployment "web"  (desired: 3 replicas, image v2)
+     │ owns
+     ▼
+ ReplicaSet "web-7d9f8" (keeps exactly 3 pods of this template)
+     │ owns
+     ▼
+ Pod web-7d9f8-abcde   Pod web-7d9f8-fghij   Pod web-7d9f8-klmno
+</code></pre>
+
+<p>When you change the pod template (for example the image), the Deployment makes a <strong>new ReplicaSet</strong> and moves pods over slowly. That is a <strong>rolling update</strong>.</p>
+
+<p><code>[REAL]</code> generate YAML without a cluster (<code>--dry-run=client</code> does not call any server):</p>
+
+<pre><code>$ kubectl create deployment web --image=nginx:1.27 --replicas=2 --dry-run=client -o yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: web
+  name: web
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: web
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - image: nginx:1.27
+        name: nginx
+        resources: {}
+status: {}
+</code></pre>
+
+<p>Notice: <code>selector.matchLabels</code> must match <code>template.metadata.labels</code>. That is how the Deployment finds its pods.</p>
+
+<h3 id="33-rolling-updates">3.3 Rolling updates</h3>
+
+<p>Settings: <code>maxSurge</code> (how many extra pods may exist during the update) and <code>maxUnavailable</code> (how many may be missing). Both default to 25 percent. <code>progressDeadlineSeconds</code> (default 600) is how long Kubernetes waits for progress before marking the rollout failed. <code>revisionHistoryLimit</code> (default 10) is how many old ReplicaSets are kept for rollback. (These defaults come from general Kubernetes knowledge; the page I fetched was cut before that section. They are standard and easy to confirm with <code>kubectl explain deployment.spec.strategy</code>.)</p>
+
+<pre><code> replicas 4, maxSurge 1, maxUnavailable 0:
+ old: [v1][v1][v1][v1]
+ step1: create 1 new         -&gt; [v1][v1][v1][v1] + [v2 starting]
+ step2: new is Ready         -&gt; remove 1 old: [v1][v1][v1] + [v2]
+ step3: repeat ...           -&gt; [v2][v2][v2][v2]
+</code></pre>
+
+<p>A pod counts as ready only when its <strong>readiness probe</strong> passes. A bad new version never becomes ready, so the old pods stay and the rollout <strong>stops</strong> (that is the safety).</p>
+
+<p>Commands:</p>
+
+<pre><code>kubectl rollout status deployment/web       # watch
+kubectl rollout history deployment/web      # list revisions
+kubectl rollout undo deployment/web         # go back one revision
+kubectl rollout undo deployment/web --to-revision=2
+kubectl rollout restart deployment/web      # rolling restart (same image)
+</code></pre>
+
+<h3 id="34-service">3.4 Service</h3>
+
+<p>Pod IPs change. A <strong>Service</strong> gives a <strong>stable IP and DNS name</strong> in front of a set of pods chosen by a label selector, and spreads traffic over the ready ones.</p>
+
+<pre><code> client pod ──&gt; Service "web" (ClusterIP 10.0.5.20, DNS web.default.svc.cluster.local)
+                  │ selector: app=web
+                  ├──&gt; Pod web-abcde 10.244.1.7   (ready)
+                  ├──&gt; Pod web-fghij 10.244.2.4   (ready)
+                  └──&gt; Pod web-klmno 10.244.1.9   (NOT ready -&gt; no traffic)
+</code></pre>
+
+<p>Types:</p>
+
+<ul>
+<li><strong>ClusterIP</strong> (default): reachable only inside the cluster.</li>
+<li><strong>NodePort</strong>: also opens a port on every node.</li>
+<li><strong>LoadBalancer</strong>: asks the cloud for an external load balancer.</li>
+<li>(<strong>ExternalName</strong>: a DNS alias.)</li>
+</ul>
+
+<p>If a Service has <strong>no endpoints</strong>, the label selector matches no <em>ready</em> pods. This is the most common "service is down" cause. Check <code>kubectl get endpoints web</code> (or <code>get endpointslices</code>).</p>
+
+<h3 id="35-ingress-and-gateway-api">3.5 Ingress (and Gateway API)</h3>
+
+<p>From the Kubernetes docs: Ingress "manages external access to the services in a cluster, typically HTTP", with routing rules (host, path, backend). <strong>"Only creating an Ingress resource has no effect"</strong>: you also need an <strong>Ingress controller</strong> (nginx, Traefik, a cloud one) that carries it out. Ingress handles only HTTP(S); for other ports use NodePort or LoadBalancer.</p>
+
+<p>Current status (verified): the Kubernetes docs say "The Kubernetes project recommends using Gateway instead of Ingress. The Ingress API has been frozen", and there are no plans to remove Ingress. Also, the project announced the retirement of the community <strong>ingress-nginx</strong> controller: best-effort maintenance only until March 2026, after that no releases, bug fixes, or security updates (Kubernetes blog, Nov 2025, restated Jan 2026). Today is November 2026, so if you use ingress-nginx you should have a migration plan (for example to Gateway API with another controller). Mention this in an interview: it shows you follow the ecosystem.</p>
+
+<pre><code> Internet -&gt; cloud LB -&gt; Ingress controller pods -&gt; (rules) -&gt; Service -&gt; Pods
+</code></pre>
+
+<h3 id="36-config-configmap-and-secret">3.6 Config: ConfigMap and Secret</h3>
+
+<ul>
+<li><strong>ConfigMap</strong>: non-secret settings as key/value or files.</li>
+<li><strong>Secret</strong>: sensitive values. <strong>Warning (from the Kubernetes docs): Secret values "are encoded as base64 strings and are stored unencrypted by default"</strong>, and base64 "provides no additional confidentiality over plain text".</li>
+</ul>
+
+<p><code>[REAL]</code> base64 is not encryption, anyone can reverse it:</p>
+
+<pre><code>$ kubectl create secret generic db --from-literal=password=s3cret --dry-run=client -o yaml
+apiVersion: v1
+data:
+  password: czNjcmV0
+kind: Secret
+metadata:
+  name: db
+$ echo 'czNjcmV0' | base64 -d
+s3cret
+</code></pre>
+
+<p>Good practice (from the docs' Secrets good-practices page): turn on <strong>encryption at rest</strong> for etcd; give <strong>least-privilege RBAC</strong> (note: "Granting list access to Secrets implicitly lets the subject fetch the contents"); remember that anyone who can create a pod that uses a Secret can probably read it; use an <strong>external secret store</strong> (Secrets Store CSI Driver, External Secrets Operator) so the value never lives in Git. Never commit Secret YAML with real values.</p>
+
+<p>Ways a pod uses them: as <strong>environment variables</strong> (read once at start; changing the Secret does not change a running pod) or as <strong>mounted files</strong> (updated eventually in the running pod, but the app must re-read the file).</p>
+
+<h3 id="37-probes">3.7 Probes</h3>
+
+<p>The kubelet checks your container with <strong>probes</strong>:</p>
+
+<table>
+<thead>
+<tr>
+  <th>Probe</th>
+  <th>Question</th>
+  <th>If it fails</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>startup</strong></td>
+  <td>"Has the app finished starting?"</td>
+  <td>other probes wait; if it never passes, container restarts</td>
+</tr>
+<tr>
+  <td><strong>liveness</strong></td>
+  <td>"Is the app stuck beyond repair?"</td>
+  <td>kubelet <strong>kills and restarts</strong> the container</td>
+</tr>
+<tr>
+  <td><strong>readiness</strong></td>
+  <td>"Can it take traffic now?"</td>
+  <td>pod is <strong>removed from Service endpoints</strong> (no restart)</td>
+</tr>
+</tbody>
+</table>
+
+<p>Fields: <code>initialDelaySeconds</code>, <code>periodSeconds</code>, <code>timeoutSeconds</code> (default 1 s), <code>failureThreshold</code> (default 3), <code>successThreshold</code>. HTTP success is "any code greater than or equal to 200 and less than 400".</p>
+
+<pre><code>readinessProbe:
+  httpGet: { path: /ready, port: 8080 }
+  periodSeconds: 5
+  failureThreshold: 3
+livenessProbe:
+  httpGet: { path: /healthz, port: 8080 }
+  periodSeconds: 10
+  failureThreshold: 3
+startupProbe:
+  httpGet: { path: /healthz, port: 8080 }
+  periodSeconds: 5
+  failureThreshold: 30        # up to 150 s to start
+</code></pre>
+
+<p>Common advice (widely repeated, not from one official page): keep liveness cheap and <strong>do not check the database in liveness</strong>. If the database is down, every pod would restart at the same time and make things worse. Put dependency checks in readiness, not liveness. Use a startup probe for slow apps instead of a huge <code>initialDelaySeconds</code>.</p>
+
+<h3 id="38-requests-and-limits">3.8 Requests and limits</h3>
+
+<ul>
+<li><strong>Request</strong>: what the container is <em>promised</em>. The scheduler uses it to pick a node ("the kube-scheduler uses this information to decide which node to place the Pod on"), and the kubelet reserves it.</li>
+<li><strong>Limit</strong>: the ceiling. CPU over the limit is <strong>throttled</strong>; memory over the limit gets <strong>OOM-killed</strong> (see file 03).</li>
+<li>A container may use more than its request if the node has room. If you set only a limit, Kubernetes copies it as the request.</li>
+<li>Units: CPU <code>500m</code> = half a core; memory <code>256Mi</code> (mebibytes).</li>
+</ul>
+
+<p>QoS classes (a label that decides who is evicted first when the node runs short):</p>
+
+<ul>
+<li><strong>Guaranteed</strong>: every container has CPU and memory limits equal to requests. Evicted last.</li>
+<li><strong>Burstable</strong>: some requests/limits set, but not Guaranteed.</li>
+<li><strong>BestEffort</strong>: nothing set. Evicted first.
+(From general Kubernetes knowledge; the doc page I fetched was cut before this part. Check the "Pod Quality of Service Classes" page.)</li>
+</ul>
+
+<pre><code>resources:
+  requests: { cpu: "250m", memory: "256Mi" }
+  limits:   { memory: "512Mi" }       # many teams leave CPU limit off; discuss trade-offs
+</code></pre>
+
+<h3 id="39-hpa-horizontal-pod-autoscaler">3.9 HPA (Horizontal Pod Autoscaler)</h3>
+
+<p>Adds or removes <strong>pods</strong> based on a metric. The formula from the docs:</p>
+
+<p><code>desiredReplicas = ceil( currentReplicas × currentMetricValue / desiredMetricValue )</code></p>
+
+<p>Example from the docs: current 200m, target 100m -> replicas double. It ignores changes when the ratio is within a tolerance of 0.1. It runs every 15 seconds by default. For CPU the utilization is <strong>a percent of the pod's CPU <em>request</em></strong>: "CPU utilization for the Pod will not be defined and the autoscaler will not take any action" if requests are missing. So: <strong>no requests, no HPA</strong>.</p>
+
+<pre><code>apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata: { name: web }
+spec:
+  scaleTargetRef: { apiVersion: apps/v1, kind: Deployment, name: web }
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target: { type: Utilization, averageUtilization: 60 }
+</code></pre>
+
+<p>Scale-down is slowed by a stabilization window (commonly 300 s, set via <code>behavior.scaleDown.stabilizationWindowSeconds</code>; not verified on the full page). HPA adds pods; if there is no room, the <strong>Cluster Autoscaler</strong> (or Karpenter) adds nodes. Pods stay Pending until the node arrives. VPA changes requests; KEDA scales on events like queue length (general knowledge).</p>
+
+<h3 id="310-pdb-poddisruptionbudget">3.10 PDB (PodDisruptionBudget)</h3>
+
+<p>Limits how many pods of an app may be taken down <strong>on purpose</strong> (a "voluntary disruption": node drain, cluster upgrade) at the same time. Set <strong>one</strong> of <code>minAvailable</code> or <code>maxUnavailable</code>. It cannot stop <strong>involuntary</strong> disruptions like a node crash (the docs: "The budget can only protect against voluntary evictions").</p>
+
+<pre><code>apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata: { name: web }
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels: { app: web }
+</code></pre>
+
+<p>Trap from the docs: with <code>maxUnavailable: 0</code> (or <code>minAvailable</code> equal to the replica count), "you cannot successfully drain a Node running one of those Pods... the drain never completes". This blocks AKS/GKE upgrades. Also a 1-replica Deployment with a PDB blocks drains.</p>
+
+<h3 id="311-rbac">3.11 RBAC</h3>
+
+<p>Who can do what in the cluster.</p>
+
+<ul>
+<li><strong>Role</strong>: permissions inside one namespace. <strong>ClusterRole</strong>: cluster-wide, or reusable.</li>
+<li><strong>RoleBinding</strong>: gives a Role (or ClusterRole) to a user, group, or <strong>ServiceAccount</strong> in one namespace. <strong>ClusterRoleBinding</strong>: for the whole cluster.</li>
+<li>"Permissions are purely additive (there are no 'deny' rules)."</li>
+<li>A <strong>ServiceAccount</strong> is the identity a pod uses to call the API.</li>
+</ul>
+
+<pre><code>apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata: { namespace: default, name: pod-reader }
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "watch", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata: { namespace: default, name: read-pods }
+subjects:
+- kind: ServiceAccount
+  name: my-app
+  namespace: default
+roleRef:
+  kind: Role
+  name: pod-reader
+  apiGroup: rbac.authorization.k8s.io
+</code></pre>
+
+<p>Check with: <code>kubectl auth can-i list pods -n default --as=system:serviceaccount:default:my-app</code>. (The Role YAML is from the Kubernetes RBAC page; the RoleBinding is the standard shape.)</p>
+
+<h3 id="312-networkpolicy">3.12 NetworkPolicy</h3>
+
+<p>By default every pod can talk to every pod ("By default, a pod is non-isolated for egress/ingress; all connections are allowed"). A <strong>NetworkPolicy</strong> limits that. Once a policy <strong>selects</strong> a pod for a direction, only traffic that some policy allows is permitted. Policies are <strong>additive</strong>. Both ends must agree: the source's egress and the destination's ingress. <strong>Important</strong>: policies are enforced by the network plugin (CNI). "Creating a NetworkPolicy resource without a controller that implements it will have no effect." (Calico, Cilium, Antrea, Kube-router are named in the docs.)</p>
+
+<p>Default deny for ingress in a namespace (shape from the docs):</p>
+
+<pre><code>apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata: { name: default-deny-ingress, namespace: default }
+spec:
+  podSelector: {}
+  policyTypes: ["Ingress"]
+</code></pre>
+
+<p>Then add allow policies, for example "only pods labeled <code>app=web</code> may reach <code>app=db</code> on port 5432".</p>
+
+<h3 id="313-debugging-cheat-sheet-the-exact-commands">3.13 Debugging cheat sheet (the exact commands)</h3>
+
+<p><strong>Always start here:</strong></p>
+
+<pre><code>kubectl get pods -n &lt;ns&gt; -o wide                         # status, restarts, node, IP
+kubectl describe pod &lt;pod&gt; -n &lt;ns&gt;                       # read the Events at the bottom!
+kubectl get events -n &lt;ns&gt; --sort-by=.lastTimestamp      # recent cluster events
+kubectl logs &lt;pod&gt; -n &lt;ns&gt;                               # current logs
+kubectl logs &lt;pod&gt; -n &lt;ns&gt; --previous                    # logs of the crashed one
+kubectl logs &lt;pod&gt; -n &lt;ns&gt; -c &lt;container&gt;                # a specific container
+</code></pre>
+
+<p>The Kubernetes docs say: "For any pod problem, first check its state and recent events" with <code>kubectl describe</code>.</p>
+
+<h4 id="a-pending-the-pod-is-not-placed-on-a-node">A. Pending (the pod is not placed on a node)</h4>
+
+<p>Meaning: the scheduler cannot find a node. Run <code>kubectl describe pod</code>. Look at Events for a line starting <code>FailedScheduling</code>.</p>
+
+<p><code>[SAMPLE]</code></p>
+
+<pre><code>Events:
+  Type     Reason            Age   From               Message
+  Warning  FailedScheduling  30s   default-scheduler  0/5 nodes are available: 3 Insufficient memory, 2 node(s) had untolerated taint {dedicated: gpu}.
+</code></pre>
+
+<p>Causes and checks:</p>
+
+<ul>
+<li><strong>Not enough CPU/memory on nodes</strong> (official docs name this): <code>kubectl describe nodes | grep -A8 "Allocated resources"</code>, <code>kubectl top nodes</code>. Fix: lower requests, add nodes, check the cluster autoscaler.</li>
+<li><strong>Taints</strong> without a matching toleration, <strong>nodeSelector/affinity</strong> that matches nothing: compare <code>kubectl get nodes --show-labels</code> and <code>kubectl describe node &lt;n&gt; | grep Taints</code>.</li>
+<li><strong>PVC not bound</strong> (storage): <code>kubectl get pvc -n &lt;ns&gt;</code>, <code>kubectl describe pvc &lt;name&gt;</code>. Check StorageClass, zone mismatch (a disk in zone 1 and a node only in zone 2).</li>
+<li><strong>hostPort</strong> use (official docs name this).</li>
+<li><strong>Quota</strong>: <code>kubectl describe resourcequota -n &lt;ns&gt;</code>.</li>
+</ul>
+
+<h4 id="b-imagepullbackoff-errimagepull">B. ImagePullBackOff / ErrImagePull</h4>
+
+<p>Meaning: the node cannot download the image, and retries with growing waits. The official page says the most common cause of a pod stuck in Waiting is an image pull failure; check the name, check the image was pushed, try pulling manually.</p>
+
+<p><code>[SAMPLE]</code></p>
+
+<pre><code>Events:
+  Warning  Failed   12s  kubelet  Failed to pull image "myreg.azurecr.io/web:v9": ... not found
+  Warning  Failed   12s  kubelet  Error: ErrImagePull
+  Normal   BackOff  10s  kubelet  Back-off pulling image "myreg.azurecr.io/web:v9"
+</code></pre>
+
+<p>Checks: typo in image or tag; tag does not exist; <strong>private registry without credentials</strong> (<code>imagePullSecrets</code>, or on AKS the ACR attachment <code>az aks update --attach-acr</code>); registry unreachable (network, DNS, firewall); rate limits (Docker Hub). Test: <code>kubectl run tmp --rm -it --image=&lt;same image&gt; -- sh</code> or <code>docker pull</code> from a machine with the same access. Defaults worth knowing: tag <code>:latest</code> or no tag -> <code>imagePullPolicy: Always</code>; a digest -> <code>IfNotPresent</code>.</p>
+
+<h4 id="c-crashloopbackoff">C. CrashLoopBackOff</h4>
+
+<p>Meaning: the container starts, exits, and Kubernetes restarts it with growing delay (10 s, 20 s, 40 s ... up to 5 minutes). It is a <strong>symptom</strong>, not a cause. The cause is why the process exits.</p>
+
+<p><code>[SAMPLE]</code></p>
+
+<pre><code>NAME                   READY   STATUS             RESTARTS      AGE
+web-7d9f8-abcde        0/1     CrashLoopBackOff   6 (45s ago)   8m
+</code></pre>
+
+<p>Steps:</p>
+
+<ol>
+<li><code>kubectl logs &lt;pod&gt; --previous</code> (the dead container's last words).</li>
+<li><code>kubectl describe pod &lt;pod&gt;</code>: look at <code>Last State: Terminated</code>, <code>Reason</code>, <code>Exit Code</code>.
+<ul>
+<li>Exit 1 or other: app error (bad config, missing env var or Secret, cannot reach DB).</li>
+<li>Exit 137: killed (OOM or too slow to stop). Exit 139: segfault. Exit 143: SIGTERM.</li>
+<li><code>Reason: Error</code> vs <code>OOMKilled</code> vs <code>Completed</code> (a container that finishes immediately in a Deployment will crash-loop; use a Job).</li>
+</ul></li>
+<li>Liveness probe killing a slow-starting app: look for <code>Liveness probe failed</code> in Events. Fix with a startup probe.</li>
+<li>Wrong <code>command</code> or <code>args</code>, wrong file permissions, read-only root filesystem with an app that writes.</li>
+<li>Cannot read logs because it dies too fast? Use <code>kubectl debug</code> to copy the pod with a different command, or run the image locally with <code>docker run</code>.</li>
+</ol>
+
+<h4 id="d-oomkilled">D. OOMKilled</h4>
+
+<p>Meaning: the container used more memory than its <strong>limit</strong>; the kernel killed it (file 01 and 03). How to confirm:</p>
+
+<pre><code>kubectl describe pod &lt;pod&gt; | grep -A6 "Last State"
+kubectl get pod &lt;pod&gt; -o jsonpath='{.status.containerStatuses[*].lastState.terminated}'
+</code></pre>
+
+<p><code>[SAMPLE]</code></p>
+
+<pre><code>    Last State:     Terminated
+      Reason:       OOMKilled
+      Exit Code:    137
+      Started:      Sun, 15 Nov 2026 21:30:02 +0530
+      Finished:     Sun, 15 Nov 2026 21:34:19 +0530
+</code></pre>
+
+<p>(The Kubernetes docs page on this topic explains how to read <code>lastState.terminated</code>; the reason value <code>OOMKilled</code> is set by the kubelet and runtime. Exit code 137 = 128 + 9.)
+Next: <code>kubectl top pod &lt;pod&gt; --containers</code> (needs metrics-server), look at the memory graph over time (a steady climb = leak; a spike at start = too low a limit; a spike on a big request = unbounded buffering). Fix: raise the limit with headroom, fix the leak, bound caches and queues, set runtime heap flags (JVM <code>-XX:MaxRAMPercentage</code>, Go <code>GOMEMLIMIT</code>; check your version). Remember: the memory limit includes page cache used by the container's own files, and <code>tmpfs</code>/<code>emptyDir: {medium: Memory}</code> counts toward the limit.</p>
+
+<h4 id="e-other-things-to-check-quickly">E. Other things to check quickly</h4>
+
+<pre><code>kubectl get endpoints &lt;svc&gt; -n &lt;ns&gt;                  # empty = selector/readiness problem
+kubectl get svc,ingress -n &lt;ns&gt;
+kubectl exec -it &lt;pod&gt; -n &lt;ns&gt; -- sh                 # look inside
+kubectl port-forward svc/&lt;svc&gt; 8080:80 -n &lt;ns&gt;       # test a service from your laptop
+kubectl run net --rm -it --image=busybox -- sh       # temp pod: nslookup, wget, nc
+kubectl debug -it &lt;pod&gt; --image=busybox --target=&lt;container&gt;   # ephemeral debug container
+kubectl get nodes                                    # NotReady?
+kubectl describe node &lt;node&gt;                         # Conditions: MemoryPressure, DiskPressure
+kubectl auth can-i ...                               # RBAC
+kubectl get pod &lt;pod&gt; -o yaml                        # the full truth
+kubectl rollout status deploy/&lt;d&gt; ; kubectl rollout undo deploy/&lt;d&gt;
+</code></pre>
+
+<p><code>kubectl debug</code> with ephemeral containers lets you attach a debug container to a running pod even if the image has no shell (one guide says available from 1.23; I did not verify from the official page).</p>
+
+<h2 id="4-commands-to-try-without-a-cluster">4. Commands to try (without a cluster)</h2>
+
+<pre><code>kubectl create deployment web --image=nginx:1.27 --dry-run=client -o yaml
+kubectl create secret generic db --from-literal=password=x --dry-run=client -o yaml
+kubectl explain deployment.spec.strategy.rollingUpdate        # needs a cluster (reads its API)
+# local practice cluster: kind, minikube, or Docker Desktop Kubernetes
+</code></pre>
+
+<p>Careful: some <code>kubectl</code> commands, even with <code>--dry-run=client</code>, may still try to reach whatever cluster your kubeconfig points to (for example <code>kubectl create role ...</code> did that on this Mac and failed with a DNS error to an old cluster). Check <code>kubectl config current-context</code> first, and never run mutating commands against production by habit.</p>
+
+<h2 id="5-common-mistakes">5. Common mistakes</h2>
+
+<ol>
+<li>No resource requests (HPA does nothing, scheduler cannot plan, bad QoS).</li>
+<li>Memory limit equal to normal usage with no headroom, then OOMKilled on a spike.</li>
+<li>Liveness probe that checks the database, or that is too strict, causing restart storms.</li>
+<li>No readiness probe, so traffic hits pods that are not ready during a rollout.</li>
+<li>Using <code>:latest</code>, so a rollout may not change anything (or changes unexpectedly).</li>
+<li>Believing a Secret is encrypted. It is base64, readable by anyone with <code>get secrets</code>.</li>
+<li>A PDB with <code>maxUnavailable: 0</code>, blocking node upgrades. Or no PDB at all with 1 replica.</li>
+<li>Creating a NetworkPolicy on a cluster whose network plugin does not enforce them (no effect).</li>
+</ol>
+
+<h2 id="6-eight-interview-questions-with-answers">6. Eight interview questions with answers</h2>
+
+<p><strong>Q1. What happens when you run <code>kubectl apply -f deployment.yaml</code>?</strong>
+kubectl sends the object to the API server, which authenticates, authorizes (RBAC), validates, runs admission, and stores it in etcd. The Deployment controller sees it and creates a ReplicaSet. The ReplicaSet controller creates Pod objects. The scheduler picks a node for each pod. The kubelet on that node tells the container runtime to pull the image and start containers, and runs probes. When the pod is Ready, the endpoints controller adds it to Service endpoints.</p>
+
+<p><strong>Q2. Pod vs Deployment vs ReplicaSet vs StatefulSet?</strong>
+A pod is one or more containers on one node, and is disposable. A ReplicaSet keeps N identical pods running. A Deployment manages ReplicaSets and gives rolling updates and rollback. A StatefulSet is for stateful apps: stable names (<code>db-0</code>, <code>db-1</code>), stable storage per pod, ordered start and stop.</p>
+
+<p><strong>Q3. Liveness vs readiness vs startup probes?</strong>
+Liveness failing restarts the container. Readiness failing removes the pod from Service endpoints without restart. Startup holds off the other two until the app has started, protecting slow starters. Keep liveness cheap and independent of dependencies; put dependency checks in readiness.</p>
+
+<p><strong>Q4. Requests vs limits? What happens when a container goes over each?</strong>
+Requests are what the scheduler reserves for the pod. Limits are the ceiling. Over the CPU limit: throttled (slowed, not killed). Over the memory limit: OOM-killed (exit 137). Requests also decide QoS class and the base for HPA percentages.</p>
+
+<p><strong>Q5. How does an HPA decide how many replicas?</strong>
+<code>desired = ceil(current × currentMetric / targetMetric)</code>, checked about every 15 seconds, ignoring small changes (10 percent tolerance). For CPU, utilization is measured against the pod's CPU request, so requests must be set. Scale-down waits through a stabilization window to avoid flapping. If pods stay Pending after scale-up, the node autoscaler must add nodes.</p>
+
+<p><strong>Q6. A pod is Pending. How do you debug it?</strong>
+<code>kubectl describe pod</code>, read the <code>FailedScheduling</code> event. Common causes: insufficient CPU/memory on nodes, taints without tolerations, node selector or affinity matching nothing, unbound PVC, quota. Then check <code>kubectl describe nodes</code> (allocated resources), <code>kubectl get pvc</code>, <code>kubectl describe resourcequota</code>, and the cluster autoscaler logs.</p>
+
+<p><strong>Q7. CrashLoopBackOff: what is it, and what are your first three commands?</strong>
+The container keeps exiting and Kubernetes restarts it with increasing backoff (up to 5 minutes). It is a symptom. First: <code>kubectl logs &lt;pod&gt; --previous</code>. Second: <code>kubectl describe pod &lt;pod&gt;</code> for Last State, exit code, reason, and probe events. Third: <code>kubectl get events --sort-by=.lastTimestamp</code>, or check config (env, Secrets, ConfigMaps) the app reads. Exit 137 points to OOM, exit 1 to an app error.</p>
+
+<p><strong>Q8. How do you do a zero-downtime deployment, and what can break it?</strong>
+Rolling update with <code>maxUnavailable: 0</code> (or small), <code>maxSurge: 1+</code>, a correct readiness probe, a PDB, at least 2 replicas spread over nodes/zones, and graceful shutdown (handle SIGTERM, a <code>preStop</code> sleep so the load balancer stops sending traffic first, a long enough <code>terminationGracePeriodSeconds</code>). What breaks it: no readiness probe, apps that ignore SIGTERM, database migrations that are not backward-compatible, a single replica, and a PDB that blocks node drains.</p>
+
+<h2 id="7-self-quiz-answers-at-the-end">7. Self-quiz (answers at the end)</h2>
+
+<ol>
+<li>Which Kubernetes object gives pods a stable IP and DNS name?</li>
+<li>A Service has no endpoints. Name two reasons.</li>
+<li>You see exit code 137 and reason <code>OOMKilled</code>. Which setting is involved?</li>
+<li>Why can an HPA based on CPU do nothing even when CPU is at 100 percent?</li>
+<li>What is the risk of a PDB with <code>minAvailable</code> equal to the replica count?</li>
+</ol>
+
+<p><strong>Answers</strong></p>
+
+<ol>
+<li>A Service.</li>
+<li>The selector matches no pods (label mismatch), or the matching pods are not Ready (readiness probe failing), or the pods do not exist.</li>
+<li>The container's memory <strong>limit</strong>.</li>
+<li>The pods have no CPU <strong>requests</strong>, so utilization is undefined (the docs: the autoscaler "will not take any action"). Also possible: max replicas reached, or the metrics-server is missing.</li>
+<li>It allows zero voluntary evictions, so <code>kubectl drain</code> and cluster upgrades hang forever.</li>
+</ol>
+
+<h2 id="8-sources">8. Sources</h2>
+
+<ul>
+<li>Debug pods (Pending, Waiting, <code>kubectl describe</code> first): https://kubernetes.io/docs/tasks/debug/debug-application/debug-pods/</li>
+<li>Resource management (requests, limits, throttling, OOM): https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/</li>
+<li>Probes: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/</li>
+<li>HPA: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/</li>
+<li>PodDisruptionBudget: https://kubernetes.io/docs/tasks/run-application/configure-pdb/</li>
+<li>Deployments: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/</li>
+<li>NetworkPolicy: https://kubernetes.io/docs/concepts/services-networking/network-policies/</li>
+<li>Ingress (frozen, Gateway recommended): https://kubernetes.io/docs/concepts/services-networking/ingress/</li>
+<li>Ingress NGINX retirement (Nov 2025) https://kubernetes.io/blog/2025/11/11/ingress-Nginx-retirement/ and statement (Jan 2026) https://www.kubernetes.io/blog/2026/01/29/ingress-nginx-statement/ (I saw these two links in search results; I confirmed the March 2026 date from the search summaries of them, not from reading the pages)</li>
+<li>Secrets good practices: https://kubernetes.io/docs/concepts/security/secrets-good-practices/</li>
+<li>RBAC: https://kubernetes.io/docs/reference/access-authn-authz/rbac/</li>
+<li>Reading termination reason and exit code: https://kubernetes.io/docs/tasks/debug/debug-application/determine-reason-pod-failure/</li>
+<li>Container images (pull policy, <code>:latest</code>): https://kubernetes.io/docs/concepts/containers/images/</li>
+<li>2026 interview-topic summaries (prep sites, treat as indicators only): https://prachub.com/resources/kubernetes-interview-questions-for-sre-and-platform-engineers-production-scenarios-not-trivia and https://www.kore1.com/platform-engineer-interview-questions/</li>
+</ul>
+
+<p>Not verified from a source: Deployment defaults (maxSurge/maxUnavailable 25 percent, progressDeadline 600 s, history limit 10); QoS class rules and eviction order; HPA 300 s scale-down window; CrashLoopBackOff delay values (10 s doubling to 5 minutes); exit codes 139 and 143 meaning; the full apply flow in Q1; the AKS <code>az aks update --attach-acr</code> command; ephemeral containers from 1.23; the JVM and Go memory flags; StatefulSet behavior. These are standard Kubernetes facts, but I did not read an official page for them today.</p>
+<div class="pn"><span><a href="03_containers_and_docker.html">&larr; 03. Containers and Docker</a></span><span><a href="05_helm.html">05. Helm &rarr;</a></span></div></main></div></body></html>

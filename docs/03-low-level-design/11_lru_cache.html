@@ -1,0 +1,379 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>11 - LRU Cache | Interview prep</title><style>
+:root{--bg:#fff;--fg:#1f2328;--mut:#59636e;--bd:#d1d9e0;--ac:#0b57d0;--cb:#f6f8fa;--sb:#f6f8fa}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9198a1;--bd:#30363d;--ac:#6cb6ff;--cb:#161b22;--sb:#010409}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{display:flex;min-height:100vh}nav{width:300px;flex:none;background:var(--sb);border-right:1px solid var(--bd);padding:16px;overflow:auto;position:sticky;top:0;height:100vh}
+nav a{color:var(--fg);text-decoration:none;display:block;padding:3px 6px;border-radius:6px;font-size:14px}nav a:hover{background:var(--cb)}nav a.cur{background:var(--ac);color:#fff}
+nav summary{cursor:pointer;font-weight:600;padding:6px 0}nav .home{font-weight:700;font-size:16px;margin-bottom:8px}
+main{flex:1;min-width:0;max-width:900px;padding:24px 32px 80px;margin:0 auto}
+h1,h2,h3{line-height:1.25}h1{border-bottom:1px solid var(--bd);padding-bottom:.3em}h2{border-bottom:1px solid var(--bd);padding-bottom:.25em;margin-top:2em}
+a{color:var(--ac)}pre{background:var(--cb);border:1px solid var(--bd);border-radius:8px;padding:14px;overflow:auto;font-size:13.5px;line-height:1.5}
+code{background:var(--cb);padding:.15em .35em;border-radius:5px;font-size:.92em}pre code{background:none;padding:0}
+table{border-collapse:collapse;display:block;overflow:auto;max-width:100%}th,td{border:1px solid var(--bd);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--cb)}
+blockquote{border-left:4px solid var(--bd);margin:0;padding:0 1em;color:var(--mut)}img{max-width:100%}
+.top{display:none}.pn{display:flex;justify-content:space-between;gap:12px;margin-top:48px;border-top:1px solid var(--bd);padding-top:16px;font-size:14px}
+@media(max-width:820px){.wrap{display:block}nav{width:auto;height:auto;position:static;border-right:0;border-bottom:1px solid var(--bd)}main{padding:16px}}
+</style></head><body><div class="wrap"><nav><a class="home" href="../index.html">Interview prep</a><details><summary>Data structures and algorithms</summary><a href="../01-dsa/00_how_to_start.html">How to start: reading a problem, the 5-step method, and Big-</a><a href="../01-dsa/01_arrays_and_strings.html">Lesson 01. Arrays and Strings</a><a href="../01-dsa/02_hash_maps_and_sets.html">Lesson 02. Hash Maps and Sets</a><a href="../01-dsa/03_two_pointers.html">Lesson 03. Two Pointers</a><a href="../01-dsa/04_sliding_window.html">Lesson 04. Sliding Window</a><a href="../01-dsa/05_stack_and_queue.html">Lesson 05. Stack and Queue (including the monotonic stack)</a><a href="../01-dsa/06_binary_search.html">Lesson 06. Binary Search (including search on the answer)</a><a href="../01-dsa/07_linked_lists.html">Lesson 07. Linked Lists</a><a href="../01-dsa/08_trees_and_bst.html">Lesson 08. Trees and Binary Search Trees (BST)</a><a href="../01-dsa/09_heaps_and_priority_queues.html">Lesson 09: Heaps and Priority Queues</a><a href="../01-dsa/10_graphs_bfs_dfs.html">Lesson 10: Graphs, BFS and DFS (including grids)</a><a href="../01-dsa/11_topological_sort_and_union_find.html">Lesson 11: Topological Sort and Union-Find</a><a href="../01-dsa/12_shortest_paths.html">Lesson 12: Shortest Paths (Dijkstra in plain words)</a><a href="../01-dsa/13_intervals.html">Lesson 13: Intervals (merge intervals, meeting rooms)</a><a href="../01-dsa/14_backtracking.html">Lesson 14: Backtracking (subsets, permutations, combination </a><a href="../01-dsa/15_dynamic_programming_part1.html">Lesson 15: Dynamic Programming, Part 1 (remembering answers)</a><a href="../01-dsa/16_dynamic_programming_part2.html">Lesson 16: Dynamic Programming, Part 2 (LIS, word break, kna</a><a href="../01-dsa/17_tries_and_greedy.html">Lesson 17: Tries and Greedy</a><a href="../01-dsa/18_bit_tricks_and_math_basics.html">Lesson 18: Bit Tricks and Math Basics (short)</a><a href="../01-dsa/19_company_question_patterns.html">Lesson 19: Company Question Patterns (Google, Amazon, Meta, </a></details><details><summary>System design</summary><a href="../02-system-design/00_how_the_round_works.html">How the System Design Round Works</a><a href="../02-system-design/01a_client_server_and_http.html">Client, Server and HTTP</a><a href="../02-system-design/01b_dns_and_cdn.html">DNS and CDN</a><a href="../02-system-design/01c_load_balancers.html">Load Balancers</a><a href="../02-system-design/01d_databases.html">Databases: SQL vs NoSQL, Indexes, Transactions</a><a href="../02-system-design/01e_caching.html">Caching (and Why Invalidation Is Hard)</a><a href="../02-system-design/01f_sharding_and_replication.html">Sharding and Replication</a><a href="../02-system-design/01g_message_queues_and_streams.html">Message Queues and Streams (Kafka Basics)</a><a href="../02-system-design/01h_consistency_and_cap.html">Consistency and the CAP Idea (in Plain Words)</a><a href="../02-system-design/02_numbers_and_estimation.html">Numbers and Estimation</a><a href="../02-system-design/03_reliability_patterns.html">Reliability Patterns</a><a href="../02-system-design/10_url_shortener.html">Design a URL Shortener</a><a href="../02-system-design/11_rate_limiter.html">Design a Rate Limiter</a><a href="../02-system-design/12_chat_system.html">Design a Chat System (like WhatsApp or Slack)</a><a href="../02-system-design/13_news_feed.html">Design a News Feed (like Instagram, Facebook or Twitter/X ho</a><a href="../02-system-design/14_notification_service.html">Design a Notification Service</a><a href="../02-system-design/15_file_storage_like_drive.html">Design File Storage and Sync (like Google Drive or Dropbox)</a><a href="../02-system-design/16_search_autocomplete.html">Design Search Autocomplete (Typeahead)</a><a href="../02-system-design/17_video_streaming_basics.html">Design Video Streaming Basics (like YouTube or Netflix)</a><a href="../02-system-design/18_payment_system_like_stripe.html">Design a Payment System (like Stripe)</a><a href="../02-system-design/19_order_management_like_amazon.html">Design an Order Management System (like Amazon: inventory, o</a><a href="../02-system-design/20_job_scheduler_and_workflow_engine.html">Design a Job Scheduler and Workflow Engine</a><a href="../02-system-design/21_api_gateway_and_auth_system.html">Design an API Gateway and Auth System</a><a href="../02-system-design/22_logging_and_metrics_platform.html">Design a Logging and Metrics Platform</a><a href="../02-system-design/90_cheat_sheet.html">Cheat Sheet (one page)</a><a href="../02-system-design/91_practice_questions.html">Practice Questions (30)</a></details><details open><summary>Low-level design</summary><a href="00_how_the_lld_round_works.html">- How the LLD round works</a><a href="01_oop_in_plain_words.html">- OOP in plain words</a><a href="02_solid_principles.html">- SOLID principles</a><a href="03_design_patterns_you_need.html">- The 8 design patterns you need</a><a href="10_parking_lot.html">- Parking Lot</a><a class="cur" href="11_lru_cache.html">- LRU Cache</a><a href="12_elevator_system.html">- Elevator System</a><a href="13_library_management.html">- Library Management System</a><a href="14_vending_machine.html">- Vending Machine (State pattern)</a><a href="15_atm.html">- ATM</a><a href="16_rate_limiter_class.html">- Rate Limiter (class design: token bucket and sliding windo</a><a href="17_amazon_locker.html">- Amazon Locker</a><a href="18_splitwise_expense_sharing.html">- Splitwise (Expense Sharing)</a><a href="19_logger_and_notification_system.html">- Logger and Notification System (Observer and Strategy)</a><a href="20_tic_tac_toe_or_chess_basics.html">- Tic-Tac-Toe (full) and Chess basics</a><a href="90_cheat_sheet.html">- Cheat sheet (read the night before)</a><a href="91_practice_questions.html">- Practice questions (20)</a></details><details><summary>DevOps and platform basics</summary><a href="../05-devops-platform-basics/01_linux_processes_memory_files.html">Linux: processes, memory, and files</a><a href="../05-devops-platform-basics/02_networking.html">Networking: TCP, DNS, TLS, NAT</a><a href="../05-devops-platform-basics/03_containers_and_docker.html">Containers and Docker</a><a href="../05-devops-platform-basics/04_kubernetes_from_zero.html">Kubernetes from zero</a><a href="../05-devops-platform-basics/05_helm.html">Helm</a><a href="../05-devops-platform-basics/06_terraform.html">Terraform</a><a href="../05-devops-platform-basics/07_ci_cd_github_actions.html">CI/CD with GitHub Actions</a><a href="../05-devops-platform-basics/08_observability_and_sre.html">Observability and SRE</a><a href="../05-devops-platform-basics/09_concurrency_and_distributed_basics.html">Concurrency and distributed basics</a><a href="../05-devops-platform-basics/10_databases_basics.html">Databases basics</a><a href="../05-devops-platform-basics/11_security_basics.html">Security basics (IAM, OAuth2/OIDC/JWT, secrets, supply chain</a><a href="../05-devops-platform-basics/12_gcp_pca_quick_map.html">Google Cloud quick map (for Professional Cloud Architect hol</a><a href="../05-devops-platform-basics/20_interview_questions_with_answers.html">Sixty interview questions with model answers (platform / SRE</a><a href="../05-devops-platform-basics/21_scenario_questions.html">Fifteen &quot;production is down&quot; scenarios, with step-by-step an</a></details><details><summary>Company processes</summary><a href="../06-company-process-and-behavioural/10_google.html">Google</a><a href="../06-company-process-and-behavioural/11_amazon.html">Amazon</a><a href="../06-company-process-and-behavioural/12_stripe.html">Stripe</a><a href="../06-company-process-and-behavioural/13_microsoft_and_azure_roles.html">Microsoft and Azure roles</a><a href="../06-company-process-and-behavioural/14_indian_product_and_gcc_companies.html">Indian product companies and GCCs</a><a href="../06-company-process-and-behavioural/15_european_scaleups.html">European scale-ups and visa basics</a><a href="../06-company-process-and-behavioural/16_ai_startups_like_smallest_ai.html">AI startups like Smallest AI</a><a href="../06-company-process-and-behavioural/24_questions_to_ask_interviewers.html">Questions to ask interviewers</a><a href="../06-company-process-and-behavioural/25_salary_notice_period_and_offer_negotiation_india_and_abroad.html">Salary, notice period and offer negotiation (India and abroa</a><a href="../06-company-process-and-behavioural/26_interview_day_checklists.html">Interview day checklists</a></details></nav><main><h1 id="11-lru-cache">11 - LRU Cache</h1>
+
+<p>Python 3.9. All code was run; the output is real.</p>
+
+<hr />
+
+<h2 id="1-the-problem-in-plain-words">1. The problem in plain words</h2>
+
+<p>A <strong>cache</strong> is a small, fast memory that keeps recent answers, so you do not need to do slow work again.
+<strong>LRU</strong> means <strong>Least Recently Used</strong>. When the cache is full and a new item arrives, we throw away the item that was used <strong>longest ago</strong>.</p>
+
+<p><strong>Analogy.</strong> Your study desk has space for 3 books. You always keep the 3 books you touched most recently on the desk. When you need a 4th book, you put back on the shelf the book you have not touched for the longest time.</p>
+
+<p>You must build:</p>
+
+<ul>
+<li><code>get(key)</code> -> returns the value, or "not found". It counts as a "use".</li>
+<li><code>put(key, value)</code> -> saves the value. If the cache is full, remove the least recently used item first.</li>
+<li><strong>Both must run in O(1) time</strong> (constant time: it does not get slower when the cache grows). This is the famous part of the question.</li>
+</ul>
+
+<hr />
+
+<h2 id="2-requirements-i-ask-the-interviewer">2. Requirements I ask the interviewer</h2>
+
+<ol>
+<li>Fixed capacity given at the start? -> <em>Yes.</em></li>
+<li>What does <code>get</code> return for a missing key? -> <em>-1 or None (I will use <code>None</code>).</em></li>
+<li>Does <code>put</code> on an existing key count as a use? -> <em>Yes, and it updates the value.</em></li>
+<li>Must <code>get</code> and <code>put</code> be O(1)? -> <em>Yes.</em></li>
+<li>Multiple threads? -> <em>Yes, make it safe.</em></li>
+<li>Keys: any hashable type? Values: anything? -> <em>Yes.</em></li>
+<li>Do items expire after some time? -> <em>Not now (possible extension).</em></li>
+</ol>
+
+<hr />
+
+<h2 id="3-why-two-data-structures-step-by-step">3. Why two data structures? (step by step)</h2>
+
+<p><strong>Attempt 1: only a dictionary (hash map).</strong>
+Dictionary gives O(1) to find a key. But a dictionary does not know <strong>which key is the oldest</strong>. Finding it would need a scan: O(n). Too slow.</p>
+
+<p><strong>Attempt 2: only a list ordered by use.</strong>
+We can keep "most recent at the front, oldest at the back". Removing the oldest is easy. But to <strong>find</strong> a key in a list we must scan: O(n). And moving an item from the middle to the front needs a shift: O(n). Too slow.</p>
+
+<p><strong>Idea: use both.</strong></p>
+
+<ul>
+<li>A <strong>hash map</strong>: <code>key -&gt; node</code>. This finds any item in O(1).</li>
+<li>A <strong>doubly linked list</strong> of nodes, ordered by use. This moves a node to the front, or removes a node, in O(1) <strong>if we already hold the node</strong>.</li>
+</ul>
+
+<p>The hash map gives us the node. The linked list lets us move it. Together: O(1).</p>
+
+<h3 id="what-is-a-doubly-linked-list">What is a doubly linked list?</h3>
+
+<p>A chain of boxes (called <em>nodes</em>). Each node holds: the data, a pointer to the <strong>previous</strong> node, and a pointer to the <strong>next</strong> node. "Pointer" just means "a reference to another node".</p>
+
+<p><strong>Analogy.</strong> A train. Each coach is connected to the coach in front and the coach behind. To remove one coach you only reconnect its two neighbours. You do not need to move the whole train.</p>
+
+<pre><code>HEAD &lt;-&gt; [A] &lt;-&gt; [B] &lt;-&gt; [C] &lt;-&gt; TAIL
+</code></pre>
+
+<ul>
+<li><code>HEAD</code> and <code>TAIL</code> are two <strong>dummy nodes</strong> (we call them <em>sentinels</em>). They hold no data. They exist so that "first node" and "last node" are never special cases: there is always a neighbour on both sides. This removes many <code>if</code> checks.</li>
+<li><strong>Most recently used</strong> is right after HEAD. <strong>Least recently used</strong> is right before TAIL.</li>
+</ul>
+
+<h3 id="the-three-small-moves">The three small moves</h3>
+
+<ol>
+<li><strong>Remove a node</strong> (to unlink it): connect its <code>prev</code> and <code>next</code> to each other.</li>
+</ol>
+
+<pre><code>before:  P &lt;-&gt; X &lt;-&gt; N
+after:   P &lt;-&gt; N          (X is out)
+         P.next = N ; N.prev = P
+</code></pre>
+
+<ol start="2">
+<li><strong>Add a node at the front</strong> (right after HEAD):</li>
+</ol>
+
+<pre><code>before:  HEAD &lt;-&gt; A
+after:   HEAD &lt;-&gt; X &lt;-&gt; A
+         X.prev = HEAD ; X.next = A ; A.prev = X ; HEAD.next = X
+</code></pre>
+
+<ol start="3">
+<li><strong>Mark as used</strong> = remove the node, then add it at the front.</li>
+</ol>
+
+<h3 id="a-full-example-capacity-2">A full example (capacity 2)</h3>
+
+<pre><code>put(1,"a")   map: {1}        list: HEAD &lt;-&gt; [1] &lt;-&gt; TAIL
+put(2,"b")   map: {1,2}      list: HEAD &lt;-&gt; [2] &lt;-&gt; [1] &lt;-&gt; TAIL
+get(1)       1 becomes newest:  HEAD &lt;-&gt; [1] &lt;-&gt; [2] &lt;-&gt; TAIL
+put(3,"c")   FULL! oldest is the node before TAIL = [2]
+             remove [2] from list and map, then add [3] at front
+             map: {1,3}      list: HEAD &lt;-&gt; [3] &lt;-&gt; [1] &lt;-&gt; TAIL
+get(2)       -&gt; None (it was evicted)
+</code></pre>
+
+<p><strong>Why does the node store the key too?</strong> When we evict the node before TAIL, we know the node but we also need its <strong>key</strong> so that we can delete it from the hash map.</p>
+
+<hr />
+
+<h2 id="4-classes-and-methods-the-picture">4. Classes and methods (the picture)</h2>
+
+<pre><code>+----------------------------------+            +--------------------+
+|            LRUCache              |            |        Node        |
+|----------------------------------|  has many  |--------------------|
+| capacity                         |-----------&gt;| key, value         |
+| _map: {key -&gt; Node}              |            | prev, next         |
+| _head, _tail  (sentinel Nodes)   |            +--------------------+
+| _lock                            |
+|----------------------------------|
+| get(key) -&gt; value or None        |
+| put(key, value)                  |
+| _remove(node)   (private helper) |
+| _add_front(node)(private helper) |
++----------------------------------+
+</code></pre>
+
+<p>Only two classes are needed. The point of this question is the data structure, not many classes. (Do not force design patterns here.)</p>
+
+<hr />
+
+<h2 id="5-full-code">5. Full code</h2>
+
+<pre><code>import threading                               # Lock for thread safety
+
+
+class Node:
+    # one box in the doubly linked list
+    def __init__(self, key=None, value=None):
+        self.key = key                         # we keep the key so we can delete it from the map on eviction
+        self.value = value                     # the cached data
+        self.prev = None                       # pointer to the node on the left (more recent)
+        self.next = None                       # pointer to the node on the right (older)
+
+
+class LRUCache:
+    def __init__(self, capacity):
+        if capacity &lt;= 0:                      # a cache that holds nothing makes no sense
+            raise ValueError("capacity must be positive")
+        self.capacity = capacity               # maximum number of items
+        self._map = {}                         # key -&gt; Node, gives O(1) lookup
+        self._head = Node()                    # dummy node on the left end (most recent side)
+        self._tail = Node()                    # dummy node on the right end (oldest side)
+        self._head.next = self._tail           # empty list: HEAD &lt;-&gt; TAIL
+        self._tail.prev = self._head
+        self._lock = threading.RLock()         # RLock: the same thread may lock twice (helps in subclasses)
+
+    # ----- private helpers: each is O(1) -----
+
+    def _remove(self, node):
+        node.prev.next = node.next             # left neighbour now points past node
+        node.next.prev = node.prev             # right neighbour now points back past node
+
+    def _add_front(self, node):
+        node.prev = self._head                 # new node sits right after HEAD
+        node.next = self._head.next            # and points to what used to be first
+        self._head.next.prev = node            # old first points back to the new node
+        self._head.next = node                 # HEAD points to the new node
+
+    # ----- public API -----
+
+    def get(self, key):
+        with self._lock:                       # lock because we change the list order
+            node = self._map.get(key)          # O(1) dictionary lookup
+            if node is None:
+                return None                    # cache miss
+            self._remove(node)                 # take it out of its old position...
+            self._add_front(node)              # ...and make it the most recent
+            return node.value
+
+    def put(self, key, value):
+        with self._lock:
+            node = self._map.get(key)
+            if node is not None:               # key already there: update and refresh
+                node.value = value
+                self._remove(node)
+                self._add_front(node)
+                return
+            if len(self._map) &gt;= self.capacity:    # full: evict the least recently used
+                oldest = self._tail.prev           # the node just before TAIL
+                self._remove(oldest)               # unlink it from the list
+                del self._map[oldest.key]          # and from the map (this is why Node stores the key)
+            new_node = Node(key, value)
+            self._map[key] = new_node          # register in the map
+            self._add_front(new_node)          # newest goes to the front
+
+    def delete(self, key):
+        with self._lock:
+            node = self._map.pop(key, None)    # remove from map (None if missing)
+            if node is None:
+                return False
+            self._remove(node)                 # and from the list
+            return True
+
+    def keys_recent_first(self):
+        # helper for the demo: walk the list from HEAD to TAIL
+        with self._lock:
+            out = []
+            cur = self._head.next
+            while cur is not self._tail:       # stop at the dummy end node
+                out.append(cur.key)
+                cur = cur.next
+            return out
+
+    def __len__(self):
+        return len(self._map)                  # number of items stored
+
+
+# ---------- EXTENSION: items that expire (TTL = time to live) ----------
+
+class TTLCache(LRUCache):
+    def __init__(self, capacity, ttl_seconds, clock):
+        super().__init__(capacity)             # reuse all LRU behaviour
+        self.ttl = ttl_seconds                 # how long an item lives
+        self.clock = clock                     # function returning "now"; easy to fake in tests
+        self._expires_at = {}                  # key -&gt; time when it dies
+
+    def put(self, key, value):
+        with self._lock:
+            super().put(key, value)            # normal LRU put (may evict)
+            self._expires_at[key] = self.clock() + self.ttl   # set a new death time
+
+    def get(self, key):
+        with self._lock:
+            died = self._expires_at.get(key)
+            if died is not None and self.clock() &gt;= died:     # too old?
+                self.delete(key)               # remove it (lazy expiry: we only notice when asked)
+                self._expires_at.pop(key, None)
+                return None
+            return super().get(key)            # normal LRU get
+
+
+class FakeClock:
+    def __init__(self):
+        self.now = 0
+    def __call__(self):
+        return self.now
+
+
+def main():
+    cache = LRUCache(2)
+    cache.put(1, "a")
+    cache.put(2, "b")
+    print("after put 1,2   :", cache.keys_recent_first())
+    print("get(1)          :", cache.get(1), "-&gt;", cache.keys_recent_first())
+    cache.put(3, "c")                          # evicts key 2 (least recently used)
+    print("after put 3     :", cache.keys_recent_first())
+    print("get(2)          :", cache.get(2), "(evicted)")
+    cache.put(1, "A")                          # update existing key: no eviction, 1 becomes newest
+    print("update 1        :", cache.get(1), cache.keys_recent_first())
+    cache.put(4, "d")                          # evicts 3 (older than 1)
+    print("after put 4     :", cache.keys_recent_first(), "len =", len(cache))
+
+    # ---- extension demo ----
+    print("--- TTL extension ---")
+    clk = FakeClock()
+    ttl = TTLCache(3, ttl_seconds=10, clock=clk)
+    ttl.put("x", 1)
+    clk.now = 5
+    print("t=5  get x:", ttl.get("x"))
+    clk.now = 10
+    print("t=10 get x:", ttl.get("x"), "(expired)")
+
+    # ---- thread test: 8 threads hammer a cache of size 50 ----
+    print("--- thread test ---")
+    shared = LRUCache(50)
+    def worker(n):
+        for i in range(2000):
+            shared.put((n * 7 + i) % 120, i)   # writes spread over 120 keys
+            shared.get((n * 3 + i) % 120)      # reads
+    threads = [threading.Thread(target=worker, args=(n,)) for n in range(8)]
+    for t in threads: t.start()
+    for t in threads: t.join()
+    ordered = shared.keys_recent_first()
+    # the list and the map must agree: same size, no duplicates, never above capacity
+    print("size:", len(shared), "list length:", len(ordered),
+          "no duplicates:", len(set(ordered)) == len(ordered),
+          "within capacity:", len(shared) &lt;= 50)
+
+
+if __name__ == "__main__":
+    main()
+</code></pre>
+
+<p>Output I got when I ran it:</p>
+
+<pre><code>after put 1,2   : [2, 1]
+get(1)          : a -&gt; [1, 2]
+after put 3     : [3, 1]
+get(2)          : None (evicted)
+update 1        : A [1, 3]
+after put 4     : [4, 1] len = 2
+--- TTL extension ---
+t=5  get x: 1
+t=10 get x: None (expired)
+--- thread test ---
+size: 50 list length: 50 no duplicates: True within capacity: True
+</code></pre>
+
+<hr />
+
+<h2 id="6-how-the-code-works-walk-through">6. How the code works (walk through)</h2>
+
+<ul>
+<li><code>get</code>: look in the map (O(1)). If found, <code>_remove</code> + <code>_add_front</code> moves the node to the "newest" spot (O(1)). Return the value.</li>
+<li><code>put</code> (new key, cache full): the <strong>oldest node is always <code>_tail.prev</code></strong>. We unlink it, delete its key from the map, then add the new node at the front.</li>
+<li>Every step is a fixed number of pointer changes, so both operations are <strong>O(1)</strong>. Memory is O(capacity).</li>
+<li>The output matches the hand example in section 3: after <code>get(1)</code>, key 2 is the oldest, so <code>put(3)</code> throws key 2 out.</li>
+</ul>
+
+<p><strong>Shortcut to mention (do not use it unless allowed):</strong> Python's <code>collections.OrderedDict</code> has <code>move_to_end()</code> and <code>popitem(last=False)</code>, which does the same job in a few lines. Interviewers usually want you to build the list yourself. Mention that you know the shortcut at the end.</p>
+
+<hr />
+
+<h2 id="7-how-to-extend-it">7. How to extend it</h2>
+
+<p><strong>"Add expiry (TTL)."</strong> I built <code>TTLCache</code> as a subclass. It reuses the LRU code and only adds a dictionary <code>key -&gt; death time</code>. Expiry is <strong>lazy</strong>: we check the time when <code>get</code> is called. For eager cleanup, add a background thread or a min-heap of death times. Small known flaw: <code>_expires_at</code> keeps the entry of a key that LRU evicted. In real code you would clean it (for example, override <code>_remove</code>/evict to pop it too). Say this out loud; it shows you review your own code.</p>
+
+<p><strong>"Make it a generic cache with different eviction rules (LRU, LFU, FIFO)."</strong> Define an <code>EvictionPolicy</code> interface with <code>on_access(key)</code>, <code>on_insert(key)</code>, <code>evict() -&gt; key</code>. The cache holds a policy (Strategy pattern, file 03). <code>LRUPolicy</code> would be the linked list above.</p>
+
+<p><strong>"Add a loader for misses (read-through cache)."</strong> Pass a <code>loader(key)</code> function in the constructor. On a miss, call the loader, then <code>put</code>.</p>
+
+<hr />
+
+<h2 id="8-thread-safety-notes-plain-words">8. Thread-safety notes (plain words)</h2>
+
+<ul>
+<li><strong>The danger:</strong> <code>get</code> looks like a "read", but it <strong>changes the list order</strong>. So two threads calling <code>get</code> can corrupt the pointers (one removes the node while the other moves it). Even <code>get</code> needs a lock.</li>
+<li><strong>The fix:</strong> one lock around every public method. The thread test checks that the map and the list never disagree.</li>
+<li>I used <code>RLock</code> (re-entrant lock): the same thread can take it again. <code>TTLCache.get</code> calls <code>delete</code> and <code>super().get</code>, which also lock. With a plain <code>Lock</code> this would hang forever (deadlock).</li>
+<li><strong>Cost:</strong> one lock = one thread at a time. For higher speed, split into several small caches by <code>hash(key) % N</code>, each with its own lock (this is called <em>sharding</em>).</li>
+<li>Python's GIL (Global Interpreter Lock) does <strong>not</strong> make multi-step operations safe. Do not rely on it.</li>
+</ul>
+
+<hr />
+
+<h2 id="9-five-follow-up-questions-with-model-answers">9. Five follow-up questions with model answers</h2>
+
+<p><strong>Q1. Why a doubly linked list and not a singly linked list?</strong>
+To remove a node in O(1) I need its <strong>previous</strong> node. A singly linked list only knows <code>next</code>, so finding the previous node would be a scan, O(n). The <code>prev</code> pointer removes that scan.</p>
+
+<p><strong>Q2. Why dummy head and tail nodes?</strong>
+Without them, removing the first or last node needs special <code>if</code> branches (<code>if node.prev is None</code>...). With dummies every real node always has two neighbours, so <code>_remove</code> and <code>_add_front</code> are the same code for every position. Less code, fewer bugs.</p>
+
+<p><strong>Q3. Why store the key inside the node?</strong>
+On eviction I get the oldest node from the list. I must also delete it from the map, and deleting from the map needs the key. Without the key I would scan the map.</p>
+
+<p><strong>Q4. How would you make this faster with many threads?</strong>
+Shard it: make N independent <code>LRUCache</code> objects, pick one with <code>hash(key) % N</code>. Threads working on different shards do not wait for each other. The downside: eviction is now "least recent <em>inside the shard</em>", which is only approximately global LRU. That is usually fine.</p>
+
+<p><strong>Q5. How is LFU (Least Frequently Used) different, and how would you build it in O(1)?</strong>
+LFU evicts the item used the fewest times. One known O(1) design: a map <code>key -&gt; node</code> plus a map <code>count -&gt; doubly linked list of nodes with that count</code>, and a variable <code>min_count</code>. On access, move the node from list <code>count</code> to list <code>count+1</code>. On eviction, remove the oldest node in list <code>min_count</code>. (If asked, say this is the idea and explain tie-breaking by recency inside each list.)</p>
+
+<hr />
+
+<p><strong>Next:</strong> <code>12_elevator_system.md</code>.</p>
+<div class="pn"><span><a href="10_parking_lot.html">&larr; 10 - Parking Lot</a></span><span><a href="12_elevator_system.html">12 - Elevator System &rarr;</a></span></div></main></div></body></html>

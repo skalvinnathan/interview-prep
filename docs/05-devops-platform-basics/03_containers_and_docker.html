@@ -1,0 +1,391 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>03. Containers and Docker | Interview prep</title><style>
+:root{--bg:#fff;--fg:#1f2328;--mut:#59636e;--bd:#d1d9e0;--ac:#0b57d0;--cb:#f6f8fa;--sb:#f6f8fa}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9198a1;--bd:#30363d;--ac:#6cb6ff;--cb:#161b22;--sb:#010409}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{display:flex;min-height:100vh}nav{width:300px;flex:none;background:var(--sb);border-right:1px solid var(--bd);padding:16px;overflow:auto;position:sticky;top:0;height:100vh}
+nav a{color:var(--fg);text-decoration:none;display:block;padding:3px 6px;border-radius:6px;font-size:14px}nav a:hover{background:var(--cb)}nav a.cur{background:var(--ac);color:#fff}
+nav summary{cursor:pointer;font-weight:600;padding:6px 0}nav .home{font-weight:700;font-size:16px;margin-bottom:8px}
+main{flex:1;min-width:0;max-width:900px;padding:24px 32px 80px;margin:0 auto}
+h1,h2,h3{line-height:1.25}h1{border-bottom:1px solid var(--bd);padding-bottom:.3em}h2{border-bottom:1px solid var(--bd);padding-bottom:.25em;margin-top:2em}
+a{color:var(--ac)}pre{background:var(--cb);border:1px solid var(--bd);border-radius:8px;padding:14px;overflow:auto;font-size:13.5px;line-height:1.5}
+code{background:var(--cb);padding:.15em .35em;border-radius:5px;font-size:.92em}pre code{background:none;padding:0}
+table{border-collapse:collapse;display:block;overflow:auto;max-width:100%}th,td{border:1px solid var(--bd);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--cb)}
+blockquote{border-left:4px solid var(--bd);margin:0;padding:0 1em;color:var(--mut)}img{max-width:100%}
+.top{display:none}.pn{display:flex;justify-content:space-between;gap:12px;margin-top:48px;border-top:1px solid var(--bd);padding-top:16px;font-size:14px}
+@media(max-width:820px){.wrap{display:block}nav{width:auto;height:auto;position:static;border-right:0;border-bottom:1px solid var(--bd)}main{padding:16px}}
+</style></head><body><div class="wrap"><nav><a class="home" href="../index.html">Interview prep</a><details><summary>Data structures and algorithms</summary><a href="../01-dsa/00_how_to_start.html">How to start: reading a problem, the 5-step method, and Big-</a><a href="../01-dsa/01_arrays_and_strings.html">Lesson 01. Arrays and Strings</a><a href="../01-dsa/02_hash_maps_and_sets.html">Lesson 02. Hash Maps and Sets</a><a href="../01-dsa/03_two_pointers.html">Lesson 03. Two Pointers</a><a href="../01-dsa/04_sliding_window.html">Lesson 04. Sliding Window</a><a href="../01-dsa/05_stack_and_queue.html">Lesson 05. Stack and Queue (including the monotonic stack)</a><a href="../01-dsa/06_binary_search.html">Lesson 06. Binary Search (including search on the answer)</a><a href="../01-dsa/07_linked_lists.html">Lesson 07. Linked Lists</a><a href="../01-dsa/08_trees_and_bst.html">Lesson 08. Trees and Binary Search Trees (BST)</a><a href="../01-dsa/09_heaps_and_priority_queues.html">Lesson 09: Heaps and Priority Queues</a><a href="../01-dsa/10_graphs_bfs_dfs.html">Lesson 10: Graphs, BFS and DFS (including grids)</a><a href="../01-dsa/11_topological_sort_and_union_find.html">Lesson 11: Topological Sort and Union-Find</a><a href="../01-dsa/12_shortest_paths.html">Lesson 12: Shortest Paths (Dijkstra in plain words)</a><a href="../01-dsa/13_intervals.html">Lesson 13: Intervals (merge intervals, meeting rooms)</a><a href="../01-dsa/14_backtracking.html">Lesson 14: Backtracking (subsets, permutations, combination </a><a href="../01-dsa/15_dynamic_programming_part1.html">Lesson 15: Dynamic Programming, Part 1 (remembering answers)</a><a href="../01-dsa/16_dynamic_programming_part2.html">Lesson 16: Dynamic Programming, Part 2 (LIS, word break, kna</a><a href="../01-dsa/17_tries_and_greedy.html">Lesson 17: Tries and Greedy</a><a href="../01-dsa/18_bit_tricks_and_math_basics.html">Lesson 18: Bit Tricks and Math Basics (short)</a><a href="../01-dsa/19_company_question_patterns.html">Lesson 19: Company Question Patterns (Google, Amazon, Meta, </a></details><details><summary>System design</summary><a href="../02-system-design/00_how_the_round_works.html">How the System Design Round Works</a><a href="../02-system-design/01a_client_server_and_http.html">Client, Server and HTTP</a><a href="../02-system-design/01b_dns_and_cdn.html">DNS and CDN</a><a href="../02-system-design/01c_load_balancers.html">Load Balancers</a><a href="../02-system-design/01d_databases.html">Databases: SQL vs NoSQL, Indexes, Transactions</a><a href="../02-system-design/01e_caching.html">Caching (and Why Invalidation Is Hard)</a><a href="../02-system-design/01f_sharding_and_replication.html">Sharding and Replication</a><a href="../02-system-design/01g_message_queues_and_streams.html">Message Queues and Streams (Kafka Basics)</a><a href="../02-system-design/01h_consistency_and_cap.html">Consistency and the CAP Idea (in Plain Words)</a><a href="../02-system-design/02_numbers_and_estimation.html">Numbers and Estimation</a><a href="../02-system-design/03_reliability_patterns.html">Reliability Patterns</a><a href="../02-system-design/10_url_shortener.html">Design a URL Shortener</a><a href="../02-system-design/11_rate_limiter.html">Design a Rate Limiter</a><a href="../02-system-design/12_chat_system.html">Design a Chat System (like WhatsApp or Slack)</a><a href="../02-system-design/13_news_feed.html">Design a News Feed (like Instagram, Facebook or Twitter/X ho</a><a href="../02-system-design/14_notification_service.html">Design a Notification Service</a><a href="../02-system-design/15_file_storage_like_drive.html">Design File Storage and Sync (like Google Drive or Dropbox)</a><a href="../02-system-design/16_search_autocomplete.html">Design Search Autocomplete (Typeahead)</a><a href="../02-system-design/17_video_streaming_basics.html">Design Video Streaming Basics (like YouTube or Netflix)</a><a href="../02-system-design/18_payment_system_like_stripe.html">Design a Payment System (like Stripe)</a><a href="../02-system-design/19_order_management_like_amazon.html">Design an Order Management System (like Amazon: inventory, o</a><a href="../02-system-design/20_job_scheduler_and_workflow_engine.html">Design a Job Scheduler and Workflow Engine</a><a href="../02-system-design/21_api_gateway_and_auth_system.html">Design an API Gateway and Auth System</a><a href="../02-system-design/22_logging_and_metrics_platform.html">Design a Logging and Metrics Platform</a><a href="../02-system-design/90_cheat_sheet.html">Cheat Sheet (one page)</a><a href="../02-system-design/91_practice_questions.html">Practice Questions (30)</a></details><details><summary>Low-level design</summary><a href="../03-low-level-design/00_how_the_lld_round_works.html">- How the LLD round works</a><a href="../03-low-level-design/01_oop_in_plain_words.html">- OOP in plain words</a><a href="../03-low-level-design/02_solid_principles.html">- SOLID principles</a><a href="../03-low-level-design/03_design_patterns_you_need.html">- The 8 design patterns you need</a><a href="../03-low-level-design/10_parking_lot.html">- Parking Lot</a><a href="../03-low-level-design/11_lru_cache.html">- LRU Cache</a><a href="../03-low-level-design/12_elevator_system.html">- Elevator System</a><a href="../03-low-level-design/13_library_management.html">- Library Management System</a><a href="../03-low-level-design/14_vending_machine.html">- Vending Machine (State pattern)</a><a href="../03-low-level-design/15_atm.html">- ATM</a><a href="../03-low-level-design/16_rate_limiter_class.html">- Rate Limiter (class design: token bucket and sliding windo</a><a href="../03-low-level-design/17_amazon_locker.html">- Amazon Locker</a><a href="../03-low-level-design/18_splitwise_expense_sharing.html">- Splitwise (Expense Sharing)</a><a href="../03-low-level-design/19_logger_and_notification_system.html">- Logger and Notification System (Observer and Strategy)</a><a href="../03-low-level-design/20_tic_tac_toe_or_chess_basics.html">- Tic-Tac-Toe (full) and Chess basics</a><a href="../03-low-level-design/90_cheat_sheet.html">- Cheat sheet (read the night before)</a><a href="../03-low-level-design/91_practice_questions.html">- Practice questions (20)</a></details><details open><summary>DevOps and platform basics</summary><a href="01_linux_processes_memory_files.html">Linux: processes, memory, and files</a><a href="02_networking.html">Networking: TCP, DNS, TLS, NAT</a><a class="cur" href="03_containers_and_docker.html">Containers and Docker</a><a href="04_kubernetes_from_zero.html">Kubernetes from zero</a><a href="05_helm.html">Helm</a><a href="06_terraform.html">Terraform</a><a href="07_ci_cd_github_actions.html">CI/CD with GitHub Actions</a><a href="08_observability_and_sre.html">Observability and SRE</a><a href="09_concurrency_and_distributed_basics.html">Concurrency and distributed basics</a><a href="10_databases_basics.html">Databases basics</a><a href="11_security_basics.html">Security basics (IAM, OAuth2/OIDC/JWT, secrets, supply chain</a><a href="12_gcp_pca_quick_map.html">Google Cloud quick map (for Professional Cloud Architect hol</a><a href="20_interview_questions_with_answers.html">Sixty interview questions with model answers (platform / SRE</a><a href="21_scenario_questions.html">Fifteen &quot;production is down&quot; scenarios, with step-by-step an</a></details><details><summary>Company processes</summary><a href="../06-company-process-and-behavioural/10_google.html">Google</a><a href="../06-company-process-and-behavioural/11_amazon.html">Amazon</a><a href="../06-company-process-and-behavioural/12_stripe.html">Stripe</a><a href="../06-company-process-and-behavioural/13_microsoft_and_azure_roles.html">Microsoft and Azure roles</a><a href="../06-company-process-and-behavioural/14_indian_product_and_gcc_companies.html">Indian product companies and GCCs</a><a href="../06-company-process-and-behavioural/15_european_scaleups.html">European scale-ups and visa basics</a><a href="../06-company-process-and-behavioural/16_ai_startups_like_smallest_ai.html">AI startups like Smallest AI</a><a href="../06-company-process-and-behavioural/24_questions_to_ask_interviewers.html">Questions to ask interviewers</a><a href="../06-company-process-and-behavioural/25_salary_notice_period_and_offer_negotiation_india_and_abroad.html">Salary, notice period and offer negotiation (India and abroa</a><a href="../06-company-process-and-behavioural/26_interview_day_checklists.html">Interview day checklists</a></details></nav><main><h1 id="03-containers-and-docker">03. Containers and Docker</h1>
+
+<p>Legend: <code>[REAL]</code> = ran on this Mac on 2026-11-15. <code>[SAMPLE]</code> = typical output written to show the shape, numbers made up, not run here.
+Note: on this Mac the Docker engine (Colima) was <strong>not running</strong>, so I could not run containers. I only captured <code>docker run --help</code>. Everything about running containers is <code>[SAMPLE]</code> or taken from the docs.</p>
+
+<hr />
+
+<h2 id="1-what-it-is-plain-words-analogy">1. What it is (plain words + analogy)</h2>
+
+<p>A <strong>container</strong> is a normal Linux process that is <strong>fenced in</strong>:</p>
+
+<ul>
+<li>it sees only its own file system, its own process list, and its own network (this is <strong>namespaces</strong>), and</li>
+<li>it can use only a limited amount of CPU and memory (this is <strong>cgroups</strong>).</li>
+</ul>
+
+<p>It is <strong>not</strong> a small virtual machine. It does not have its own kernel. It shares the host's kernel.</p>
+
+<p>Analogy: an apartment building.</p>
+
+<ul>
+<li>A <strong>virtual machine</strong> is a separate house with its own walls, pipes, and electricity (heavy).</li>
+<li>A <strong>container</strong> is an apartment: own door and own rooms, but shared pipes and electricity (the kernel). Light and quick to build.</li>
+<li><strong>Namespaces</strong> = the walls and the door numbers. The tenant sees only their own apartment.</li>
+<li><strong>cgroups</strong> = the electricity and water meter with a limit.</li>
+<li>An <strong>image</strong> = the moving-in box with all the furniture (files) packed. A <strong>container</strong> = the apartment after you unpacked the box and someone lives in it.</li>
+</ul>
+
+<p>Words:</p>
+
+<ul>
+<li><strong>Image</strong>: a read-only package of files (a root filesystem) plus settings (what command to run).</li>
+<li><strong>Container</strong>: a running (or stopped) instance of an image.</li>
+<li><strong>Registry</strong>: a server that stores images (Docker Hub, GHCR, ACR, Artifact Registry).</li>
+<li><strong>OCI</strong>: Open Container Initiative, the standard format for images and runtimes, so Docker, containerd, and Podman agree.</li>
+<li><strong>Dockerfile</strong>: the recipe to build an image.</li>
+</ul>
+
+<h2 id="2-why-it-matters-in-interviews">2. Why it matters in interviews</h2>
+
+<p>Kubernetes runs containers, so every Kubernetes question sits on this. Interviewers ask: "How is a container different from a VM?", "What is a cgroup?", "Why did my container get OOMKilled while the node has free memory?", "Why is my service slow when CPU use looks low?" (CPU throttling), "How do you make an image small and safe?", "Why run as non-root?", "Why does PID 1 matter?". For SRE roles like Unikraft (which builds a different kind of lightweight isolation, unikernels), knowing exactly what a container does and does not isolate lets you compare them.</p>
+
+<h2 id="3-how-it-works-step-by-step">3. How it works, step by step</h2>
+
+<h3 id="31-namespaces-what-the-process-can-see">3.1 Namespaces: what the process can SEE</h3>
+
+<p>A namespace gives a process its own view of one kind of thing:</p>
+
+<table>
+<thead>
+<tr>
+  <th>Namespace</th>
+  <th>The container sees its own...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>pid</td>
+  <td>process list (its first process is PID 1)</td>
+</tr>
+<tr>
+  <td>net</td>
+  <td>network devices, IP address, routing table, ports</td>
+</tr>
+<tr>
+  <td>mnt</td>
+  <td>mounted file systems (its own root <code>/</code>)</td>
+</tr>
+<tr>
+  <td>uts</td>
+  <td>hostname</td>
+</tr>
+<tr>
+  <td>ipc</td>
+  <td>shared memory and message queues</td>
+</tr>
+<tr>
+  <td>user</td>
+  <td>user and group IDs (root inside can map to a normal user outside)</td>
+</tr>
+<tr>
+  <td>cgroup</td>
+  <td>its view of the cgroup tree</td>
+</tr>
+</tbody>
+</table>
+
+<pre><code> HOST kernel
+ ├─ pid ns A: PID 1 = nginx   (host sees it as PID 48211)
+ ├─ pid ns B: PID 1 = python  (host sees it as PID 48390)
+ └─ ...
+</code></pre>
+
+<p>Important: the host can still see and kill every container process. The container cannot see the host's processes.</p>
+
+<h3 id="32-cgroups-what-the-process-can-use">3.2 cgroups: what the process can USE</h3>
+
+<p>The kernel docs define a cgroup as "a mechanism to organize processes hierarchically and distribute system resources" (cgroup v2 admin guide). Files in the cgroup folder are the controls:</p>
+
+<table>
+<thead>
+<tr>
+  <th>File (cgroup v2)</th>
+  <th>Meaning (from the kernel docs)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><code>memory.max</code></td>
+  <td>"Memory usage hard limit". When usage reaches it and cannot be reduced, the OOM killer runs inside the group</td>
+</tr>
+<tr>
+  <td><code>memory.high</code></td>
+  <td>A throttle limit. Over it, the group is slowed and reclaimed hard, "Going over the high limit never invokes the OOM killer"</td>
+</tr>
+<tr>
+  <td><code>memory.events</code> -> <code>oom_kill</code></td>
+  <td>counter of processes killed by the OOM killer in this group</td>
+</tr>
+<tr>
+  <td><code>cpu.max</code></td>
+  <td>two numbers <code>$MAX $PERIOD</code> in microseconds, default <code>max 100000</code>. The group may use up to <code>$MAX</code> of CPU time in each <code>$PERIOD</code></td>
+</tr>
+<tr>
+  <td><code>cpu.stat</code> -> <code>nr_throttled</code>, <code>throttled_usec</code></td>
+  <td>how many periods were throttled and for how long</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="33-cpu-throttling-under-a-quota-the-one-that-surprises-people">3.3 CPU throttling under a quota (the one that surprises people)</h3>
+
+<p>A <strong>CPU limit</strong> in Docker or Kubernetes becomes <code>cpu.max</code>. Example: <code>--cpus=0.5</code> or a Kubernetes limit of <code>500m</code> means quota 50000 per period of 100000 microseconds (0.1 s).</p>
+
+<pre><code> One 100 ms period, limit = 0.5 CPU  -&gt;  50 ms of CPU time allowed
+ Your app has 4 busy threads on 4 cores:
+
+ time -&gt;   0ms        12.5ms                      100ms
+ core1  ██████████▌
+ core2  ██████████▌       &lt;- 4 threads x 12.5 ms = 50 ms of CPU used
+ core3  ██████████▌          the quota is spent at 12.5 ms
+ core4  ██████████▌
+                    ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ THROTTLED (frozen) until 100 ms
+</code></pre>
+
+<p>The app is <strong>frozen for 87 ms</strong> of every 100 ms, even though average CPU use looks like "only 50% of one core". Result: <strong>latency spikes (especially p99) while CPU graphs look fine</strong>. The Kubernetes docs say it plainly: "cpu limits are enforced by CPU throttling... Containers may not use more CPU than is specified in their cpu limit." A container is <strong>throttled, not killed</strong>, for CPU. For memory, it is <strong>killed</strong> ("memory limits are enforced by the kernel with out of memory (OOM) kills").</p>
+
+<p>How to see it: <code>cpu.stat</code> has <code>nr_throttled</code> and <code>throttled_usec</code>. In Prometheus, cAdvisor exposes <code>container_cpu_cfs_throttled_periods_total</code> and <code>container_cpu_cfs_periods_total</code>; their ratio is the share of throttled periods. (Metric names are from cAdvisor; I did not re-verify them today.)</p>
+
+<p><code>[SAMPLE]</code> inside a container on Linux with cgroup v2:</p>
+
+<pre><code>$ cat /sys/fs/cgroup/cpu.max
+50000 100000
+$ grep -E 'nr_periods|nr_throttled|throttled_usec' /sys/fs/cgroup/cpu.stat
+nr_periods 18342
+nr_throttled 9120          &lt;-- about half of the periods were throttled
+throttled_usec 411230000
+</code></pre>
+
+<p>Fixes: raise or remove the CPU limit (keep the request), reduce threads, or fix the hot code. Whether to set CPU limits at all is a debated topic: requests decide scheduling and fair share; limits cause throttling. Many teams set memory limits but leave CPU limits off. That is an opinion, not a rule; say "it depends" and explain the trade-off.</p>
+
+<p>Memory is different: a container that goes over <code>memory.max</code> is killed (exit code 137, reason <code>OOMKilled</code> in Kubernetes). Kubernetes notes that a container "may use more memory than its memory limit, but if it does, it may get killed" (kills happen when the kernel sees memory pressure).</p>
+
+<h3 id="34-images-and-layers">3.4 Images and layers</h3>
+
+<p>An image is a stack of <strong>read-only layers</strong>. Each Dockerfile instruction that changes files makes a new layer. When you run a container, Docker adds one thin <strong>writable layer</strong> on top.</p>
+
+<pre><code> Dockerfile                          Image layers (read-only)         Container
+ FROM python:3.12-slim      ----&gt;   [ base OS + python      ]
+ COPY requirements.txt .    ----&gt;   [ requirements.txt      ]
+ RUN pip install -r ...     ----&gt;   [ installed packages    ]
+ COPY . .                   ----&gt;   [ your code             ]       + [ writable layer ] (lost on delete)
+</code></pre>
+
+<ul>
+<li>Layers are <strong>cached</strong>. If an instruction and everything before it is unchanged, Docker reuses the layer. So put things that change <strong>rarely first</strong> (dependencies) and things that change <strong>often last</strong> (your code). That is why you copy <code>requirements.txt</code> and install <strong>before</strong> copying the rest.</li>
+<li>Layers are shared between images, so pulling a second image that uses the same base is fast.</li>
+<li>Files you delete in a later layer are <strong>still in the earlier layer</strong> (the image stays big). Clean up in the same <code>RUN</code>.</li>
+<li>Data written inside a running container is <strong>lost</strong> when the container is removed. Use a <strong>volume</strong> for data that must stay.</li>
+<li><strong>Tags are mutable</strong> (the tag <code>v1</code> can point to a different image tomorrow). A <strong>digest</strong> (<code>image@sha256:...</code>) is exact. Docker's best-practice page says to pin to a digest "to fully secure your supply chain integrity".</li>
+<li>Avoid <code>:latest</code> in production. Kubernetes docs warn it is "harder to track which version of the image is running and more difficult to roll back properly".</li>
+</ul>
+
+<h3 id="35-multi-stage-builds">3.5 Multi-stage builds</h3>
+
+<p>One Dockerfile, several <code>FROM</code> lines. Build tools stay in the early stage; only the result is copied to the last stage. Docker's docs call the result "a tiny production image with nothing but the binary inside".</p>
+
+<pre><code># ---- stage 1: build (big, has compilers) ----
+FROM golang:1.26 AS build
+WORKDIR /src
+COPY go.mod go.sum ./
+RUN go mod download                 # cached unless go.mod changes
+COPY . .
+RUN CGO_ENABLED=0 go build -o /out/app ./cmd/app
+
+# ---- stage 2: run (tiny) ----
+FROM gcr.io/distroless/static-debian12:nonroot
+COPY --from=build /out/app /app
+USER nonroot:nonroot
+ENTRYPOINT ["/app"]
+</code></pre>
+
+<p>(The <code>golang:1.26</code> tag comes from Docker's own example page. The distroless image name is a common choice; check the current tag before use.)</p>
+
+<p>Benefits: smaller image (faster pull, less to attack), no compilers or secrets left inside, one file to maintain. <code>docker build --target build .</code> stops at the named stage (useful for debugging or running tests).</p>
+
+<h3 id="36-run-as-non-root">3.6 Run as non-root</h3>
+
+<p>By default the process in a container is <code>root</code> (UID 0) <strong>inside</strong> the container. If an attacker escapes the container, being root makes things worse. Docker's best-practice page: "If a service can run without privileges, use USER to change to a non-root user."</p>
+
+<pre><code>RUN useradd --system --uid 10001 appuser
+USER 10001
+</code></pre>
+
+<p>Tips:</p>
+
+<ul>
+<li>Use a numeric UID. Kubernetes can then check <code>runAsNonRoot</code>.</li>
+<li>In Kubernetes: <code>securityContext: { runAsNonRoot: true, readOnlyRootFilesystem: true, allowPrivilegeEscalation: false, capabilities: { drop: ["ALL"] } }</code>. (Common hardening; the Docker flags <code>--user</code> and <code>--read-only</code> exist, confirmed in <code>docker run --help</code>.)</li>
+<li>Ports below 1024 need extra rights; listen on 8080 and map it.</li>
+<li>Remember: a container shares the host kernel, so it is <strong>not</strong> as strong a wall as a VM.</li>
+</ul>
+
+<p><code>[REAL]</code> flags that exist in this Docker (v29.9.3 client):</p>
+
+<pre><code>$ docker run --help | grep -E "init|memory |cpus|read-only|user "
+      --cpus decimal                     Number of CPUs
+      --init                             Run an init inside the container
+  -m, --memory bytes                     Memory limit
+      --read-only                        Mount the container's root
+  -u, --user string                      Username or UID (format:
+</code></pre>
+
+<h3 id="37-why-pid-1-is-special-in-a-container">3.7 Why PID 1 is special in a container</h3>
+
+<p>The first process in the container's pid namespace is PID 1. Two special rules (see file 01):</p>
+
+<ol>
+<li><strong>Signals</strong>: with no handler for a signal, PID 1 ignores it. So an app that does not handle SIGTERM will not stop on <code>docker stop</code>; after the timeout Docker sends SIGKILL. Docker's docs say that without an init, "a PID 1 process ignores signals that have no handler".</li>
+<li><strong>Zombies</strong>: PID 1 must reap orphaned children. Many apps do not, so zombies pile up.</li>
+</ol>
+
+<p>Fixes:</p>
+
+<ul>
+<li><code>docker run --init</code> (or <code>init: true</code> in Compose) puts a tiny init (<code>tini</code>, via <code>docker-init</code>) as PID 1. The docs: it "forwards signals and reaps processes".</li>
+<li>Use <strong>exec form</strong> <code>CMD ["app", "arg"]</code>, not shell form <code>CMD app arg</code>. Shell form starts <code>/bin/sh -c "app arg"</code>, so the shell is PID 1 and does not forward signals. Docker's best-practice page recommends the JSON array form for CMD.</li>
+<li>If you use a start script, end it with <code>exec app ...</code> so the app replaces the shell.</li>
+<li>In Kubernetes there is no <code>--init</code> flag on a pod. Put an init in the image (tini) or use <code>shareProcessNamespace</code>, or make sure your app handles signals. Know that this is a known gotcha.</li>
+</ul>
+
+<h3 id="38-what-a-container-does-not-isolate">3.8 What a container does NOT isolate</h3>
+
+<ul>
+<li>The <strong>kernel</strong> is shared (a kernel bug can affect all containers).</li>
+<li>The <strong>clock</strong> is shared (time namespaces exist but are rarely used).</li>
+<li>Some <strong>/proc and /sys</strong> values show <strong>host</strong> numbers, not container numbers (for example older tools read the host's CPU count and memory). This breaks apps that size thread pools from the host CPU count. Modern runtimes (Java 10+, Go 1.25+) read cgroup limits. (Check your language and version; I did not verify the versions.)</li>
+</ul>
+
+<h2 id="4-commands-to-try">4. Commands to try</h2>
+
+<pre><code># build and run
+docker build -t myapp:1.0 .
+docker build --target build -t myapp:build .       # stop at a named stage
+docker run --rm -it myapp:1.0 sh
+docker run --rm --init -m 256m --cpus 0.5 myapp:1.0
+docker run --rm --read-only --user 10001 myapp:1.0
+
+# look inside
+docker ps                       docker ps -a
+docker logs -f &lt;name&gt;           docker exec -it &lt;name&gt; sh
+docker inspect &lt;name&gt; | jq '.[0].State'        # OOMKilled true/false, ExitCode
+docker stats --no-stream                       # live CPU/mem per container
+docker history myapp:1.0                       # layers and sizes
+docker image ls                                # sizes
+docker top &lt;name&gt;                              # processes of the container
+docker diff &lt;name&gt;                             # files changed in the writable layer
+
+# cgroup numbers (inside a Linux container, cgroup v2)
+cat /sys/fs/cgroup/memory.max  /sys/fs/cgroup/cpu.max
+cat /sys/fs/cgroup/memory.events               # oom_kill counter
+grep throttled /sys/fs/cgroup/cpu.stat
+
+# on the host: see the namespaces of a process (Linux)
+ls -l /proc/&lt;pid&gt;/ns
+lsns                                           # list namespaces
+</code></pre>
+
+<p><code>[SAMPLE]</code> <code>docker inspect</code> after an OOM kill (Linux host):</p>
+
+<pre><code>$ docker inspect web --format '{{.State.OOMKilled}} {{.State.ExitCode}}'
+true 137
+</code></pre>
+
+<p><code>[SAMPLE]</code> <code>docker history</code>:</p>
+
+<pre><code>IMAGE          CREATED        CREATED BY                                      SIZE
+a1b2c3d4e5f6   2 minutes ago  ENTRYPOINT ["/app"]                             0B
+&lt;missing&gt;      2 minutes ago  COPY /out/app /app # buildkit                   9.1MB
+&lt;missing&gt;      3 weeks ago    (distroless base layers)                        ~2MB
+</code></pre>
+
+<p><code>[SAMPLE]</code> size win of multi-stage: a Go app can drop from about 800 MB (full <code>golang</code> image) to about 10-20 MB. The exact numbers depend on your app.</p>
+
+<h2 id="5-common-mistakes">5. Common mistakes</h2>
+
+<ol>
+<li>Thinking a container is a VM (it has no own kernel).</li>
+<li>Running as root, with a writable root filesystem, with all Linux capabilities.</li>
+<li>Using <code>:latest</code>, or tags instead of digests, so builds are not repeatable.</li>
+<li>Copying all source before installing dependencies, so the cache is useless on every build.</li>
+<li>Putting secrets in the image (<code>COPY .env</code>, or <code>ARG</code> with a password). They stay in layers forever. Use runtime secrets or BuildKit secret mounts.</li>
+<li>Shell-form <code>CMD</code> or a start script without <code>exec</code>, so SIGTERM never reaches the app.</li>
+<li>Setting a CPU limit too low and then seeing p99 latency spikes with "normal" CPU graphs.</li>
+<li>Storing data in the container filesystem. It disappears with the container.</li>
+</ol>
+
+<h2 id="6-eight-interview-questions-with-answers">6. Eight interview questions with answers</h2>
+
+<p><strong>Q1. What is a container? How is it different from a VM?</strong>
+A container is an ordinary Linux process, isolated by namespaces (what it can see) and limited by cgroups (what it can use). It shares the host kernel. A VM runs a full guest OS on virtual hardware with its own kernel: stronger isolation, heavier, slower to start. Containers are light and quick but share the kernel, so the isolation boundary is weaker.</p>
+
+<p><strong>Q2. What do namespaces and cgroups do?</strong>
+Namespaces give a process its own view of pids, network, mounts, hostname, IPC, and users. Cgroups limit and account resources: CPU, memory, I/O, number of processes. Together with a layered filesystem they make a container.</p>
+
+<p><strong>Q3. Explain image layers and why instruction order matters in a Dockerfile.</strong>
+Each instruction creates a read-only layer, and layers are cached. If a layer and all before it are unchanged, Docker reuses it. Put rarely changing steps (install dependencies) first and often changing steps (copy code) last, so most builds only redo the last layers. Also, deleting a file in a later layer does not shrink the image.</p>
+
+<p><strong>Q4. What is a multi-stage build and why use it?</strong>
+Several <code>FROM</code> stages in one Dockerfile. Compile in a big stage, then <code>COPY --from=</code> only the result into a small final stage. Smaller image, less attack surface, no build tools or source in production, one Dockerfile.</p>
+
+<p><strong>Q5. Why should a container not run as root? How do you fix it?</strong>
+Root in the container is UID 0, and a container escape would give the attacker strong rights on the host. Use <code>USER &lt;numeric uid&gt;</code> in the Dockerfile, and in Kubernetes set <code>runAsNonRoot</code>, a read-only root filesystem, drop all capabilities, and disallow privilege escalation. Listen on a high port.</p>
+
+<p><strong>Q6. What is special about PID 1 in a container?</strong>
+The kernel does not apply default signal actions to it, so unhandled SIGTERM is ignored, and it must reap orphaned children. If the app is PID 1 and does neither, <code>docker stop</code> takes the full timeout then SIGKILL, and zombies pile up. Use <code>--init</code>/tini, exec-form CMD, <code>exec</code> in scripts, and handle SIGTERM in the app.</p>
+
+<p><strong>Q7. My container has a 500m CPU limit. CPU usage graph shows 20%, but latency is bad. Why?</strong>
+CPU throttling. The quota is counted per 100 ms period. A multi-threaded app can spend its whole quota in a few milliseconds and then be frozen for the rest of the period. Average CPU hides this. Check <code>nr_throttled</code> and <code>throttled_usec</code> in <code>cpu.stat</code> (or the cAdvisor throttling metrics). Fix: raise or remove the CPU limit (keep a sensible request), reduce thread count, or optimize the code.</p>
+
+<p><strong>Q8. Container got OOMKilled but the node has lots of free memory. Why?</strong>
+The memory limit applies to the container's cgroup, not the node. When the container reaches <code>memory.max</code> and cannot reclaim enough, the kernel OOM killer runs inside that cgroup and kills a process (exit code 137). Fix: find the real usage (<code>kubectl top</code>, metrics, heap profile), fix leaks, or raise the limit; for JVM and similar runtimes also set the heap size below the container limit.</p>
+
+<h2 id="7-self-quiz-answers-at-the-end">7. Self-quiz (answers at the end)</h2>
+
+<ol>
+<li>What two Linux features make a container?</li>
+<li>What exit code do you see when the OOM killer ends a container, and why that number?</li>
+<li>Why copy <code>requirements.txt</code> before the rest of the code?</li>
+<li><code>CMD python app.py</code> versus <code>CMD ["python", "app.py"]</code>: which handles SIGTERM better and why?</li>
+<li>What does <code>cpu.max</code> of <code>50000 100000</code> mean?</li>
+</ol>
+
+<p><strong>Answers</strong></p>
+
+<ol>
+<li>Namespaces (isolated view) and cgroups (resource limits). Plus a layered filesystem.</li>
+<li>137 = 128 + 9 (SIGKILL).</li>
+<li>So the dependency-install layer is cached and only re-runs when the requirements change.</li>
+<li>The exec (JSON array) form. Shell form makes <code>/bin/sh</code> PID 1, which does not forward SIGTERM to Python.</li>
+<li>The group may use 50,000 microseconds (50 ms) of CPU per 100,000 microsecond (100 ms) period, which is half of one CPU.</li>
+</ol>
+
+<h2 id="8-sources">8. Sources</h2>
+
+<ul>
+<li>Docker docs, multi-stage builds: https://docs.docker.com/build/building/multi-stage/</li>
+<li>Docker docs, build best practices (USER, digest pinning, exec-form CMD, minimal images): https://docs.docker.com/build/building/best-practices/</li>
+<li>Docker docs, <code>docker run</code> (<code>--init</code>, <code>--memory</code>, <code>--cpus</code>, <code>--user</code>, <code>--read-only</code>): https://docs.docker.com/reference/cli/docker/container/run/</li>
+<li>Kernel docs, cgroup v2 (<code>cpu.max</code>, <code>cpu.stat</code>, <code>memory.max</code>, <code>memory.high</code>, <code>memory.events</code>): https://docs.kernel.org/admin-guide/cgroup-v2.html</li>
+<li>Kubernetes, resource management (CPU throttling, memory OOM kills): https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/</li>
+<li>Kubernetes, container images (<code>:latest</code>, digests): https://kubernetes.io/docs/concepts/containers/images/</li>
+</ul>
+
+<p>Not verified from a source: the list of namespace types; copy-on-write and layer details (general Docker knowledge); cAdvisor metric names; the claim that Java 10+ and Go 1.25+ read cgroup limits; the distroless image tag; the "800 MB to 10-20 MB" size example (illustrative); that many teams skip CPU limits (opinion); the Kubernetes <code>securityContext</code> field names (standard API fields, but check the docs for your version); that Docker Desktop/Colima behave the same as native Linux for <code>/sys/fs/cgroup</code> paths.</p>
+<div class="pn"><span><a href="02_networking.html">&larr; 02. Networking: TCP, DNS, TLS, NAT</a></span><span><a href="04_kubernetes_from_zero.html">04. Kubernetes from zero &rarr;</a></span></div></main></div></body></html>

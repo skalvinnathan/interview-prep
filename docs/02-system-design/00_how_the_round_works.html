@@ -1,0 +1,476 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>00. How the System Design Round Works | Interview prep</title><style>
+:root{--bg:#fff;--fg:#1f2328;--mut:#59636e;--bd:#d1d9e0;--ac:#0b57d0;--cb:#f6f8fa;--sb:#f6f8fa}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9198a1;--bd:#30363d;--ac:#6cb6ff;--cb:#161b22;--sb:#010409}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{display:flex;min-height:100vh}nav{width:300px;flex:none;background:var(--sb);border-right:1px solid var(--bd);padding:16px;overflow:auto;position:sticky;top:0;height:100vh}
+nav a{color:var(--fg);text-decoration:none;display:block;padding:3px 6px;border-radius:6px;font-size:14px}nav a:hover{background:var(--cb)}nav a.cur{background:var(--ac);color:#fff}
+nav summary{cursor:pointer;font-weight:600;padding:6px 0}nav .home{font-weight:700;font-size:16px;margin-bottom:8px}
+main{flex:1;min-width:0;max-width:900px;padding:24px 32px 80px;margin:0 auto}
+h1,h2,h3{line-height:1.25}h1{border-bottom:1px solid var(--bd);padding-bottom:.3em}h2{border-bottom:1px solid var(--bd);padding-bottom:.25em;margin-top:2em}
+a{color:var(--ac)}pre{background:var(--cb);border:1px solid var(--bd);border-radius:8px;padding:14px;overflow:auto;font-size:13.5px;line-height:1.5}
+code{background:var(--cb);padding:.15em .35em;border-radius:5px;font-size:.92em}pre code{background:none;padding:0}
+table{border-collapse:collapse;display:block;overflow:auto;max-width:100%}th,td{border:1px solid var(--bd);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--cb)}
+blockquote{border-left:4px solid var(--bd);margin:0;padding:0 1em;color:var(--mut)}img{max-width:100%}
+.top{display:none}.pn{display:flex;justify-content:space-between;gap:12px;margin-top:48px;border-top:1px solid var(--bd);padding-top:16px;font-size:14px}
+@media(max-width:820px){.wrap{display:block}nav{width:auto;height:auto;position:static;border-right:0;border-bottom:1px solid var(--bd)}main{padding:16px}}
+</style></head><body><div class="wrap"><nav><a class="home" href="../index.html">Interview prep</a><details><summary>Data structures and algorithms</summary><a href="../01-dsa/00_how_to_start.html">How to start: reading a problem, the 5-step method, and Big-</a><a href="../01-dsa/01_arrays_and_strings.html">Lesson 01. Arrays and Strings</a><a href="../01-dsa/02_hash_maps_and_sets.html">Lesson 02. Hash Maps and Sets</a><a href="../01-dsa/03_two_pointers.html">Lesson 03. Two Pointers</a><a href="../01-dsa/04_sliding_window.html">Lesson 04. Sliding Window</a><a href="../01-dsa/05_stack_and_queue.html">Lesson 05. Stack and Queue (including the monotonic stack)</a><a href="../01-dsa/06_binary_search.html">Lesson 06. Binary Search (including search on the answer)</a><a href="../01-dsa/07_linked_lists.html">Lesson 07. Linked Lists</a><a href="../01-dsa/08_trees_and_bst.html">Lesson 08. Trees and Binary Search Trees (BST)</a><a href="../01-dsa/09_heaps_and_priority_queues.html">Lesson 09: Heaps and Priority Queues</a><a href="../01-dsa/10_graphs_bfs_dfs.html">Lesson 10: Graphs, BFS and DFS (including grids)</a><a href="../01-dsa/11_topological_sort_and_union_find.html">Lesson 11: Topological Sort and Union-Find</a><a href="../01-dsa/12_shortest_paths.html">Lesson 12: Shortest Paths (Dijkstra in plain words)</a><a href="../01-dsa/13_intervals.html">Lesson 13: Intervals (merge intervals, meeting rooms)</a><a href="../01-dsa/14_backtracking.html">Lesson 14: Backtracking (subsets, permutations, combination </a><a href="../01-dsa/15_dynamic_programming_part1.html">Lesson 15: Dynamic Programming, Part 1 (remembering answers)</a><a href="../01-dsa/16_dynamic_programming_part2.html">Lesson 16: Dynamic Programming, Part 2 (LIS, word break, kna</a><a href="../01-dsa/17_tries_and_greedy.html">Lesson 17: Tries and Greedy</a><a href="../01-dsa/18_bit_tricks_and_math_basics.html">Lesson 18: Bit Tricks and Math Basics (short)</a><a href="../01-dsa/19_company_question_patterns.html">Lesson 19: Company Question Patterns (Google, Amazon, Meta, </a></details><details open><summary>System design</summary><a class="cur" href="00_how_the_round_works.html">How the System Design Round Works</a><a href="01a_client_server_and_http.html">Client, Server and HTTP</a><a href="01b_dns_and_cdn.html">DNS and CDN</a><a href="01c_load_balancers.html">Load Balancers</a><a href="01d_databases.html">Databases: SQL vs NoSQL, Indexes, Transactions</a><a href="01e_caching.html">Caching (and Why Invalidation Is Hard)</a><a href="01f_sharding_and_replication.html">Sharding and Replication</a><a href="01g_message_queues_and_streams.html">Message Queues and Streams (Kafka Basics)</a><a href="01h_consistency_and_cap.html">Consistency and the CAP Idea (in Plain Words)</a><a href="02_numbers_and_estimation.html">Numbers and Estimation</a><a href="03_reliability_patterns.html">Reliability Patterns</a><a href="10_url_shortener.html">Design a URL Shortener</a><a href="11_rate_limiter.html">Design a Rate Limiter</a><a href="12_chat_system.html">Design a Chat System (like WhatsApp or Slack)</a><a href="13_news_feed.html">Design a News Feed (like Instagram, Facebook or Twitter/X ho</a><a href="14_notification_service.html">Design a Notification Service</a><a href="15_file_storage_like_drive.html">Design File Storage and Sync (like Google Drive or Dropbox)</a><a href="16_search_autocomplete.html">Design Search Autocomplete (Typeahead)</a><a href="17_video_streaming_basics.html">Design Video Streaming Basics (like YouTube or Netflix)</a><a href="18_payment_system_like_stripe.html">Design a Payment System (like Stripe)</a><a href="19_order_management_like_amazon.html">Design an Order Management System (like Amazon: inventory, o</a><a href="20_job_scheduler_and_workflow_engine.html">Design a Job Scheduler and Workflow Engine</a><a href="21_api_gateway_and_auth_system.html">Design an API Gateway and Auth System</a><a href="22_logging_and_metrics_platform.html">Design a Logging and Metrics Platform</a><a href="90_cheat_sheet.html">Cheat Sheet (one page)</a><a href="91_practice_questions.html">Practice Questions (30)</a></details><details><summary>Low-level design</summary><a href="../03-low-level-design/00_how_the_lld_round_works.html">- How the LLD round works</a><a href="../03-low-level-design/01_oop_in_plain_words.html">- OOP in plain words</a><a href="../03-low-level-design/02_solid_principles.html">- SOLID principles</a><a href="../03-low-level-design/03_design_patterns_you_need.html">- The 8 design patterns you need</a><a href="../03-low-level-design/10_parking_lot.html">- Parking Lot</a><a href="../03-low-level-design/11_lru_cache.html">- LRU Cache</a><a href="../03-low-level-design/12_elevator_system.html">- Elevator System</a><a href="../03-low-level-design/13_library_management.html">- Library Management System</a><a href="../03-low-level-design/14_vending_machine.html">- Vending Machine (State pattern)</a><a href="../03-low-level-design/15_atm.html">- ATM</a><a href="../03-low-level-design/16_rate_limiter_class.html">- Rate Limiter (class design: token bucket and sliding windo</a><a href="../03-low-level-design/17_amazon_locker.html">- Amazon Locker</a><a href="../03-low-level-design/18_splitwise_expense_sharing.html">- Splitwise (Expense Sharing)</a><a href="../03-low-level-design/19_logger_and_notification_system.html">- Logger and Notification System (Observer and Strategy)</a><a href="../03-low-level-design/20_tic_tac_toe_or_chess_basics.html">- Tic-Tac-Toe (full) and Chess basics</a><a href="../03-low-level-design/90_cheat_sheet.html">- Cheat sheet (read the night before)</a><a href="../03-low-level-design/91_practice_questions.html">- Practice questions (20)</a></details><details><summary>DevOps and platform basics</summary><a href="../05-devops-platform-basics/01_linux_processes_memory_files.html">Linux: processes, memory, and files</a><a href="../05-devops-platform-basics/02_networking.html">Networking: TCP, DNS, TLS, NAT</a><a href="../05-devops-platform-basics/03_containers_and_docker.html">Containers and Docker</a><a href="../05-devops-platform-basics/04_kubernetes_from_zero.html">Kubernetes from zero</a><a href="../05-devops-platform-basics/05_helm.html">Helm</a><a href="../05-devops-platform-basics/06_terraform.html">Terraform</a><a href="../05-devops-platform-basics/07_ci_cd_github_actions.html">CI/CD with GitHub Actions</a><a href="../05-devops-platform-basics/08_observability_and_sre.html">Observability and SRE</a><a href="../05-devops-platform-basics/09_concurrency_and_distributed_basics.html">Concurrency and distributed basics</a><a href="../05-devops-platform-basics/10_databases_basics.html">Databases basics</a><a href="../05-devops-platform-basics/11_security_basics.html">Security basics (IAM, OAuth2/OIDC/JWT, secrets, supply chain</a><a href="../05-devops-platform-basics/12_gcp_pca_quick_map.html">Google Cloud quick map (for Professional Cloud Architect hol</a><a href="../05-devops-platform-basics/20_interview_questions_with_answers.html">Sixty interview questions with model answers (platform / SRE</a><a href="../05-devops-platform-basics/21_scenario_questions.html">Fifteen &quot;production is down&quot; scenarios, with step-by-step an</a></details><details><summary>Company processes</summary><a href="../06-company-process-and-behavioural/10_google.html">Google</a><a href="../06-company-process-and-behavioural/11_amazon.html">Amazon</a><a href="../06-company-process-and-behavioural/12_stripe.html">Stripe</a><a href="../06-company-process-and-behavioural/13_microsoft_and_azure_roles.html">Microsoft and Azure roles</a><a href="../06-company-process-and-behavioural/14_indian_product_and_gcc_companies.html">Indian product companies and GCCs</a><a href="../06-company-process-and-behavioural/15_european_scaleups.html">European scale-ups and visa basics</a><a href="../06-company-process-and-behavioural/16_ai_startups_like_smallest_ai.html">AI startups like Smallest AI</a><a href="../06-company-process-and-behavioural/24_questions_to_ask_interviewers.html">Questions to ask interviewers</a><a href="../06-company-process-and-behavioural/25_salary_notice_period_and_offer_negotiation_india_and_abroad.html">Salary, notice period and offer negotiation (India and abroa</a><a href="../06-company-process-and-behavioural/26_interview_day_checklists.html">Interview day checklists</a></details></nav><main><h1 id="00-how-the-system-design-round-works">00. How the System Design Round Works</h1>
+
+<p>Read this file first. It tells you what the round is, what the interviewer is thinking, and a method you can use for every question.</p>
+
+<hr />
+
+<h2 id="part-1-what-is-a-system-design-round">Part 1. What is a system design round?</h2>
+
+<p>An interviewer gives you a big, vague problem. For example: "Design a URL shortener" or "Design a chat app".</p>
+
+<p>You do <strong>not</strong> write code. You draw boxes and arrows on a whiteboard or an online drawing tool. You talk the whole time. You explain:</p>
+
+<ul>
+<li>what the system must do,</li>
+<li>how many users it has,</li>
+<li>what the pieces are (servers, databases, caches, queues),</li>
+<li>why you picked each piece,</li>
+<li>what can break and how you fix it.</li>
+</ul>
+
+<p><strong>Daily-life analogy.</strong> Imagine a friend says: "I want to open a restaurant." You do not cook. You ask: How many guests? What food? How big is the kitchen? Where do we keep the rice? What if the cook is sick? That is system design. You are the architect, not the cook.</p>
+
+<p>There is <strong>no single right answer</strong>. The interviewer checks how you think.</p>
+
+<hr />
+
+<h2 id="part-2-what-the-rounds-look-like-at-google-amazon-and-stripe">Part 2. What the rounds look like at Google, Amazon and Stripe</h2>
+
+<p>Important honesty note: Google, Amazon and Stripe do not publish a full rubric (scoring sheet) for system design. Most of what is below comes from <strong>candidate reports and prep websites</strong>. They sometimes disagree with each other. Your recruiter's schedule email is the most accurate source for <strong>your</strong> loop. Always trust it first.</p>
+
+<p>What I could verify (with links), and what I could not, is marked below.</p>
+
+<h3 id="google">Google</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Point</th>
+  <th>What sources say</th>
+  <th>Confidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Length</td>
+  <td>About 45 minutes, one round, at L5 and above</td>
+  <td>Third-party guides agree (<a href="https://www.hellointerview.com/guides/google/l5">Hello Interview, Google L5</a>, <a href="https://www.aced.io/blog/google-system-design-interview">aced.io</a>)</td>
+</tr>
+<tr>
+  <td>Who gets it</td>
+  <td>Standalone round at L5+. For L3/L4 the sources disagree: some say design is folded into a coding round, some say a simpler design round exists</td>
+  <td>Mixed. Ask your recruiter</td>
+</tr>
+<tr>
+  <td>Prompt</td>
+  <td>Deliberately vague. You must set requirements: users, scale, latency</td>
+  <td>Third-party</td>
+</tr>
+<tr>
+  <td>What is scored</td>
+  <td>Requirements first; sound high-level design; depth (partitioning, indexing, failure handling); trade-offs said out loud; reacting well to new constraints; clear communication</td>
+  <td>Third-party. Google publishes no rubric</td>
+</tr>
+<tr>
+  <td>Tool</td>
+  <td>Plain doc or whiteboard. Google's own virtual interview guide says design interviews may need diagramming and suggests practising with Google Drawings (<a href="https://services.google.com/fh/files/misc/general_virtual_interviews_candidate_resource.pdf">Google candidate guide PDF</a>)</td>
+  <td>From a search-result summary of the PDF</td>
+</tr>
+<tr>
+  <td>After the loop</td>
+  <td>A hiring committee reviews all feedback, then team matching</td>
+  <td>Third-party</td>
+</tr>
+</tbody>
+</table>
+
+<p>Google's own pages: <a href="https://www.google.com/about/careers/applications/how-we-hire">Our hiring process</a> and <a href="https://www.google.com/about/careers/applications/interview-tips/">Interview tips</a>. I could not read the full text of these pages with my tools, so I do not quote them.</p>
+
+<h3 id="amazon">Amazon</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Point</th>
+  <th>What sources say</th>
+  <th>Confidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Loop size</td>
+  <td>4 to 6 interviews, 45 to 60 minutes each. A <strong>Bar Raiser</strong> (an interviewer from outside the hiring team) is part of it</td>
+  <td><strong>Official</strong>: <a href="https://www.aboutamazon.com/news/workplace/amazon-interview-guide">Amazon interview guide</a></td>
+</tr>
+<tr>
+  <td>Leadership Principles (LPs)</td>
+  <td>Amazon's 16 LPs underpin every hiring decision. Use the STAR method (Situation, Task, Action, Result) with numbers and "I" statements</td>
+  <td><strong>Official</strong>, same page</td>
+</tr>
+<tr>
+  <td>Technical roles</td>
+  <td>About half the process is technical (coding, system design); the rest is behavioral</td>
+  <td><strong>Official</strong>, same page</td>
+</tr>
+<tr>
+  <td>SDE II loop</td>
+  <td>Two coding rounds, one 60-minute system design round, one round of low-level design or another coding round, plus the Bar Raiser. Only about 30 minutes of the design round is the design itself. Every technical round also has 20 to 30 minutes of behavioral questions</td>
+  <td>Third-party: <a href="https://www.hellointerview.com/guides/amazon/l5">Hello Interview, Amazon L5</a></td>
+</tr>
+<tr>
+  <td>What is scored in design</td>
+  <td>Architecture thinking, scale and trade-offs, asking clarifying questions, clear talking</td>
+  <td>Third-party (same)</td>
+</tr>
+</tbody>
+</table>
+
+<p>Takeaway for Amazon: prepare <strong>stories</strong> for the Leadership Principles as seriously as you prepare designs. In a design round, expect a few behavioral questions too. Practical, "build it with common cloud pieces" designs are what is usually described.</p>
+
+<h3 id="stripe">Stripe</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Point</th>
+  <th>What sources say</th>
+  <th>Confidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Overall loop</td>
+  <td>Stripe's careers page says most processes include a recruiter screen, a technical or skills-based assessment, and interviews with the team (<a href="https://stripe.com/careers">Stripe careers</a>)</td>
+  <td>Official, general</td>
+</tr>
+<tr>
+  <td>Rounds reported</td>
+  <td>Recruiter screen, coding screen, general coding, a debugging round ("Bug Squash" - fix a real historical bug from an open-source project; confirmed on Stripe's pages), an integration round (build a small feature with a given API), system design, behavioral</td>
+  <td>Third-party list: <a href="https://www.aced.io/guides/stripe-software-engineer-interview">aced.io Stripe guide</a>. Bug Squash itself: Stripe site</td>
+</tr>
+<tr>
+  <td>System design</td>
+  <td>45 to 60 minutes for mid-level and above. New grads often skip it</td>
+  <td>Third-party (<a href="https://www.aced.io/blog/stripe-system-design-interview">aced.io</a>)</td>
+</tr>
+<tr>
+  <td>Style</td>
+  <td>Prompts are tied to Stripe's payments world. They feel like a real design review. Reported tool: Whimsical, not a physical whiteboard</td>
+  <td>Third-party (same)</td>
+</tr>
+<tr>
+  <td>What is scored</td>
+  <td>Problem framing, API and data-model design ("easy to use, hard to misuse"), failure and scale reasoning, separation of concerns, rollout, testing and monitoring</td>
+  <td>Third-party (same)</td>
+</tr>
+</tbody>
+</table>
+
+<p>Takeaway for Stripe: spend extra time on the <strong>API</strong> and <strong>data model</strong> steps, and on <strong>failure handling</strong> (retries, duplicate requests, money safety). Files <code>18_payment_system_like_stripe.md</code> and <code>03_reliability_patterns.md</code> are your most important files for Stripe.</p>
+
+<h3 id="what-i-could-not-verify">What I could NOT verify</h3>
+
+<ul>
+<li>Exact 2026 round counts for each company. Sources conflict, and some are old.</li>
+<li>Whether Google asks system design at your exact level (L4 vs L5). Ask your recruiter.</li>
+<li>Any "secret rubric". None is public. Everything above about scoring is how prep sites describe it.</li>
+</ul>
+
+<hr />
+
+<h2 id="part-3-what-the-interviewer-is-really-checking">Part 3. What the interviewer is really checking</h2>
+
+<p>Whatever the company, interviewers in these rounds usually look for the same five things. (This is a summary of what the sources above describe, in my words.)</p>
+
+<ol>
+<li><strong>Do you ask questions first?</strong> A good engineer does not start building before knowing what to build.</li>
+<li><strong>Can you make a sensible design?</strong> Not fancy. Sensible.</li>
+<li><strong>Do you know why?</strong> Every box has a reason. "I use a cache because reads are 100 times more than writes."</li>
+<li><strong>Do you see problems before they happen?</strong> What if a server dies? What if one user sends 1 million requests?</li>
+<li><strong>Can you talk clearly and take hints?</strong> Interviewers give hints. Take them. It is a conversation, not an exam.</li>
+</ol>
+
+<p>A level note: at SDE II (about 3 to 5 years' experience), you are not expected to know every secret of huge systems. You are expected to give a <strong>clean, working design</strong>, name the <strong>main trade-offs</strong>, and handle <strong>follow-up questions</strong> calmly.</p>
+
+<hr />
+
+<h2 id="part-4-the-7-step-method-use-it-for-every-question">Part 4. The 7-step method (use it for EVERY question)</h2>
+
+<p>Learn these seven words in order:</p>
+
+<blockquote>
+  <p><strong>R</strong>equirements - <strong>S</strong>cale - <strong>A</strong>PI - <strong>D</strong>ata - <strong>H</strong>igh-level design - <strong>D</strong>eep dive - <strong>T</strong>rade-offs and failures</p>
+</blockquote>
+
+<p>A memory sentence: <strong>"Really Smart Architects Draw Huge Diagrams Thoughtfully."</strong></p>
+
+<h3 id="step-1-requirements-about-5-minutes">Step 1. Requirements (about 5 minutes)</h3>
+
+<p>Ask questions. Split into:</p>
+
+<ul>
+<li><strong>Functional requirements</strong> = what the system does. ("A user can paste a long link and get a short link.")</li>
+<li><strong>Non-functional requirements</strong> = how well it does it. (Fast? Always available? Never lose data?)</li>
+<li><strong>Out of scope</strong> = what you will NOT do. Say it out loud so the interviewer agrees. ("I will skip user accounts and analytics for now.")</li>
+</ul>
+
+<p>Good questions to always ask:</p>
+
+<ul>
+<li>Who are the users? How many?</li>
+<li>Which features are the most important? (Pick 2 or 3.)</li>
+<li>Do we read more or write more?</li>
+<li>Is it okay if data is a few seconds old? (This is about consistency; see <code>01h</code>.)</li>
+<li>Is it okay to lose a message? Or must we never lose one?</li>
+<li>Is it one country or the whole world?</li>
+</ul>
+
+<p><strong>Analogy:</strong> The waiter asks "Vegetarian? Allergies? How many people?" before the kitchen cooks.</p>
+
+<h3 id="step-2-scale-estimate-about-3-minutes">Step 2. Scale estimate (about 3 minutes)</h3>
+
+<p>Do rough math (see <code>02_numbers_and_estimation.md</code>):</p>
+
+<ul>
+<li>How many requests per second (QPS)?</li>
+<li>How much data per day, per year?</li>
+<li>Reads or writes heavy?</li>
+</ul>
+
+<p>Say "this is an estimate". The goal is only to know: is it one server, ten servers, or a thousand? Does the data fit on one disk?</p>
+
+<h3 id="step-3-api-about-3-minutes">Step 3. API (about 3 minutes)</h3>
+
+<p>Write the main calls. Keep it short. Example:</p>
+
+<pre><code>POST /v1/links        body: {long_url}       -&gt; {short_code}
+GET  /{short_code}                            -&gt; 302 redirect
+</code></pre>
+
+<p>Say: who calls it, what goes in, what comes out, and how you handle errors and duplicates.</p>
+
+<h3 id="step-4-data-model-about-3-minutes">Step 4. Data model (about 3 minutes)</h3>
+
+<p>Write the main tables or collections: names, key columns, which column is the primary key, which column you search by. Say SQL or NoSQL and <strong>why</strong>.</p>
+
+<h3 id="step-5-high-level-design-about-8-minutes">Step 5. High-level design (about 8 minutes)</h3>
+
+<p>Draw <strong>version 1</strong>: the simplest thing that works. Client, server, database. Walk through one request from start to end. Then add what you need for scale: load balancer, cache, queue, replicas.</p>
+
+<p>Rule: <strong>start simple, then grow.</strong> Do not draw 20 boxes on the first minute.</p>
+
+<h3 id="step-6-deep-dive-about-10-minutes">Step 6. Deep dive (about 10 minutes)</h3>
+
+<p>The interviewer will pick one or two parts and ask "how does this really work?" Or you choose the hardest part. Go deep: algorithm, schema, how you shard, how you avoid duplicates.</p>
+
+<h3 id="step-7-trade-offs-and-failures-about-5-minutes">Step 7. Trade-offs and failures (about 5 minutes)</h3>
+
+<ul>
+<li>What are the weak points? (single point of failure, hot spot, slow query)</li>
+<li>What happens if a server, a database, or a whole data centre fails?</li>
+<li>What would you monitor?</li>
+<li>What would you build next if you had more time?</li>
+</ul>
+
+<hr />
+
+<h2 id="part-5-using-the-45-minutes">Part 5. Using the 45 minutes</h2>
+
+<pre><code>Minute  0 ----- 5 ----- 8 ----- 11 ----- 14 ------ 22 ------ 32 ------ 40 --- 45
+        | Reqs  | Scale | API   | Data   | High-    | Deep     | Trade-  | Wrap
+        |       |       |       |        | level    | dive     | offs,   |
+        |       |       |       |        | design   |          | failure |
+</code></pre>
+
+<table>
+<thead>
+<tr>
+  <th>Step</th>
+  <th>Minutes</th>
+  <th>Output on the board</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Requirements</td>
+  <td>5</td>
+  <td>Bullet list: must-have, out-of-scope</td>
+</tr>
+<tr>
+  <td>Scale</td>
+  <td>3</td>
+  <td>3 or 4 numbers</td>
+</tr>
+<tr>
+  <td>API</td>
+  <td>3</td>
+  <td>2 to 4 calls</td>
+</tr>
+<tr>
+  <td>Data</td>
+  <td>3</td>
+  <td>2 to 3 tables</td>
+</tr>
+<tr>
+  <td>High-level design</td>
+  <td>8</td>
+  <td>One diagram, then one growth step</td>
+</tr>
+<tr>
+  <td>Deep dive</td>
+  <td>10</td>
+  <td>Detail on the hardest part</td>
+</tr>
+<tr>
+  <td>Trade-offs and failures</td>
+  <td>5</td>
+  <td>List of risks and fixes</td>
+</tr>
+<tr>
+  <td>Wrap-up</td>
+  <td>3</td>
+  <td>Summary in 6 sentences; questions</td>
+</tr>
+</tbody>
+</table>
+
+<p>Notes:</p>
+
+<ul>
+<li>At Amazon the design part may be only about 30 minutes of a 60-minute slot (the rest is behavioral). Shrink every step a little, but keep the order.</li>
+<li>If the interviewer jumps in early with questions, that is good. Follow them. Return to the plan afterward.</li>
+<li>Keep one eye on the clock. If you pass minute 20 and have no diagram, draw the simplest version <strong>now</strong>.</li>
+</ul>
+
+<hr />
+
+<h2 id="part-6-how-to-talk">Part 6. How to talk</h2>
+
+<p>Interviewers cannot read your mind. Only spoken words count.</p>
+
+<ol>
+<li><strong>Think aloud.</strong> "I am thinking about two options: a SQL table or a key-value store. Let me compare."</li>
+<li><strong>Say the plan first.</strong> "I will do requirements, then numbers, then API, then the design." This calms you and the interviewer.</li>
+<li><strong>Use short sentences.</strong> Simple English is fine. Clear is better than fancy.</li>
+<li><strong>Say "because".</strong> Every choice needs a because. "I choose a queue <strong>because</strong> the email provider is slow and I do not want users to wait."</li>
+<li><strong>Name trade-offs.</strong> "This gives faster reads, but the data can be a few seconds old."</li>
+<li><strong>Check in.</strong> "Does this match what you had in mind? Should I go deeper here or move on?"</li>
+<li><strong>Write while you talk.</strong> Boxes, arrows, numbers. Label arrows ("HTTP", "async").</li>
+<li><strong>Use your real work.</strong> "In my provisioning platform we retry failed installs with backoff, so I would do the same here." Real stories show real skill. Keep them short and true.</li>
+<li><strong>Do not argue.</strong> If the interviewer says "what about X?", say "good point" and answer. Hints are gifts.</li>
+</ol>
+
+<h3 id="phrases-you-can-use-copy-them">Phrases you can use (copy them)</h3>
+
+<ul>
+<li>"Before I design, can I ask a few questions?"</li>
+<li>"Let me make an assumption and tell me if it is wrong."</li>
+<li>"This is a rough estimate, but it tells me we need..."</li>
+<li>"The simplest version is... It will break when... so next I add..."</li>
+<li>"The trade-off here is X versus Y. I choose X because..."</li>
+<li>"I am not 100 percent sure about this detail. My reasoning is... Is that on the right track?"</li>
+</ul>
+
+<hr />
+
+<h2 id="part-7-what-to-do-when-you-get-stuck">Part 7. What to do when you get stuck</h2>
+
+<p>It happens to everyone. Do not freeze. Use this list:</p>
+
+<ol>
+<li><strong>Pause and breathe. Say it.</strong> "Let me take a moment to think." Silence of 10 seconds is fine. Silence of 2 minutes is not.</li>
+<li><strong>Go back one step.</strong> Re-read your requirements. Often the answer is there.</li>
+<li><strong>Make it simple.</strong> "If there was only one user, what would I build?" Then ask "what breaks with a million users?"</li>
+<li><strong>Compare two options.</strong> Even if you do not know the best one, saying "A is simpler, B scales more" shows judgment.</li>
+<li><strong>Say what you know.</strong> "I have not used this exactly, but in my work on a similar problem we did..."</li>
+<li><strong>Ask for a hint, politely.</strong> "I am torn between X and Y. Do you have a preference for this exercise?" This is allowed and normal.</li>
+<li><strong>Park the hard part.</strong> "I will mark this as a risk and come back to it." Then move on so you finish the whole design.</li>
+<li><strong>If you made a mistake, fix it out loud.</strong> "Actually, that would break because... let me change it." Fixing a mistake calmly scores well.</li>
+</ol>
+
+<h3 id="common-mistakes-avoid-them">Common mistakes (avoid them)</h3>
+
+<ul>
+<li>Starting to draw before asking questions.</li>
+<li>Giving a final answer with 15 boxes and no reason.</li>
+<li>Naming tools (Kafka, Redis) without saying why.</li>
+<li>Forgetting failures. Every box can die.</li>
+<li>Never doing numbers.</li>
+<li>Talking only about the "happy path" (when everything works).</li>
+<li>Going too deep on a small part and never finishing.</li>
+</ul>
+
+<hr />
+
+<h2 id="part-8-your-study-plan-for-this-folder">Part 8. Your study plan for this folder</h2>
+
+<table>
+<thead>
+<tr>
+  <th>Order</th>
+  <th>File</th>
+  <th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1</td>
+  <td><code>00_how_the_round_works.md</code> (this)</td>
+  <td>The method</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td><code>01a</code> to <code>01h</code></td>
+  <td>Building blocks (the Lego bricks)</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td><code>02_numbers_and_estimation.md</code></td>
+  <td>The math</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td><code>03_reliability_patterns.md</code></td>
+  <td>Making things safe</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td><code>10</code> to <code>22</code></td>
+  <td>Full designs, one by one. Start with 10, 11, 12</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td><code>90_cheat_sheet.md</code></td>
+  <td>Revise the night before</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td><code>91_practice_questions.md</code></td>
+  <td>Practice out loud, with a timer</td>
+</tr>
+</tbody>
+</table>
+
+<p>Practice plan: 1 design per day. Read it once, close it, then explain it <strong>out loud for 30 minutes</strong> to a wall or a friend. Use the "say it out loud" summary at the end of each file as your last 1 minute.</p>
+
+<hr />
+
+<h2 id="sources-used-in-this-file">Sources used in this file</h2>
+
+<ul>
+<li>Amazon (official): https://www.aboutamazon.com/news/workplace/amazon-interview-guide</li>
+<li>Stripe careers (official, general): https://stripe.com/careers</li>
+<li>Google hiring pages (official; text not readable with my tools): https://www.google.com/about/careers/applications/how-we-hire</li>
+<li>Google virtual interview guide (PDF, via search summary): https://services.google.com/fh/files/misc/general_virtual_interviews_candidate_resource.pdf</li>
+<li>Hello Interview, Google L5 loop (third party): https://www.hellointerview.com/guides/google/l5</li>
+<li>Hello Interview, Amazon L5 loop (third party): https://www.hellointerview.com/guides/amazon/l5</li>
+<li>aced.io (ex-Exponent), Google system design (third party): https://www.aced.io/blog/google-system-design-interview</li>
+<li>aced.io, Stripe system design (third party): https://www.aced.io/blog/stripe-system-design-interview</li>
+<li>aced.io, Stripe SWE guide (third party): https://www.aced.io/guides/stripe-software-engineer-interview</li>
+</ul>
+<div class="pn"><span></span><span><a href="01a_client_server_and_http.html">01a. Client, Server and HTTP &rarr;</a></span></div></main></div></body></html>

@@ -1,0 +1,713 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Lesson 14: Backtracking (subsets, permutations, combination sum, word search) | Interview prep</title><style>
+:root{--bg:#fff;--fg:#1f2328;--mut:#59636e;--bd:#d1d9e0;--ac:#0b57d0;--cb:#f6f8fa;--sb:#f6f8fa}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9198a1;--bd:#30363d;--ac:#6cb6ff;--cb:#161b22;--sb:#010409}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{display:flex;min-height:100vh}nav{width:300px;flex:none;background:var(--sb);border-right:1px solid var(--bd);padding:16px;overflow:auto;position:sticky;top:0;height:100vh}
+nav a{color:var(--fg);text-decoration:none;display:block;padding:3px 6px;border-radius:6px;font-size:14px}nav a:hover{background:var(--cb)}nav a.cur{background:var(--ac);color:#fff}
+nav summary{cursor:pointer;font-weight:600;padding:6px 0}nav .home{font-weight:700;font-size:16px;margin-bottom:8px}
+main{flex:1;min-width:0;max-width:900px;padding:24px 32px 80px;margin:0 auto}
+h1,h2,h3{line-height:1.25}h1{border-bottom:1px solid var(--bd);padding-bottom:.3em}h2{border-bottom:1px solid var(--bd);padding-bottom:.25em;margin-top:2em}
+a{color:var(--ac)}pre{background:var(--cb);border:1px solid var(--bd);border-radius:8px;padding:14px;overflow:auto;font-size:13.5px;line-height:1.5}
+code{background:var(--cb);padding:.15em .35em;border-radius:5px;font-size:.92em}pre code{background:none;padding:0}
+table{border-collapse:collapse;display:block;overflow:auto;max-width:100%}th,td{border:1px solid var(--bd);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--cb)}
+blockquote{border-left:4px solid var(--bd);margin:0;padding:0 1em;color:var(--mut)}img{max-width:100%}
+.top{display:none}.pn{display:flex;justify-content:space-between;gap:12px;margin-top:48px;border-top:1px solid var(--bd);padding-top:16px;font-size:14px}
+@media(max-width:820px){.wrap{display:block}nav{width:auto;height:auto;position:static;border-right:0;border-bottom:1px solid var(--bd)}main{padding:16px}}
+</style></head><body><div class="wrap"><nav><a class="home" href="../index.html">Interview prep</a><details open><summary>Data structures and algorithms</summary><a href="00_how_to_start.html">How to start: reading a problem, the 5-step method, and Big-</a><a href="01_arrays_and_strings.html">Lesson 01. Arrays and Strings</a><a href="02_hash_maps_and_sets.html">Lesson 02. Hash Maps and Sets</a><a href="03_two_pointers.html">Lesson 03. Two Pointers</a><a href="04_sliding_window.html">Lesson 04. Sliding Window</a><a href="05_stack_and_queue.html">Lesson 05. Stack and Queue (including the monotonic stack)</a><a href="06_binary_search.html">Lesson 06. Binary Search (including search on the answer)</a><a href="07_linked_lists.html">Lesson 07. Linked Lists</a><a href="08_trees_and_bst.html">Lesson 08. Trees and Binary Search Trees (BST)</a><a href="09_heaps_and_priority_queues.html">Lesson 09: Heaps and Priority Queues</a><a href="10_graphs_bfs_dfs.html">Lesson 10: Graphs, BFS and DFS (including grids)</a><a href="11_topological_sort_and_union_find.html">Lesson 11: Topological Sort and Union-Find</a><a href="12_shortest_paths.html">Lesson 12: Shortest Paths (Dijkstra in plain words)</a><a href="13_intervals.html">Lesson 13: Intervals (merge intervals, meeting rooms)</a><a class="cur" href="14_backtracking.html">Lesson 14: Backtracking (subsets, permutations, combination </a><a href="15_dynamic_programming_part1.html">Lesson 15: Dynamic Programming, Part 1 (remembering answers)</a><a href="16_dynamic_programming_part2.html">Lesson 16: Dynamic Programming, Part 2 (LIS, word break, kna</a><a href="17_tries_and_greedy.html">Lesson 17: Tries and Greedy</a><a href="18_bit_tricks_and_math_basics.html">Lesson 18: Bit Tricks and Math Basics (short)</a><a href="19_company_question_patterns.html">Lesson 19: Company Question Patterns (Google, Amazon, Meta, </a></details><details><summary>System design</summary><a href="../02-system-design/00_how_the_round_works.html">How the System Design Round Works</a><a href="../02-system-design/01a_client_server_and_http.html">Client, Server and HTTP</a><a href="../02-system-design/01b_dns_and_cdn.html">DNS and CDN</a><a href="../02-system-design/01c_load_balancers.html">Load Balancers</a><a href="../02-system-design/01d_databases.html">Databases: SQL vs NoSQL, Indexes, Transactions</a><a href="../02-system-design/01e_caching.html">Caching (and Why Invalidation Is Hard)</a><a href="../02-system-design/01f_sharding_and_replication.html">Sharding and Replication</a><a href="../02-system-design/01g_message_queues_and_streams.html">Message Queues and Streams (Kafka Basics)</a><a href="../02-system-design/01h_consistency_and_cap.html">Consistency and the CAP Idea (in Plain Words)</a><a href="../02-system-design/02_numbers_and_estimation.html">Numbers and Estimation</a><a href="../02-system-design/03_reliability_patterns.html">Reliability Patterns</a><a href="../02-system-design/10_url_shortener.html">Design a URL Shortener</a><a href="../02-system-design/11_rate_limiter.html">Design a Rate Limiter</a><a href="../02-system-design/12_chat_system.html">Design a Chat System (like WhatsApp or Slack)</a><a href="../02-system-design/13_news_feed.html">Design a News Feed (like Instagram, Facebook or Twitter/X ho</a><a href="../02-system-design/14_notification_service.html">Design a Notification Service</a><a href="../02-system-design/15_file_storage_like_drive.html">Design File Storage and Sync (like Google Drive or Dropbox)</a><a href="../02-system-design/16_search_autocomplete.html">Design Search Autocomplete (Typeahead)</a><a href="../02-system-design/17_video_streaming_basics.html">Design Video Streaming Basics (like YouTube or Netflix)</a><a href="../02-system-design/18_payment_system_like_stripe.html">Design a Payment System (like Stripe)</a><a href="../02-system-design/19_order_management_like_amazon.html">Design an Order Management System (like Amazon: inventory, o</a><a href="../02-system-design/20_job_scheduler_and_workflow_engine.html">Design a Job Scheduler and Workflow Engine</a><a href="../02-system-design/21_api_gateway_and_auth_system.html">Design an API Gateway and Auth System</a><a href="../02-system-design/22_logging_and_metrics_platform.html">Design a Logging and Metrics Platform</a><a href="../02-system-design/90_cheat_sheet.html">Cheat Sheet (one page)</a><a href="../02-system-design/91_practice_questions.html">Practice Questions (30)</a></details><details><summary>Low-level design</summary><a href="../03-low-level-design/00_how_the_lld_round_works.html">- How the LLD round works</a><a href="../03-low-level-design/01_oop_in_plain_words.html">- OOP in plain words</a><a href="../03-low-level-design/02_solid_principles.html">- SOLID principles</a><a href="../03-low-level-design/03_design_patterns_you_need.html">- The 8 design patterns you need</a><a href="../03-low-level-design/10_parking_lot.html">- Parking Lot</a><a href="../03-low-level-design/11_lru_cache.html">- LRU Cache</a><a href="../03-low-level-design/12_elevator_system.html">- Elevator System</a><a href="../03-low-level-design/13_library_management.html">- Library Management System</a><a href="../03-low-level-design/14_vending_machine.html">- Vending Machine (State pattern)</a><a href="../03-low-level-design/15_atm.html">- ATM</a><a href="../03-low-level-design/16_rate_limiter_class.html">- Rate Limiter (class design: token bucket and sliding windo</a><a href="../03-low-level-design/17_amazon_locker.html">- Amazon Locker</a><a href="../03-low-level-design/18_splitwise_expense_sharing.html">- Splitwise (Expense Sharing)</a><a href="../03-low-level-design/19_logger_and_notification_system.html">- Logger and Notification System (Observer and Strategy)</a><a href="../03-low-level-design/20_tic_tac_toe_or_chess_basics.html">- Tic-Tac-Toe (full) and Chess basics</a><a href="../03-low-level-design/90_cheat_sheet.html">- Cheat sheet (read the night before)</a><a href="../03-low-level-design/91_practice_questions.html">- Practice questions (20)</a></details><details><summary>DevOps and platform basics</summary><a href="../05-devops-platform-basics/01_linux_processes_memory_files.html">Linux: processes, memory, and files</a><a href="../05-devops-platform-basics/02_networking.html">Networking: TCP, DNS, TLS, NAT</a><a href="../05-devops-platform-basics/03_containers_and_docker.html">Containers and Docker</a><a href="../05-devops-platform-basics/04_kubernetes_from_zero.html">Kubernetes from zero</a><a href="../05-devops-platform-basics/05_helm.html">Helm</a><a href="../05-devops-platform-basics/06_terraform.html">Terraform</a><a href="../05-devops-platform-basics/07_ci_cd_github_actions.html">CI/CD with GitHub Actions</a><a href="../05-devops-platform-basics/08_observability_and_sre.html">Observability and SRE</a><a href="../05-devops-platform-basics/09_concurrency_and_distributed_basics.html">Concurrency and distributed basics</a><a href="../05-devops-platform-basics/10_databases_basics.html">Databases basics</a><a href="../05-devops-platform-basics/11_security_basics.html">Security basics (IAM, OAuth2/OIDC/JWT, secrets, supply chain</a><a href="../05-devops-platform-basics/12_gcp_pca_quick_map.html">Google Cloud quick map (for Professional Cloud Architect hol</a><a href="../05-devops-platform-basics/20_interview_questions_with_answers.html">Sixty interview questions with model answers (platform / SRE</a><a href="../05-devops-platform-basics/21_scenario_questions.html">Fifteen &quot;production is down&quot; scenarios, with step-by-step an</a></details><details><summary>Company processes</summary><a href="../06-company-process-and-behavioural/10_google.html">Google</a><a href="../06-company-process-and-behavioural/11_amazon.html">Amazon</a><a href="../06-company-process-and-behavioural/12_stripe.html">Stripe</a><a href="../06-company-process-and-behavioural/13_microsoft_and_azure_roles.html">Microsoft and Azure roles</a><a href="../06-company-process-and-behavioural/14_indian_product_and_gcc_companies.html">Indian product companies and GCCs</a><a href="../06-company-process-and-behavioural/15_european_scaleups.html">European scale-ups and visa basics</a><a href="../06-company-process-and-behavioural/16_ai_startups_like_smallest_ai.html">AI startups like Smallest AI</a><a href="../06-company-process-and-behavioural/24_questions_to_ask_interviewers.html">Questions to ask interviewers</a><a href="../06-company-process-and-behavioural/25_salary_notice_period_and_offer_negotiation_india_and_abroad.html">Salary, notice period and offer negotiation (India and abroa</a><a href="../06-company-process-and-behavioural/26_interview_day_checklists.html">Interview day checklists</a></details></nav><main><h1 id="lesson-14-backtracking-subsets-permutations-combination-sum-word-search">Lesson 14: Backtracking (subsets, permutations, combination sum, word search)</h1>
+
+<p>All code is Python 3.9. Every code block in this file was run with <code>python3</code> (3.9.6) before it was written here.</p>
+
+<hr />
+
+<h2 id="words-you-need-first">Words you need first</h2>
+
+<ul>
+<li><strong>Backtracking</strong>: try a choice. If it leads nowhere (or after you recorded the result), <strong>undo the choice</strong> and try the next one.</li>
+<li><strong>Decision tree</strong>: a picture where each step is "what do I choose now?" and each branch is one choice.</li>
+<li><strong>Recursion</strong>: a function that calls itself. Each call handles "the rest of the problem".</li>
+<li><strong>Path</strong> (or "current choices"): the list of choices you have made so far.</li>
+<li><strong>Pruning</strong>: stop early on a branch that cannot work. It saves time.</li>
+<li><strong>Combination</strong>: a group where <strong>order does not matter</strong> (<code>[1,2]</code> is the same as <code>[2,1]</code>).</li>
+<li><strong>Permutation</strong>: a group where <strong>order matters</strong> (<code>[1,2]</code> and <code>[2,1]</code> are different).</li>
+<li><strong>Subset</strong>: any group you can pick from the items, including the empty group.</li>
+</ul>
+
+<hr />
+
+<h2 id="1-what-is-this">1. What is this?</h2>
+
+<p>Backtracking is <strong>"try everything, but cleverly"</strong>. You build an answer one piece at a time. After each piece you go deeper. When you come back, you remove the last piece and try another one.</p>
+
+<p><strong>Analogy: finding the way in a maze with chalk.</strong>
+At a crossroad you choose a corridor and write an arrow in chalk. You walk. At a dead end you walk back, rub out the arrow, and try the next corridor. You never walk the same corridor twice from the same crossroad.</p>
+
+<p><strong>The three words to remember: CHOOSE, EXPLORE, UN-CHOOSE.</strong></p>
+
+<pre><code>for each choice available now:
+    choose it            (add it to the path)
+    explore              (recursive call for the rest of the problem)
+    un-choose it         (remove it from the path, so the next choice starts clean)
+</code></pre>
+
+<p>When the path is a complete answer, save a <strong>copy</strong> of it. (If you save the path itself, later changes will change your saved answer. This is the most common bug.)</p>
+
+<hr />
+
+<h2 id="2-when-do-i-use-it">2. When do I use it?</h2>
+
+<table>
+<thead>
+<tr>
+  <th>Words in the problem</th>
+  <th>Idea</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>"<strong>all</strong> subsets / permutations / combinations"</td>
+  <td>Backtracking (the answer is a list of lists)</td>
+</tr>
+<tr>
+  <td>"<strong>generate all</strong> valid ..." (parentheses, IP addresses)</td>
+  <td>Backtracking with a validity check</td>
+</tr>
+<tr>
+  <td>"find <strong>all ways</strong> to reach a target sum"</td>
+  <td>Backtracking</td>
+</tr>
+<tr>
+  <td>"does a <strong>word exist</strong> in the grid" (path with no reuse)</td>
+  <td>Backtracking on a grid</td>
+</tr>
+<tr>
+  <td>"place N queens", "solve Sudoku"</td>
+  <td>Backtracking with pruning</td>
+</tr>
+<tr>
+  <td>Input size is small (like n at most 10 to 20)</td>
+  <td>Strong hint that an exponential answer is expected</td>
+</tr>
+</tbody>
+</table>
+
+<p>If the problem only asks "how <strong>many</strong> ways" or "the <strong>best</strong> value" (not the list), try dynamic programming (lessons 15 and 16) first. Backtracking is for when you must <strong>list</strong> the answers.</p>
+
+<hr />
+
+<h2 id="3-trace-of-a-tiny-example-all-subsets-of-1-2-3">3. Trace of a tiny example: all subsets of <code>[1, 2, 3]</code></h2>
+
+<p>The decision tree. At each step we decide which number to add next. We only add numbers <strong>after</strong> the last one used (so <code>[1,2]</code> appears, but <code>[2,1]</code> does not).</p>
+
+<pre><code>                       []
+          /             |             \
+        [1]            [2]            [3]
+       /    \            |
+   [1,2]   [1,3]       [2,3]
+     |
+  [1,2,3]
+</code></pre>
+
+<p>Every node in this tree is one subset. There are 8 nodes, and <code>2^3 = 8</code>. </p>
+
+<p>Step by step. <code>start</code> tells the function from which index it may pick. <code>path</code> is the current subset.</p>
+
+<pre><code>call (start=0, path=[])        record []
+  i=0: choose 1 -&gt; path=[1]
+  call (start=1, path=[1])     record [1]
+    i=1: choose 2 -&gt; path=[1,2]
+    call (start=2, path=[1,2]) record [1,2]
+      i=2: choose 3 -&gt; path=[1,2,3]
+      call (start=3, path=[1,2,3])  record [1,2,3]   (no more numbers: loop does nothing)
+      un-choose 3 -&gt; path=[1,2]
+    un-choose 2 -&gt; path=[1]
+    i=2: choose 3 -&gt; path=[1,3]
+    call (start=3, path=[1,3]) record [1,3]
+    un-choose 3 -&gt; path=[1]
+  un-choose 1 -&gt; path=[]
+  i=1: choose 2 -&gt; path=[2]
+  call (start=2, path=[2])     record [2]
+    i=2: choose 3 -&gt; path=[2,3]
+    call (start=3, path=[2,3]) record [2,3]
+    un-choose 3 -&gt; path=[2]
+  un-choose 2 -&gt; path=[]
+  i=2: choose 3 -&gt; path=[3]
+  call (start=3, path=[3])     record [3]
+  un-choose 3 -&gt; path=[]
+recorded in order: [], [1], [1,2], [1,2,3], [1,3], [2], [2,3], [3]
+</code></pre>
+
+<hr />
+
+<h2 id="4-template-code">4. Template code</h2>
+
+<pre><code>def backtrack_template(items):                # return all subsets of items
+    results = []                              # all the answers we collect
+    path = []                                 # the choices made so far
+
+    def explore(start):                       # explore from this position
+        results.append(path[:])               # record a COPY of the current path (path[:] makes the copy)
+        for i in range(start, len(items)):    # try every choice from "start" onward
+            path.append(items[i])             # CHOOSE: add the item to the path
+            explore(i + 1)                    # EXPLORE: continue, only with later items
+            path.pop()                        # UN-CHOOSE: remove it, so the next loop turn starts clean
+
+    explore(0)                                # begin with the whole list available
+    return results                            # all collected answers
+
+
+out = backtrack_template([1, 2, 3])           # run the template
+print(out)                                    # the order matches our hand trace
+assert out == [[], [1], [1, 2], [1, 2, 3], [1, 3], [2], [2, 3], [3]]   # same as the trace in section 3
+</code></pre>
+
+<p>The template for other problems changes only three things:</p>
+
+<ol>
+<li><strong>When to record</strong>: at every node (subsets), only when the path is full (permutations), or only when the sum equals the target (combination sum).</li>
+<li><strong>Which choices are allowed</strong>: later items only, unused items only, or items that keep the sum within the target.</li>
+<li><strong>What to pass down</strong>: <code>i + 1</code> (no reuse), <code>i</code> (reuse allowed), or nothing (permutations use a <code>used</code> marker).</li>
+</ol>
+
+<hr />
+
+<h2 id="5-classic-problems">5. Classic problems</h2>
+
+<h3 id="51-subsets-leetcode-78">5.1 Subsets (LeetCode 78)</h3>
+
+<p><strong>In plain words.</strong> Given a list of different numbers, return every possible subset (the power set). <code>[1,2,3]</code> gives 8 subsets, from <code>[]</code> to <code>[1,2,3]</code>.</p>
+
+<p><strong>Brute force idea.</strong> Count from <code>0</code> to <code>2^n - 1</code>. Each number's binary digits say "take this item" or not. It works (and is called the bitmask method), but it is less general than backtracking.</p>
+
+<p><strong>Better idea (backtracking), slowly.</strong></p>
+
+<ol>
+<li>Each item has two options: <strong>in</strong> or <strong>out</strong>. So the total is <code>2 x 2 x ... = 2^n</code>.</li>
+<li>Our template records the path at every node. Every path is a different subset.</li>
+<li>To avoid <code>[1,2]</code> and <code>[2,1]</code> both appearing, each call only picks items <strong>after</strong> the one just used (<code>start</code> goes up).</li>
+</ol>
+
+<pre><code>from typing import List                       # type hints
+
+
+def subsets(nums: List[int]) -&gt; List[List[int]]:   # all subsets
+    results: List[List[int]] = []             # answers collected here
+    path: List[int] = []                      # current subset
+
+    def explore(start: int) -&gt; None:          # choose next items from index "start"
+        results.append(path[:])               # every path is a valid subset: save a copy
+        for i in range(start, len(nums)):     # candidates are the items from start onward
+            path.append(nums[i])              # choose
+            explore(i + 1)                    # explore with only later items
+            path.pop()                        # un-choose
+
+    explore(0)                                # begin
+    return results                            # all 2^n subsets
+
+
+print(subsets([1, 2, 3]))                     # expect 8 subsets
+assert subsets([1, 2, 3]) == [[], [1], [1, 2], [1, 2, 3], [1, 3], [2], [2, 3], [3]]   # example 1
+assert subsets([0]) == [[], [0]]              # example 2
+assert subsets([]) == [[]]                    # edge case: empty input has one subset, the empty one
+assert len(subsets(list(range(10)))) == 1024  # edge case: 2^10 subsets
+</code></pre>
+
+<p><strong>Trace</strong>: it is exactly the trace in section 3.</p>
+
+<p><strong>Complexity.</strong> Time O(n x 2^n): there are <code>2^n</code> subsets and copying one costs up to <code>n</code>. Space O(n) for the recursion and the path (not counting the output, which is O(n x 2^n)).</p>
+
+<p><strong>Edge cases.</strong></p>
+
+<ol>
+<li>Empty input: the answer is <code>[[]]</code>, not <code>[]</code>. The empty set is a subset.</li>
+<li>Saving <code>path</code> instead of <code>path[:]</code>: every saved answer ends up empty at the end. Always copy.</li>
+</ol>
+
+<p><strong>How interviewers twist it.</strong></p>
+
+<ul>
+<li>"The list has <strong>duplicates</strong>" (Subsets II, LeetCode 90): sort first. In the loop, skip an item if it equals the previous one <em>at the same level</em>: <code>if i &gt; start and nums[i] == nums[i-1]: continue</code>.</li>
+<li>"Only subsets of size k" (Combinations, LeetCode 77): record only when <code>len(path) == k</code>, and stop early when not enough items remain.</li>
+<li>"Count subsets with sum S" (not list them): that is dynamic programming, faster.</li>
+</ul>
+
+<hr />
+
+<h3 id="52-permutations-leetcode-46">5.2 Permutations (LeetCode 46)</h3>
+
+<p><strong>In plain words.</strong> Given different numbers, return all possible orderings. <code>[1,2,3]</code> gives 6: <code>[1,2,3]</code>, <code>[1,3,2]</code>, <code>[2,1,3]</code>, <code>[2,3,1]</code>, <code>[3,1,2]</code>, <code>[3,2,1]</code>.</p>
+
+<p><strong>Brute force idea.</strong> There is no cheaper way than listing them, since there are <code>n!</code> answers. Python's <code>itertools.permutations</code> does it too, but in an interview you must show the logic.</p>
+
+<p><strong>Better idea (backtracking), slowly.</strong></p>
+
+<ol>
+<li>A permutation is built <strong>one position at a time</strong>. For position 0, any item can go there. For position 1, any item <strong>not used yet</strong>. And so on.</li>
+<li>Keep a <code>used</code> list of True/False so we know which items are already in the path.</li>
+<li>The path is complete when its length equals <code>n</code>. Only then do we record it.</li>
+</ol>
+
+<pre><code>from typing import List                       # type hints
+
+
+def permute(nums: List[int]) -&gt; List[List[int]]:   # all orderings
+    results: List[List[int]] = []             # answers
+    path: List[int] = []                      # the ordering being built
+    used = [False] * len(nums)                # used[i] is True if nums[i] is already in the path
+
+    def explore() -&gt; None:                    # fill the next position
+        if len(path) == len(nums):            # all positions filled
+            results.append(path[:])           # record a copy
+            return                            # nothing more to do on this branch
+        for i in range(len(nums)):            # any item may be tried here
+            if used[i]:                       # already placed earlier in the path
+                continue                      # skip it
+            used[i] = True                    # choose: mark as used
+            path.append(nums[i])              # choose: add to the path
+            explore()                         # explore the next position
+            path.pop()                        # un-choose: remove from the path
+            used[i] = False                   # un-choose: mark as unused again
+
+    explore()                                 # begin with an empty path
+    return results                            # all n! orderings
+
+
+print(permute([1, 2, 3]))                     # expect 6 orderings
+assert permute([1, 2, 3]) == [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]   # example 1
+assert permute([0, 1]) == [[0, 1], [1, 0]]    # example 2
+assert permute([1]) == [[1]]                  # example 3
+assert permute([]) == [[]]                    # edge case: one way to arrange nothing
+assert len(permute([1, 2, 3, 4, 5])) == 120   # edge case: 5! = 120
+</code></pre>
+
+<p><strong>Trace</strong> (the first branch only, <code>nums=[1,2,3]</code>):</p>
+
+<pre><code>explore: path=[]  used=[F,F,F]
+ i=0: choose 1 -&gt; path=[1], used=[T,F,F]
+  explore: path=[1]
+   i=0: used -&gt; skip
+   i=1: choose 2 -&gt; path=[1,2], used=[T,T,F]
+    explore: path=[1,2]
+     i=0: used. i=1: used.
+     i=2: choose 3 -&gt; path=[1,2,3], used=[T,T,T]
+      explore: length 3 == 3 -&gt; record [1,2,3], return
+     un-choose 3 -&gt; path=[1,2], used=[T,T,F]
+    (loop ends) return
+   un-choose 2 -&gt; path=[1], used=[T,F,F]
+   i=2: choose 3 -&gt; path=[1,3], used=[T,F,T]
+    explore: path=[1,3]
+     i=1: choose 2 -&gt; path=[1,3,2] -&gt; record [1,3,2]
+     un-choose 2
+    un-choose 3
+ un-choose 1 -&gt; path=[], used=[F,F,F]
+ i=1: choose 2 -&gt; ... (gives [2,1,3] and [2,3,1])
+ i=2: choose 3 -&gt; ... (gives [3,1,2] and [3,2,1])
+</code></pre>
+
+<p><strong>Complexity.</strong> Time O(n x n!): there are <code>n!</code> permutations, and copying each costs <code>n</code>. Space O(n) for the recursion, the path and <code>used</code>.</p>
+
+<p><strong>Edge cases.</strong></p>
+
+<ol>
+<li>Empty list: one permutation, the empty one (<code>[[]]</code>).</li>
+<li>One item: just <code>[[item]]</code>.</li>
+</ol>
+
+<p><strong>How interviewers twist it.</strong></p>
+
+<ul>
+<li>"Items may repeat" (Permutations II, LeetCode 47): sort, then skip <code>nums[i]</code> if it equals <code>nums[i-1]</code> and <code>nums[i-1]</code> is not used (this stops the same ordering appearing twice).</li>
+<li>"Next permutation" (LeetCode 31): do it in place in O(n), no recursion.</li>
+<li>"Return only the k-th permutation" (LeetCode 60): use factorials to jump straight to it.</li>
+</ul>
+
+<hr />
+
+<h3 id="53-combination-sum-leetcode-39">5.3 Combination Sum (LeetCode 39)</h3>
+
+<p><strong>In plain words.</strong> You get different positive numbers <code>candidates</code> and a <code>target</code>. Return all unique combinations whose sum equals <code>target</code>. <strong>You may use the same number many times.</strong> <code>[2,3,6,7]</code>, target <code>7</code> gives <code>[[2,2,3],[7]]</code>.</p>
+
+<p><strong>Brute force idea.</strong> Try all combinations of any size with repeats. There is no natural limit, so you must stop when the sum is too big. That <em>is</em> the backtracking idea.</p>
+
+<p><strong>Better idea, slowly.</strong></p>
+
+<ol>
+<li>Keep the <code>remaining</code> target (target minus the sum so far).</li>
+<li>If <code>remaining == 0</code>, the path is an answer. Record it.</li>
+<li>If <code>remaining &lt; 0</code>, we went too far. Stop this branch (<strong>pruning</strong>).</li>
+<li>Otherwise loop over candidates from <code>start</code> onward. Choose one, then call again with <code>remaining - that number</code>.</li>
+<li>Pass <code>i</code> (not <code>i + 1</code>) because the same number may be used again.</li>
+<li>Passing <code>start = i</code> (never going back to earlier items) stops <code>[2,3]</code> and <code>[3,2]</code> both appearing.</li>
+</ol>
+
+<pre><code>from typing import List                       # type hints
+
+
+def combination_sum(candidates: List[int], target: int) -&gt; List[List[int]]:   # all combinations that sum to target
+    results: List[List[int]] = []             # answers
+    path: List[int] = []                      # current combination
+    nums = sorted(candidates)                 # sorting lets us stop early when numbers get too big
+
+    def explore(start: int, remaining: int) -&gt; None:   # remaining = target - sum(path)
+        if remaining == 0:                    # exact hit
+            results.append(path[:])           # record a copy
+            return                            # no need to go deeper
+        for i in range(start, len(nums)):     # try numbers from index start onward
+            if nums[i] &gt; remaining:           # this number is too big, and later ones are bigger
+                break                         # prune: stop the loop
+            path.append(nums[i])              # choose
+            explore(i, remaining - nums[i])   # explore; pass i (not i+1) because reuse is allowed
+            path.pop()                        # un-choose
+
+    explore(0, target)                        # begin
+    return results                            # all combinations
+
+
+print(combination_sum([2, 3, 6, 7], 7))       # expect [[2, 2, 3], [7]]
+assert combination_sum([2, 3, 6, 7], 7) == [[2, 2, 3], [7]]   # example 1
+assert combination_sum([2, 3, 5], 8) == [[2, 2, 2, 2], [2, 3, 3], [3, 5]]   # example 2
+assert combination_sum([2], 1) == []          # example 3 / edge case: impossible
+assert combination_sum([1], 3) == [[1, 1, 1]] # edge case: one candidate used many times
+assert combination_sum([], 5) == []           # edge case: no candidates
+</code></pre>
+
+<p><strong>Trace</strong> on <code>[2,3,6,7]</code>, target <code>7</code>:</p>
+
+<pre><code>explore(start=0, remaining=7), path=[]
+ i=0: 2 &lt;= 7 -&gt; choose 2, path=[2]
+  explore(0, 5)
+   i=0: 2 &lt;= 5 -&gt; choose 2, path=[2,2]
+    explore(0, 3)
+     i=0: 2 &lt;= 3 -&gt; choose 2, path=[2,2,2]
+      explore(0, 1)
+       i=0: 2 &gt; 1 -&gt; break (prune)
+      un-choose 2, path=[2,2]
+     i=1: 3 &lt;= 3 -&gt; choose 3, path=[2,2,3]
+      explore(1, 0): remaining 0 -&gt; RECORD [2,2,3]
+      un-choose 3, path=[2,2]
+     i=2: 6 &gt; 3 -&gt; break
+    un-choose 2, path=[2]
+   i=1: 3 &lt;= 5 -&gt; choose 3, path=[2,3]
+    explore(1, 2)
+     i=1: 3 &gt; 2 -&gt; break
+    un-choose 3, path=[2]
+   i=2: 6 &gt; 5 -&gt; break
+  un-choose 2, path=[]
+ i=1: 3 &lt;= 7 -&gt; choose 3, path=[3]
+  explore(1, 4): i=1: 3 &lt;= 4 -&gt; choose 3, path=[3,3], explore(1,1): 3 &gt; 1 break. un-choose.
+                 i=2: 6 &gt; 4 -&gt; break
+  un-choose 3
+ i=2: 6 &lt;= 7 -&gt; choose 6, path=[6]
+  explore(2, 1): 6 &gt; 1 -&gt; break
+  un-choose 6
+ i=3: 7 &lt;= 7 -&gt; choose 7, path=[7]
+  explore(3, 0): remaining 0 -&gt; RECORD [7]
+  un-choose 7
+result: [[2,2,3],[7]]
+</code></pre>
+
+<p><strong>Complexity.</strong> Time: there is no clean formula. It depends on how many paths of valid length exist. Roughly, with the smallest number <code>m</code>, the depth is at most <code>target / m</code>, and each level can branch up to <code>n</code> ways, so we say "exponential in <code>target / m</code>". Space O(<code>target / m</code>) for the recursion depth and path.</p>
+
+<p><strong>Edge cases.</strong></p>
+
+<ol>
+<li>No combination exists (<code>[2]</code>, target <code>1</code>): return <code>[]</code>.</li>
+<li>A candidate larger than the target is skipped by the <code>break</code>.</li>
+</ol>
+
+<p><strong>How interviewers twist it.</strong></p>
+
+<ul>
+<li>"Each number may be used <strong>only once</strong>" (Combination Sum II, LeetCode 40): pass <code>i + 1</code>, and skip equal neighbours at the same level (sort first).</li>
+<li>"Return only the <strong>count</strong> of ways" (Coin Change II style): dynamic programming (lesson 15).</li>
+<li>"Only numbers 1 to 9, exactly k numbers" (Combination Sum III, LeetCode 216): add a length check.</li>
+</ul>
+
+<hr />
+
+<h3 id="54-word-search-leetcode-79">5.4 Word Search (LeetCode 79)</h3>
+
+<p><strong>In plain words.</strong> A grid of letters. Does the given word exist in the grid? You build the word by moving up, down, left or right from letter to letter. You <strong>cannot use the same cell twice</strong> in one word.</p>
+
+<p><strong>Brute force idea.</strong> Try each cell as a start, and follow all paths. That <em>is</em> backtracking. The only question is how to avoid reusing a cell.</p>
+
+<p><strong>Better idea, slowly.</strong></p>
+
+<ol>
+<li>For each cell that matches the first letter, start a search.</li>
+<li><code>search(r, c, k)</code> means: "Cell <code>(r, c)</code> should match <code>word[k]</code>. Can we finish the word from here?"</li>
+<li>Base case: if <code>k == len(word)</code>, we matched every letter, so return <code>True</code>.</li>
+<li>If the cell is outside the grid, or its letter is not <code>word[k]</code>, return <code>False</code>.</li>
+<li><strong>Choose</strong>: mark the cell as used by replacing its letter with <code>"#"</code>. <strong>Explore</strong> four neighbours with <code>k + 1</code>. <strong>Un-choose</strong>: put the original letter back.</li>
+<li>If any neighbour returns <code>True</code>, return <code>True</code>.</li>
+</ol>
+
+<pre><code>from typing import List                       # type hints
+
+
+def exist(board: List[List[str]], word: str) -&gt; bool:   # does the word exist in the grid?
+    rows, cols = len(board), len(board[0])    # grid size
+
+    def search(r: int, c: int, k: int) -&gt; bool:   # can we match word[k:] starting at (r, c)?
+        if k == len(word):                    # every letter matched
+            return True                       # success
+        if r &lt; 0 or r &gt;= rows or c &lt; 0 or c &gt;= cols:   # outside the grid
+            return False                      # fail
+        if board[r][c] != word[k]:            # wrong letter (this also catches "#", the used marker)
+            return False                      # fail
+        saved = board[r][c]                   # remember the letter
+        board[r][c] = "#"                     # choose: mark the cell as used
+        found = (search(r + 1, c, k + 1) or search(r - 1, c, k + 1)     # explore down and up
+                 or search(r, c + 1, k + 1) or search(r, c - 1, k + 1)) # and right and left
+        board[r][c] = saved                   # un-choose: put the letter back
+        return found                          # tell the caller
+
+    for r in range(rows):                     # try every cell as the start
+        for c in range(cols):                 # every column
+            if search(r, c, 0):               # does the word start here?
+                return True                   # yes
+    return False                              # no start worked
+
+
+grid = [list("ABCE"), list("SFCS"), list("ADEE")]   # the LeetCode example grid
+print(exist(grid, "ABCCED"), exist(grid, "SEE"), exist(grid, "ABCB"))   # expect True True False
+assert exist(grid, "ABCCED") is True          # example 1
+assert exist(grid, "SEE") is True             # example 2
+assert exist(grid, "ABCB") is False           # example 3: would need B twice
+assert exist([list("A")], "A") is True        # edge case: one cell
+assert exist([list("A")], "AA") is False      # edge case: word longer than the grid
+assert grid == [list("ABCE"), list("SFCS"), list("ADEE")]   # the board is restored after the search
+</code></pre>
+
+<p><strong>Trace</strong> on <code>word = "SEE"</code>, same grid (rows written out):</p>
+
+<pre><code>row0:  A B C E
+row1:  S F C S
+row2:  A D E E
+</code></pre>
+
+<pre><code>try (0,0)=A: not S -&gt; False.  (0,1)=B, (0,2)=C, (0,3)=E: not S -&gt; False.
+try (1,0)=S: matches word[0]='S'. mark (1,0)='#'.
+   neighbour down (2,0)=A: not 'E' -&gt; False.
+   neighbour up (0,0)=A: not 'E' -&gt; False.
+   neighbour right (1,1)=F: not 'E' -&gt; False.
+   neighbour left: outside -&gt; False.
+   un-mark (1,0)='S'. result False.
+try (1,1)=F, (1,2)=C: not S -&gt; False.
+try (1,3)=S: matches. mark (1,3)='#'.
+   down (2,3)=E: matches word[1]='E'. mark (2,3)='#'.
+      down: outside.  up (1,3)='#': not 'E'.  right: outside.
+      left (2,2)=E: matches word[2]='E'. mark it. k becomes 3 == len(word) at the next call -&gt; True.
+   returns True all the way up.
+answer: True
+</code></pre>
+
+<p><strong>Complexity.</strong> Time O(R x C x 3^L), where L is the word length. From each start we can go in at most 3 new directions at each step (not back where we came from), for L steps. Space O(L) for the recursion depth (the board is changed in place, not copied).</p>
+
+<p><strong>Edge cases.</strong></p>
+
+<ol>
+<li>The word needs the same cell twice (<code>"ABCB"</code>): the <code>"#"</code> marker prevents it.</li>
+<li>Forgetting to restore the cell: later searches see a damaged board and give wrong answers.</li>
+</ol>
+
+<p><strong>How interviewers twist it.</strong></p>
+
+<ul>
+<li>"Find <strong>all</strong> words from a list" (Word Search II, LeetCode 212): use a <strong>trie</strong> (lesson 17) so you search for all words at once.</li>
+<li>"Early exit": count the letters in the board and the word first. If the word needs more of some letter than the board has, return <code>False</code> at once. Also, if the last letter of the word is rarer than the first letter, search for the reversed word.</li>
+<li>"Diagonal moves also allowed": add four directions.</li>
+</ul>
+
+<hr />
+
+<h3 id="55-generate-parentheses-leetcode-22">5.5 Generate Parentheses (LeetCode 22)</h3>
+
+<p><strong>In plain words.</strong> Given <code>n</code> pairs of parentheses, list all valid (well-formed) strings. For <code>n = 3</code> there are 5: <code>((()))</code>, <code>(()())</code>, <code>(())()</code>, <code>()(())</code>, <code>()()()</code>.</p>
+
+<p><strong>Brute force.</strong> Generate all <code>2^(2n)</code> strings of <code>(</code> and <code>)</code>, and test each for validity. Wasteful: most are invalid.</p>
+
+<p><strong>Better idea, slowly.</strong></p>
+
+<ol>
+<li>Build the string one character at a time. At each step we may add <code>(</code> or <code>)</code>.</li>
+<li>Add <code>(</code> only if we have not used all <code>n</code> open brackets yet.</li>
+<li>Add <code>)</code> only if it will not break the string, which means there are more <code>(</code> than <code>)</code> so far.</li>
+<li>These two rules keep the string valid at every step, so we never build garbage. This is <strong>pruning</strong>.</li>
+<li>When the string has length <code>2n</code>, record it.</li>
+</ol>
+
+<pre><code>from typing import List                       # type hints
+
+
+def generate_parenthesis(n: int) -&gt; List[str]:   # all valid strings with n pairs
+    results: List[str] = []                   # answers
+    path: List[str] = []                      # characters chosen so far
+
+    def explore(open_count: int, close_count: int) -&gt; None:   # how many ( and ) used so far
+        if len(path) == 2 * n:                # the string is complete
+            results.append("".join(path))     # join the characters and record
+            return                            # done with this branch
+        if open_count &lt; n:                    # we may still open a bracket
+            path.append("(")                  # choose "("
+            explore(open_count + 1, close_count)   # explore
+            path.pop()                        # un-choose
+        if close_count &lt; open_count:          # a ")" is valid only if some "(" is still unclosed
+            path.append(")")                  # choose ")"
+            explore(open_count, close_count + 1)   # explore
+            path.pop()                        # un-choose
+
+    explore(0, 0)                             # begin with nothing used
+    return results                            # all valid strings
+
+
+print(generate_parenthesis(3))                # expect 5 strings
+assert generate_parenthesis(3) == ["((()))", "(()())", "(())()", "()(())", "()()()"]   # example 1
+assert generate_parenthesis(1) == ["()"]      # example 2
+assert generate_parenthesis(0) == [""]        # edge case: zero pairs gives one empty string
+assert len(generate_parenthesis(4)) == 14     # edge case: n=4 has 14 answers (Catalan number)
+</code></pre>
+
+<p><strong>Trace</strong> on <code>n = 2</code>:</p>
+
+<pre><code>explore(open=0, close=0), path=""
+ open 0 &lt; 2 -&gt; add "(" -&gt; path="("
+  explore(1,0)
+   open 1 &lt; 2 -&gt; add "(" -&gt; path="(("
+    explore(2,0)
+     open 2 &lt; 2? no.  close 0 &lt; open 2 -&gt; add ")" -&gt; path="(()"
+      explore(2,1)
+       open? no.  close 1 &lt; 2 -&gt; add ")" -&gt; path="(())"
+        explore(2,2): length 4 -&gt; RECORD "(())"
+       un-choose
+      un-choose
+    un-choose "("   (path="(")
+   close 0 &lt; open 1 -&gt; add ")" -&gt; path="()"
+    explore(1,1)
+     open 1 &lt; 2 -&gt; add "(" -&gt; path="()("
+      explore(2,1)
+       open? no.  close 1 &lt; 2 -&gt; add ")" -&gt; path="()()"
+        explore(2,2): length 4 -&gt; RECORD "()()"
+result: ["(())", "()()"]
+</code></pre>
+
+<p><strong>Complexity.</strong> Time about O(4^n / sqrt(n)): that is the number of valid strings (the Catalan number), times the work of building each. Space O(n) for the recursion depth.</p>
+
+<p><strong>Edge cases.</strong></p>
+
+<ol>
+<li><code>n = 0</code>: one result, the empty string.</li>
+<li>Adding <code>)</code> too early (like <code>)(</code>): the rule <code>close &lt; open</code> forbids it.</li>
+</ol>
+
+<p><strong>How interviewers twist it.</strong></p>
+
+<ul>
+<li>"Valid Parentheses" (check one string): that is a stack problem (lesson 05).</li>
+<li>"Remove the minimum number of invalid parentheses" (LeetCode 301): BFS or backtracking with counters.</li>
+<li>"Three kinds of brackets": the choose step tries <code>(</code>, <code>[</code>, <code>{</code>, with a stack to know which close bracket is allowed.</li>
+</ul>
+
+<hr />
+
+<h2 id="6-common-mistakes">6. Common mistakes</h2>
+
+<ol>
+<li><strong>Saving <code>path</code> instead of a copy</strong> (<code>path[:]</code> or <code>list(path)</code>). All your answers become the same (usually empty) list.</li>
+<li><strong>Forgetting to un-choose.</strong> Then the path keeps old choices, and answers are wrong.</li>
+<li><strong>Passing <code>i + 1</code> when reuse is allowed (Combination Sum), or <code>i</code> when it is not.</strong> Check the problem statement.</li>
+<li><strong>Starting the loop at 0 every time for subsets and combinations.</strong> You will get <code>[1,2]</code> and <code>[2,1]</code> both. Use <code>start</code>.</li>
+<li><strong>Not pruning.</strong> The code is right but slow. Use <code>break</code> when sorted numbers exceed the remainder.</li>
+<li><strong>Not restoring the grid in Word Search.</strong> The <code>"#"</code> stays and breaks the next start.</li>
+<li><strong>Mixing up the complexity.</strong> The output size itself is exponential. That is normal for these problems. Say so to the interviewer.</li>
+<li><strong>Forgetting duplicates.</strong> If the input can contain duplicates, sort and skip equal neighbours at the same level.</li>
+</ol>
+
+<hr />
+
+<h2 id="7-practice-list-8-more-problems">7. Practice list (8 more problems)</h2>
+
+<p>Tags come from public LeetCode company-tag lists I read (GitHub mirror, snapshot Oct 2025; see lesson 19). A tag means "the problem is in that company's list". No tag means not verified. The problems taught above are tagged too: Subsets, Permutations, Combination Sum and Word Search are each in the lists of Amazon, Google, Meta and Microsoft. Generate Parentheses is in the lists of Amazon, Google and Microsoft.</p>
+
+<table>
+<thead>
+<tr>
+  <th>#</th>
+  <th>Problem</th>
+  <th>Difficulty</th>
+  <th>Tagged for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1</td>
+  <td>Subsets II (90)</td>
+  <td>Medium</td>
+  <td>not verified</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>Permutations II (47)</td>
+  <td>Medium</td>
+  <td>not verified</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td>Combination Sum II (40)</td>
+  <td>Medium</td>
+  <td>not verified</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td>Letter Combinations of a Phone Number (17)</td>
+  <td>Medium</td>
+  <td>Amazon, Google, Meta, Microsoft</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td>Palindrome Partitioning (131)</td>
+  <td>Medium</td>
+  <td>Amazon, Google</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td>N-Queens (51)</td>
+  <td>Hard</td>
+  <td>Google</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td>Word Search II (212)</td>
+  <td>Hard</td>
+  <td>Amazon, Google, Meta, Microsoft</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td>Sudoku Solver (37)</td>
+  <td>Hard</td>
+  <td>not verified</td>
+</tr>
+</tbody>
+</table>
+
+<hr />
+
+<h2 id="8-self-quiz-5-questions">8. Self-quiz (5 questions)</h2>
+
+<ol>
+<li>What are the three steps inside every backtracking loop?</li>
+<li>Why must you save <code>path[:]</code> and not <code>path</code> when recording an answer?</li>
+<li>In Combination Sum we call <code>explore(i, ...)</code> but in Subsets we call <code>explore(i + 1)</code>. Why?</li>
+<li>How many subsets does a list of 10 different numbers have? How many permutations?</li>
+<li>What does "pruning" mean, and give one example from this lesson.</li>
+</ol>
+
+<p><strong>Answers.</strong></p>
+
+<ol>
+<li>Choose (add to path), explore (recursive call), un-choose (remove from path).</li>
+<li><code>path</code> is one list that keeps changing. If you save the list itself, later changes change your saved answer. <code>path[:]</code> makes an independent copy.</li>
+<li>In Combination Sum the same number may be reused, so the next call may pick index <code>i</code> again. In Subsets each item is used at most once, so the next call starts after <code>i</code>.</li>
+<li>Subsets: <code>2^10 = 1024</code>. Permutations: <code>10! = 3,628,800</code>.</li>
+<li>Pruning means stopping a branch early when it cannot lead to an answer. Example: in Combination Sum, if the number is bigger than the remaining target, we <code>break</code>. In Generate Parentheses, we never add <code>)</code> unless a <code>(</code> is open.</li>
+</ol>
+<div class="pn"><span><a href="13_intervals.html">&larr; Lesson 13: Intervals (merge intervals, m</a></span><span><a href="15_dynamic_programming_part1.html">Lesson 15: Dynamic Programming, Part 1 ( &rarr;</a></span></div></main></div></body></html>

@@ -1,5 +1,7 @@
 # Interview prep
 
+**Read it as a website:** https://skalvinnathan.github.io/interview-prep/
+
 Plain-English study notes for platform, backend and software engineer interviews, written for people who want every term explained from zero.
 
 - Code in `01-dsa` and `03-low-level-design` was run (Python 3.9) before being written down.
@@ -122,3 +124,6 @@ How large tech companies hire, offers and notice periods, questions to ask, inte
 4. `03-low-level-design/00_how_the_lld_round_works.md`
 
 Unofficial and unaffiliated with any company mentioned.
+
+## Rebuild the website
+`python3 -m venv venv && venv/bin/pip install markdown2 && venv/bin/python build_site.py` writes `docs/` (GitHub Pages serves it from `main` / `docs`).

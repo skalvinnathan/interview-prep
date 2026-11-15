@@ -1,0 +1,709 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Lesson 09: Heaps and Priority Queues | Interview prep</title><style>
+:root{--bg:#fff;--fg:#1f2328;--mut:#59636e;--bd:#d1d9e0;--ac:#0b57d0;--cb:#f6f8fa;--sb:#f6f8fa}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9198a1;--bd:#30363d;--ac:#6cb6ff;--cb:#161b22;--sb:#010409}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{display:flex;min-height:100vh}nav{width:300px;flex:none;background:var(--sb);border-right:1px solid var(--bd);padding:16px;overflow:auto;position:sticky;top:0;height:100vh}
+nav a{color:var(--fg);text-decoration:none;display:block;padding:3px 6px;border-radius:6px;font-size:14px}nav a:hover{background:var(--cb)}nav a.cur{background:var(--ac);color:#fff}
+nav summary{cursor:pointer;font-weight:600;padding:6px 0}nav .home{font-weight:700;font-size:16px;margin-bottom:8px}
+main{flex:1;min-width:0;max-width:900px;padding:24px 32px 80px;margin:0 auto}
+h1,h2,h3{line-height:1.25}h1{border-bottom:1px solid var(--bd);padding-bottom:.3em}h2{border-bottom:1px solid var(--bd);padding-bottom:.25em;margin-top:2em}
+a{color:var(--ac)}pre{background:var(--cb);border:1px solid var(--bd);border-radius:8px;padding:14px;overflow:auto;font-size:13.5px;line-height:1.5}
+code{background:var(--cb);padding:.15em .35em;border-radius:5px;font-size:.92em}pre code{background:none;padding:0}
+table{border-collapse:collapse;display:block;overflow:auto;max-width:100%}th,td{border:1px solid var(--bd);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--cb)}
+blockquote{border-left:4px solid var(--bd);margin:0;padding:0 1em;color:var(--mut)}img{max-width:100%}
+.top{display:none}.pn{display:flex;justify-content:space-between;gap:12px;margin-top:48px;border-top:1px solid var(--bd);padding-top:16px;font-size:14px}
+@media(max-width:820px){.wrap{display:block}nav{width:auto;height:auto;position:static;border-right:0;border-bottom:1px solid var(--bd)}main{padding:16px}}
+</style></head><body><div class="wrap"><nav><a class="home" href="../index.html">Interview prep</a><details open><summary>Data structures and algorithms</summary><a href="00_how_to_start.html">How to start: reading a problem, the 5-step method, and Big-</a><a href="01_arrays_and_strings.html">Lesson 01. Arrays and Strings</a><a href="02_hash_maps_and_sets.html">Lesson 02. Hash Maps and Sets</a><a href="03_two_pointers.html">Lesson 03. Two Pointers</a><a href="04_sliding_window.html">Lesson 04. Sliding Window</a><a href="05_stack_and_queue.html">Lesson 05. Stack and Queue (including the monotonic stack)</a><a href="06_binary_search.html">Lesson 06. Binary Search (including search on the answer)</a><a href="07_linked_lists.html">Lesson 07. Linked Lists</a><a href="08_trees_and_bst.html">Lesson 08. Trees and Binary Search Trees (BST)</a><a class="cur" href="09_heaps_and_priority_queues.html">Lesson 09: Heaps and Priority Queues</a><a href="10_graphs_bfs_dfs.html">Lesson 10: Graphs, BFS and DFS (including grids)</a><a href="11_topological_sort_and_union_find.html">Lesson 11: Topological Sort and Union-Find</a><a href="12_shortest_paths.html">Lesson 12: Shortest Paths (Dijkstra in plain words)</a><a href="13_intervals.html">Lesson 13: Intervals (merge intervals, meeting rooms)</a><a href="14_backtracking.html">Lesson 14: Backtracking (subsets, permutations, combination </a><a href="15_dynamic_programming_part1.html">Lesson 15: Dynamic Programming, Part 1 (remembering answers)</a><a href="16_dynamic_programming_part2.html">Lesson 16: Dynamic Programming, Part 2 (LIS, word break, kna</a><a href="17_tries_and_greedy.html">Lesson 17: Tries and Greedy</a><a href="18_bit_tricks_and_math_basics.html">Lesson 18: Bit Tricks and Math Basics (short)</a><a href="19_company_question_patterns.html">Lesson 19: Company Question Patterns (Google, Amazon, Meta, </a></details><details><summary>System design</summary><a href="../02-system-design/00_how_the_round_works.html">How the System Design Round Works</a><a href="../02-system-design/01a_client_server_and_http.html">Client, Server and HTTP</a><a href="../02-system-design/01b_dns_and_cdn.html">DNS and CDN</a><a href="../02-system-design/01c_load_balancers.html">Load Balancers</a><a href="../02-system-design/01d_databases.html">Databases: SQL vs NoSQL, Indexes, Transactions</a><a href="../02-system-design/01e_caching.html">Caching (and Why Invalidation Is Hard)</a><a href="../02-system-design/01f_sharding_and_replication.html">Sharding and Replication</a><a href="../02-system-design/01g_message_queues_and_streams.html">Message Queues and Streams (Kafka Basics)</a><a href="../02-system-design/01h_consistency_and_cap.html">Consistency and the CAP Idea (in Plain Words)</a><a href="../02-system-design/02_numbers_and_estimation.html">Numbers and Estimation</a><a href="../02-system-design/03_reliability_patterns.html">Reliability Patterns</a><a href="../02-system-design/10_url_shortener.html">Design a URL Shortener</a><a href="../02-system-design/11_rate_limiter.html">Design a Rate Limiter</a><a href="../02-system-design/12_chat_system.html">Design a Chat System (like WhatsApp or Slack)</a><a href="../02-system-design/13_news_feed.html">Design a News Feed (like Instagram, Facebook or Twitter/X ho</a><a href="../02-system-design/14_notification_service.html">Design a Notification Service</a><a href="../02-system-design/15_file_storage_like_drive.html">Design File Storage and Sync (like Google Drive or Dropbox)</a><a href="../02-system-design/16_search_autocomplete.html">Design Search Autocomplete (Typeahead)</a><a href="../02-system-design/17_video_streaming_basics.html">Design Video Streaming Basics (like YouTube or Netflix)</a><a href="../02-system-design/18_payment_system_like_stripe.html">Design a Payment System (like Stripe)</a><a href="../02-system-design/19_order_management_like_amazon.html">Design an Order Management System (like Amazon: inventory, o</a><a href="../02-system-design/20_job_scheduler_and_workflow_engine.html">Design a Job Scheduler and Workflow Engine</a><a href="../02-system-design/21_api_gateway_and_auth_system.html">Design an API Gateway and Auth System</a><a href="../02-system-design/22_logging_and_metrics_platform.html">Design a Logging and Metrics Platform</a><a href="../02-system-design/90_cheat_sheet.html">Cheat Sheet (one page)</a><a href="../02-system-design/91_practice_questions.html">Practice Questions (30)</a></details><details><summary>Low-level design</summary><a href="../03-low-level-design/00_how_the_lld_round_works.html">- How the LLD round works</a><a href="../03-low-level-design/01_oop_in_plain_words.html">- OOP in plain words</a><a href="../03-low-level-design/02_solid_principles.html">- SOLID principles</a><a href="../03-low-level-design/03_design_patterns_you_need.html">- The 8 design patterns you need</a><a href="../03-low-level-design/10_parking_lot.html">- Parking Lot</a><a href="../03-low-level-design/11_lru_cache.html">- LRU Cache</a><a href="../03-low-level-design/12_elevator_system.html">- Elevator System</a><a href="../03-low-level-design/13_library_management.html">- Library Management System</a><a href="../03-low-level-design/14_vending_machine.html">- Vending Machine (State pattern)</a><a href="../03-low-level-design/15_atm.html">- ATM</a><a href="../03-low-level-design/16_rate_limiter_class.html">- Rate Limiter (class design: token bucket and sliding windo</a><a href="../03-low-level-design/17_amazon_locker.html">- Amazon Locker</a><a href="../03-low-level-design/18_splitwise_expense_sharing.html">- Splitwise (Expense Sharing)</a><a href="../03-low-level-design/19_logger_and_notification_system.html">- Logger and Notification System (Observer and Strategy)</a><a href="../03-low-level-design/20_tic_tac_toe_or_chess_basics.html">- Tic-Tac-Toe (full) and Chess basics</a><a href="../03-low-level-design/90_cheat_sheet.html">- Cheat sheet (read the night before)</a><a href="../03-low-level-design/91_practice_questions.html">- Practice questions (20)</a></details><details><summary>DevOps and platform basics</summary><a href="../05-devops-platform-basics/01_linux_processes_memory_files.html">Linux: processes, memory, and files</a><a href="../05-devops-platform-basics/02_networking.html">Networking: TCP, DNS, TLS, NAT</a><a href="../05-devops-platform-basics/03_containers_and_docker.html">Containers and Docker</a><a href="../05-devops-platform-basics/04_kubernetes_from_zero.html">Kubernetes from zero</a><a href="../05-devops-platform-basics/05_helm.html">Helm</a><a href="../05-devops-platform-basics/06_terraform.html">Terraform</a><a href="../05-devops-platform-basics/07_ci_cd_github_actions.html">CI/CD with GitHub Actions</a><a href="../05-devops-platform-basics/08_observability_and_sre.html">Observability and SRE</a><a href="../05-devops-platform-basics/09_concurrency_and_distributed_basics.html">Concurrency and distributed basics</a><a href="../05-devops-platform-basics/10_databases_basics.html">Databases basics</a><a href="../05-devops-platform-basics/11_security_basics.html">Security basics (IAM, OAuth2/OIDC/JWT, secrets, supply chain</a><a href="../05-devops-platform-basics/12_gcp_pca_quick_map.html">Google Cloud quick map (for Professional Cloud Architect hol</a><a href="../05-devops-platform-basics/20_interview_questions_with_answers.html">Sixty interview questions with model answers (platform / SRE</a><a href="../05-devops-platform-basics/21_scenario_questions.html">Fifteen &quot;production is down&quot; scenarios, with step-by-step an</a></details><details><summary>Company processes</summary><a href="../06-company-process-and-behavioural/10_google.html">Google</a><a href="../06-company-process-and-behavioural/11_amazon.html">Amazon</a><a href="../06-company-process-and-behavioural/12_stripe.html">Stripe</a><a href="../06-company-process-and-behavioural/13_microsoft_and_azure_roles.html">Microsoft and Azure roles</a><a href="../06-company-process-and-behavioural/14_indian_product_and_gcc_companies.html">Indian product companies and GCCs</a><a href="../06-company-process-and-behavioural/15_european_scaleups.html">European scale-ups and visa basics</a><a href="../06-company-process-and-behavioural/16_ai_startups_like_smallest_ai.html">AI startups like Smallest AI</a><a href="../06-company-process-and-behavioural/24_questions_to_ask_interviewers.html">Questions to ask interviewers</a><a href="../06-company-process-and-behavioural/25_salary_notice_period_and_offer_negotiation_india_and_abroad.html">Salary, notice period and offer negotiation (India and abroa</a><a href="../06-company-process-and-behavioural/26_interview_day_checklists.html">Interview day checklists</a></details></nav><main><h1 id="lesson-09-heaps-and-priority-queues">Lesson 09: Heaps and Priority Queues</h1>
+
+<p>All code is Python 3.9. Every code block in this file was run with <code>python3</code> (3.9.6) before it was written here.</p>
+
+<hr />
+
+<h2 id="words-you-need-first">Words you need first</h2>
+
+<ul>
+<li><strong>Heap</strong>: a pile of numbers where the <strong>smallest number is always on top</strong>. You can take the top very fast.</li>
+<li><strong>Priority queue</strong>: a line where the most important item goes first (not the item who came first). A heap is the usual way to build it.</li>
+<li><strong>Min-heap</strong>: smallest on top. Python's <code>heapq</code> is a min-heap.</li>
+<li><strong>Max-heap</strong>: biggest on top. Python has no direct one. Trick: store negative numbers.</li>
+<li><strong>O(log n)</strong>: very cheap growth. For 1,000,000 items, about 20 steps.</li>
+<li><strong>O(n log n)</strong>: sorting cost. For 1,000,000 items, about 20,000,000 steps.</li>
+</ul>
+
+<hr />
+
+<h2 id="1-what-is-this">1. What is this?</h2>
+
+<p>A heap is a box that answers one question very fast: <strong>"who is the smallest right now?"</strong></p>
+
+<p><strong>Analogy: the hospital emergency room.</strong>
+People do not see the doctor in order of arrival. The sickest person goes first. A new patient can arrive at any time, and the nurse always knows who is next. The nurse does not sort the whole waiting room again each time. She only needs the most urgent one.</p>
+
+<p>A heap does the same:</p>
+
+<ul>
+<li><code>push(x)</code>: a new patient arrives. Cost O(log n).</li>
+<li><code>pop()</code>: take the most urgent one. Cost O(log n).</li>
+<li><code>peek</code> (<code>heap[0]</code>): look at the most urgent one without taking it. Cost O(1).</li>
+</ul>
+
+<p><strong>How is it stored?</strong> As a plain Python list, but with a rule: the item at index <code>i</code> is never bigger than its children at index <code>2*i+1</code> and <code>2*i+2</code>. This is a "tree drawn inside a list". Only the top (index 0) is guaranteed to be the smallest. The rest is only <em>partly</em> ordered. That is why a heap is cheap: it does less work than full sorting.</p>
+
+<hr />
+
+<h2 id="2-when-do-i-use-it">2. When do I use it?</h2>
+
+<p>Look for these words in the problem:</p>
+
+<table>
+<thead>
+<tr>
+  <th>Words in the problem</th>
+  <th>Idea</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>"<strong>K largest</strong>", "<strong>K smallest</strong>", "<strong>top K</strong>", "K most frequent", "K closest"</td>
+  <td>Keep a heap of size K</td>
+</tr>
+<tr>
+  <td>"<strong>Kth</strong> largest / smallest"</td>
+  <td>Heap of size K, the top is the answer</td>
+</tr>
+<tr>
+  <td>"<strong>merge K sorted</strong> lists / arrays"</td>
+  <td>Heap holding the front item of each list</td>
+</tr>
+<tr>
+  <td>"<strong>median</strong> of a stream"</td>
+  <td>Two heaps (one max, one min)</td>
+</tr>
+<tr>
+  <td>"always process the <strong>smallest / earliest / cheapest</strong> next"</td>
+  <td>Heap as priority queue</td>
+</tr>
+<tr>
+  <td>"schedule tasks", "meeting rooms (how many rooms)"</td>
+  <td>Heap of end times</td>
+</tr>
+</tbody>
+</table>
+
+<p>Rule of thumb: if you keep asking "what is the best item <em>so far</em>?" while new items keep arriving, think heap.</p>
+
+<hr />
+
+<h2 id="3-trace-of-a-tiny-example-the-heap-list-changing">3. Trace of a tiny example (the heap list changing)</h2>
+
+<p>We push <code>5, 3, 8, 1</code> into an empty min-heap, then pop once.</p>
+
+<p>How a push works: put the new item at the <strong>end</strong> of the list, then <strong>swap it upward</strong> with its parent while it is smaller than the parent. The parent of index <code>i</code> is index <code>(i-1)//2</code>.</p>
+
+<pre><code>start:                heap = []
+push 5:   [5]                           heap = [5]
+push 3:   append -&gt; [5, 3]
+          index1 parent is index0 (5). 3 &lt; 5 -&gt; swap
+                                        heap = [3, 5]
+push 8:   append -&gt; [3, 5, 8]
+          index2 parent is index0 (3). 8 &lt; 3? no -&gt; stop
+                                        heap = [3, 5, 8]
+push 1:   append -&gt; [3, 5, 8, 1]
+          index3 parent is index1 (5). 1 &lt; 5 -&gt; swap -&gt; [3, 1, 8, 5]
+          index1 parent is index0 (3). 1 &lt; 3 -&gt; swap -&gt; [1, 3, 8, 5]
+                                        heap = [1, 3, 8, 5]
+</code></pre>
+
+<p>As a picture (the list drawn as a tree):</p>
+
+<pre><code>        1
+      /   \
+     3     8
+    /
+   5
+</code></pre>
+
+<p>Now <code>pop()</code>:</p>
+
+<pre><code>pop:      take the top: 1 (this is the answer we return)
+          move the LAST item (5) to the top -&gt; [5, 3, 8]
+          sift down: compare 5 with its smaller child (3). 5 &gt; 3 -&gt; swap -&gt; [3, 5, 8]
+          5 has no children now -&gt; stop
+                                        heap = [3, 5, 8], returned 1
+</code></pre>
+
+<p>The code below prints the same thing, so you can check.</p>
+
+<hr />
+
+<h2 id="4-template-code">4. Template code</h2>
+
+<h3 id="4a-the-basic-tools-of-heapq">4a. The basic tools of <code>heapq</code></h3>
+
+<pre><code>import heapq                                  # heapq is Python's built-in heap library
+
+heap = []                                     # a heap is just an ordinary list
+for x in [5, 3, 8, 1]:                        # go through the numbers one by one
+    heapq.heappush(heap, x)                   # push x, the library keeps the heap rule true
+print(heap)                                   # shows the list: [1, 3, 8, 5]
+assert heap == [1, 3, 8, 5]                   # same as our hand trace above
+
+print(heap[0])                                # peek at the smallest without removing: 1
+smallest = heapq.heappop(heap)                # remove and return the smallest
+print(smallest, heap)                         # shows: 1 [3, 5, 8]
+assert smallest == 1 and heap == [3, 5, 8]    # same as our hand trace above
+
+nums = [9, 4, 7, 1]                           # an ordinary unsorted list
+heapq.heapify(nums)                           # turn the list into a heap in place, cost O(n)
+print(nums[0])                                # the smallest is now on top: 1
+assert nums[0] == 1                           # check it
+
+# MAX-heap trick: store the NEGATIVE of each number
+maxheap = []                                  # this heap will behave like a max-heap
+for x in [5, 3, 8, 1]:                        # same numbers again
+    heapq.heappush(maxheap, -x)               # push the negative, so the biggest becomes the smallest
+print(-maxheap[0])                            # undo the minus sign: biggest is 8
+assert -maxheap[0] == 8                       # check it
+
+# tuples are compared left to right, so (priority, thing) works
+tasks = []                                    # a heap of (priority, name) pairs
+heapq.heappush(tasks, (2, "write code"))      # priority 2
+heapq.heappush(tasks, (1, "wake up"))         # priority 1 is more urgent
+print(heapq.heappop(tasks))                   # shows: (1, 'wake up')
+assert heapq.heappop(tasks) == (2, "write code")  # the other one comes second
+
+print(heapq.nlargest(2, [3, 2, 1, 5, 6, 4]))  # shortcut: the 2 biggest -&gt; [6, 5]
+print(heapq.nsmallest(2, [3, 2, 1, 5, 6, 4])) # shortcut: the 2 smallest -&gt; [1, 2]
+</code></pre>
+
+<h3 id="4b-the-top-k-template-heap-of-size-k">4b. The "top K" template (heap of size K)</h3>
+
+<p>Idea: keep only K items in a <strong>min-heap</strong>. The top of the heap is the <em>weakest of the K strong ones</em>. A new item must beat the top to enter.</p>
+
+<pre><code>import heapq                                  # we need the heap library
+
+
+def top_k_largest(nums, k):                   # return the k biggest numbers (any order)
+    heap = []                                 # min-heap that will hold at most k numbers
+    for x in nums:                            # look at every number once
+        if len(heap) &lt; k:                     # room left in the heap?
+            heapq.heappush(heap, x)           # yes: just add it
+        elif x &gt; heap[0]:                     # heap full: is x bigger than the weakest of the K?
+            heapq.heapreplace(heap, x)        # yes: pop the weakest and push x in one step
+        # else: x is too small, ignore it     # (a comment line, nothing runs)
+    return heap                               # the heap holds the k biggest numbers
+
+
+result = top_k_largest([3, 2, 1, 5, 6, 4], 2)  # try it on a small example
+print(sorted(result))                         # shows: [5, 6]
+assert sorted(result) == [5, 6]               # check it
+</code></pre>
+
+<p>Cost: each number costs at most O(log k). Total O(n log k). Space O(k).</p>
+
+<hr />
+
+<h2 id="5-classic-problems">5. Classic problems</h2>
+
+<h3 id="51-kth-largest-element-in-an-array-leetcode-215">5.1 Kth Largest Element in an Array (LeetCode 215)</h3>
+
+<p><strong>In plain words.</strong> You get a list of numbers. Give the number that would be in position K if you sorted the list from biggest to smallest. Example: <code>[3,2,1,5,6,4]</code>, <code>k=2</code> gives <code>5</code>.</p>
+
+<p><strong>Brute force.</strong> Sort the list, then take the item at position <code>len - k</code>. Cost O(n log n) time. This is fine and simple. Say it first in an interview, then improve.</p>
+
+<p><strong>Better idea, slowly.</strong></p>
+
+<ol>
+<li>We only care about the K biggest numbers. We do not care about the order of the others.</li>
+<li>Keep a min-heap of size K. It holds "the K biggest seen so far".</li>
+<li>The top of that heap is the <em>smallest of the K biggest</em>. That is exactly the Kth largest.</li>
+<li>For every new number: if it is bigger than the top, it deserves to be inside. Replace the top with it.</li>
+</ol>
+
+<p>Why a min-heap and not a max-heap? Because we need quick access to the <em>weakest</em> member, so we can kick it out.</p>
+
+<pre><code>import heapq                                  # heap library
+from typing import List                       # type hints for readability
+
+
+def find_kth_largest(nums: List[int], k: int) -&gt; int:   # return the kth largest number
+    heap = []                                 # min-heap holding the k biggest so far
+    for x in nums:                            # visit each number once
+        if len(heap) &lt; k:                     # heap not full yet
+            heapq.heappush(heap, x)           # add x
+        elif x &gt; heap[0]:                     # heap full and x beats the weakest member
+            heapq.heapreplace(heap, x)        # remove weakest, add x (one O(log k) step)
+    return heap[0]                            # the weakest of the k biggest = kth largest
+
+
+print(find_kth_largest([3, 2, 1, 5, 6, 4], 2))             # expect 5
+print(find_kth_largest([3, 2, 3, 1, 2, 4, 5, 5, 6], 4))    # expect 4
+assert find_kth_largest([3, 2, 1, 5, 6, 4], 2) == 5        # check example 1
+assert find_kth_largest([3, 2, 3, 1, 2, 4, 5, 5, 6], 4) == 4  # check example 2
+assert find_kth_largest([1], 1) == 1                       # edge case: single item
+assert find_kth_largest([2, 2, 2], 2) == 2                 # edge case: duplicates
+</code></pre>
+
+<p><strong>Trace</strong> on <code>[3,2,1,5,6,4]</code>, <code>k=2</code>:</p>
+
+<pre><code>x=3: heap size 0 &lt; 2 -&gt; push        heap = [3]
+x=2: heap size 1 &lt; 2 -&gt; push        heap = [2, 3]
+x=1: heap full. 1 &gt; heap[0]=2? no -&gt; skip     heap = [2, 3]
+x=5: heap full. 5 &gt; 2? yes -&gt; replace top     heap = [3, 5]
+x=6: heap full. 6 &gt; 3? yes -&gt; replace top     heap = [5, 6]
+x=4: heap full. 4 &gt; 5? no -&gt; skip             heap = [5, 6]
+answer = heap[0] = 5
+</code></pre>
+
+<p><strong>Complexity.</strong> Time O(n log k): we touch n numbers, and each heap step costs log k. Space O(k): the heap never has more than k items.</p>
+
+<p><strong>Edge cases.</strong></p>
+
+<ol>
+<li><code>k = 1</code> means the maximum. The heap has one item.</li>
+<li>Duplicates: <code>[2,2,2]</code>, <code>k=2</code> gives <code>2</code>. Duplicates count as separate items.</li>
+</ol>
+
+<p><strong>How interviewers twist it.</strong></p>
+
+<ul>
+<li>"Now the numbers arrive as a stream, and you must answer after each one" (LeetCode 703). The same heap works, just keep it alive between calls.</li>
+<li>"Can you do it in O(n) average?" Answer: <strong>quickselect</strong> (partition like quicksort, go into one side only). Mention it, and say you would use the heap for safety.</li>
+<li>"Memory is tiny": the heap of size K is the answer, because you never store all n items.</li>
+</ul>
+
+<hr />
+
+<h3 id="52-top-k-frequent-elements-leetcode-347">5.2 Top K Frequent Elements (LeetCode 347)</h3>
+
+<p><strong>In plain words.</strong> Given a list, return the K values that appear the most times. <code>[1,1,1,2,2,3]</code>, <code>k=2</code> gives <code>[1,2]</code>.</p>
+
+<p><strong>Brute force.</strong> Count every value with a dictionary. Sort all (value, count) pairs by count. Take the first K. Cost O(n log n) because up to n different values may exist.</p>
+
+<p><strong>Better idea, slowly.</strong></p>
+
+<ol>
+<li>Step one is always the same: <strong>count</strong> with a dictionary (<code>Counter</code>). Cost O(n).</li>
+<li>Now we have pairs <code>(value, count)</code>. We want the K pairs with the biggest count. This is "top K" again.</li>
+<li>Use the top-K template, but compare by <strong>count</strong>. Push <code>(count, value)</code> so Python compares counts first.</li>
+<li>Keep the heap at size K. When it is too big, pop the smallest count.</li>
+</ol>
+
+<pre><code>import heapq                                  # heap library
+from collections import Counter               # Counter counts items for us
+from typing import List                       # type hints
+
+
+def top_k_frequent(nums: List[int], k: int) -&gt; List[int]:   # return the k most frequent values
+    counts = Counter(nums)                    # counts[v] = how many times v appears
+    heap = []                                 # min-heap of (count, value), at most k items
+    for value, count in counts.items():       # go through each distinct value
+        heapq.heappush(heap, (count, value))  # push the pair, smallest count floats to the top
+        if len(heap) &gt; k:                     # too many in the heap?
+            heapq.heappop(heap)               # remove the one with the smallest count
+    return [value for count, value in heap]   # keep only the values
+
+
+print(sorted(top_k_frequent([1, 1, 1, 2, 2, 3], 2)))       # expect [1, 2]
+assert sorted(top_k_frequent([1, 1, 1, 2, 2, 3], 2)) == [1, 2]   # check example 1
+assert top_k_frequent([1], 1) == [1]                        # edge case: one element
+assert sorted(top_k_frequent([4, 4, 5, 5, 6], 2)) == [4, 5] # edge case: tie, only two fit
+</code></pre>
+
+<p><strong>Trace</strong> on <code>[1,1,1,2,2,3]</code>, <code>k=2</code>:</p>
+
+<pre><code>counts = {1: 3, 2: 2, 3: 1}
+value=1, count=3: push (3,1)          heap = [(3,1)]
+value=2, count=2: push (2,2)          heap = [(2,2), (3,1)]
+value=3, count=1: push (1,3)          heap = [(1,3), (3,1), (2,2)]  size 3 &gt; 2
+                  pop smallest (1,3)  heap = [(2,2), (3,1)]
+return values -&gt; [2, 1]  (order does not matter)
+</code></pre>
+
+<p><strong>Complexity.</strong> Time O(n + m log k) where m is the number of distinct values (m is at most n). Counting is O(n). Each of m pushes costs log k. Space O(m) for the counter plus O(k) for the heap.</p>
+
+<p><strong>Edge cases.</strong></p>
+
+<ol>
+<li>Only one distinct value: the answer is that value.</li>
+<li>Ties at the border: the problem usually promises a unique answer. If not, ask the interviewer how to break ties.</li>
+</ol>
+
+<p><strong>How interviewers twist it.</strong></p>
+
+<ul>
+<li>"Do better than O(n log n)": <strong>bucket sort</strong>. Make a list of buckets where index = count. Put each value into <code>buckets[count]</code>. Walk from the highest count down. This is O(n).</li>
+<li>"Top K frequent <em>words</em>, tie broken alphabetically" (LeetCode 692): push <code>(-count, word)</code> so that more frequent comes first and alphabetical order breaks ties.</li>
+<li>"Top K in a stream that never ends": keep the counter and a heap, and discuss approximate methods (count-min sketch) if asked.</li>
+</ul>
+
+<hr />
+
+<h3 id="53-merge-k-sorted-lists-leetcode-23">5.3 Merge K Sorted Lists (LeetCode 23)</h3>
+
+<p><strong>In plain words.</strong> You get K linked lists. Each list is already sorted from small to big. Merge them into ONE sorted linked list.</p>
+
+<p><strong>Brute force.</strong> Put every value in one Python list, sort it, and build a new linked list. Cost O(N log N), where N is the total number of values. It works, but it ignores that the lists are already sorted.</p>
+
+<p><strong>Better idea, slowly.</strong></p>
+
+<ol>
+<li>Picture K queues of people, each sorted by height. You want one line sorted by height.</li>
+<li>The next person in the final line must be the shortest among the <strong>fronts</strong> of the K queues.</li>
+<li>So hold only the K fronts in a min-heap. Take the smallest front. Then put <em>the next person from that same queue</em> into the heap.</li>
+<li>Repeat until the heap is empty.</li>
+</ol>
+
+<p>The heap never has more than K items, so each step costs O(log K).</p>
+
+<p>Trap: if two fronts have equal values, Python tries to compare the next tuple item, which would be the <code>ListNode</code>. Nodes cannot be compared, and Python raises an error. So we add a small unique number (<code>order</code>) in the middle: <code>(value, order, node)</code>.</p>
+
+<pre><code>import heapq                                  # heap library
+from typing import List, Optional             # type hints
+
+
+class ListNode:                               # one box in a linked list
+    def __init__(self, val=0, next=None):     # a box has a value and a pointer to the next box
+        self.val = val                        # store the value
+        self.next = next                      # store the pointer
+
+
+def build(values: List[int]) -&gt; Optional[ListNode]:   # helper: make a linked list from a Python list
+    dummy = ListNode()                        # a fake first box so we can append easily
+    tail = dummy                              # tail points to the last box so far
+    for v in values:                          # each value in order
+        tail.next = ListNode(v)               # add a new box after tail
+        tail = tail.next                      # move tail forward
+    return dummy.next                         # skip the fake box
+
+
+def to_list(node: Optional[ListNode]) -&gt; List[int]:   # helper: linked list back to Python list
+    out = []                                  # collected values
+    while node:                               # while there is a box
+        out.append(node.val)                  # save its value
+        node = node.next                      # go to the next box
+    return out                                # done
+
+
+def merge_k_lists(lists: List[Optional[ListNode]]) -&gt; Optional[ListNode]:   # main function
+    heap = []                                 # min-heap of (value, order, node)
+    order = 0                                 # unique counter to break ties between equal values
+    for node in lists:                        # look at the front box of every list
+        if node:                              # skip empty lists
+            heapq.heappush(heap, (node.val, order, node))   # add the front box
+            order += 1                        # next unique number
+    dummy = ListNode()                        # fake first box of the answer
+    tail = dummy                              # tail of the answer
+    while heap:                               # while some list still has boxes
+        val, _, node = heapq.heappop(heap)    # take the smallest front box
+        tail.next = node                      # attach it to the answer
+        tail = tail.next                      # move the answer's tail
+        if node.next:                         # does that list have a next box?
+            heapq.heappush(heap, (node.next.val, order, node.next))   # push the next box
+            order += 1                        # next unique number
+    return dummy.next                         # skip the fake box
+
+
+lists = [build([1, 4, 5]), build([1, 3, 4]), build([2, 6])]   # the example from the problem
+print(to_list(merge_k_lists(lists)))          # expect [1, 1, 2, 3, 4, 4, 5, 6]
+assert to_list(merge_k_lists([build([1, 4, 5]), build([1, 3, 4]), build([2, 6])])) == [1, 1, 2, 3, 4, 4, 5, 6]   # check
+assert merge_k_lists([]) is None              # edge case: no lists at all
+assert merge_k_lists([None, None]) is None    # edge case: all lists empty
+assert to_list(merge_k_lists([None, build([7])])) == [7]   # edge case: one empty, one not
+</code></pre>
+
+<p><strong>Trace</strong> on <code>[1,4,5]</code>, <code>[1,3,4]</code>, <code>[2,6]</code>:</p>
+
+<pre><code>start: push the fronts: (1,#0) from list A, (1,#1) from list B, (2,#2) from list C
+heap holds: 1A, 1B, 2C                      answer = []
+pop 1A -&gt; answer [1]; A's next is 4 -&gt; push 4A      heap: 1B, 2C, 4A
+pop 1B -&gt; answer [1,1]; B's next is 3 -&gt; push 3B    heap: 2C, 3B, 4A
+pop 2C -&gt; answer [1,1,2]; C's next is 6 -&gt; push 6C  heap: 3B, 4A, 6C
+pop 3B -&gt; answer [1,1,2,3]; B's next is 4 -&gt; push 4B   heap: 4A, 4B, 6C
+pop 4A -&gt; answer [1,1,2,3,4]; A's next is 5 -&gt; push 5A  heap: 4B, 5A, 6C
+pop 4B -&gt; answer [...,4,4]; B has no next            heap: 5A, 6C
+pop 5A -&gt; answer [...,5]; A has no next              heap: 6C
+pop 6C -&gt; answer [...,6]; C has no next              heap: empty -&gt; done
+final: [1,1,2,3,4,4,5,6]
+</code></pre>
+
+<p><strong>Complexity.</strong> Time O(N log K): every one of the N boxes is pushed and popped once, each costing log K. Space O(K) for the heap (the answer reuses the old boxes).</p>
+
+<p><strong>Edge cases.</strong></p>
+
+<ol>
+<li><code>lists = []</code> or all lists empty: return <code>None</code>.</li>
+<li>One list is much longer than the others: the heap simply shrinks to one item and still works.</li>
+</ol>
+
+<p><strong>How interviewers twist it.</strong></p>
+
+<ul>
+<li>"Do it without a heap": <strong>divide and conquer</strong>. Merge lists two at a time (like merge sort). Also O(N log K), space O(1) extra.</li>
+<li>"Merge K sorted <em>arrays</em>" or "K sorted files that don't fit in memory": same heap idea, with <code>(value, array_index, position)</code>.</li>
+<li>"Smallest range covering one element from each of K lists" (LeetCode 632): same heap, but also track the current maximum.</li>
+</ul>
+
+<hr />
+
+<h3 id="54-k-closest-points-to-origin-leetcode-973">5.4 K Closest Points to Origin (LeetCode 973)</h3>
+
+<p><strong>In plain words.</strong> You get points like <code>[x, y]</code>. Return the K points nearest to <code>(0, 0)</code>.</p>
+
+<p><strong>Brute force.</strong> Sort all points by distance and take the first K. O(n log n).</p>
+
+<p><strong>Better idea, slowly.</strong></p>
+
+<ol>
+<li>Distance is <code>sqrt(x*x + y*y)</code>. We do not need the square root. Comparing <code>x*x + y*y</code> gives the same order, and it avoids decimals.</li>
+<li>We want the K <em>smallest</em> distances. "K smallest" means we keep a heap of size K where the top is the <strong>largest</strong> of the K (the worst one to kick out first). That is a <strong>max-heap</strong>.</li>
+<li>Python has min-heaps, so store the negative distance.</li>
+<li>For each point: push <code>(-dist, x, y)</code>. If the heap has more than K, pop. The popped one is the farthest, which is correct to throw away.</li>
+</ol>
+
+<pre><code>import heapq                                  # heap library
+from typing import List                       # type hints
+
+
+def k_closest(points: List[List[int]], k: int) -&gt; List[List[int]]:   # return k nearest points
+    heap = []                                 # max-heap (by negative distance) with at most k points
+    for x, y in points:                       # visit every point
+        dist = x * x + y * y                  # squared distance, no square root needed
+        heapq.heappush(heap, (-dist, x, y))   # push negative distance so the farthest is on top
+        if len(heap) &gt; k:                     # more than k points inside?
+            heapq.heappop(heap)               # throw out the farthest one
+    return [[x, y] for _, x, y in heap]       # drop the distances, return the points
+
+
+print(sorted(k_closest([[1, 3], [-2, 2]], 1)))              # expect [[-2, 2]]
+print(sorted(k_closest([[3, 3], [5, -1], [-2, 4]], 2)))     # expect [[-2, 4], [3, 3]]
+assert sorted(k_closest([[1, 3], [-2, 2]], 1)) == [[-2, 2]]   # check example 1
+assert sorted(k_closest([[3, 3], [5, -1], [-2, 4]], 2)) == [[-2, 4], [3, 3]]   # check example 2
+assert k_closest([[0, 1]], 1) == [[0, 1]]     # edge case: one point
+assert sorted(k_closest([[1, 1], [-1, -1], [2, 2]], 2)) == [[-1, -1], [1, 1]]  # edge case: equal distances
+</code></pre>
+
+<p><strong>Trace</strong> on <code>[[3,3],[5,-1],[-2,4]]</code>, <code>k=2</code>:</p>
+
+<pre><code>point (3,3):  dist = 9+9 = 18    push (-18,3,3)         heap = [(-18,3,3)]
+point (5,-1): dist = 25+1 = 26   push (-26,5,-1)        heap = [(-26,5,-1), (-18,3,3)]
+point (-2,4): dist = 4+16 = 20   push (-20,-2,4)        size 3 &gt; 2
+              pop smallest tuple = (-26,5,-1), the farthest point
+                                                         heap = [(-20,-2,4), (-18,3,3)]
+answer = [[-2,4], [3,3]]
+</code></pre>
+
+<p><strong>Complexity.</strong> Time O(n log k): n pushes, each at most log k. Space O(k).</p>
+
+<p><strong>Edge cases.</strong></p>
+
+<ol>
+<li>Several points at the same distance: the tuple falls back to comparing <code>x</code> then <code>y</code>, which are numbers, so no crash.</li>
+<li><code>k</code> equals the number of points: nothing is ever popped. Return all points.</li>
+</ol>
+
+<p><strong>How interviewers twist it.</strong></p>
+
+<ul>
+<li>"n is huge and K is small": the heap of size K is the point of the question.</li>
+<li>"Closest to a different point (a, b)": subtract <code>a</code> and <code>b</code> first.</li>
+<li>"Do it in O(n) average": quickselect on the distances.</li>
+</ul>
+
+<hr />
+
+<h3 id="55-find-median-from-a-data-stream-leetcode-295">5.5 Find Median from a Data Stream (LeetCode 295)</h3>
+
+<p><strong>In plain words.</strong> Numbers arrive one at a time. After each, you must be able to say the <strong>median</strong> (the middle value when sorted; if there are two middles, their average).</p>
+
+<p><strong>Brute force.</strong> Keep a list. After each number, sort and read the middle. Cost O(n log n) per query. Better: insert in sorted position with <code>bisect.insort</code> (O(n) per insert, O(1) per query). Still slow for a long stream.</p>
+
+<p><strong>Better idea, slowly.</strong></p>
+
+<ol>
+<li>Split all numbers into a <strong>small half</strong> and a <strong>big half</strong>, like cutting a sorted line in the middle.</li>
+<li>The median lives at the cut. It is the <strong>biggest of the small half</strong> and/or the <strong>smallest of the big half</strong>.</li>
+<li>Biggest of the small half: a <strong>max-heap</strong> (<code>lo</code>, stored as negatives).</li>
+<li>Smallest of the big half: a <strong>min-heap</strong> (<code>hi</code>).</li>
+<li>Rule: <code>lo</code> has the same size as <code>hi</code>, or one more. Then:
+<ul>
+<li>odd count: median is the top of <code>lo</code>.</li>
+<li>even count: median is the average of both tops.</li>
+</ul></li>
+<li>To add a number: put it in <code>lo</code>, move <code>lo</code>'s biggest to <code>hi</code> (this keeps every small number smaller than every big number), then if <code>hi</code> became bigger, move one back.</li>
+</ol>
+
+<pre><code>import heapq                                  # heap library
+
+
+class MedianFinder:                           # keeps a running median
+    def __init__(self):                       # start empty
+        self.lo = []                          # max-heap of the small half (stored as negatives)
+        self.hi = []                          # min-heap of the big half
+
+    def add_num(self, num: int) -&gt; None:      # add one number from the stream
+        heapq.heappush(self.lo, -num)         # put it in the small half first
+        moved = -heapq.heappop(self.lo)       # take the biggest of the small half
+        heapq.heappush(self.hi, moved)        # and give it to the big half
+        if len(self.hi) &gt; len(self.lo):       # big half grew larger than small half?
+            back = heapq.heappop(self.hi)     # take the smallest of the big half
+            heapq.heappush(self.lo, -back)    # return it to the small half
+
+    def find_median(self) -&gt; float:           # read the median now
+        if len(self.lo) &gt; len(self.hi):       # odd count: small half has one extra
+            return float(-self.lo[0])         # median is the biggest of the small half
+        return (-self.lo[0] + self.hi[0]) / 2.0   # even count: average of the two middle numbers
+
+
+mf = MedianFinder()                           # make a finder
+medians = []                                  # collect the medians after each number
+for n in [5, 15, 1, 3]:                       # stream from our trace
+    mf.add_num(n)                             # add the number
+    medians.append(mf.find_median())          # read the median
+print(medians)                                # expect [5.0, 10.0, 5.0, 4.0]
+assert medians == [5.0, 10.0, 5.0, 4.0]       # check it
+m2 = MedianFinder()                           # edge case: negative numbers and duplicates
+for n in [-1, -1, -1]:                        # three equal negatives
+    m2.add_num(n)                             # add each
+assert m2.find_median() == -1.0               # median is -1
+m3 = MedianFinder()                           # edge case: single number
+m3.add_num(42)                                # add it
+assert m3.find_median() == 42.0               # median is that number
+</code></pre>
+
+<p><strong>Trace</strong> on the stream <code>5, 15, 1, 3</code> (<code>lo</code> is shown as real numbers, biggest first, to make it readable):</p>
+
+<pre><code>add 5:   lo={5}        hi={}          (push 5 to lo, move 5 to hi, hi bigger -&gt; move 5 back)
+         median: lo is bigger -&gt; 5
+add 15:  push to lo -&gt; lo={15,5}; move 15 to hi -&gt; lo={5}, hi={15}
+         sizes equal (1 and 1) -&gt; no move back
+         median = (5 + 15) / 2 = 10
+add 1:   push to lo -&gt; lo={5,1}; move 5 to hi -&gt; lo={1}, hi={5,15}
+         hi bigger (2 vs 1) -&gt; move 5 back -&gt; lo={5,1}, hi={15}
+         median: lo is bigger -&gt; 5
+add 3:   push to lo -&gt; lo={5,3,1}; move 5 to hi -&gt; lo={3,1}, hi={5,15}
+         sizes equal -&gt; no move back
+         median = (3 + 5) / 2 = 4
+</code></pre>
+
+<p>Check by sorting: <code>[5]</code> median 5. <code>[5,15]</code> median 10. <code>[1,5,15]</code> median 5. <code>[1,3,5,15]</code> median (3+5)/2 = 4. It matches.</p>
+
+<p><strong>Complexity.</strong> <code>add_num</code>: O(log n), because a few heap pushes and pops happen. <code>find_median</code>: O(1), because we only read the tops. Space O(n) because every number is stored.</p>
+
+<p><strong>Edge cases.</strong></p>
+
+<ol>
+<li>Only one number so far: median is that number.</li>
+<li>Even count: result may be a decimal (<code>.5</code>). Use <code>/ 2.0</code>.</li>
+</ol>
+
+<p><strong>How interviewers twist it.</strong></p>
+
+<ul>
+<li>"All numbers are between 0 and 100": use a count array of size 101 and walk it. O(1) add.</li>
+<li>"99 percent of numbers are in 0 to 100": count array plus two small counters for the rest.</li>
+<li>"Sliding window median" (LeetCode 480): needs removal of old values. Harder. Say: lazy deletion with heaps, or a sorted list with <code>bisect</code>.</li>
+</ul>
+
+<hr />
+
+<h2 id="6-common-mistakes">6. Common mistakes</h2>
+
+<ol>
+<li><strong>Thinking <code>heapq</code> is a max-heap.</strong> It is a min-heap. For max, push negatives and remember to negate again when you read.</li>
+<li><strong>Looking at <code>heap[1]</code> or the whole list and expecting it sorted.</strong> Only <code>heap[0]</code> is guaranteed smallest. Use <code>sorted(heap)</code> if you need order.</li>
+<li><strong>Using a max-heap of size K when you need a min-heap of size K.</strong> For "K largest", keep the weakest of the strong on top, so use a <strong>min</strong>-heap. For "K smallest", use a <strong>max</strong>-heap (negatives).</li>
+<li><strong>Pushing objects that cannot be compared</strong> (like <code>ListNode</code>) when two keys tie. Add a unique counter in the tuple.</li>
+<li><strong>Forgetting <code>heapq.heappush(heap, x)</code></strong> and writing <code>heap.append(x)</code>. The list will not stay a heap.</li>
+<li><strong>Sorting when a heap would do.</strong> Sorting everything for a K of 5 out of 10 million is wasteful.</li>
+</ol>
+
+<hr />
+
+<h2 id="7-practice-list-8-more-problems">7. Practice list (8 more problems)</h2>
+
+<p>Company tags below come from public LeetCode company-tag lists that I read (a GitHub mirror of those lists, snapshot Oct 2025; see lesson 19 for links). A tag means "the problem is in that company's list". It does not mean it is asked this year. No tag means I did not verify it.</p>
+
+<table>
+<thead>
+<tr>
+  <th>#</th>
+  <th>Problem</th>
+  <th>Difficulty</th>
+  <th>Tagged for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1</td>
+  <td>Kth Largest Element in a Stream (703)</td>
+  <td>Easy</td>
+  <td>not verified</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>Last Stone Weight (1046)</td>
+  <td>Easy</td>
+  <td>not verified</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td>Task Scheduler (621)</td>
+  <td>Medium</td>
+  <td>Amazon, Google, Meta, Microsoft</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td>Reorganize String (767)</td>
+  <td>Medium</td>
+  <td>Amazon</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td>Meeting Rooms II (253)</td>
+  <td>Medium</td>
+  <td>Amazon, Google, Meta, Microsoft</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td>Top K Frequent Words (692)</td>
+  <td>Medium</td>
+  <td>not verified</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td>Find Median from Data Stream (295), solve it again from memory</td>
+  <td>Hard</td>
+  <td>Amazon, Google, Meta, Microsoft</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td>Smallest Range Covering Elements from K Lists (632)</td>
+  <td>Hard</td>
+  <td>not verified</td>
+</tr>
+</tbody>
+</table>
+
+<hr />
+
+<h2 id="8-self-quiz-5-questions">8. Self-quiz (5 questions)</h2>
+
+<ol>
+<li>Python's <code>heapq</code> gives you which on top: the smallest or the biggest?</li>
+<li>To find the 10 <strong>largest</strong> numbers in a huge list, do you keep a min-heap or a max-heap of size 10? Why?</li>
+<li>What is the time cost of <code>heappush</code>, <code>heappop</code>, and <code>heap[0]</code>?</li>
+<li>In "Merge K Sorted Lists", why do we put an extra counter in the tuple <code>(value, order, node)</code>?</li>
+<li>In the two-heap median trick, which heap holds the small half, and how do we make it a max-heap?</li>
+</ol>
+
+<p><strong>Answers.</strong></p>
+
+<ol>
+<li>The smallest.</li>
+<li>A <strong>min</strong>-heap of size 10. Its top is the weakest of the current top 10. A new number must beat it to enter, and then the weakest leaves.</li>
+<li><code>heappush</code> O(log n). <code>heappop</code> O(log n). <code>heap[0]</code> O(1).</li>
+<li>When two values are equal, Python compares the next tuple item. <code>ListNode</code> objects cannot be compared and that raises an error. The counter is always different, so Python never reaches the node.</li>
+<li><code>lo</code> holds the small half. We store negative numbers in it, so Python's min-heap acts like a max-heap.</li>
+</ol>
+<div class="pn"><span><a href="08_trees_and_bst.html">&larr; Lesson 08. Trees and Binary Search Trees</a></span><span><a href="10_graphs_bfs_dfs.html">Lesson 10: Graphs, BFS and DFS (includin &rarr;</a></span></div></main></div></body></html>

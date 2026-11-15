@@ -1,0 +1,491 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>11. Design a Rate Limiter | Interview prep</title><style>
+:root{--bg:#fff;--fg:#1f2328;--mut:#59636e;--bd:#d1d9e0;--ac:#0b57d0;--cb:#f6f8fa;--sb:#f6f8fa}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9198a1;--bd:#30363d;--ac:#6cb6ff;--cb:#161b22;--sb:#010409}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{display:flex;min-height:100vh}nav{width:300px;flex:none;background:var(--sb);border-right:1px solid var(--bd);padding:16px;overflow:auto;position:sticky;top:0;height:100vh}
+nav a{color:var(--fg);text-decoration:none;display:block;padding:3px 6px;border-radius:6px;font-size:14px}nav a:hover{background:var(--cb)}nav a.cur{background:var(--ac);color:#fff}
+nav summary{cursor:pointer;font-weight:600;padding:6px 0}nav .home{font-weight:700;font-size:16px;margin-bottom:8px}
+main{flex:1;min-width:0;max-width:900px;padding:24px 32px 80px;margin:0 auto}
+h1,h2,h3{line-height:1.25}h1{border-bottom:1px solid var(--bd);padding-bottom:.3em}h2{border-bottom:1px solid var(--bd);padding-bottom:.25em;margin-top:2em}
+a{color:var(--ac)}pre{background:var(--cb);border:1px solid var(--bd);border-radius:8px;padding:14px;overflow:auto;font-size:13.5px;line-height:1.5}
+code{background:var(--cb);padding:.15em .35em;border-radius:5px;font-size:.92em}pre code{background:none;padding:0}
+table{border-collapse:collapse;display:block;overflow:auto;max-width:100%}th,td{border:1px solid var(--bd);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--cb)}
+blockquote{border-left:4px solid var(--bd);margin:0;padding:0 1em;color:var(--mut)}img{max-width:100%}
+.top{display:none}.pn{display:flex;justify-content:space-between;gap:12px;margin-top:48px;border-top:1px solid var(--bd);padding-top:16px;font-size:14px}
+@media(max-width:820px){.wrap{display:block}nav{width:auto;height:auto;position:static;border-right:0;border-bottom:1px solid var(--bd)}main{padding:16px}}
+</style></head><body><div class="wrap"><nav><a class="home" href="../index.html">Interview prep</a><details><summary>Data structures and algorithms</summary><a href="../01-dsa/00_how_to_start.html">How to start: reading a problem, the 5-step method, and Big-</a><a href="../01-dsa/01_arrays_and_strings.html">Lesson 01. Arrays and Strings</a><a href="../01-dsa/02_hash_maps_and_sets.html">Lesson 02. Hash Maps and Sets</a><a href="../01-dsa/03_two_pointers.html">Lesson 03. Two Pointers</a><a href="../01-dsa/04_sliding_window.html">Lesson 04. Sliding Window</a><a href="../01-dsa/05_stack_and_queue.html">Lesson 05. Stack and Queue (including the monotonic stack)</a><a href="../01-dsa/06_binary_search.html">Lesson 06. Binary Search (including search on the answer)</a><a href="../01-dsa/07_linked_lists.html">Lesson 07. Linked Lists</a><a href="../01-dsa/08_trees_and_bst.html">Lesson 08. Trees and Binary Search Trees (BST)</a><a href="../01-dsa/09_heaps_and_priority_queues.html">Lesson 09: Heaps and Priority Queues</a><a href="../01-dsa/10_graphs_bfs_dfs.html">Lesson 10: Graphs, BFS and DFS (including grids)</a><a href="../01-dsa/11_topological_sort_and_union_find.html">Lesson 11: Topological Sort and Union-Find</a><a href="../01-dsa/12_shortest_paths.html">Lesson 12: Shortest Paths (Dijkstra in plain words)</a><a href="../01-dsa/13_intervals.html">Lesson 13: Intervals (merge intervals, meeting rooms)</a><a href="../01-dsa/14_backtracking.html">Lesson 14: Backtracking (subsets, permutations, combination </a><a href="../01-dsa/15_dynamic_programming_part1.html">Lesson 15: Dynamic Programming, Part 1 (remembering answers)</a><a href="../01-dsa/16_dynamic_programming_part2.html">Lesson 16: Dynamic Programming, Part 2 (LIS, word break, kna</a><a href="../01-dsa/17_tries_and_greedy.html">Lesson 17: Tries and Greedy</a><a href="../01-dsa/18_bit_tricks_and_math_basics.html">Lesson 18: Bit Tricks and Math Basics (short)</a><a href="../01-dsa/19_company_question_patterns.html">Lesson 19: Company Question Patterns (Google, Amazon, Meta, </a></details><details open><summary>System design</summary><a href="00_how_the_round_works.html">How the System Design Round Works</a><a href="01a_client_server_and_http.html">Client, Server and HTTP</a><a href="01b_dns_and_cdn.html">DNS and CDN</a><a href="01c_load_balancers.html">Load Balancers</a><a href="01d_databases.html">Databases: SQL vs NoSQL, Indexes, Transactions</a><a href="01e_caching.html">Caching (and Why Invalidation Is Hard)</a><a href="01f_sharding_and_replication.html">Sharding and Replication</a><a href="01g_message_queues_and_streams.html">Message Queues and Streams (Kafka Basics)</a><a href="01h_consistency_and_cap.html">Consistency and the CAP Idea (in Plain Words)</a><a href="02_numbers_and_estimation.html">Numbers and Estimation</a><a href="03_reliability_patterns.html">Reliability Patterns</a><a href="10_url_shortener.html">Design a URL Shortener</a><a class="cur" href="11_rate_limiter.html">Design a Rate Limiter</a><a href="12_chat_system.html">Design a Chat System (like WhatsApp or Slack)</a><a href="13_news_feed.html">Design a News Feed (like Instagram, Facebook or Twitter/X ho</a><a href="14_notification_service.html">Design a Notification Service</a><a href="15_file_storage_like_drive.html">Design File Storage and Sync (like Google Drive or Dropbox)</a><a href="16_search_autocomplete.html">Design Search Autocomplete (Typeahead)</a><a href="17_video_streaming_basics.html">Design Video Streaming Basics (like YouTube or Netflix)</a><a href="18_payment_system_like_stripe.html">Design a Payment System (like Stripe)</a><a href="19_order_management_like_amazon.html">Design an Order Management System (like Amazon: inventory, o</a><a href="20_job_scheduler_and_workflow_engine.html">Design a Job Scheduler and Workflow Engine</a><a href="21_api_gateway_and_auth_system.html">Design an API Gateway and Auth System</a><a href="22_logging_and_metrics_platform.html">Design a Logging and Metrics Platform</a><a href="90_cheat_sheet.html">Cheat Sheet (one page)</a><a href="91_practice_questions.html">Practice Questions (30)</a></details><details><summary>Low-level design</summary><a href="../03-low-level-design/00_how_the_lld_round_works.html">- How the LLD round works</a><a href="../03-low-level-design/01_oop_in_plain_words.html">- OOP in plain words</a><a href="../03-low-level-design/02_solid_principles.html">- SOLID principles</a><a href="../03-low-level-design/03_design_patterns_you_need.html">- The 8 design patterns you need</a><a href="../03-low-level-design/10_parking_lot.html">- Parking Lot</a><a href="../03-low-level-design/11_lru_cache.html">- LRU Cache</a><a href="../03-low-level-design/12_elevator_system.html">- Elevator System</a><a href="../03-low-level-design/13_library_management.html">- Library Management System</a><a href="../03-low-level-design/14_vending_machine.html">- Vending Machine (State pattern)</a><a href="../03-low-level-design/15_atm.html">- ATM</a><a href="../03-low-level-design/16_rate_limiter_class.html">- Rate Limiter (class design: token bucket and sliding windo</a><a href="../03-low-level-design/17_amazon_locker.html">- Amazon Locker</a><a href="../03-low-level-design/18_splitwise_expense_sharing.html">- Splitwise (Expense Sharing)</a><a href="../03-low-level-design/19_logger_and_notification_system.html">- Logger and Notification System (Observer and Strategy)</a><a href="../03-low-level-design/20_tic_tac_toe_or_chess_basics.html">- Tic-Tac-Toe (full) and Chess basics</a><a href="../03-low-level-design/90_cheat_sheet.html">- Cheat sheet (read the night before)</a><a href="../03-low-level-design/91_practice_questions.html">- Practice questions (20)</a></details><details><summary>DevOps and platform basics</summary><a href="../05-devops-platform-basics/01_linux_processes_memory_files.html">Linux: processes, memory, and files</a><a href="../05-devops-platform-basics/02_networking.html">Networking: TCP, DNS, TLS, NAT</a><a href="../05-devops-platform-basics/03_containers_and_docker.html">Containers and Docker</a><a href="../05-devops-platform-basics/04_kubernetes_from_zero.html">Kubernetes from zero</a><a href="../05-devops-platform-basics/05_helm.html">Helm</a><a href="../05-devops-platform-basics/06_terraform.html">Terraform</a><a href="../05-devops-platform-basics/07_ci_cd_github_actions.html">CI/CD with GitHub Actions</a><a href="../05-devops-platform-basics/08_observability_and_sre.html">Observability and SRE</a><a href="../05-devops-platform-basics/09_concurrency_and_distributed_basics.html">Concurrency and distributed basics</a><a href="../05-devops-platform-basics/10_databases_basics.html">Databases basics</a><a href="../05-devops-platform-basics/11_security_basics.html">Security basics (IAM, OAuth2/OIDC/JWT, secrets, supply chain</a><a href="../05-devops-platform-basics/12_gcp_pca_quick_map.html">Google Cloud quick map (for Professional Cloud Architect hol</a><a href="../05-devops-platform-basics/20_interview_questions_with_answers.html">Sixty interview questions with model answers (platform / SRE</a><a href="../05-devops-platform-basics/21_scenario_questions.html">Fifteen &quot;production is down&quot; scenarios, with step-by-step an</a></details><details><summary>Company processes</summary><a href="../06-company-process-and-behavioural/10_google.html">Google</a><a href="../06-company-process-and-behavioural/11_amazon.html">Amazon</a><a href="../06-company-process-and-behavioural/12_stripe.html">Stripe</a><a href="../06-company-process-and-behavioural/13_microsoft_and_azure_roles.html">Microsoft and Azure roles</a><a href="../06-company-process-and-behavioural/14_indian_product_and_gcc_companies.html">Indian product companies and GCCs</a><a href="../06-company-process-and-behavioural/15_european_scaleups.html">European scale-ups and visa basics</a><a href="../06-company-process-and-behavioural/16_ai_startups_like_smallest_ai.html">AI startups like Smallest AI</a><a href="../06-company-process-and-behavioural/24_questions_to_ask_interviewers.html">Questions to ask interviewers</a><a href="../06-company-process-and-behavioural/25_salary_notice_period_and_offer_negotiation_india_and_abroad.html">Salary, notice period and offer negotiation (India and abroa</a><a href="../06-company-process-and-behavioural/26_interview_day_checklists.html">Interview day checklists</a></details></nav><main><h1 id="11-design-a-rate-limiter">11. Design a Rate Limiter</h1>
+
+<hr />
+
+<h2 id="1-the-problem-in-plain-words">1. The problem in plain words</h2>
+
+<p>A <strong>rate limiter</strong> stops any one user from sending too many requests in a short time. If a user sends more than the allowed number, we answer "slow down" (HTTP 429) instead of doing the work.</p>
+
+<p><strong>Analogy: a bouncer at a club.</strong> The club holds 100 people. The bouncer counts. When it is full, new people wait outside. He is polite but firm, and he treats every guest by the same rule.</p>
+
+<p>Why we need it:</p>
+
+<ol>
+<li><strong>Protect servers</strong> from overload (bugs, bad retry loops, traffic spikes).</li>
+<li><strong>Fairness</strong>: one noisy customer must not hurt others.</li>
+<li><strong>Security</strong>: slow down password guessing, scraping, abuse.</li>
+<li><strong>Cost control</strong>: some calls are expensive (SMS, AI, paid APIs).</li>
+<li><strong>Business plans</strong>: free tier 100/min, paid tier 1,000/min.</li>
+</ol>
+
+<hr />
+
+<h2 id="2-requirements">2. Requirements</h2>
+
+<p><strong>Must-have</strong></p>
+
+<ol>
+<li>Limit requests per <strong>key</strong> (user id, API key, or IP) within a time window.</li>
+<li>Different limits per endpoint and per plan, changeable without a deploy.</li>
+<li>Reject excess requests with 429 and <code>Retry-After</code>; return headers showing remaining quota.</li>
+<li>Works across <strong>many servers</strong> (the count is shared, not per server).</li>
+<li><strong>Very low added latency</strong> (a few milliseconds).</li>
+</ol>
+
+<p><strong>Non-functional</strong></p>
+
+<ul>
+<li>Highly available: if the limiter fails, what happens? (Decision: <strong>fail open</strong>, i.e. let traffic through, for most APIs; fail closed for security-critical ones such as login.)</li>
+<li>Reasonably accurate. Slight over- or under-counting is acceptable.</li>
+</ul>
+
+<p><strong>Out of scope</strong></p>
+
+<ul>
+<li>Billing and quota reports, DDoS defence at the network level (that is a separate layer, WAF and CDN), distributed tracing details.</li>
+</ul>
+
+<hr />
+
+<h2 id="3-the-numbers-estimates">3. The numbers (estimates)</h2>
+
+<p>Assume 10 million active API keys, and a whole platform at 500,000 requests per second at peak.</p>
+
+<table>
+<thead>
+<tr>
+  <th>Item</th>
+  <th>Estimate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Checks per second</td>
+  <td>500,000 (every request is checked once)</td>
+</tr>
+<tr>
+  <td>Memory per key</td>
+  <td>about 100 bytes for a simple counter or token bucket (key, count/tokens, timestamp)</td>
+</tr>
+<tr>
+  <td>Total memory</td>
+  <td>10M keys x 100 B = <strong>1 GB</strong>. Tiny. Fits in one Redis node; spread over a cluster for throughput</td>
+</tr>
+<tr>
+  <td>Redis throughput</td>
+  <td>about 100,000 ops/s per node (rough) so 5 to 10 shards for 500,000 checks/s</td>
+</tr>
+<tr>
+  <td>Latency budget</td>
+  <td>under 5 ms added (same data centre)</td>
+</tr>
+</tbody>
+</table>
+
+<p>Meaning: memory is not the problem; <strong>throughput and latency</strong> are.</p>
+
+<hr />
+
+<h2 id="4-the-api">4. The API</h2>
+
+<p>Often the limiter is a library or sidecar inside the API gateway, but it also has a small service interface:</p>
+
+<pre><code>POST /v1/ratelimit/check
+  body:  { "key": "user:42", "rule": "api_default", "cost": 1 }
+  reply: 200 { "allowed": true, "remaining": 57, "reset_in_ms": 12000 }
+         or { "allowed": false, "retry_after_ms": 4000 }
+</code></pre>
+
+<p>What the <strong>client</strong> of the platform sees on every response:</p>
+
+<pre><code>HTTP/1.1 429 Too Many Requests
+Retry-After: 4
+X-RateLimit-Limit: 100
+X-RateLimit-Remaining: 0
+X-RateLimit-Reset: 1731700000
+</code></pre>
+
+<p>(Header names like <code>X-RateLimit-*</code> are common conventions, not one standard.)</p>
+
+<p>Rules are config, for example:</p>
+
+<pre><code>rule: api_default   limit: 100  window: 60s  by: api_key
+rule: login         limit: 5    window: 60s  by: ip
+rule: sms_send      limit: 3    window: 3600s by: user
+</code></pre>
+
+<hr />
+
+<h2 id="5-the-data-tables">5. The data tables</h2>
+
+<p><strong>Rule store</strong> (small, in a config database or files, cached in memory in each gateway):</p>
+
+<table>
+<thead>
+<tr>
+  <th>Column</th>
+  <th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>rule_id</td>
+  <td>primary key</td>
+</tr>
+<tr>
+  <td>match (endpoint, plan)</td>
+  <td>which requests it covers</td>
+</tr>
+<tr>
+  <td>limit</td>
+  <td>max requests</td>
+</tr>
+<tr>
+  <td>window_seconds</td>
+  <td>time span</td>
+</tr>
+<tr>
+  <td>algorithm</td>
+  <td>token_bucket / sliding_window ...</td>
+</tr>
+<tr>
+  <td>fail_mode</td>
+  <td>open / closed</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Counter state</strong> (in Redis, <strong>not</strong> SQL - it changes on every request):</p>
+
+<pre><code>key:   rl:{rule_id}:{client_key}        (for example rl:api_default:user42)
+value: for token bucket -&gt; { tokens: 57, last_refill_ts: 1731699990 }
+       for fixed window -&gt; integer counter, with TTL = window
+TTL:   so old keys vanish by themselves
+</code></pre>
+
+<hr />
+
+<h2 id="6-the-algorithms-the-core-of-this-question">6. The algorithms (the core of this question)</h2>
+
+<h3 id="a-fixed-window-counter">a) Fixed window counter</h3>
+
+<p>Count requests in each clock minute. Key <code>user42:12:05</code>. Increment; if &gt; limit, reject. Delete after the window.</p>
+
+<ul>
+<li>Pros: super simple, little memory.</li>
+<li><strong>Con: burst at the edge.</strong> A user sends 100 at 12:05:59 and 100 at 12:06:00. That is 200 requests in 2 seconds while the limit is "100 per minute".</li>
+</ul>
+
+<h3 id="b-sliding-window-log">b) Sliding window log</h3>
+
+<p>Store a timestamp for every request in a sorted list. Remove entries older than the window. Count the rest.</p>
+
+<ul>
+<li>Pros: exact.</li>
+<li>Con: lots of memory (one entry per request), slower.</li>
+</ul>
+
+<h3 id="c-sliding-window-counter-a-smart-middle">c) Sliding window counter (a smart middle)</h3>
+
+<p>Keep the counts of the current and the previous window. Estimate = <code>current + previous x (fraction of previous window still inside the sliding window)</code>.</p>
+
+<ul>
+<li>Pros: small memory, smooths the edge problem; accurate enough (it assumes requests in the previous window were evenly spread).</li>
+</ul>
+
+<h3 id="d-token-bucket-most-popular-used-by-many-cloud-apis">d) Token bucket (most popular; used by many cloud APIs)</h3>
+
+<p>A bucket holds up to <strong>B</strong> tokens (the burst size). Tokens are added at <strong>R</strong> per second. Every request takes one token. No token = reject.</p>
+
+<pre><code>        refill R tokens/sec
+              |
+              v
+          +-------+
+          | o o o |  capacity B
+          +---+---+
+              | take 1 token per request
+              v
+          request allowed, or rejected if empty
+</code></pre>
+
+<ul>
+<li>Pros: allows short bursts (good for users), simple state (2 numbers), steady long-run rate.</li>
+<li>Cons: two parameters to tune.</li>
+</ul>
+
+<h3 id="e-leaky-bucket">e) Leaky bucket</h3>
+
+<p>Requests enter a queue (bucket) and leave at a fixed rate. If the bucket is full, new requests are dropped. Smooths output to a constant rate.</p>
+
+<ul>
+<li>Pros: steady load on the backend. Cons: no bursts; adds waiting.</li>
+</ul>
+
+<table>
+<thead>
+<tr>
+  <th>Algorithm</th>
+  <th>Memory</th>
+  <th>Accuracy</th>
+  <th>Allows burst</th>
+  <th>Choose when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Fixed window</td>
+  <td>very low</td>
+  <td>low at edges</td>
+  <td>edge double</td>
+  <td>quick and cheap</td>
+</tr>
+<tr>
+  <td>Sliding log</td>
+  <td>high</td>
+  <td>exact</td>
+  <td>no</td>
+  <td>small scale, exactness</td>
+</tr>
+<tr>
+  <td>Sliding counter</td>
+  <td>low</td>
+  <td>good</td>
+  <td>smooth</td>
+  <td>general default</td>
+</tr>
+<tr>
+  <td>Token bucket</td>
+  <td>low</td>
+  <td>good</td>
+  <td><strong>yes</strong></td>
+  <td>public APIs</td>
+</tr>
+<tr>
+  <td>Leaky bucket</td>
+  <td>low</td>
+  <td>good</td>
+  <td>no</td>
+  <td>protect a fragile backend</td>
+</tr>
+</tbody>
+</table>
+
+<p>My default answer: <strong>token bucket</strong>, in Redis, per key.</p>
+
+<hr />
+
+<h2 id="7-version-1-simple">7. Version 1 (simple)</h2>
+
+<p>One app server, in-memory counter per user.</p>
+
+<pre><code>Client -&gt; [API server with local map: user -&gt; counter] -&gt; backend
+</code></pre>
+
+<p>Works for one server. Breaks when we have 2+ servers: each has its own counter, so a user can send N requests to each server (limit x number of servers).</p>
+
+<hr />
+
+<h2 id="8-growing-100x-step-by-step">8. Growing 100x, step by step</h2>
+
+<p><strong>Step 1. Shared counters in Redis.</strong> All gateway servers ask the same Redis. The check must be <strong>atomic</strong> (two servers must not both read "99" and both allow). Use a Redis <strong>Lua script</strong> (it runs as one step) or <code>INCR</code> plus <code>EXPIRE</code> in one script:</p>
+
+<pre><code>-- idea, in words:
+-- 1. read tokens and last time
+-- 2. add tokens for elapsed time, cap at B
+-- 3. if tokens &gt;= cost: subtract, allow
+--    else: reject
+-- 4. save, set TTL
+</code></pre>
+
+<p><strong>Step 2. Put the check at the edge</strong>, in the API gateway or load balancer layer, before the request touches business servers. (Ties to design <code>21</code>.)</p>
+
+<pre><code>Client -&gt; LB -&gt; API Gateway [rate limit check] -&gt; Services
+                         |
+                         v
+                  Redis cluster
+</code></pre>
+
+<p><strong>Step 3. Shard Redis</strong> by key (consistent hashing on <code>client_key</code>), so each client's counter lives on exactly one node; add replicas for failover. (<code>01f</code>)</p>
+
+<p><strong>Step 4. Reduce Redis round trips: local + global.</strong> Each gateway keeps a small <strong>local token budget</strong> (for example it takes 10 tokens at a time from Redis and spends them locally). This cuts Redis calls by about 10 times at the cost of small inaccuracy. Another trick: allow each gateway a slice of the limit (limit / number of gateways) and rebalance every second.</p>
+
+<p><strong>Step 5. Multi-region.</strong> Options: (a) one limit per region (simple; a user can use limit x regions); (b) a global limit with asynchronous sync between regions (approximate); (c) route each user to a home region. Say that exact global limits are costly, and that most products accept approximate.</p>
+
+<p><strong>Step 6. Rules in a control plane.</strong> A config service stores rules; gateways pull and cache them (with versioning), so changes apply without a deploy. This separates the <strong>slow policy path</strong> (change rules) from the <strong>fast enforcement path</strong> (check requests). Stripe-style interviews reportedly value exactly this separation (see <code>00</code> and <code>91</code>).</p>
+
+<p><strong>Step 7. Layers of limits.</strong> Per-IP at the edge (cheap, stops floods), per-API-key in the gateway, per-endpoint and per-tenant inside services, concurrency limits (max in-flight requests), and <strong>load shedding</strong> when the whole system is overloaded.</p>
+
+<p>Final picture:</p>
+
+<pre><code> Client
+   |
+   v
+ CDN / WAF (IP floods)
+   |
+   v
+ LB --&gt; Gateway x N  [local token slices] --&gt; Services
+            |   ^
+            v   | rules (cached)
+        Redis cluster (sharded + replicas)     Rule service + config DB
+
+ Metrics -&gt; allowed / rejected counts per rule -&gt; dashboards, alerts
+</code></pre>
+
+<hr />
+
+<h2 id="9-trade-offs-and-why">9. Trade-offs and why</h2>
+
+<table>
+<thead>
+<tr>
+  <th>Choice</th>
+  <th>Why</th>
+  <th>Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Token bucket</td>
+  <td>Burst-friendly, tiny state</td>
+  <td>Needs tuning of B and R</td>
+</tr>
+<tr>
+  <td>Redis, central</td>
+  <td>Shared view, simple</td>
+  <td>Extra hop (about 1 ms); a dependency</td>
+</tr>
+<tr>
+  <td>Local slices to cut calls</td>
+  <td>Lower latency and cost</td>
+  <td>Small inaccuracy; unfair between gateways</td>
+</tr>
+<tr>
+  <td>Fail open</td>
+  <td>Availability of the main product</td>
+  <td>Brief unprotected period; fail closed for login</td>
+</tr>
+<tr>
+  <td>Approximate multi-region</td>
+  <td>Low latency</td>
+  <td>A user may exceed the global limit a little</td>
+</tr>
+<tr>
+  <td>Per-key limits</td>
+  <td>Fairness</td>
+  <td>Many keys (memory) and key-spoofing risk (use authenticated identity, not a header the client controls)</td>
+</tr>
+</tbody>
+</table>
+
+<hr />
+
+<h2 id="10-what-breaks-and-how-to-fix-it">10. What breaks and how to fix it</h2>
+
+<table>
+<thead>
+<tr>
+  <th>Failure</th>
+  <th>Effect</th>
+  <th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Redis down</td>
+  <td>No counters</td>
+  <td>Fail open with a local in-memory fallback limit per gateway; alert; replicas</td>
+</tr>
+<tr>
+  <td>Redis slow</td>
+  <td>Added latency to every request</td>
+  <td>Strict timeout (for example 5 ms), then fail open; circuit breaker</td>
+</tr>
+<tr>
+  <td>Race condition</td>
+  <td>Over-limit requests allowed</td>
+  <td>Atomic Lua script; single-key operations</td>
+</tr>
+<tr>
+  <td>Hot key (one huge customer)</td>
+  <td>One Redis shard overloaded</td>
+  <td>Local slices; split key into sub-keys (<code>user42#1..#8</code>) and sum; dedicated shard</td>
+</tr>
+<tr>
+  <td>Clock differences</td>
+  <td>Wrong refill</td>
+  <td>Use Redis server time (inside the script), not app server time</td>
+</tr>
+<tr>
+  <td>Retry storm after 429</td>
+  <td>Clients hammer you</td>
+  <td><code>Retry-After</code> header; recommend backoff with jitter; client SDK honours it</td>
+</tr>
+<tr>
+  <td>Attacker rotates IPs</td>
+  <td>Evades per-IP limit</td>
+  <td>Also limit per account/API key; use fingerprints; CAPTCHA (out of scope)</td>
+</tr>
+<tr>
+  <td>Config mistake (limit 0)</td>
+  <td>Everyone blocked</td>
+  <td>Rule validation, staged rollout, quick rollback, max guard</td>
+</tr>
+</tbody>
+</table>
+
+<hr />
+
+<h2 id="11-questions-the-interviewer-asks-next">11. Questions the interviewer asks next</h2>
+
+<p><strong>Q1. Where do you place the rate limiter: client, server, or middleware?</strong>
+A. Never trust the client alone (it can be bypassed). Best place is a middleware layer, the API gateway, in front of services. Optionally the client SDK also respects limits to be polite.</p>
+
+<p><strong>Q2. How do you stop two requests from both reading the same count?</strong>
+A. The read-modify-write must be atomic. In Redis I use a Lua script or an atomic <code>INCR</code>. In SQL I would use <code>UPDATE ... SET count = count + 1 WHERE count &lt; limit</code> and check the affected rows.</p>
+
+<p><strong>Q3. Fixed window versus sliding window?</strong>
+A. Fixed window is simple but allows twice the limit at the boundary. Sliding window counter fixes most of that with two counters per key.</p>
+
+<p><strong>Q4. How do you do distributed limiting across regions?</strong>
+A. Prefer approximate: each region has a share of the quota and syncs usage periodically; or route a user to one home region. Exact global counters would need a cross-region call per request, which is too slow.</p>
+
+<p><strong>Q5. What do you return and what should clients do?</strong>
+A. 429 with <code>Retry-After</code> and quota headers. Clients wait with exponential backoff and jitter.</p>
+
+<p><strong>Q6. How do you rate limit by different dimensions at once (user and IP and endpoint)?</strong>
+A. Check several rules in one pass; request is allowed only if all pass. Use separate keys per rule, and run the checks in one Redis script or pipeline to save round trips.</p>
+
+<p><strong>Q7. How do you test it?</strong>
+A. Unit tests on the algorithm with a fake clock; load tests; shadow mode (count but do not block) before enforcing a new rule; dashboards of would-be rejections.</p>
+
+<p><strong>Q8. How would you limit by cost (a heavy request costs 10 tokens)?</strong>
+A. Token bucket supports a <code>cost</code> parameter naturally: subtract cost tokens at once.</p>
+
+<hr />
+
+<h2 id="12-say-it-out-loud-6-sentences">12. Say it out loud (6 sentences)</h2>
+
+<ol>
+<li>"A rate limiter protects services and keeps customers fair by rejecting requests over a quota with a 429 and a Retry-After header."</li>
+<li>"Memory is small, about 1 GB for 10 million keys, so the real challenge is atomic checks at 500,000 per second with a few milliseconds of latency."</li>
+<li>"I use a token bucket per key, stored in Redis and updated by an atomic Lua script, because it allows bursts and needs only two numbers."</li>
+<li>"The check lives in the API gateway, Redis is sharded by key with replicas, and gateways keep small local token slices to cut Redis calls."</li>
+<li>"Rules live in a separate control plane that gateways cache, so the slow policy path is separate from the fast enforcement path."</li>
+<li>"If Redis fails I fail open with a local limit for normal APIs and fail closed for login, and I watch rejected-request metrics and use shadow mode before enforcing new rules."</li>
+</ol>
+<div class="pn"><span><a href="10_url_shortener.html">&larr; 10. Design a URL Shortener</a></span><span><a href="12_chat_system.html">12. Design a Chat System (like WhatsApp  &rarr;</a></span></div></main></div></body></html>

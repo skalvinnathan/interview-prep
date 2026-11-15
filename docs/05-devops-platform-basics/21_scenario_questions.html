@@ -1,0 +1,433 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>21. Fifteen &quot;production is down&quot; scenarios, with step-by-step answers | Interview prep</title><style>
+:root{--bg:#fff;--fg:#1f2328;--mut:#59636e;--bd:#d1d9e0;--ac:#0b57d0;--cb:#f6f8fa;--sb:#f6f8fa}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9198a1;--bd:#30363d;--ac:#6cb6ff;--cb:#161b22;--sb:#010409}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{display:flex;min-height:100vh}nav{width:300px;flex:none;background:var(--sb);border-right:1px solid var(--bd);padding:16px;overflow:auto;position:sticky;top:0;height:100vh}
+nav a{color:var(--fg);text-decoration:none;display:block;padding:3px 6px;border-radius:6px;font-size:14px}nav a:hover{background:var(--cb)}nav a.cur{background:var(--ac);color:#fff}
+nav summary{cursor:pointer;font-weight:600;padding:6px 0}nav .home{font-weight:700;font-size:16px;margin-bottom:8px}
+main{flex:1;min-width:0;max-width:900px;padding:24px 32px 80px;margin:0 auto}
+h1,h2,h3{line-height:1.25}h1{border-bottom:1px solid var(--bd);padding-bottom:.3em}h2{border-bottom:1px solid var(--bd);padding-bottom:.25em;margin-top:2em}
+a{color:var(--ac)}pre{background:var(--cb);border:1px solid var(--bd);border-radius:8px;padding:14px;overflow:auto;font-size:13.5px;line-height:1.5}
+code{background:var(--cb);padding:.15em .35em;border-radius:5px;font-size:.92em}pre code{background:none;padding:0}
+table{border-collapse:collapse;display:block;overflow:auto;max-width:100%}th,td{border:1px solid var(--bd);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--cb)}
+blockquote{border-left:4px solid var(--bd);margin:0;padding:0 1em;color:var(--mut)}img{max-width:100%}
+.top{display:none}.pn{display:flex;justify-content:space-between;gap:12px;margin-top:48px;border-top:1px solid var(--bd);padding-top:16px;font-size:14px}
+@media(max-width:820px){.wrap{display:block}nav{width:auto;height:auto;position:static;border-right:0;border-bottom:1px solid var(--bd)}main{padding:16px}}
+</style></head><body><div class="wrap"><nav><a class="home" href="../index.html">Interview prep</a><details><summary>Data structures and algorithms</summary><a href="../01-dsa/00_how_to_start.html">How to start: reading a problem, the 5-step method, and Big-</a><a href="../01-dsa/01_arrays_and_strings.html">Lesson 01. Arrays and Strings</a><a href="../01-dsa/02_hash_maps_and_sets.html">Lesson 02. Hash Maps and Sets</a><a href="../01-dsa/03_two_pointers.html">Lesson 03. Two Pointers</a><a href="../01-dsa/04_sliding_window.html">Lesson 04. Sliding Window</a><a href="../01-dsa/05_stack_and_queue.html">Lesson 05. Stack and Queue (including the monotonic stack)</a><a href="../01-dsa/06_binary_search.html">Lesson 06. Binary Search (including search on the answer)</a><a href="../01-dsa/07_linked_lists.html">Lesson 07. Linked Lists</a><a href="../01-dsa/08_trees_and_bst.html">Lesson 08. Trees and Binary Search Trees (BST)</a><a href="../01-dsa/09_heaps_and_priority_queues.html">Lesson 09: Heaps and Priority Queues</a><a href="../01-dsa/10_graphs_bfs_dfs.html">Lesson 10: Graphs, BFS and DFS (including grids)</a><a href="../01-dsa/11_topological_sort_and_union_find.html">Lesson 11: Topological Sort and Union-Find</a><a href="../01-dsa/12_shortest_paths.html">Lesson 12: Shortest Paths (Dijkstra in plain words)</a><a href="../01-dsa/13_intervals.html">Lesson 13: Intervals (merge intervals, meeting rooms)</a><a href="../01-dsa/14_backtracking.html">Lesson 14: Backtracking (subsets, permutations, combination </a><a href="../01-dsa/15_dynamic_programming_part1.html">Lesson 15: Dynamic Programming, Part 1 (remembering answers)</a><a href="../01-dsa/16_dynamic_programming_part2.html">Lesson 16: Dynamic Programming, Part 2 (LIS, word break, kna</a><a href="../01-dsa/17_tries_and_greedy.html">Lesson 17: Tries and Greedy</a><a href="../01-dsa/18_bit_tricks_and_math_basics.html">Lesson 18: Bit Tricks and Math Basics (short)</a><a href="../01-dsa/19_company_question_patterns.html">Lesson 19: Company Question Patterns (Google, Amazon, Meta, </a></details><details><summary>System design</summary><a href="../02-system-design/00_how_the_round_works.html">How the System Design Round Works</a><a href="../02-system-design/01a_client_server_and_http.html">Client, Server and HTTP</a><a href="../02-system-design/01b_dns_and_cdn.html">DNS and CDN</a><a href="../02-system-design/01c_load_balancers.html">Load Balancers</a><a href="../02-system-design/01d_databases.html">Databases: SQL vs NoSQL, Indexes, Transactions</a><a href="../02-system-design/01e_caching.html">Caching (and Why Invalidation Is Hard)</a><a href="../02-system-design/01f_sharding_and_replication.html">Sharding and Replication</a><a href="../02-system-design/01g_message_queues_and_streams.html">Message Queues and Streams (Kafka Basics)</a><a href="../02-system-design/01h_consistency_and_cap.html">Consistency and the CAP Idea (in Plain Words)</a><a href="../02-system-design/02_numbers_and_estimation.html">Numbers and Estimation</a><a href="../02-system-design/03_reliability_patterns.html">Reliability Patterns</a><a href="../02-system-design/10_url_shortener.html">Design a URL Shortener</a><a href="../02-system-design/11_rate_limiter.html">Design a Rate Limiter</a><a href="../02-system-design/12_chat_system.html">Design a Chat System (like WhatsApp or Slack)</a><a href="../02-system-design/13_news_feed.html">Design a News Feed (like Instagram, Facebook or Twitter/X ho</a><a href="../02-system-design/14_notification_service.html">Design a Notification Service</a><a href="../02-system-design/15_file_storage_like_drive.html">Design File Storage and Sync (like Google Drive or Dropbox)</a><a href="../02-system-design/16_search_autocomplete.html">Design Search Autocomplete (Typeahead)</a><a href="../02-system-design/17_video_streaming_basics.html">Design Video Streaming Basics (like YouTube or Netflix)</a><a href="../02-system-design/18_payment_system_like_stripe.html">Design a Payment System (like Stripe)</a><a href="../02-system-design/19_order_management_like_amazon.html">Design an Order Management System (like Amazon: inventory, o</a><a href="../02-system-design/20_job_scheduler_and_workflow_engine.html">Design a Job Scheduler and Workflow Engine</a><a href="../02-system-design/21_api_gateway_and_auth_system.html">Design an API Gateway and Auth System</a><a href="../02-system-design/22_logging_and_metrics_platform.html">Design a Logging and Metrics Platform</a><a href="../02-system-design/90_cheat_sheet.html">Cheat Sheet (one page)</a><a href="../02-system-design/91_practice_questions.html">Practice Questions (30)</a></details><details><summary>Low-level design</summary><a href="../03-low-level-design/00_how_the_lld_round_works.html">- How the LLD round works</a><a href="../03-low-level-design/01_oop_in_plain_words.html">- OOP in plain words</a><a href="../03-low-level-design/02_solid_principles.html">- SOLID principles</a><a href="../03-low-level-design/03_design_patterns_you_need.html">- The 8 design patterns you need</a><a href="../03-low-level-design/10_parking_lot.html">- Parking Lot</a><a href="../03-low-level-design/11_lru_cache.html">- LRU Cache</a><a href="../03-low-level-design/12_elevator_system.html">- Elevator System</a><a href="../03-low-level-design/13_library_management.html">- Library Management System</a><a href="../03-low-level-design/14_vending_machine.html">- Vending Machine (State pattern)</a><a href="../03-low-level-design/15_atm.html">- ATM</a><a href="../03-low-level-design/16_rate_limiter_class.html">- Rate Limiter (class design: token bucket and sliding windo</a><a href="../03-low-level-design/17_amazon_locker.html">- Amazon Locker</a><a href="../03-low-level-design/18_splitwise_expense_sharing.html">- Splitwise (Expense Sharing)</a><a href="../03-low-level-design/19_logger_and_notification_system.html">- Logger and Notification System (Observer and Strategy)</a><a href="../03-low-level-design/20_tic_tac_toe_or_chess_basics.html">- Tic-Tac-Toe (full) and Chess basics</a><a href="../03-low-level-design/90_cheat_sheet.html">- Cheat sheet (read the night before)</a><a href="../03-low-level-design/91_practice_questions.html">- Practice questions (20)</a></details><details open><summary>DevOps and platform basics</summary><a href="01_linux_processes_memory_files.html">Linux: processes, memory, and files</a><a href="02_networking.html">Networking: TCP, DNS, TLS, NAT</a><a href="03_containers_and_docker.html">Containers and Docker</a><a href="04_kubernetes_from_zero.html">Kubernetes from zero</a><a href="05_helm.html">Helm</a><a href="06_terraform.html">Terraform</a><a href="07_ci_cd_github_actions.html">CI/CD with GitHub Actions</a><a href="08_observability_and_sre.html">Observability and SRE</a><a href="09_concurrency_and_distributed_basics.html">Concurrency and distributed basics</a><a href="10_databases_basics.html">Databases basics</a><a href="11_security_basics.html">Security basics (IAM, OAuth2/OIDC/JWT, secrets, supply chain</a><a href="12_gcp_pca_quick_map.html">Google Cloud quick map (for Professional Cloud Architect hol</a><a href="20_interview_questions_with_answers.html">Sixty interview questions with model answers (platform / SRE</a><a class="cur" href="21_scenario_questions.html">Fifteen &quot;production is down&quot; scenarios, with step-by-step an</a></details><details><summary>Company processes</summary><a href="../06-company-process-and-behavioural/10_google.html">Google</a><a href="../06-company-process-and-behavioural/11_amazon.html">Amazon</a><a href="../06-company-process-and-behavioural/12_stripe.html">Stripe</a><a href="../06-company-process-and-behavioural/13_microsoft_and_azure_roles.html">Microsoft and Azure roles</a><a href="../06-company-process-and-behavioural/14_indian_product_and_gcc_companies.html">Indian product companies and GCCs</a><a href="../06-company-process-and-behavioural/15_european_scaleups.html">European scale-ups and visa basics</a><a href="../06-company-process-and-behavioural/16_ai_startups_like_smallest_ai.html">AI startups like Smallest AI</a><a href="../06-company-process-and-behavioural/24_questions_to_ask_interviewers.html">Questions to ask interviewers</a><a href="../06-company-process-and-behavioural/25_salary_notice_period_and_offer_negotiation_india_and_abroad.html">Salary, notice period and offer negotiation (India and abroa</a><a href="../06-company-process-and-behavioural/26_interview_day_checklists.html">Interview day checklists</a></details></nav><main><h1 id="21-fifteen-production-is-down-scenarios-with-step-by-step-answers">21. Fifteen "production is down" scenarios, with step-by-step answers</h1>
+
+<p>How to use this file:</p>
+
+<ul>
+<li>Interviewers use scenarios to see <strong>how you think under pressure</strong>, not whether you remember one command. Talk out loud in steps.</li>
+<li>Every scenario has: <strong>Situation</strong>, <strong>First steps</strong>, <strong>Diagnose (commands)</strong>, <strong>Fix</strong>, <strong>Prevent</strong>, and <strong>Say this</strong> (the one-sentence summary).</li>
+<li>Commands are standard and explained in the topic files <code>[file NN]</code>. Outputs here are not shown; see the topic files for real or sample output. I did not run these against any cluster.</li>
+<li>Facts about Kubernetes, SRE practice, and tools come from the sources listed in the topic files (Kubernetes docs, Google SRE books, GitHub docs, HashiCorp docs, PostgreSQL docs). The scenarios themselves are my teaching examples. They are not real events.</li>
+</ul>
+
+<hr />
+
+<h2 id="the-universal-frame-use-it-in-every-scenario">The universal frame (use it in every scenario)</h2>
+
+<pre><code> 1. IMPACT    who is hurt, how badly, since when?  (SLO dashboard, error rate, support tickets)
+ 2. DECLARE   severity, incident commander, one channel, status updates on a clock
+ 3. CHANGES   what changed just before? deploy, config, flag, traffic, certificate, dependency
+ 4. MITIGATE  stop the pain first: rollback, flag off, shift traffic, scale, rate-limit
+ 5. DIAGNOSE  now find the cause, using the four golden signals (latency, traffic, errors, saturation)
+ 6. CONFIRM   recovery shown by the SLIs, not by feelings; keep watching
+ 7. LEARN     blameless postmortem, owned and verifiable action items
+</code></pre>
+
+<p>Google's SRE book tells you to alert on <strong>symptoms</strong> and track latency, traffic, errors, and saturation; the SRE Workbook says a postmortem needs owned actions. "Mitigate before you find the root cause" is the habit interviewers look for. <code>[file 08]</code></p>
+
+<p>Keep a <strong>timeline</strong> as you go (time, action, result). It becomes the postmortem.</p>
+
+<hr />
+
+<h2 id="scenario-1-all-users-get-5xx-errors-right-after-a-deployment">Scenario 1. All users get 5xx errors right after a deployment</h2>
+
+<p><strong>Situation</strong>: 10 minutes after a release, the error-rate alert pages you. Users see HTTP 500/502.</p>
+
+<p><strong>First steps</strong>: Check the SLO/error dashboard for the start time. Ask: "what deployed at that time?" Declare the incident (SEV1 or SEV2 depending on the share of users).</p>
+
+<p><strong>Diagnose</strong>:</p>
+
+<pre><code>kubectl rollout status deploy/web -n prod
+kubectl get pods -n prod -o wide              # new pods Ready? restarts?
+kubectl logs deploy/web -n prod --since=15m | tail -50
+kubectl get events -n prod --sort-by=.lastTimestamp | tail -20
+</code></pre>
+
+<p>Compare the error start time with the deploy time, and old vs new version in logs and metrics (per-version error rate).</p>
+
+<p><strong>Fix (mitigate first)</strong>: <code>kubectl rollout undo deploy/web -n prod</code> (or <code>helm rollback web &lt;good-revision&gt;</code>). If a feature flag guards the change, turn it off instead. Watch the error rate fall.</p>
+
+<p><strong>Prevent</strong>: readiness probes that really test the app, canary or progressive rollout with automatic rollback on SLO burn, <code>helm upgrade --wait --rollback-on-failure</code>, a pre-prod test of the same change, deploy gates. <code>[file 04, 05]</code></p>
+
+<p><strong>Say this</strong>: "Impact first, then what changed, then roll back. The root cause comes after users are safe."</p>
+
+<hr />
+
+<h2 id="scenario-2-new-pods-are-in-crashloopbackoff-after-a-release">Scenario 2. New pods are in CrashLoopBackOff after a release</h2>
+
+<p><strong>Situation</strong>: Rollout is stuck, some pods in CrashLoopBackOff. Old pods still serve traffic (the rollout stopped safely).</p>
+
+<p><strong>First steps</strong>: Because maxUnavailable protected you, there may be little user impact. Still treat it as urgent but calm. Do <strong>not</strong> delete pods repeatedly.</p>
+
+<p><strong>Diagnose</strong>:</p>
+
+<pre><code>kubectl get pods -n prod
+kubectl logs &lt;new-pod&gt; -n prod --previous       # last words of the crashed container
+kubectl describe pod &lt;new-pod&gt; -n prod          # Last State, Exit Code, Reason, probe events
+</code></pre>
+
+<p>Read the exit code: 1 (app error: bad config, missing env var or Secret, cannot reach database), 137 (killed: OOM or too slow to stop), 139 (segfault), 143 (SIGTERM). Look for <code>Liveness probe failed</code> (slow start killed by probe). Check recent ConfigMap and Secret changes and image tag.</p>
+
+<p><strong>Fix</strong>: roll back (<code>kubectl rollout undo</code>), or fix the config (missing Secret key, wrong env name) and roll forward. For slow starts add a startup probe.</p>
+
+<p><strong>Prevent</strong>: validate config in CI (<code>helm template</code> + schema checks), smoke test the image in a staging cluster, fail fast and log a clear startup error, do not make liveness probes depend on other services. <code>[file 04]</code></p>
+
+<p><strong>Say this</strong>: "CrashLoopBackOff is a symptom; <code>--previous</code> logs and the exit code tell me why the process exits."</p>
+
+<hr />
+
+<h2 id="scenario-3-latency-is-high-but-cpu-and-memory-graphs-look-normal">Scenario 3. Latency is high, but CPU and memory graphs look normal</h2>
+
+<p><strong>Situation</strong>: p99 latency tripled. Pods look healthy. CPU "only 30%".</p>
+
+<p><strong>First steps</strong>: Check which signal moved: latency yes, errors maybe not, traffic same? Look at p99 per endpoint and per version, not the average.</p>
+
+<p><strong>Diagnose</strong> (work from the edge inward):</p>
+
+<ol>
+<li><strong>CPU throttling</strong>: check cAdvisor throttling metrics, or inside a container <code>grep throttled /sys/fs/cgroup/cpu.stat</code> (<code>nr_throttled</code>, <code>throttled_usec</code>). Kubernetes docs: CPU limits are enforced by throttling. <code>[file 03]</code></li>
+<li><strong>Dependency latency</strong>: traces show which downstream call is slow (database, cache, external API).</li>
+<li><strong>Database</strong>: slow query (<code>EXPLAIN ANALYZE</code>), lock waits, connection pool saturation, replica lag. <code>[file 10]</code></li>
+<li><strong>Network/DNS</strong>: <code>curl -w</code> timings, <code>dig</code> time, retransmissions. <code>[file 02]</code></li>
+<li><strong>GC pauses</strong> or thread pool exhaustion in the app; queue depth growing (backpressure missing). <code>[file 09]</code></li>
+<li><strong>Noisy neighbor</strong> or node problem: is it one node only? <code>kubectl get pods -o wide</code> and compare.</li>
+</ol>
+
+<p><strong>Fix</strong>: depending on cause: raise or remove the CPU limit (keep the request), add the missing index, enlarge the pool or add timeouts, scale out, drain a bad node.</p>
+
+<p><strong>Prevent</strong>: alert on p99 and on throttling ratio, trace sampling on, saturation signals on dashboards, load tests.</p>
+
+<p><strong>Say this</strong>: "Average CPU hides throttling and tails. I check throttling, the slowest dependency in a trace, and the database."</p>
+
+<hr />
+
+<h2 id="scenario-4-a-node-goes-notready-and-many-pods-are-pending-or-evicted">Scenario 4. A node goes NotReady and many pods are Pending or evicted</h2>
+
+<p><strong>Situation</strong>: <code>kubectl get nodes</code> shows a node NotReady. Some pods are Terminating or Pending.</p>
+
+<p><strong>First steps</strong>: Is the service still serving (do you have replicas on other nodes/zones)? If yes, you have time. If a whole zone is affected, jump to scenario 15.</p>
+
+<p><strong>Diagnose</strong>:</p>
+
+<pre><code>kubectl get nodes
+kubectl describe node &lt;node&gt;                 # Conditions: Ready, MemoryPressure, DiskPressure, PIDPressure; Events
+kubectl get pods -A -o wide --field-selector spec.nodeName=&lt;node&gt;
+kubectl top node                             # metrics-server
+</code></pre>
+
+<p>On AKS/GKE use the cloud console or CLI to see the VM state, and node pool autoscaler events. Common causes: node out of memory or disk (kubelet evicts), kubelet crashed, network partition, VM host maintenance, a bad node image after an upgrade.</p>
+
+<p><strong>Fix</strong>: cordon (<code>kubectl cordon &lt;node&gt;</code>), drain (<code>kubectl drain &lt;node&gt; --ignore-daemonsets --delete-emptydir-data</code>), let the pods reschedule, then reimage or replace the node. If drain hangs, check PDBs (a <code>maxUnavailable: 0</code> PDB blocks drains, Kubernetes docs). Pending pods after the loss: check capacity (<code>describe pod</code> events) and the cluster autoscaler. <code>[file 04]</code></p>
+
+<p><strong>Prevent</strong>: multiple replicas spread across nodes and zones (topology spread or anti-affinity), PDBs that allow at least one eviction, requests and limits so nodes are not overcommitted, node auto-repair, alerts on node conditions.</p>
+
+<p><strong>Say this</strong>: "Replicas on other nodes keep users safe; I cordon, drain, replace, and make sure PDBs and spreading allow it."</p>
+
+<hr />
+
+<h2 id="scenario-5-no-space-left-on-device-on-a-vm-or-node-but-nothing-big-is-found">Scenario 5. "No space left on device" on a VM or node, but nothing big is found</h2>
+
+<p><strong>Situation</strong>: A service fails writing. <code>df -h</code> shows 100% on <code>/var</code>.</p>
+
+<p><strong>First steps</strong>: Free a little space safely so the service can recover (rotate or truncate an old log, clean package caches), but do not delete things blindly.</p>
+
+<p><strong>Diagnose</strong>: <code>[file 01]</code></p>
+
+<pre><code>df -h            # which filesystem
+df -i            # inode exhaustion?
+du -xh /var --max-depth=2 2&gt;/dev/null | sort -h | tail
+lsof +L1         # deleted files still held open by a process
+</code></pre>
+
+<p>If <code>du</code> shows far less than <code>df</code>, a <strong>deleted but open file</strong> is the likely cause (the man page logic: space is freed only when the last open handle closes). Other causes: many tiny files (inodes), container logs and images (<code>docker system df</code>, <code>crictl images</code>), a runaway core dump, files hidden under a mount.</p>
+
+<p><strong>Fix</strong>: restart the process that holds the deleted file (or truncate it via <code>/proc/&lt;pid&gt;/fd/&lt;n&gt;</code>), delete old logs and unused images, fix log rotation, and for inode exhaustion remove the directory with millions of files.</p>
+
+<p><strong>Prevent</strong>: log rotation and size limits (<code>max-size</code> for container logs), disk usage alerts at 80 percent and a <strong>predictive</strong> alert (will fill in 4 hours), ephemeral-storage requests and limits in Kubernetes, separate volumes for logs and data.</p>
+
+<p><strong>Say this</strong>: "df and du disagree because of deleted-but-open files; <code>lsof +L1</code> finds the holder."</p>
+
+<hr />
+
+<h2 id="scenario-6-random-timeouts-between-services-dns-is-suspected">Scenario 6. Random timeouts between services; DNS is suspected</h2>
+
+<p><strong>Situation</strong>: Some requests fail with "could not resolve host" or time out after exactly 5 seconds, intermittently.</p>
+
+<p><strong>First steps</strong>: Check whether it affects one service, one node, or the whole cluster. Look at CoreDNS health.</p>
+
+<p><strong>Diagnose</strong>: <code>[file 02]</code></p>
+
+<pre><code>kubectl get pods -n kube-system -l k8s-app=kube-dns         # CoreDNS pods healthy?
+kubectl logs -n kube-system -l k8s-app=kube-dns --tail=50
+kubectl run dnstest --rm -it --image=busybox:1.36 -- nslookup kubernetes.default
+kubectl run dnstest --rm -it --image=busybox:1.36 -- nslookup example.com
+kubectl exec -it &lt;pod&gt; -- cat /etc/resolv.conf               # ndots, search domains
+</code></pre>
+
+<p>Time lookups from inside a pod (<code>time nslookup ...</code>). Ideas to check: CoreDNS overloaded or throttled (CPU limit!), upstream resolver slow or blocking, a NetworkPolicy blocking UDP/TCP 53, conntrack table full or NAT port exhaustion (UDP DNS packets dropped), <code>ndots:5</code> causing many failed lookups for external names (each tries several search suffixes), nodes with a bad resolver config.</p>
+
+<p><strong>Fix</strong>: scale CoreDNS, raise its CPU limit or remove it, add a node-local DNS cache, use fully qualified names (trailing dot) for external hosts, lower <code>ndots</code> for the workloads that need it, allow DNS in NetworkPolicy, fix the upstream.</p>
+
+<p><strong>Prevent</strong>: CoreDNS dashboards and alerts (latency, errors, SERVFAIL), load test DNS, app-side connection reuse and DNS caching with sane TTL.</p>
+
+<p><strong>Say this</strong>: "I test DNS from inside the pod, check CoreDNS capacity and throttling, then conntrack and NetworkPolicy."</p>
+
+<hr />
+
+<h2 id="scenario-7-users-save-data-but-cannot-see-it-read-replica-lag">Scenario 7. Users save data but cannot see it; read replica lag</h2>
+
+<p><strong>Situation</strong>: "I updated my profile and it shows the old value." Appears and disappears.</p>
+
+<p><strong>First steps</strong>: Suspect replication lag: the app reads from a replica that is behind the primary.</p>
+
+<p><strong>Diagnose</strong>: <code>[file 10]</code></p>
+
+<pre><code>-- on the primary (PostgreSQL)
+SELECT application_name, state, sent_lsn, replay_lsn,
+       pg_wal_lsn_diff(sent_lsn, replay_lsn) AS bytes_behind
+FROM pg_stat_replication;
+-- on a standby
+SELECT now() - pg_last_xact_replay_timestamp() AS lag;
+</code></pre>
+
+<p>The PostgreSQL docs say asynchronous replication has "a small delay" between commit on the primary and visibility on the standby. A big gap between current and sent position hints at a loaded primary; a gap between sent and received hints at network delay or a loaded standby. Look for a long-running query on the replica that conflicts with replay, a write burst (bulk update, big migration), or a weak replica.</p>
+
+<p><strong>Fix</strong>: short term, route that user's reads to the primary after a write (read-your-writes) or kill the blocking long query on the replica. Medium term, reduce the write burst (batch smaller), size the replica properly, and tune standby conflict settings.</p>
+
+<p><strong>Prevent</strong>: alert on lag (seconds and bytes), route only lag-tolerant reads to replicas, dedicated analytics replica, tests that read right after write.</p>
+
+<p><strong>Say this</strong>: "Async replicas are slightly behind by design. I measure lag, and protect read-your-writes by reading from the primary."</p>
+
+<hr />
+
+<h2 id="scenario-8-the-database-is-slow-and-connections-are-exhausted">Scenario 8. The database is slow and connections are exhausted</h2>
+
+<p><strong>Situation</strong>: API timeouts; logs say "too many connections" or pool timeouts.</p>
+
+<p><strong>First steps</strong>: Protect the database: reduce load (rate-limit, shed non-critical traffic, pause batch jobs). Check what changed (new release, a new query, a traffic spike).</p>
+
+<p><strong>Diagnose</strong>: <code>[file 10, 09]</code></p>
+
+<pre><code>SELECT state, count(*) FROM pg_stat_activity GROUP BY 1;                 -- many "idle in transaction"?
+SELECT pid, now()-query_start AS runtime, state, left(query,80)
+FROM pg_stat_activity WHERE state &lt;&gt; 'idle' ORDER BY runtime DESC LIMIT 10;   -- long queries
+SELECT * FROM pg_locks WHERE NOT granted;                                -- waiting locks
+</code></pre>
+
+<p>Typical causes: a missing index after a new query (full scans), a long transaction holding locks, connection leak in the app, too many app replicas times pool size, retries piling on (retry storm), autoscaling that added pods and so more connections.</p>
+
+<p><strong>Fix</strong>: cancel or terminate the worst query (<code>pg_cancel_backend</code>, then <code>pg_terminate_backend</code> if needed), roll back the release that introduced it, add the missing index (concurrently), cap pool sizes, put a pooler (PgBouncer) in front, set statement and idle-in-transaction timeouts.</p>
+
+<p><strong>Prevent</strong>: slow query log and <code>EXPLAIN</code> in review, connection budgets per service, timeouts and retry budgets, load tests, alert on connections used percent.</p>
+
+<p><strong>Say this</strong>: "First reduce load, then find the long query or leak, kill or roll back, and then fix with an index, pool limits, and timeouts."</p>
+
+<hr />
+
+<h2 id="scenario-9-a-tls-certificate-expired">Scenario 9. A TLS certificate expired</h2>
+
+<p><strong>Situation</strong>: Browsers show "certificate expired"; service-to-service calls fail with handshake errors.</p>
+
+<p><strong>First steps</strong>: Confirm which certificate and where (public edge, ingress, internal service, a client cert, a CA).</p>
+
+<p><strong>Diagnose</strong>: <code>[file 02]</code></p>
+
+<pre><code>echo | openssl s_client -connect host:443 -servername host 2&gt;/dev/null | openssl x509 -noout -dates -subject -issuer
+kubectl get certificate -A                       # if using cert-manager
+kubectl describe certificate &lt;name&gt; -n &lt;ns&gt;      # events: why renewal failed
+kubectl get secret &lt;tls-secret&gt; -n &lt;ns&gt; -o jsonpath='{.data.tls\.crt}' | base64 -d | openssl x509 -noout -dates
+</code></pre>
+
+<p>Also check the client's clock (a wrong clock looks like "not yet valid"/"expired"). Why did renewal fail? Common: cert-manager cannot complete the ACME challenge (DNS or HTTP route blocked), an expired API token for the DNS provider, rate limit, the issuer changed, or nobody owned renewal for a manually managed certificate.</p>
+
+<p><strong>Fix</strong>: renew or reissue now; for cert-manager fix the cause (challenge route, credentials) and trigger renewal; deploy the new secret; make sure the pods reload it (some apps need a restart; ingress controllers usually reload). Verify with <code>openssl s_client</code> from outside.</p>
+
+<p><strong>Prevent</strong>: automate renewal, alert <strong>30 days and 7 days before</strong> expiry from an external probe (blackbox exporter) and from cert-manager metrics, keep an inventory with owners, test renewal.</p>
+
+<p><strong>Say this</strong>: "Fix by renewing and reloading, then make expiry impossible to miss: automation plus alerts weeks ahead."</p>
+
+<hr />
+
+<h2 id="scenario-10-a-small-slowdown-turns-into-a-full-outage-retry-storm-cascading-failure">Scenario 10. A small slowdown turns into a full outage (retry storm, cascading failure)</h2>
+
+<p><strong>Situation</strong>: A downstream service slowed briefly. Now everything is timing out and load keeps rising even though user traffic did not increase.</p>
+
+<p><strong>First steps</strong>: Recognize the pattern: callers time out and retry, which adds load, which slows the service more. The SRE book says retries can keep a backend overloaded even after the original traffic drops.</p>
+
+<p><strong>Diagnose</strong>: <code>[file 09]</code> Compare request rates <strong>into</strong> the failing service vs user requests (is it 3 to 10 times higher?). Look at retry metrics, queue length, thread pool use, in-flight requests, and timeouts configured at each layer.</p>
+
+<p><strong>Mitigate</strong>:</p>
+
+<ol>
+<li><strong>Cut the retries</strong> (config flag or lower retry limits) and <strong>shed load</strong>: return 503 with <code>Retry-After</code> early and cheaply, rate-limit, or temporarily block non-critical callers.</li>
+<li>Scale the failing service <strong>only if</strong> it can actually help (adding pods to a database-bound service does not).</li>
+<li>If needed, briefly reduce traffic to near zero so the system can recover, then ramp up slowly.</li>
+<li>Roll back any recent change that started the slowdown.</li>
+</ol>
+
+<p><strong>Prevent</strong>: retries only at one layer, exponential backoff with jitter, retry budgets, timeouts from latency percentiles, circuit breakers, bounded queues, deadlines passed downstream, graceful degradation, load testing and game days. <code>[file 09]</code></p>
+
+<p><strong>Say this</strong>: "I stop the amplification first: fewer retries, shed load, then restore capacity gradually."</p>
+
+<hr />
+
+<h2 id="scenario-11-a-pod-keeps-getting-oomkilled">Scenario 11. A pod keeps getting OOMKilled</h2>
+
+<p><strong>Situation</strong>: A service restarts every few hours; <code>kubectl describe</code> shows <code>Reason: OOMKilled</code>, exit code 137.</p>
+
+<p><strong>First steps</strong>: Impact is probably brief per restart; find out if it is leak, spike, or a limit set too low.</p>
+
+<p><strong>Diagnose</strong>: <code>[file 04, 03, 01]</code></p>
+
+<pre><code>kubectl describe pod &lt;pod&gt; | grep -A6 "Last State"
+kubectl top pod &lt;pod&gt; --containers
+# Prometheus: container_memory_working_set_bytes{pod="..."} over 24h
+</code></pre>
+
+<p>Shape of the memory graph: <strong>steady climb</strong> until kill = leak; <strong>jump at start</strong> = limit too low for warm-up; <strong>spikes on certain requests</strong> = unbounded buffering or large payloads; <strong>sawtooth</strong> = garbage collection (check heap settings relative to the limit). Remember the container limit counts page cache of its own files and in-memory <code>emptyDir</code> volumes. The node may still have free memory; the limit is per container (cgroup <code>memory.max</code>).</p>
+
+<p><strong>Fix</strong>: short term raise the limit with headroom (or restart schedule as a bandaid, labeled as such). Long term fix the leak (heap profile), cap caches and queues, stream large data, set runtime memory flags below the container limit.</p>
+
+<p><strong>Prevent</strong>: memory alerts at 80 percent of the limit, load tests with realistic payloads, memory profiling in staging, requests set close to real use (VPA recommendations help).</p>
+
+<p><strong>Say this</strong>: "The memory graph shape tells me leak, low limit, or spiky requests; I fix the cause and keep headroom, not just a bigger limit."</p>
+
+<hr />
+
+<h2 id="scenario-12-terraform-apply-is-stuck-on-a-lock-or-someone-changed-production-by-hand">Scenario 12. <code>terraform apply</code> is stuck on a lock, or someone changed production by hand</h2>
+
+<p><strong>Situation A</strong>: CI fails with "Error acquiring the state lock". <strong>Situation B</strong>: <code>plan</code> shows unexpected changes (drift) in production.</p>
+
+<p><strong>First steps (A)</strong>: Read <strong>Who</strong>, <strong>Operation</strong>, and <strong>Created</strong> in the lock info. Is a job really still running? Check CI.</p>
+
+<p><strong>Diagnose and fix (A)</strong>: <code>[file 06]</code></p>
+
+<ul>
+<li>If a job is running, wait.</li>
+<li>If the job died, confirm nobody is applying, then <code>terraform force-unlock &lt;LOCK_ID&gt;</code>. The docs warn: unlocking someone else's active lock can lead to multiple writers and state corruption.</li>
+<li>Never use <code>-lock=false</code> to bypass.</li>
+</ul>
+
+<p><strong>First steps (B)</strong>: Do not apply blindly. Read the plan: <code>~</code> change in place, <code>-/+</code> destroy and recreate (danger). Find out who changed what (cloud audit logs).</p>
+
+<p><strong>Diagnose and fix (B)</strong>: <code>terraform plan -refresh-only</code> shows only outside changes. Decide per change: <strong>accept</strong> (update the code to match reality) or <strong>revert</strong> (apply to restore the declared state). Production data resources (databases) need extra care: check <code>prevent_destroy</code> and backups before applying a replace.</p>
+
+<p><strong>Prevent</strong>: remote state with locking and versioning (S3 <code>use_lockfile</code>, bucket versioning recommended by the docs), CI-only applies, restrict console write access, nightly drift plan with <code>-detailed-exitcode</code>, small states to reduce blast radius, saved plans (<code>plan -out</code>, <code>apply tfplan</code>) with review.</p>
+
+<p><strong>Say this</strong>: "Never bypass the lock or apply a plan I have not read; I check who holds the lock and read every replace line."</p>
+
+<hr />
+
+<h2 id="scenario-13-a-secret-was-committed-to-git-or-leaked-in-ci-logs">Scenario 13. A secret was committed to Git or leaked in CI logs</h2>
+
+<p><strong>Situation</strong>: A scanner or a teammate reports an access key in a public or internal repository (or in a build log).</p>
+
+<p><strong>First steps</strong>: Treat it as compromised. Time matters because bots scrape public repos within minutes.</p>
+
+<p><strong>Steps</strong>: <code>[file 11, 07]</code></p>
+
+<ol>
+<li><strong>Revoke or rotate first</strong> (disable the key, issue a new one, update where it is used through the secrets manager). Deleting the commit is not enough: it may already be cloned or cached, and it stays in Git history.</li>
+<li><strong>Assess use</strong>: check the provider's audit logs for activity with that credential since it was exposed (unknown IPs, new resources, data reads, new keys or users).</li>
+<li><strong>Contain</strong>: if misuse is found, revoke sessions, remove created resources or access, widen the investigation, and follow the security incident process (declare, communicate).</li>
+<li><strong>Clean up</strong> the repository history only as an extra step (it does not make the secret safe again). For a CI log, delete the log and rotate (GitHub docs advise exactly this).</li>
+<li><strong>Root cause</strong>: how did it get there (<code>.env</code> committed, hardcoded, printed in debug)? Fix the process.</li>
+</ol>
+
+<p><strong>Prevent</strong>: no long-lived keys (OIDC and workload identity), secrets manager, pre-commit and CI secret scanning (gitleaks, GitHub secret scanning), masked variables in CI, least privilege so a leaked credential can do little, short expiry.</p>
+
+<p><strong>Say this</strong>: "Rotate first, then check the audit logs for misuse, then fix how it leaked. History cleaning is not a fix."</p>
+
+<hr />
+
+<h2 id="scenario-14-users-get-502-504-from-the-load-balancer-or-ingress">Scenario 14. Users get 502 / 504 from the load balancer or ingress</h2>
+
+<p><strong>Situation</strong>: Intermittent 502 Bad Gateway or 504 Gateway Timeout for some requests.</p>
+
+<p><strong>First steps</strong>: Understand the codes: <strong>502</strong> = the proxy got a bad answer or the connection to the backend failed; <strong>504</strong> = the backend did not answer in time. Which hop returns it: CDN, cloud load balancer, ingress controller, service mesh?</p>
+
+<p><strong>Diagnose</strong>: <code>[file 04, 02]</code></p>
+
+<pre><code>kubectl get pods -n prod                      # restarts? NotReady?
+kubectl get endpoints web -n prod             # empty or shrinking endpoints?
+kubectl logs -n ingress -l app.kubernetes.io/name=&lt;controller&gt; --tail=100    # upstream errors
+kubectl describe ingress web -n prod
+kubectl rollout status deploy/web -n prod     # a rollout in progress?
+</code></pre>
+
+<p>Common causes:</p>
+
+<ul>
+<li><strong>Pods removed while still receiving traffic</strong> (rollout or scale-down): app does not handle SIGTERM, no <code>preStop</code> delay, so the load balancer sends requests to a pod that is shutting down. Look for 502s that match deploy times.</li>
+<li><strong>Readiness probe too lenient or missing</strong>: traffic goes to pods that cannot serve.</li>
+<li><strong>Backend slower than the proxy timeout</strong> (504): slow dependency or database; compare proxy timeout with p99 latency.</li>
+<li><strong>Idle timeout mismatch</strong>: the load balancer keeps a connection the app already closed (keep-alive timeout shorter in the app than in the proxy) giving sporadic 502 resets.</li>
+<li><strong>Backend overloaded</strong>: CPU throttling, thread pool exhausted, queues full.</li>
+<li>Wrong service port or selector after a change (endpoints empty).</li>
+</ul>
+
+<p><strong>Fix</strong>: roll back a bad change, fix readiness and graceful shutdown, align timeouts (app keep-alive longer than the proxy idle timeout), scale or fix the slow dependency, correct the service config.</p>
+
+<p><strong>Prevent</strong>: readiness probes, graceful termination, PDBs and surge, timeout budgets documented per hop, dashboards per hop showing status codes and latency.</p>
+
+<p><strong>Say this</strong>: "502 means a bad or failed backend answer, 504 means no timely answer; I match the errors to deploy times, endpoints, and timeouts."</p>
+
+<hr />
+
+<h2 id="scenario-15-a-cloud-zone-or-a-major-dependency-is-down">Scenario 15. A cloud zone (or a major dependency) is down</h2>
+
+<p><strong>Situation</strong>: The cloud provider reports a zone or regional problem, or a third-party API you rely on is down. Error rates rise.</p>
+
+<p><strong>First steps</strong>: Check the provider status pages and your dashboards. Is the failure confined to one zone or region? What is the user impact now? Declare the incident and assign a communicator (external status updates matter here).</p>
+
+<p><strong>Diagnose</strong>: Which of your components live in the affected zone? (<code>kubectl get nodes -L topology.kubernetes.io/zone</code>, which pods are on those nodes, where the database primary lives, where load balancer backends are.) Are health checks removing bad backends automatically? Do you have capacity left elsewhere?</p>
+
+<p><strong>Mitigate</strong>:</p>
+
+<ol>
+<li>Make sure traffic <strong>leaves the failed zone</strong>: load balancer health checks, remove the zone from backends, cordon nodes in the zone.</li>
+<li>Add capacity in healthy zones (scale node pools; check quotas, since everyone else is scaling too).</li>
+<li><strong>Database failover</strong> if the primary is affected: follow the runbook (promote a replica, switch the endpoint). Know that async replication may lose the last commits (RPO) and avoid two primaries (split brain). <code>[file 10]</code></li>
+<li>For a <strong>third-party dependency</strong> outage: enable graceful degradation (cached data, queue and retry later, hide the feature), use circuit breakers so you do not hang on it, communicate to customers.</li>
+<li>Reduce non-essential load and pause risky deploys.</li>
+</ol>
+
+<p><strong>Prevent</strong>: spread replicas over at least three zones (topology spread constraints), enough spare capacity to lose a zone, tested database failover, multi-region plan matched to the SLO and budget, timeouts, circuit breakers and fallbacks for dependencies, regular game days. Define RPO and RTO per service. <code>[file 12, 09]</code></p>
+
+<p><strong>Say this</strong>: "Move traffic away from the failed zone, add capacity elsewhere, fail over data carefully, degrade gracefully, and communicate."</p>
+
+<hr />
+
+<h2 id="bonus-how-to-describe-your-own-incident-behavioral">Bonus: how to describe your own incident (Behavioral)</h2>
+
+<p>Structure (about 2 minutes): <strong>Situation</strong> (what broke, user impact in numbers) -> <strong>Role</strong> (what you owned) -> <strong>Actions</strong> (first check, hypothesis, mitigation) -> <strong>Result</strong> (time to mitigate, what recovered) -> <strong>Learning</strong> (what changed: alert, test, runbook, automation). Prepare two stories: one where you found the cause quickly, and one where you were wrong at first and changed your mind.</p>
+
+<h2 id="sources">Sources</h2>
+
+<ul>
+<li>Kubernetes docs (debug pods, probes, PDB, resource management, NetworkPolicy): https://kubernetes.io/docs/tasks/debug/debug-application/debug-pods/ , https://kubernetes.io/docs/tasks/run-application/configure-pdb/ , https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/</li>
+<li>Google SRE book, Monitoring Distributed Systems (golden signals, symptoms vs causes): https://sre.google/sre-book/monitoring-distributed-systems/</li>
+<li>Google SRE book, Addressing Cascading Failures (retries, load shedding, deadlines): https://sre.google/sre-book/addressing-cascading-failures/</li>
+<li>Google SRE Workbook, Postmortem Culture: https://sre.google/workbook/postmortem-culture/</li>
+<li>HashiCorp, state locking and <code>force-unlock</code>: https://developer.hashicorp.com/terraform/language/state/locking</li>
+<li>PostgreSQL, streaming replication and lag: https://www.postgresql.org/docs/current/warm-standby.html</li>
+<li>GitHub Actions secure use (leaked secrets in logs): https://docs.github.com/en/actions/reference/security/secure-use</li>
+<li>2026 interview-theme summaries about incident questions (prep sites, indicators only): https://prachub.com/resources/incident-response-interview-questions-for-sre-and-senior-engineers and https://www.kore1.com/sre-interview-questions/</li>
+</ul>
+
+<p>Not verified from a source (general engineering practice, check against your own systems): the specific commands for <code>cert-manager</code>, <code>crictl</code>, <code>docker system df</code>, PostgreSQL <code>pg_stat_activity</code>/<code>pg_locks</code>/<code>pg_cancel_backend</code>; HTTP 502 vs 504 meanings and the keep-alive/idle-timeout mismatch cause; <code>ndots:5</code> behavior in Kubernetes DNS; conntrack and NAT port exhaustion causes; node auto-repair; topology spread constraints; the cloud audit-log advice; the exact steps of the failover runbook (your own runbook is the authority). The scenarios are teaching examples, not real events.</p>
+<div class="pn"><span><a href="20_interview_questions_with_answers.html">&larr; 20. Sixty interview questions with model</a></span><span></span></div></main></div></body></html>

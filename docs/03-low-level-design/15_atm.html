@@ -1,0 +1,498 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>15 - ATM | Interview prep</title><style>
+:root{--bg:#fff;--fg:#1f2328;--mut:#59636e;--bd:#d1d9e0;--ac:#0b57d0;--cb:#f6f8fa;--sb:#f6f8fa}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9198a1;--bd:#30363d;--ac:#6cb6ff;--cb:#161b22;--sb:#010409}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{display:flex;min-height:100vh}nav{width:300px;flex:none;background:var(--sb);border-right:1px solid var(--bd);padding:16px;overflow:auto;position:sticky;top:0;height:100vh}
+nav a{color:var(--fg);text-decoration:none;display:block;padding:3px 6px;border-radius:6px;font-size:14px}nav a:hover{background:var(--cb)}nav a.cur{background:var(--ac);color:#fff}
+nav summary{cursor:pointer;font-weight:600;padding:6px 0}nav .home{font-weight:700;font-size:16px;margin-bottom:8px}
+main{flex:1;min-width:0;max-width:900px;padding:24px 32px 80px;margin:0 auto}
+h1,h2,h3{line-height:1.25}h1{border-bottom:1px solid var(--bd);padding-bottom:.3em}h2{border-bottom:1px solid var(--bd);padding-bottom:.25em;margin-top:2em}
+a{color:var(--ac)}pre{background:var(--cb);border:1px solid var(--bd);border-radius:8px;padding:14px;overflow:auto;font-size:13.5px;line-height:1.5}
+code{background:var(--cb);padding:.15em .35em;border-radius:5px;font-size:.92em}pre code{background:none;padding:0}
+table{border-collapse:collapse;display:block;overflow:auto;max-width:100%}th,td{border:1px solid var(--bd);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--cb)}
+blockquote{border-left:4px solid var(--bd);margin:0;padding:0 1em;color:var(--mut)}img{max-width:100%}
+.top{display:none}.pn{display:flex;justify-content:space-between;gap:12px;margin-top:48px;border-top:1px solid var(--bd);padding-top:16px;font-size:14px}
+@media(max-width:820px){.wrap{display:block}nav{width:auto;height:auto;position:static;border-right:0;border-bottom:1px solid var(--bd)}main{padding:16px}}
+</style></head><body><div class="wrap"><nav><a class="home" href="../index.html">Interview prep</a><details><summary>Data structures and algorithms</summary><a href="../01-dsa/00_how_to_start.html">How to start: reading a problem, the 5-step method, and Big-</a><a href="../01-dsa/01_arrays_and_strings.html">Lesson 01. Arrays and Strings</a><a href="../01-dsa/02_hash_maps_and_sets.html">Lesson 02. Hash Maps and Sets</a><a href="../01-dsa/03_two_pointers.html">Lesson 03. Two Pointers</a><a href="../01-dsa/04_sliding_window.html">Lesson 04. Sliding Window</a><a href="../01-dsa/05_stack_and_queue.html">Lesson 05. Stack and Queue (including the monotonic stack)</a><a href="../01-dsa/06_binary_search.html">Lesson 06. Binary Search (including search on the answer)</a><a href="../01-dsa/07_linked_lists.html">Lesson 07. Linked Lists</a><a href="../01-dsa/08_trees_and_bst.html">Lesson 08. Trees and Binary Search Trees (BST)</a><a href="../01-dsa/09_heaps_and_priority_queues.html">Lesson 09: Heaps and Priority Queues</a><a href="../01-dsa/10_graphs_bfs_dfs.html">Lesson 10: Graphs, BFS and DFS (including grids)</a><a href="../01-dsa/11_topological_sort_and_union_find.html">Lesson 11: Topological Sort and Union-Find</a><a href="../01-dsa/12_shortest_paths.html">Lesson 12: Shortest Paths (Dijkstra in plain words)</a><a href="../01-dsa/13_intervals.html">Lesson 13: Intervals (merge intervals, meeting rooms)</a><a href="../01-dsa/14_backtracking.html">Lesson 14: Backtracking (subsets, permutations, combination </a><a href="../01-dsa/15_dynamic_programming_part1.html">Lesson 15: Dynamic Programming, Part 1 (remembering answers)</a><a href="../01-dsa/16_dynamic_programming_part2.html">Lesson 16: Dynamic Programming, Part 2 (LIS, word break, kna</a><a href="../01-dsa/17_tries_and_greedy.html">Lesson 17: Tries and Greedy</a><a href="../01-dsa/18_bit_tricks_and_math_basics.html">Lesson 18: Bit Tricks and Math Basics (short)</a><a href="../01-dsa/19_company_question_patterns.html">Lesson 19: Company Question Patterns (Google, Amazon, Meta, </a></details><details><summary>System design</summary><a href="../02-system-design/00_how_the_round_works.html">How the System Design Round Works</a><a href="../02-system-design/01a_client_server_and_http.html">Client, Server and HTTP</a><a href="../02-system-design/01b_dns_and_cdn.html">DNS and CDN</a><a href="../02-system-design/01c_load_balancers.html">Load Balancers</a><a href="../02-system-design/01d_databases.html">Databases: SQL vs NoSQL, Indexes, Transactions</a><a href="../02-system-design/01e_caching.html">Caching (and Why Invalidation Is Hard)</a><a href="../02-system-design/01f_sharding_and_replication.html">Sharding and Replication</a><a href="../02-system-design/01g_message_queues_and_streams.html">Message Queues and Streams (Kafka Basics)</a><a href="../02-system-design/01h_consistency_and_cap.html">Consistency and the CAP Idea (in Plain Words)</a><a href="../02-system-design/02_numbers_and_estimation.html">Numbers and Estimation</a><a href="../02-system-design/03_reliability_patterns.html">Reliability Patterns</a><a href="../02-system-design/10_url_shortener.html">Design a URL Shortener</a><a href="../02-system-design/11_rate_limiter.html">Design a Rate Limiter</a><a href="../02-system-design/12_chat_system.html">Design a Chat System (like WhatsApp or Slack)</a><a href="../02-system-design/13_news_feed.html">Design a News Feed (like Instagram, Facebook or Twitter/X ho</a><a href="../02-system-design/14_notification_service.html">Design a Notification Service</a><a href="../02-system-design/15_file_storage_like_drive.html">Design File Storage and Sync (like Google Drive or Dropbox)</a><a href="../02-system-design/16_search_autocomplete.html">Design Search Autocomplete (Typeahead)</a><a href="../02-system-design/17_video_streaming_basics.html">Design Video Streaming Basics (like YouTube or Netflix)</a><a href="../02-system-design/18_payment_system_like_stripe.html">Design a Payment System (like Stripe)</a><a href="../02-system-design/19_order_management_like_amazon.html">Design an Order Management System (like Amazon: inventory, o</a><a href="../02-system-design/20_job_scheduler_and_workflow_engine.html">Design a Job Scheduler and Workflow Engine</a><a href="../02-system-design/21_api_gateway_and_auth_system.html">Design an API Gateway and Auth System</a><a href="../02-system-design/22_logging_and_metrics_platform.html">Design a Logging and Metrics Platform</a><a href="../02-system-design/90_cheat_sheet.html">Cheat Sheet (one page)</a><a href="../02-system-design/91_practice_questions.html">Practice Questions (30)</a></details><details open><summary>Low-level design</summary><a href="00_how_the_lld_round_works.html">- How the LLD round works</a><a href="01_oop_in_plain_words.html">- OOP in plain words</a><a href="02_solid_principles.html">- SOLID principles</a><a href="03_design_patterns_you_need.html">- The 8 design patterns you need</a><a href="10_parking_lot.html">- Parking Lot</a><a href="11_lru_cache.html">- LRU Cache</a><a href="12_elevator_system.html">- Elevator System</a><a href="13_library_management.html">- Library Management System</a><a href="14_vending_machine.html">- Vending Machine (State pattern)</a><a class="cur" href="15_atm.html">- ATM</a><a href="16_rate_limiter_class.html">- Rate Limiter (class design: token bucket and sliding windo</a><a href="17_amazon_locker.html">- Amazon Locker</a><a href="18_splitwise_expense_sharing.html">- Splitwise (Expense Sharing)</a><a href="19_logger_and_notification_system.html">- Logger and Notification System (Observer and Strategy)</a><a href="20_tic_tac_toe_or_chess_basics.html">- Tic-Tac-Toe (full) and Chess basics</a><a href="90_cheat_sheet.html">- Cheat sheet (read the night before)</a><a href="91_practice_questions.html">- Practice questions (20)</a></details><details><summary>DevOps and platform basics</summary><a href="../05-devops-platform-basics/01_linux_processes_memory_files.html">Linux: processes, memory, and files</a><a href="../05-devops-platform-basics/02_networking.html">Networking: TCP, DNS, TLS, NAT</a><a href="../05-devops-platform-basics/03_containers_and_docker.html">Containers and Docker</a><a href="../05-devops-platform-basics/04_kubernetes_from_zero.html">Kubernetes from zero</a><a href="../05-devops-platform-basics/05_helm.html">Helm</a><a href="../05-devops-platform-basics/06_terraform.html">Terraform</a><a href="../05-devops-platform-basics/07_ci_cd_github_actions.html">CI/CD with GitHub Actions</a><a href="../05-devops-platform-basics/08_observability_and_sre.html">Observability and SRE</a><a href="../05-devops-platform-basics/09_concurrency_and_distributed_basics.html">Concurrency and distributed basics</a><a href="../05-devops-platform-basics/10_databases_basics.html">Databases basics</a><a href="../05-devops-platform-basics/11_security_basics.html">Security basics (IAM, OAuth2/OIDC/JWT, secrets, supply chain</a><a href="../05-devops-platform-basics/12_gcp_pca_quick_map.html">Google Cloud quick map (for Professional Cloud Architect hol</a><a href="../05-devops-platform-basics/20_interview_questions_with_answers.html">Sixty interview questions with model answers (platform / SRE</a><a href="../05-devops-platform-basics/21_scenario_questions.html">Fifteen &quot;production is down&quot; scenarios, with step-by-step an</a></details><details><summary>Company processes</summary><a href="../06-company-process-and-behavioural/10_google.html">Google</a><a href="../06-company-process-and-behavioural/11_amazon.html">Amazon</a><a href="../06-company-process-and-behavioural/12_stripe.html">Stripe</a><a href="../06-company-process-and-behavioural/13_microsoft_and_azure_roles.html">Microsoft and Azure roles</a><a href="../06-company-process-and-behavioural/14_indian_product_and_gcc_companies.html">Indian product companies and GCCs</a><a href="../06-company-process-and-behavioural/15_european_scaleups.html">European scale-ups and visa basics</a><a href="../06-company-process-and-behavioural/16_ai_startups_like_smallest_ai.html">AI startups like Smallest AI</a><a href="../06-company-process-and-behavioural/24_questions_to_ask_interviewers.html">Questions to ask interviewers</a><a href="../06-company-process-and-behavioural/25_salary_notice_period_and_offer_negotiation_india_and_abroad.html">Salary, notice period and offer negotiation (India and abroa</a><a href="../06-company-process-and-behavioural/26_interview_day_checklists.html">Interview day checklists</a></details></nav><main><h1 id="15-atm">15 - ATM</h1>
+
+<p>Python 3.9. All code was run; the output is real.</p>
+
+<hr />
+
+<h2 id="1-the-problem-in-plain-words">1. The problem in plain words</h2>
+
+<p>An ATM (Automated Teller Machine) lets a bank customer put in a <strong>card</strong>, type a <strong>PIN</strong> (secret number), and then <strong>check balance</strong>, <strong>withdraw cash</strong>, or <strong>deposit</strong>. If the PIN is wrong three times, the card is blocked.</p>
+
+<p><strong>Analogy.</strong> A bank clerk behind glass: first asks "show your card", then "say your secret number", only then does the real work. If you cannot say the number, she keeps the card.</p>
+
+<p>Two ideas make this design clean:</p>
+
+<ul>
+<li><strong>State pattern</strong>: what the ATM does for a button depends on whether a card is in, and whether the PIN was accepted (like the vending machine, file 14).</li>
+<li><strong>Command pattern</strong>: each transaction (withdraw, deposit, balance) is an <strong>object</strong> with an <code>execute()</code> method. So adding "transfer money" is a new class, and every transaction can be recorded in a history.</li>
+</ul>
+
+<hr />
+
+<h2 id="2-requirements-i-ask-the-interviewer">2. Requirements I ask the interviewer</h2>
+
+<ol>
+<li>Which operations? -> <em>Balance check, withdraw, deposit.</em></li>
+<li>PIN rule? -> <em>3 wrong attempts: card blocked, session ends.</em></li>
+<li>Where is the money truth stored? -> <em>In the bank, behind an interface. The ATM only calls it (the bank is "another service").</em></li>
+<li>Cash in the ATM? -> <em>Limited notes of 500, 200, 100. It must refuse amounts it cannot pay.</em></li>
+<li>What if the bank debit works but the cash does not come out? -> <em>Must never happen: plan the notes first, then debit, then dispense.</em></li>
+<li>Limits (daily limit)? -> <em>Extension.</em></li>
+<li>Many ATMs on the same account at the same time? -> <em>Yes: the bank must stay correct.</em></li>
+<li>Out of scope? -> <em>Hardware, network protocols, encryption, receipts.</em></li>
+</ol>
+
+<hr />
+
+<h2 id="3-classes-and-methods-the-picture">3. Classes and methods (the picture)</h2>
+
+<pre><code>                        +--------------------------------+
+                        |              ATM               |
+                        |--------------------------------|
+                        | state, card_no, history, rules |
+                        | insert_card(card_no)           |
+                        | enter_pin(pin)                 |
+                        | withdraw(amt) deposit(amt)     |
+                        | check_balance() eject_card()   |
+                        +---+------------+----------+----+
+                has one     |            | uses     | uses
+             (State)        v            v          v
+ +-----------------+  +-------------+ +-----------------+  +------------------+
+ | ATMState (base) |  | BankService | | CashDispenser   |  | WithdrawalRule   |
+ +--------+--------+  | (abstract)  | | plan(amount)    |  | (Strategy, ext.) |
+   Idle  PinEntry Menu | verify_pin  | | commit(plan)    |  | check / record   |
+                      | debit/credit|  +-----------------+  +------------------+
+                      +------+------+
+                       InMemoryBank
+                                          Command objects:
+                                          WithdrawCommand, DepositCommand,
+                                          BalanceCommand  -&gt; execute(atm)
+</code></pre>
+
+<p>State flow:</p>
+
+<pre><code>Idle --insert_card--&gt; PinEntry --correct PIN--&gt; Menu --eject--&gt; Idle
+                         |  3 wrong PINs: card blocked, back to Idle
+</code></pre>
+
+<hr />
+
+<h2 id="4-full-code">4. Full code</h2>
+
+<pre><code>import threading                               # Locks
+from abc import ABC, abstractmethod            # "promise" classes
+
+
+class InsufficientFunds(Exception):            # raised by the bank when the balance is too low
+    pass
+
+
+# ---------- the bank side (a separate service; the ATM talks to it through an interface) ----------
+
+class BankService(ABC):
+    @abstractmethod
+    def is_blocked(self, card_no): pass
+    @abstractmethod
+    def verify_pin(self, card_no, pin): pass
+    @abstractmethod
+    def block_card(self, card_no): pass
+    @abstractmethod
+    def balance(self, card_no): pass
+    @abstractmethod
+    def debit(self, card_no, amount): pass
+    @abstractmethod
+    def credit(self, card_no, amount): pass
+
+
+class Account:
+    def __init__(self, pin, balance):
+        self.pin = pin                         # DEMO ONLY: real banks never store a plain PIN (they use hashes / secure hardware)
+        self.balance = balance
+        self.lock = threading.Lock()           # protects this one account's balance
+
+
+class InMemoryBank(BankService):
+    def __init__(self):
+        self._accounts = {}                    # card_no -&gt; Account
+        self._blocked = set()
+
+    def add_account(self, card_no, pin, balance):
+        self._accounts[card_no] = Account(pin, balance)
+
+    def is_blocked(self, card_no):
+        return card_no in self._blocked
+
+    def verify_pin(self, card_no, pin):
+        acc = self._accounts.get(card_no)
+        return acc is not None and acc.pin == pin
+
+    def block_card(self, card_no):
+        self._blocked.add(card_no)
+
+    def balance(self, card_no):
+        return self._accounts[card_no].balance
+
+    def debit(self, card_no, amount):
+        acc = self._accounts[card_no]
+        with acc.lock:                         # "check balance then subtract" must be one step
+            if acc.balance &lt; amount:
+                raise InsufficientFunds()
+            acc.balance -= amount
+
+    def credit(self, card_no, amount):
+        acc = self._accounts[card_no]
+        with acc.lock:
+            acc.balance += amount
+
+
+# ---------- cash inside the machine ----------
+
+class CashDispenser:
+    def __init__(self, notes):
+        self.notes = dict(notes)               # denomination -&gt; count, e.g. {500: 4, 200: 5, 100: 10}
+        self._lock = threading.Lock()
+
+    def plan(self, amount):
+        # decide which notes to give WITHOUT removing them yet (biggest notes first)
+        with self._lock:
+            remaining = amount
+            result = {}
+            for d in sorted(self.notes, reverse=True):
+                use = min(remaining // d, self.notes[d])   # as many as we need and have
+                if use:
+                    result[d] = use
+                    remaining -= use * d
+            return result if remaining == 0 else None      # None = cannot pay this exact amount
+
+    def commit(self, plan):
+        with self._lock:                       # now really remove the notes
+            for d, n in plan.items():
+                self.notes[d] -= n
+
+
+# ---------- transaction rules (Strategy; empty by default) ----------
+
+class WithdrawalRule(ABC):
+    @abstractmethod
+    def check(self, card_no, amount):          # return None if OK, or an error text
+        pass
+    def record(self, card_no, amount):         # called after a successful withdrawal
+        pass
+
+
+# ---------- transactions as Command objects ----------
+
+class Command(ABC):
+    name = "COMMAND"
+    @abstractmethod
+    def execute(self, atm):
+        pass
+
+
+class BalanceCommand(Command):
+    name = "BALANCE"
+    def execute(self, atm):
+        return "balance " + str(atm.bank.balance(atm.card_no))
+
+
+class DepositCommand(Command):
+    name = "DEPOSIT"
+    def __init__(self, amount):
+        self.amount = amount
+    def execute(self, atm):
+        if self.amount &lt;= 0:
+            return "invalid amount"
+        atm.bank.credit(atm.card_no, self.amount)
+        return "deposited " + str(self.amount)
+
+
+class WithdrawCommand(Command):
+    name = "WITHDRAW"
+    def __init__(self, amount):
+        self.amount = amount
+    def execute(self, atm):
+        if self.amount &lt;= 0:
+            return "invalid amount"
+        for rule in atm.rules:                 # extra rules (daily limit etc.)
+            problem = rule.check(atm.card_no, self.amount)
+            if problem:
+                return problem
+        plan = atm.dispenser.plan(self.amount)         # step 1: can we pay in notes? (nothing changes yet)
+        if plan is None:
+            return "ATM cannot pay this amount"
+        try:
+            atm.bank.debit(atm.card_no, self.amount)   # step 2: take money from the account
+        except InsufficientFunds:
+            return "insufficient funds"
+        atm.dispenser.commit(plan)                     # step 3: give notes (cannot fail: we planned them)
+        for rule in atm.rules:
+            rule.record(atm.card_no, self.amount)
+        return "dispensed " + str(self.amount) + " as " + str(plan)
+
+
+# ---------- ATM states ----------
+
+class ATMState:
+    name = "STATE"
+    # defaults: every action is refused unless a state overrides it
+    def insert_card(self, atm, card_no): return "not allowed now (" + self.name + ")"
+    def enter_pin(self, atm, pin):       return "not allowed now (" + self.name + ")"
+    def perform(self, atm, command):     return "not allowed now (" + self.name + ")"
+    def eject(self, atm):                return "no card"
+
+
+class IdleState(ATMState):
+    name = "IDLE"
+    def insert_card(self, atm, card_no):
+        if atm.bank.is_blocked(card_no):
+            return "card is blocked, contact your bank"
+        atm.card_no = card_no
+        atm.pin_attempts = 0
+        atm.state = PinEntryState()
+        return "enter PIN"
+
+
+class PinEntryState(ATMState):
+    name = "PIN_ENTRY"
+    MAX_ATTEMPTS = 3
+    def enter_pin(self, atm, pin):
+        if atm.bank.verify_pin(atm.card_no, pin):
+            atm.state = MenuState()
+            return "welcome"
+        atm.pin_attempts += 1
+        if atm.pin_attempts &gt;= self.MAX_ATTEMPTS:
+            atm.bank.block_card(atm.card_no)   # too many wrong tries
+            atm.reset()
+            return "wrong PIN, card blocked"
+        return "wrong PIN, " + str(self.MAX_ATTEMPTS - atm.pin_attempts) + " tries left"
+    def eject(self, atm):
+        atm.reset()
+        return "card returned"
+
+
+class MenuState(ATMState):
+    name = "MENU"
+    def perform(self, atm, command):
+        result = command.execute(atm)          # the command does the real work
+        atm.history.append((command.name, result))     # every transaction is recorded
+        return result
+    def eject(self, atm):
+        atm.reset()
+        return "card returned"
+
+
+# ---------- the ATM ----------
+
+class ATM:
+    def __init__(self, bank, dispenser, rules=None):
+        self.bank = bank
+        self.dispenser = dispenser
+        self.rules = rules or []               # list of WithdrawalRule
+        self.state = IdleState()
+        self.card_no = None
+        self.pin_attempts = 0
+        self.history = []
+        self._lock = threading.RLock()
+
+    def reset(self):
+        self.card_no = None                    # forget the customer completely
+        self.pin_attempts = 0
+        self.state = IdleState()
+
+    # public API: lock, then let the current state decide
+    def insert_card(self, card_no):
+        with self._lock: return self.state.insert_card(self, card_no)
+    def enter_pin(self, pin):
+        with self._lock: return self.state.enter_pin(self, pin)
+    def withdraw(self, amount):
+        with self._lock: return self.state.perform(self, WithdrawCommand(amount))
+    def deposit(self, amount):
+        with self._lock: return self.state.perform(self, DepositCommand(amount))
+    def check_balance(self):
+        with self._lock: return self.state.perform(self, BalanceCommand())
+    def eject_card(self):
+        with self._lock: return self.state.eject(self)
+
+
+# ---------- EXTENSION: a daily withdrawal limit (new class only) ----------
+
+class DailyLimitRule(WithdrawalRule):
+    def __init__(self, limit):
+        self.limit = limit
+        self.used = {}                         # card_no -&gt; amount withdrawn today
+    def check(self, card_no, amount):
+        if self.used.get(card_no, 0) + amount &gt; self.limit:
+            return "daily limit " + str(self.limit) + " exceeded"
+        return None
+    def record(self, card_no, amount):
+        self.used[card_no] = self.used.get(card_no, 0) + amount
+
+
+class TransferCommand(Command):                # EXTENSION: new transaction = new Command class
+    name = "TRANSFER"
+    def __init__(self, to_card, amount):
+        self.to_card = to_card
+        self.amount = amount
+    def execute(self, atm):
+        try:
+            atm.bank.debit(atm.card_no, self.amount)
+        except InsufficientFunds:
+            return "insufficient funds"
+        atm.bank.credit(self.to_card, self.amount)
+        return "transferred " + str(self.amount) + " to " + self.to_card
+
+
+def main():
+    bank = InMemoryBank()
+    bank.add_account("CARD-1", "1234", 5000)
+    bank.add_account("CARD-2", "9999", 800)
+    atm = ATM(bank, CashDispenser({500: 20, 200: 5, 100: 10}))
+
+    print("withdraw without card -&gt;", atm.withdraw(100))
+    print("insert card   -&gt;", atm.insert_card("CARD-1"))
+    print("wrong PIN     -&gt;", atm.enter_pin("0000"))
+    print("right PIN     -&gt;", atm.enter_pin("1234"))
+    print("balance       -&gt;", atm.check_balance())
+    print("withdraw 1700 -&gt;", atm.withdraw(1700))
+    print("withdraw 25   -&gt;", atm.withdraw(25))
+    print("withdraw 6000 -&gt;", atm.withdraw(6000))
+    print("deposit 300   -&gt;", atm.deposit(300))
+    print("balance       -&gt;", atm.check_balance())
+    print("eject         -&gt;", atm.eject_card())
+    print("history       -&gt;", atm.history)
+
+    print("--- three wrong PINs ---")
+    print(atm.insert_card("CARD-2"))
+    for _ in range(3):
+        print(atm.enter_pin("1111"))
+    print("insert again  -&gt;", atm.insert_card("CARD-2"))
+
+    # ---- known weakness of the greedy note plan ----
+    print("--- greedy weakness ---")
+    print("plan 600 with {500: 1, 200: 3} -&gt;", CashDispenser({500: 1, 200: 3}).plan(600),
+          "(but 3 x 200 would work!)")
+
+    # ---- extension demo ----
+    print("--- extension: daily limit + transfer ---")
+    atm2 = ATM(bank, CashDispenser({500: 10}), rules=[DailyLimitRule(1000)])
+    atm2.insert_card("CARD-1"); atm2.enter_pin("1234")
+    print(atm2.withdraw(500))
+    print(atm2.withdraw(500))
+    print(atm2.withdraw(500))                  # would reach 1500 &gt; limit 1000
+    print(atm2.state.perform(atm2, TransferCommand("CARD-2", 250)))
+    print("CARD-2 balance now:", bank.balance("CARD-2"))
+
+    # ---- thread test: 10 ATMs withdraw 200 each from one account that holds 1000 ----
+    print("--- thread test ---")
+    bank3 = InMemoryBank()
+    bank3.add_account("SHARED", "1", 1000)
+    results = []
+    def user():
+        a = ATM(bank3, CashDispenser({200: 50}))       # each thread has its own ATM, same bank account
+        a.insert_card("SHARED"); a.enter_pin("1")
+        results.append(a.withdraw(200))
+    threads = [threading.Thread(target=user) for _ in range(10)]
+    for t in threads: t.start()
+    for t in threads: t.join()
+    ok = sum(1 for r in results if r.startswith("dispensed"))
+    print("successful withdrawals:", ok, "| final balance:", bank3.balance("SHARED"))
+
+
+if __name__ == "__main__":
+    main()
+</code></pre>
+
+<p>Output I got when I ran it:</p>
+
+<pre><code>withdraw without card -&gt; not allowed now (IDLE)
+insert card   -&gt; enter PIN
+wrong PIN     -&gt; wrong PIN, 2 tries left
+right PIN     -&gt; welcome
+balance       -&gt; balance 5000
+withdraw 1700 -&gt; dispensed 1700 as {500: 3, 200: 1}
+withdraw 25   -&gt; ATM cannot pay this amount
+withdraw 6000 -&gt; insufficient funds
+deposit 300   -&gt; deposited 300
+balance       -&gt; balance 3600
+eject         -&gt; card returned
+history       -&gt; [('BALANCE', 'balance 5000'), ('WITHDRAW', 'dispensed 1700 as {500: 3, 200: 1}'), ('WITHDRAW', 'ATM cannot pay this amount'), ('WITHDRAW', 'insufficient funds'), ('DEPOSIT', 'deposited 300'), ('BALANCE', 'balance 3600')]
+--- three wrong PINs ---
+enter PIN
+wrong PIN, 2 tries left
+wrong PIN, 1 tries left
+wrong PIN, card blocked
+insert again  -&gt; card is blocked, contact your bank
+--- greedy weakness ---
+plan 600 with {500: 1, 200: 3} -&gt; None (but 3 x 200 would work!)
+--- extension: daily limit + transfer ---
+dispensed 500 as {500: 1}
+dispensed 500 as {500: 1}
+daily limit 1000 exceeded
+transferred 250 to CARD-2
+CARD-2 balance now: 1050
+--- thread test ---
+successful withdrawals: 5 | final balance: 0
+</code></pre>
+
+<hr />
+
+<h2 id="5-how-the-code-works-walk-through">5. How the code works (walk through)</h2>
+
+<ol>
+<li><code>ATM</code> public methods lock, then call the <strong>current state</strong>. <code>IdleState</code> accepts only <code>insert_card</code>; <code>PinEntryState</code> only <code>enter_pin</code>; <code>MenuState</code> accepts transactions. The base class <code>ATMState</code> refuses everything by default, so each state lists only what it allows.</li>
+<li><code>WithdrawCommand.execute</code> is the key method. It has three steps in a careful order: <strong>plan the notes</strong> (nothing changes), <strong>debit the account</strong> (can fail: no change to cash), then <strong>commit the notes</strong> (cannot fail, as it was planned). So the bank never loses money without cash coming out, and cash never comes out without a debit.</li>
+<li>The <code>MenuState</code> stores every <code>(command name, result)</code> in <code>history</code>: a free audit trail thanks to the Command pattern.</li>
+<li>Three wrong PINs call <code>bank.block_card</code> and reset the ATM, so the next <code>insert_card</code> is refused.</li>
+</ol>
+
+<hr />
+
+<h2 id="6-how-to-extend-it">6. How to extend it</h2>
+
+<p><strong>"Add a daily limit."</strong> <code>DailyLimitRule</code> is a new class passed in <code>rules</code>. <code>WithdrawCommand</code> already loops over rules. (Small honest note: a real limit needs a date; here <code>used</code> never resets. Say that out loud.)</p>
+
+<p><strong>"Add money transfer."</strong> <code>TransferCommand</code> is a new <code>Command</code> class. No state or ATM code changes. See the extension output.</p>
+
+<p><strong>"Add a PIN change, mini-statement, or cardless cash."</strong> Each one is a new <code>Command</code>. For cardless cash, add a new state before <code>PinEntry</code>.</p>
+
+<p><strong>"Support different note sets per country."</strong> The <code>CashDispenser</code> already takes the notes in its constructor. For a smarter payout, make <code>plan</code> a Strategy (<code>GreedyPlan</code>, <code>MinimumNotesDP</code>).</p>
+
+<hr />
+
+<h2 id="7-thread-safety-notes-plain-words">7. Thread-safety notes (plain words)</h2>
+
+<ul>
+<li><strong>One ATM, one customer:</strong> the ATM has a lock so that its own state never mixes two actions.</li>
+<li><strong>Many ATMs, one account:</strong> this is the real danger. Two ATMs read balance 1000 at the same time and both pay 200 ... eventually the account is overdrawn. <strong>The check and the subtraction must be one atomic step</strong>, so <code>debit</code> holds the account's lock for both. The thread test: 10 ATMs try to take 200 from 1000; exactly 5 succeed and the final balance is 0.</li>
+<li><strong>Lock order:</strong> the ATM lock is taken first, then the bank's account lock. A thread never takes them in the other order, so they cannot deadlock.</li>
+<li>In a real system the bank is a remote database; the same idea is done with a transaction (<code>UPDATE ... SET balance = balance - 200 WHERE balance &gt;= 200</code>).</li>
+</ul>
+
+<hr />
+
+<h2 id="8-five-follow-up-questions-with-model-answers">8. Five follow-up questions with model answers</h2>
+
+<p><strong>Q1. Why is the order "plan notes, debit, commit notes"?</strong>
+Each step is easier to undo or cannot fail. Planning changes nothing. Debit can fail, and if it does, we stop with nothing changed. Commit of planned notes cannot fail. If I debited first and then found the ATM had no notes, I would have to reverse the debit (a <em>compensation</em>), which is more complex.</p>
+
+<p><strong>Q2. Why Command objects, not just methods on <code>ATM</code>?</strong>
+A Command is an object, so I can store it (history), log it, or even queue or undo it. Adding "transfer" means adding one class, and the ATM and states are untouched (Open/Closed). The cost is one small class per transaction.</p>
+
+<p><strong>Q3. What if the network to the bank goes down during a withdrawal?</strong>
+The ATM does not know if the debit happened. Use an <strong>idempotency key</strong>: each withdrawal gets a unique id; the bank remembers ids it already processed. After the network returns, the ATM asks "did transaction X succeed?" and either dispenses or cancels. I would mention this and not code it.</p>
+
+<p><strong>Q4. How do you store the PIN safely?</strong>
+Never plain text. The bank stores a salted hash, and the PIN is checked inside secure hardware. In my demo, I store it in plain text only to keep the code short, and I say so.</p>
+
+<p><strong>Q5. Is the greedy note plan always correct?</strong>
+No. Greedy takes the biggest notes first, and with <strong>limited counts</strong> it can fail even when a valid payout exists. The demo shows it: the ATM has one 500 note and three 200 notes, and the amount is 600. Greedy takes the 500, is left with 100, cannot pay it, and returns <code>None</code>, but three 200 notes would work. The safe general answer is dynamic programming (a "bounded coin change"), or trying other combinations when greedy fails. I would ask the interviewer if they want this; greedy plus this explanation is usually enough.</p>
+
+<hr />
+
+<p><strong>Next:</strong> <code>16_rate_limiter_class.md</code>.</p>
+<div class="pn"><span><a href="14_vending_machine.html">&larr; 14 - Vending Machine (State pattern)</a></span><span><a href="16_rate_limiter_class.html">16 - Rate Limiter (class design: token b &rarr;</a></span></div></main></div></body></html>

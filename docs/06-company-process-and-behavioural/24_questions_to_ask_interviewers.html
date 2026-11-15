@@ -1,0 +1,137 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>24. Questions to ask interviewers | Interview prep</title><style>
+:root{--bg:#fff;--fg:#1f2328;--mut:#59636e;--bd:#d1d9e0;--ac:#0b57d0;--cb:#f6f8fa;--sb:#f6f8fa}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9198a1;--bd:#30363d;--ac:#6cb6ff;--cb:#161b22;--sb:#010409}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{display:flex;min-height:100vh}nav{width:300px;flex:none;background:var(--sb);border-right:1px solid var(--bd);padding:16px;overflow:auto;position:sticky;top:0;height:100vh}
+nav a{color:var(--fg);text-decoration:none;display:block;padding:3px 6px;border-radius:6px;font-size:14px}nav a:hover{background:var(--cb)}nav a.cur{background:var(--ac);color:#fff}
+nav summary{cursor:pointer;font-weight:600;padding:6px 0}nav .home{font-weight:700;font-size:16px;margin-bottom:8px}
+main{flex:1;min-width:0;max-width:900px;padding:24px 32px 80px;margin:0 auto}
+h1,h2,h3{line-height:1.25}h1{border-bottom:1px solid var(--bd);padding-bottom:.3em}h2{border-bottom:1px solid var(--bd);padding-bottom:.25em;margin-top:2em}
+a{color:var(--ac)}pre{background:var(--cb);border:1px solid var(--bd);border-radius:8px;padding:14px;overflow:auto;font-size:13.5px;line-height:1.5}
+code{background:var(--cb);padding:.15em .35em;border-radius:5px;font-size:.92em}pre code{background:none;padding:0}
+table{border-collapse:collapse;display:block;overflow:auto;max-width:100%}th,td{border:1px solid var(--bd);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--cb)}
+blockquote{border-left:4px solid var(--bd);margin:0;padding:0 1em;color:var(--mut)}img{max-width:100%}
+.top{display:none}.pn{display:flex;justify-content:space-between;gap:12px;margin-top:48px;border-top:1px solid var(--bd);padding-top:16px;font-size:14px}
+@media(max-width:820px){.wrap{display:block}nav{width:auto;height:auto;position:static;border-right:0;border-bottom:1px solid var(--bd)}main{padding:16px}}
+</style></head><body><div class="wrap"><nav><a class="home" href="../index.html">Interview prep</a><details><summary>Data structures and algorithms</summary><a href="../01-dsa/00_how_to_start.html">How to start: reading a problem, the 5-step method, and Big-</a><a href="../01-dsa/01_arrays_and_strings.html">Lesson 01. Arrays and Strings</a><a href="../01-dsa/02_hash_maps_and_sets.html">Lesson 02. Hash Maps and Sets</a><a href="../01-dsa/03_two_pointers.html">Lesson 03. Two Pointers</a><a href="../01-dsa/04_sliding_window.html">Lesson 04. Sliding Window</a><a href="../01-dsa/05_stack_and_queue.html">Lesson 05. Stack and Queue (including the monotonic stack)</a><a href="../01-dsa/06_binary_search.html">Lesson 06. Binary Search (including search on the answer)</a><a href="../01-dsa/07_linked_lists.html">Lesson 07. Linked Lists</a><a href="../01-dsa/08_trees_and_bst.html">Lesson 08. Trees and Binary Search Trees (BST)</a><a href="../01-dsa/09_heaps_and_priority_queues.html">Lesson 09: Heaps and Priority Queues</a><a href="../01-dsa/10_graphs_bfs_dfs.html">Lesson 10: Graphs, BFS and DFS (including grids)</a><a href="../01-dsa/11_topological_sort_and_union_find.html">Lesson 11: Topological Sort and Union-Find</a><a href="../01-dsa/12_shortest_paths.html">Lesson 12: Shortest Paths (Dijkstra in plain words)</a><a href="../01-dsa/13_intervals.html">Lesson 13: Intervals (merge intervals, meeting rooms)</a><a href="../01-dsa/14_backtracking.html">Lesson 14: Backtracking (subsets, permutations, combination </a><a href="../01-dsa/15_dynamic_programming_part1.html">Lesson 15: Dynamic Programming, Part 1 (remembering answers)</a><a href="../01-dsa/16_dynamic_programming_part2.html">Lesson 16: Dynamic Programming, Part 2 (LIS, word break, kna</a><a href="../01-dsa/17_tries_and_greedy.html">Lesson 17: Tries and Greedy</a><a href="../01-dsa/18_bit_tricks_and_math_basics.html">Lesson 18: Bit Tricks and Math Basics (short)</a><a href="../01-dsa/19_company_question_patterns.html">Lesson 19: Company Question Patterns (Google, Amazon, Meta, </a></details><details><summary>System design</summary><a href="../02-system-design/00_how_the_round_works.html">How the System Design Round Works</a><a href="../02-system-design/01a_client_server_and_http.html">Client, Server and HTTP</a><a href="../02-system-design/01b_dns_and_cdn.html">DNS and CDN</a><a href="../02-system-design/01c_load_balancers.html">Load Balancers</a><a href="../02-system-design/01d_databases.html">Databases: SQL vs NoSQL, Indexes, Transactions</a><a href="../02-system-design/01e_caching.html">Caching (and Why Invalidation Is Hard)</a><a href="../02-system-design/01f_sharding_and_replication.html">Sharding and Replication</a><a href="../02-system-design/01g_message_queues_and_streams.html">Message Queues and Streams (Kafka Basics)</a><a href="../02-system-design/01h_consistency_and_cap.html">Consistency and the CAP Idea (in Plain Words)</a><a href="../02-system-design/02_numbers_and_estimation.html">Numbers and Estimation</a><a href="../02-system-design/03_reliability_patterns.html">Reliability Patterns</a><a href="../02-system-design/10_url_shortener.html">Design a URL Shortener</a><a href="../02-system-design/11_rate_limiter.html">Design a Rate Limiter</a><a href="../02-system-design/12_chat_system.html">Design a Chat System (like WhatsApp or Slack)</a><a href="../02-system-design/13_news_feed.html">Design a News Feed (like Instagram, Facebook or Twitter/X ho</a><a href="../02-system-design/14_notification_service.html">Design a Notification Service</a><a href="../02-system-design/15_file_storage_like_drive.html">Design File Storage and Sync (like Google Drive or Dropbox)</a><a href="../02-system-design/16_search_autocomplete.html">Design Search Autocomplete (Typeahead)</a><a href="../02-system-design/17_video_streaming_basics.html">Design Video Streaming Basics (like YouTube or Netflix)</a><a href="../02-system-design/18_payment_system_like_stripe.html">Design a Payment System (like Stripe)</a><a href="../02-system-design/19_order_management_like_amazon.html">Design an Order Management System (like Amazon: inventory, o</a><a href="../02-system-design/20_job_scheduler_and_workflow_engine.html">Design a Job Scheduler and Workflow Engine</a><a href="../02-system-design/21_api_gateway_and_auth_system.html">Design an API Gateway and Auth System</a><a href="../02-system-design/22_logging_and_metrics_platform.html">Design a Logging and Metrics Platform</a><a href="../02-system-design/90_cheat_sheet.html">Cheat Sheet (one page)</a><a href="../02-system-design/91_practice_questions.html">Practice Questions (30)</a></details><details><summary>Low-level design</summary><a href="../03-low-level-design/00_how_the_lld_round_works.html">- How the LLD round works</a><a href="../03-low-level-design/01_oop_in_plain_words.html">- OOP in plain words</a><a href="../03-low-level-design/02_solid_principles.html">- SOLID principles</a><a href="../03-low-level-design/03_design_patterns_you_need.html">- The 8 design patterns you need</a><a href="../03-low-level-design/10_parking_lot.html">- Parking Lot</a><a href="../03-low-level-design/11_lru_cache.html">- LRU Cache</a><a href="../03-low-level-design/12_elevator_system.html">- Elevator System</a><a href="../03-low-level-design/13_library_management.html">- Library Management System</a><a href="../03-low-level-design/14_vending_machine.html">- Vending Machine (State pattern)</a><a href="../03-low-level-design/15_atm.html">- ATM</a><a href="../03-low-level-design/16_rate_limiter_class.html">- Rate Limiter (class design: token bucket and sliding windo</a><a href="../03-low-level-design/17_amazon_locker.html">- Amazon Locker</a><a href="../03-low-level-design/18_splitwise_expense_sharing.html">- Splitwise (Expense Sharing)</a><a href="../03-low-level-design/19_logger_and_notification_system.html">- Logger and Notification System (Observer and Strategy)</a><a href="../03-low-level-design/20_tic_tac_toe_or_chess_basics.html">- Tic-Tac-Toe (full) and Chess basics</a><a href="../03-low-level-design/90_cheat_sheet.html">- Cheat sheet (read the night before)</a><a href="../03-low-level-design/91_practice_questions.html">- Practice questions (20)</a></details><details><summary>DevOps and platform basics</summary><a href="../05-devops-platform-basics/01_linux_processes_memory_files.html">Linux: processes, memory, and files</a><a href="../05-devops-platform-basics/02_networking.html">Networking: TCP, DNS, TLS, NAT</a><a href="../05-devops-platform-basics/03_containers_and_docker.html">Containers and Docker</a><a href="../05-devops-platform-basics/04_kubernetes_from_zero.html">Kubernetes from zero</a><a href="../05-devops-platform-basics/05_helm.html">Helm</a><a href="../05-devops-platform-basics/06_terraform.html">Terraform</a><a href="../05-devops-platform-basics/07_ci_cd_github_actions.html">CI/CD with GitHub Actions</a><a href="../05-devops-platform-basics/08_observability_and_sre.html">Observability and SRE</a><a href="../05-devops-platform-basics/09_concurrency_and_distributed_basics.html">Concurrency and distributed basics</a><a href="../05-devops-platform-basics/10_databases_basics.html">Databases basics</a><a href="../05-devops-platform-basics/11_security_basics.html">Security basics (IAM, OAuth2/OIDC/JWT, secrets, supply chain</a><a href="../05-devops-platform-basics/12_gcp_pca_quick_map.html">Google Cloud quick map (for Professional Cloud Architect hol</a><a href="../05-devops-platform-basics/20_interview_questions_with_answers.html">Sixty interview questions with model answers (platform / SRE</a><a href="../05-devops-platform-basics/21_scenario_questions.html">Fifteen &quot;production is down&quot; scenarios, with step-by-step an</a></details><details open><summary>Company processes</summary><a href="10_google.html">Google</a><a href="11_amazon.html">Amazon</a><a href="12_stripe.html">Stripe</a><a href="13_microsoft_and_azure_roles.html">Microsoft and Azure roles</a><a href="14_indian_product_and_gcc_companies.html">Indian product companies and GCCs</a><a href="15_european_scaleups.html">European scale-ups and visa basics</a><a href="16_ai_startups_like_smallest_ai.html">AI startups like Smallest AI</a><a class="cur" href="24_questions_to_ask_interviewers.html">Questions to ask interviewers</a><a href="25_salary_notice_period_and_offer_negotiation_india_and_abroad.html">Salary, notice period and offer negotiation (India and abroa</a><a href="26_interview_day_checklists.html">Interview day checklists</a></details></nav><main><h1 id="24-questions-to-ask-interviewers">24. Questions to ask interviewers</h1>
+
+<h2 id="why-this-matters">Why this matters</h2>
+
+<p>At the end, almost every interviewer says: "Do you have any questions for me?" Amazon's guide says to prepare thoughtful questions for your interviewers (<a href="https://www.aboutamazon.com/news/workplace/amazon-interview-guide">Official</a>). Good questions show you are serious and help you decide if you want the job.</p>
+
+<p>Rules:</p>
+
+<ol>
+<li>Prepare 5 questions per company. Ask 2 or 3 per interviewer. Do not repeat the same question to every person.</li>
+<li>Ask about <strong>work</strong>, not only about money or holidays.</li>
+<li>Do not ask something that is on the careers page. That shows you did not read.</li>
+<li>Write the answers down after the call. They help you compare offers.</li>
+<li>It is fine to say, "I am still thinking, I will email you."</li>
+</ol>
+
+<p>(All of this is [General advice].)</p>
+
+<h2 id="to-the-recruiter">To the recruiter</h2>
+
+<ul>
+<li>What are the next steps and how long does each take?</li>
+<li>What level is this role? (For example SDE II or L4.) Is the level fixed or could it change after the interviews?</li>
+<li>How many rounds are there? What does each one test?</li>
+<li>Is any round done with an AI assistant, or is AI not allowed?</li>
+<li>Is the round on video or in person?</li>
+<li>Is this role open in India only, or can it be done abroad? Is there relocation and visa help?</li>
+<li>What is the notice-period expectation and the usual joining time?</li>
+<li>(Salary: ask about the <strong>range of the role</strong>. Do not give your number first. See file 25.)</li>
+</ul>
+
+<h2 id="to-an-engineer-peer">To an engineer (peer)</h2>
+
+<ul>
+<li>What does a normal week look like on your team?</li>
+<li>What was the hardest technical problem your team solved this year?</li>
+<li>How do you release code? How often? What happens when a release goes wrong?</li>
+<li>How do you handle on-call? How often are you paged?</li>
+<li>How do you decide what to build and what to postpone?</li>
+<li>What do you wish was better about the codebase or the tools?</li>
+<li>How do new engineers get started in the first month?</li>
+</ul>
+
+<h2 id="to-the-hiring-manager">To the hiring manager</h2>
+
+<ul>
+<li>What would success look like in the first 6 months for this role?</li>
+<li>What are the team's biggest challenges now?</li>
+<li>How do you give feedback and how do people get promoted here?</li>
+<li>What kind of engineer does well on your team?</li>
+<li>How is the team split between new features and keeping things running?</li>
+<li>How does the team work with other teams?</li>
+<li>What is something you would change about how the team works?</li>
+</ul>
+
+<h2 id="for-a-senior-person-or-a-bar-raiser-type-interviewer">For a senior person or a bar-raiser type interviewer</h2>
+
+<ul>
+<li>What do you think makes a person succeed at this company long term?</li>
+<li>How has the company's engineering changed in the last 2 years?</li>
+<li>What makes you stay here?</li>
+</ul>
+
+<h2 id="for-platform-sre-and-infrastructure-roles-fits-your-background">For platform, SRE and infrastructure roles (fits your background)</h2>
+
+<ul>
+<li>What does the platform look like: cloud, Kubernetes, CI/CD?</li>
+<li>How do you handle secrets and access control?</li>
+<li>What are your uptime goals? How do you measure them?</li>
+<li>What does the monitoring stack look like?</li>
+<li>What does a blameless post-incident review look like here?</li>
+<li>How much of the work is toil, and what are you doing about it?</li>
+</ul>
+
+<h2 id="for-payments-companies-stripe-adyen-klarna-paypal-razorpay-phonepe">For payments companies (Stripe, Adyen, Klarna, PayPal, Razorpay, PhonePe)</h2>
+
+<ul>
+<li>How do you make sure a payment is never charged twice?</li>
+<li>How do you handle a downstream bank or partner being slow or down?</li>
+<li>How are changes reviewed and approved for money-moving code?</li>
+</ul>
+
+<h2 id="for-ai-startups-smallest-ai-and-similar">For AI startups (Smallest AI and similar)</h2>
+
+<ul>
+<li>What is the main thing the team must ship in the next 3 months?</li>
+<li>How big is the engineering team? Who would I work with?</li>
+<li>How do you decide between speed and quality?</li>
+<li>How do you measure the quality of your models in production?</li>
+<li>What does an average week of hiring and onboarding look like?</li>
+</ul>
+
+<h2 id="for-amazon-specifically">For Amazon specifically</h2>
+
+<ul>
+<li>How do teams here use the Leadership Principles day to day?</li>
+<li>What is a recent example of a project that was stopped or changed, and why?</li>
+<li>How does the team use AI tools in its work? (Candidates report AI questions appear in Amazon loops; one source says so, with low confidence.)</li>
+</ul>
+
+<h2 id="for-european-companies">For European companies</h2>
+
+<ul>
+<li>Is the company a recognised visa sponsor? How long does permit processing usually take?</li>
+<li>Is relocation help provided (flights, housing for first weeks)?</li>
+<li>What language is used at work and in the team?</li>
+<li>Is there an expectation to work from the office, and how many days?</li>
+</ul>
+
+<h2 id="questions-not-to-ask-early">Questions NOT to ask early</h2>
+
+<ul>
+<li>"How soon can I get promoted?"</li>
+<li>"How many holidays do I get?" (Ask the recruiter later.)</li>
+<li>"What does the company do?" (Read before.)</li>
+<li>Anything about firing or layoffs in a negative tone.</li>
+</ul>
+
+<h2 id="after-the-interview">After the interview</h2>
+
+<p>Send a short thank-you email within a day. Three lines: thank you, one thing you liked from the talk, and that you look forward to the next step. Amazon calls thank-you notes optional (<a href="https://www.aboutamazon.com/news/workplace/amazon-interview-guide">Official</a>). If you do not hear back within the stated time, send a polite follow-up to the recruiter (also in Amazon's guide).</p>
+<div class="pn"><span><a href="16_ai_startups_like_smallest_ai.html">&larr; 16. AI startups like Smallest AI</a></span><span><a href="25_salary_notice_period_and_offer_negotiation_india_and_abroad.html">25. Salary, notice period and offer nego &rarr;</a></span></div></main></div></body></html>

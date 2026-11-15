@@ -1,0 +1,359 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>11. Security basics (IAM, OAuth2/OIDC/JWT, secrets, supply chain, Trivy) | Interview prep</title><style>
+:root{--bg:#fff;--fg:#1f2328;--mut:#59636e;--bd:#d1d9e0;--ac:#0b57d0;--cb:#f6f8fa;--sb:#f6f8fa}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9198a1;--bd:#30363d;--ac:#6cb6ff;--cb:#161b22;--sb:#010409}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{display:flex;min-height:100vh}nav{width:300px;flex:none;background:var(--sb);border-right:1px solid var(--bd);padding:16px;overflow:auto;position:sticky;top:0;height:100vh}
+nav a{color:var(--fg);text-decoration:none;display:block;padding:3px 6px;border-radius:6px;font-size:14px}nav a:hover{background:var(--cb)}nav a.cur{background:var(--ac);color:#fff}
+nav summary{cursor:pointer;font-weight:600;padding:6px 0}nav .home{font-weight:700;font-size:16px;margin-bottom:8px}
+main{flex:1;min-width:0;max-width:900px;padding:24px 32px 80px;margin:0 auto}
+h1,h2,h3{line-height:1.25}h1{border-bottom:1px solid var(--bd);padding-bottom:.3em}h2{border-bottom:1px solid var(--bd);padding-bottom:.25em;margin-top:2em}
+a{color:var(--ac)}pre{background:var(--cb);border:1px solid var(--bd);border-radius:8px;padding:14px;overflow:auto;font-size:13.5px;line-height:1.5}
+code{background:var(--cb);padding:.15em .35em;border-radius:5px;font-size:.92em}pre code{background:none;padding:0}
+table{border-collapse:collapse;display:block;overflow:auto;max-width:100%}th,td{border:1px solid var(--bd);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--cb)}
+blockquote{border-left:4px solid var(--bd);margin:0;padding:0 1em;color:var(--mut)}img{max-width:100%}
+.top{display:none}.pn{display:flex;justify-content:space-between;gap:12px;margin-top:48px;border-top:1px solid var(--bd);padding-top:16px;font-size:14px}
+@media(max-width:820px){.wrap{display:block}nav{width:auto;height:auto;position:static;border-right:0;border-bottom:1px solid var(--bd)}main{padding:16px}}
+</style></head><body><div class="wrap"><nav><a class="home" href="../index.html">Interview prep</a><details><summary>Data structures and algorithms</summary><a href="../01-dsa/00_how_to_start.html">How to start: reading a problem, the 5-step method, and Big-</a><a href="../01-dsa/01_arrays_and_strings.html">Lesson 01. Arrays and Strings</a><a href="../01-dsa/02_hash_maps_and_sets.html">Lesson 02. Hash Maps and Sets</a><a href="../01-dsa/03_two_pointers.html">Lesson 03. Two Pointers</a><a href="../01-dsa/04_sliding_window.html">Lesson 04. Sliding Window</a><a href="../01-dsa/05_stack_and_queue.html">Lesson 05. Stack and Queue (including the monotonic stack)</a><a href="../01-dsa/06_binary_search.html">Lesson 06. Binary Search (including search on the answer)</a><a href="../01-dsa/07_linked_lists.html">Lesson 07. Linked Lists</a><a href="../01-dsa/08_trees_and_bst.html">Lesson 08. Trees and Binary Search Trees (BST)</a><a href="../01-dsa/09_heaps_and_priority_queues.html">Lesson 09: Heaps and Priority Queues</a><a href="../01-dsa/10_graphs_bfs_dfs.html">Lesson 10: Graphs, BFS and DFS (including grids)</a><a href="../01-dsa/11_topological_sort_and_union_find.html">Lesson 11: Topological Sort and Union-Find</a><a href="../01-dsa/12_shortest_paths.html">Lesson 12: Shortest Paths (Dijkstra in plain words)</a><a href="../01-dsa/13_intervals.html">Lesson 13: Intervals (merge intervals, meeting rooms)</a><a href="../01-dsa/14_backtracking.html">Lesson 14: Backtracking (subsets, permutations, combination </a><a href="../01-dsa/15_dynamic_programming_part1.html">Lesson 15: Dynamic Programming, Part 1 (remembering answers)</a><a href="../01-dsa/16_dynamic_programming_part2.html">Lesson 16: Dynamic Programming, Part 2 (LIS, word break, kna</a><a href="../01-dsa/17_tries_and_greedy.html">Lesson 17: Tries and Greedy</a><a href="../01-dsa/18_bit_tricks_and_math_basics.html">Lesson 18: Bit Tricks and Math Basics (short)</a><a href="../01-dsa/19_company_question_patterns.html">Lesson 19: Company Question Patterns (Google, Amazon, Meta, </a></details><details><summary>System design</summary><a href="../02-system-design/00_how_the_round_works.html">How the System Design Round Works</a><a href="../02-system-design/01a_client_server_and_http.html">Client, Server and HTTP</a><a href="../02-system-design/01b_dns_and_cdn.html">DNS and CDN</a><a href="../02-system-design/01c_load_balancers.html">Load Balancers</a><a href="../02-system-design/01d_databases.html">Databases: SQL vs NoSQL, Indexes, Transactions</a><a href="../02-system-design/01e_caching.html">Caching (and Why Invalidation Is Hard)</a><a href="../02-system-design/01f_sharding_and_replication.html">Sharding and Replication</a><a href="../02-system-design/01g_message_queues_and_streams.html">Message Queues and Streams (Kafka Basics)</a><a href="../02-system-design/01h_consistency_and_cap.html">Consistency and the CAP Idea (in Plain Words)</a><a href="../02-system-design/02_numbers_and_estimation.html">Numbers and Estimation</a><a href="../02-system-design/03_reliability_patterns.html">Reliability Patterns</a><a href="../02-system-design/10_url_shortener.html">Design a URL Shortener</a><a href="../02-system-design/11_rate_limiter.html">Design a Rate Limiter</a><a href="../02-system-design/12_chat_system.html">Design a Chat System (like WhatsApp or Slack)</a><a href="../02-system-design/13_news_feed.html">Design a News Feed (like Instagram, Facebook or Twitter/X ho</a><a href="../02-system-design/14_notification_service.html">Design a Notification Service</a><a href="../02-system-design/15_file_storage_like_drive.html">Design File Storage and Sync (like Google Drive or Dropbox)</a><a href="../02-system-design/16_search_autocomplete.html">Design Search Autocomplete (Typeahead)</a><a href="../02-system-design/17_video_streaming_basics.html">Design Video Streaming Basics (like YouTube or Netflix)</a><a href="../02-system-design/18_payment_system_like_stripe.html">Design a Payment System (like Stripe)</a><a href="../02-system-design/19_order_management_like_amazon.html">Design an Order Management System (like Amazon: inventory, o</a><a href="../02-system-design/20_job_scheduler_and_workflow_engine.html">Design a Job Scheduler and Workflow Engine</a><a href="../02-system-design/21_api_gateway_and_auth_system.html">Design an API Gateway and Auth System</a><a href="../02-system-design/22_logging_and_metrics_platform.html">Design a Logging and Metrics Platform</a><a href="../02-system-design/90_cheat_sheet.html">Cheat Sheet (one page)</a><a href="../02-system-design/91_practice_questions.html">Practice Questions (30)</a></details><details><summary>Low-level design</summary><a href="../03-low-level-design/00_how_the_lld_round_works.html">- How the LLD round works</a><a href="../03-low-level-design/01_oop_in_plain_words.html">- OOP in plain words</a><a href="../03-low-level-design/02_solid_principles.html">- SOLID principles</a><a href="../03-low-level-design/03_design_patterns_you_need.html">- The 8 design patterns you need</a><a href="../03-low-level-design/10_parking_lot.html">- Parking Lot</a><a href="../03-low-level-design/11_lru_cache.html">- LRU Cache</a><a href="../03-low-level-design/12_elevator_system.html">- Elevator System</a><a href="../03-low-level-design/13_library_management.html">- Library Management System</a><a href="../03-low-level-design/14_vending_machine.html">- Vending Machine (State pattern)</a><a href="../03-low-level-design/15_atm.html">- ATM</a><a href="../03-low-level-design/16_rate_limiter_class.html">- Rate Limiter (class design: token bucket and sliding windo</a><a href="../03-low-level-design/17_amazon_locker.html">- Amazon Locker</a><a href="../03-low-level-design/18_splitwise_expense_sharing.html">- Splitwise (Expense Sharing)</a><a href="../03-low-level-design/19_logger_and_notification_system.html">- Logger and Notification System (Observer and Strategy)</a><a href="../03-low-level-design/20_tic_tac_toe_or_chess_basics.html">- Tic-Tac-Toe (full) and Chess basics</a><a href="../03-low-level-design/90_cheat_sheet.html">- Cheat sheet (read the night before)</a><a href="../03-low-level-design/91_practice_questions.html">- Practice questions (20)</a></details><details open><summary>DevOps and platform basics</summary><a href="01_linux_processes_memory_files.html">Linux: processes, memory, and files</a><a href="02_networking.html">Networking: TCP, DNS, TLS, NAT</a><a href="03_containers_and_docker.html">Containers and Docker</a><a href="04_kubernetes_from_zero.html">Kubernetes from zero</a><a href="05_helm.html">Helm</a><a href="06_terraform.html">Terraform</a><a href="07_ci_cd_github_actions.html">CI/CD with GitHub Actions</a><a href="08_observability_and_sre.html">Observability and SRE</a><a href="09_concurrency_and_distributed_basics.html">Concurrency and distributed basics</a><a href="10_databases_basics.html">Databases basics</a><a class="cur" href="11_security_basics.html">Security basics (IAM, OAuth2/OIDC/JWT, secrets, supply chain</a><a href="12_gcp_pca_quick_map.html">Google Cloud quick map (for Professional Cloud Architect hol</a><a href="20_interview_questions_with_answers.html">Sixty interview questions with model answers (platform / SRE</a><a href="21_scenario_questions.html">Fifteen &quot;production is down&quot; scenarios, with step-by-step an</a></details><details><summary>Company processes</summary><a href="../06-company-process-and-behavioural/10_google.html">Google</a><a href="../06-company-process-and-behavioural/11_amazon.html">Amazon</a><a href="../06-company-process-and-behavioural/12_stripe.html">Stripe</a><a href="../06-company-process-and-behavioural/13_microsoft_and_azure_roles.html">Microsoft and Azure roles</a><a href="../06-company-process-and-behavioural/14_indian_product_and_gcc_companies.html">Indian product companies and GCCs</a><a href="../06-company-process-and-behavioural/15_european_scaleups.html">European scale-ups and visa basics</a><a href="../06-company-process-and-behavioural/16_ai_startups_like_smallest_ai.html">AI startups like Smallest AI</a><a href="../06-company-process-and-behavioural/24_questions_to_ask_interviewers.html">Questions to ask interviewers</a><a href="../06-company-process-and-behavioural/25_salary_notice_period_and_offer_negotiation_india_and_abroad.html">Salary, notice period and offer negotiation (India and abroa</a><a href="../06-company-process-and-behavioural/26_interview_day_checklists.html">Interview day checklists</a></details></nav><main><h1 id="11-security-basics-iam-oauth2oidcjwt-secrets-supply-chain-trivy">11. Security basics (IAM, OAuth2/OIDC/JWT, secrets, supply chain, Trivy)</h1>
+
+<p>Legend: <code>[REAL]</code> = I ran it on this Mac on 2026-11-15 (a Python script that builds and decodes a demo JWT with a fake secret). <code>[SAMPLE]</code> = typical output written to show the shape. <strong>Trivy is not installed on this Mac</strong>, so Trivy output is <code>[SAMPLE]</code>; its commands and flags were checked in Trivy's docs where I say so. IAM, OAuth2, OIDC, JWT, and workload identity facts come from the RFCs and cloud docs (links at the end).</p>
+
+<hr />
+
+<h2 id="1-what-it-is-plain-words-analogy">1. What it is (plain words + analogy)</h2>
+
+<p>Security basics for a platform engineer answer three questions:</p>
+
+<ol>
+<li><strong>Who are you?</strong> (authentication, "authn")</li>
+<li><strong>What are you allowed to do?</strong> (authorization, "authz")</li>
+<li><strong>Can I trust the code and secrets I run?</strong> (secrets and supply chain)</li>
+</ol>
+
+<p>Analogy: an <strong>office building</strong>.</p>
+
+<ul>
+<li><strong>Badge</strong> = identity (a user, or a program called a <strong>workload</strong>).</li>
+<li><strong>Door rules</strong> = permissions (who may open which door). The rule of <strong>least privilege</strong> says: give each badge only the doors it needs.</li>
+<li><strong>Visitor pass for one day</strong> = a short-lived token. Much safer than a master key that never expires.</li>
+<li><strong>Safe in the manager's office</strong> = a secrets manager.</li>
+<li><strong>Checking the delivery box before bringing it in</strong> = supply-chain security (scan, verify, pin).</li>
+</ul>
+
+<h2 id="2-why-it-matters-in-interviews">2. Why it matters in interviews</h2>
+
+<p>Every platform role includes security. FIS (a financial company) and ScienceLogic will care. Expected questions: "how do you manage secrets?", "explain OAuth2 and JWT", "how do pipelines get cloud access without keys?", "what is least privilege?", "how do you secure the supply chain?", "what does Trivy do?". Google's cloud architect exam and loops also stress IAM design.</p>
+
+<h2 id="3-how-it-works-step-by-step">3. How it works, step by step</h2>
+
+<h3 id="31-iam-identity-and-access-management">3.1 IAM (Identity and Access Management)</h3>
+
+<p>IAM decides <strong>who can do what on which resource</strong>. Google's IAM overview describes the parts:</p>
+
+<ul>
+<li><strong>Principal</strong>: the identity getting access. Humans (Google accounts, groups, federated identities) and <strong>workloads</strong> (service accounts, federated workload identities).</li>
+<li><strong>Permission</strong>: one action, named like <code>service.resource.verb</code> (for example <code>resourcemanager.projects.list</code>). You "can't directly grant permissions to a principal".</li>
+<li><strong>Role</strong>: a bundle of permissions. Types: <strong>predefined</strong> (maintained by Google), <strong>custom</strong> (your exact list, more upkeep), <strong>basic</strong> (broad; "suited to testing, not production").</li>
+<li><strong>Allow policy</strong>: attached to a resource; contains <strong>role bindings</strong> (principal -> role).</li>
+<li><strong>Resource hierarchy and inheritance</strong>: organization -> folders -> projects -> resources. A role granted high up <strong>applies to everything below</strong>. The effective access is the combination of the resource's policy and all its ancestors'.</li>
+</ul>
+
+<pre><code> Organization  (grant here = everything below gets it)
+   └─ Folder "prod"
+        └─ Project "web-prod"
+             └─ Bucket / VM / Database  (grant here = narrowest)
+</code></pre>
+
+<p><strong>Least privilege in practice</strong>: grant the <strong>smallest role</strong> at the <strong>lowest level</strong> (a specific project or resource, not the organization); use <strong>groups</strong> instead of single users; prefer predefined roles over basic roles (Owner/Editor/Viewer); give each workload its <strong>own</strong> service account; review access regularly; use temporary elevation (just-in-time) for admin tasks; log and audit (Cloud Audit Logs, Azure Activity Log, CloudTrail).</p>
+
+<p>Kubernetes has its own authorization (RBAC, file 04): additive roles, no deny rules. Cloud IAM controls the cloud; RBAC controls the cluster. A pod reaches cloud services through a <strong>workload identity</strong> (3.5).</p>
+
+<p>Same ideas in other clouds: Azure RBAC with role assignments at management group, subscription, resource group, resource scope; AWS IAM policies and roles. (I did not fetch Azure or AWS IAM docs today.)</p>
+
+<h3 id="32-oauth2-in-plain-words">3.2 OAuth2 in plain words</h3>
+
+<p><strong>OAuth 2.0</strong> (RFC 6749) lets an app get <strong>limited access</strong> to a service on a user's behalf <strong>without the user giving the app their password</strong>. It is about <strong>authorization</strong>.</p>
+
+<p>Four roles (RFC):</p>
+
+<ul>
+<li><strong>Resource owner</strong>: the user who owns the data.</li>
+<li><strong>Client</strong>: the app that wants access.</li>
+<li><strong>Authorization server</strong>: the login-and-consent server; it issues tokens.</li>
+<li><strong>Resource server</strong>: the API that holds the data; it accepts access tokens.</li>
+</ul>
+
+<p>Analogy: a <strong>hotel key card</strong>. You (owner) go to the front desk (authorization server), prove who you are, and ask for a card that opens <strong>only your room</strong> for <strong>your stay</strong>. You give the card to the cleaner (client). The cleaner never learns your passport number. The room door (resource server) only checks the card.</p>
+
+<p><strong>Authorization Code flow</strong> (the common one), as the RFC describes it:</p>
+
+<pre><code> 1. Client sends the user's browser to the Authorization Server (with client_id, scope, redirect_uri, state).
+ 2. User signs in and approves.
+ 3. Authorization Server redirects the browser back to the client with a short-lived CODE.
+ 4. Client (authenticating itself) sends the code to the token endpoint.
+ 5. Authorization Server returns an ACCESS TOKEN (and maybe a REFRESH TOKEN).
+ 6. Client calls the API with:  Authorization: Bearer &lt;access token&gt;
+</code></pre>
+
+<p>RFC note: the owner's credentials never reach the client, and the access token isn't passed through the browser. The RFC defines an access token as "a string representing an authorization issued to the client" and the client usually cannot interpret it. It has a <strong>scope</strong> and a <strong>lifetime</strong>.</p>
+
+<p>Other things to know (general knowledge, not read today): public clients (mobile apps, single-page apps) should use <strong>PKCE</strong> with the code flow; the <strong>client credentials</strong> flow is for machine-to-machine calls (no user); <strong>refresh tokens</strong> get new access tokens without a new login and must be guarded or rotated; the older implicit and password flows are discouraged.</p>
+
+<h3 id="33-oidc-login-on-top-of-oauth2">3.3 OIDC: login on top of OAuth2</h3>
+
+<p>OAuth2 does not say <strong>who the user is</strong>. <strong>OpenID Connect (OIDC)</strong> adds that. The spec calls it "a simple identity layer on top of the OAuth 2.0 protocol". You add the scope <code>openid</code>, and you also receive an <strong>ID token</strong>: a signed <strong>JWT</strong> with claims about the login (issuer, subject, audience, expiry, and a <strong>nonce</strong> to stop replay). There is also a <strong>UserInfo endpoint</strong> for profile data.</p>
+
+<pre><code> Access token = "this app may call this API (scope: read)"      -&gt; sent to the API
+ ID token     = "this person just logged in, id=42, via Google" -&gt; read by the app, NOT sent to the API
+</code></pre>
+
+<p>Keycloak, Microsoft Entra ID, Okta, Google Sign-In, and Auth0 are OIDC/OAuth2 providers. SSO (single sign-on) is typically built with OIDC or SAML.</p>
+
+<h3 id="34-jwt-in-plain-words">3.4 JWT in plain words</h3>
+
+<p>A <strong>JWT</strong> (JSON Web Token, RFC 7519) is "a compact, URL-safe means of representing claims". A signed JWT has <strong>three parts</strong> separated by dots, each <strong>base64url</strong>-encoded:</p>
+
+<pre><code> header . payload . signature
+ {"alg":"HS256","typ":"JWT"} . {"iss":..., "sub":..., "exp":...} . (signature bytes)
+</code></pre>
+
+<ul>
+<li><strong>header</strong>: which algorithm signs it.</li>
+<li><strong>payload</strong>: the <strong>claims</strong> (statements). Registered claims from the RFC: <code>iss</code> (issuer), <code>sub</code> (subject), <code>aud</code> (audience: who it is for), <code>exp</code> (expiry: do not accept after), <code>nbf</code> (not before), <code>iat</code> (issued at), <code>jti</code> (unique id, helps stop replay).</li>
+<li><strong>signature</strong>: proves the token was made by the key holder and not changed.</li>
+</ul>
+
+<p><strong>Big point: a JWT is signed, NOT encrypted.</strong> Anyone can read the payload. Never put secrets in it.</p>
+
+<p><code>[REAL]</code> I built a demo token (fake secret <code>demo-secret-not-real</code>) and decoded it:</p>
+
+<pre><code>eyJhbGciOiAiSFMyNTYiLCAidHlwIjogIkpXVCJ9.eyJpc3MiOiAiaHR0cHM6Ly9sb2dpbi5leGFtcGxlLmNvbSIsICJzdWIiOiAidXNlci00MiIsICJhdWQiOiAiYmlsbGluZy1hcGkiLCAiZXhwIjogMTg5MzQ1NjAwMCwgInNjb3BlIjogInJlYWQifQ.C6t5V2edh601kzq_2ZyOee0OR9MyNIWT-vL8XvuUmU8
+header : {'alg': 'HS256', 'typ': 'JWT'}
+payload: {'iss': 'https://login.example.com', 'sub': 'user-42', 'aud': 'billing-api', 'exp': 1893456000, 'scope': 'read'}
+signature (bytes, not readable): C6t5V2edh601kzq_2ZyO...
+</code></pre>
+
+<p>Anyone can decode the first two parts with <code>base64 -d</code>. Only the signature needs the key.</p>
+
+<p><strong>How an API must verify a JWT</strong> (all checks, in this order):</p>
+
+<ol>
+<li>Check the <strong>signature</strong> with the <strong>expected</strong> key (for RS256/ES256, the issuer's <strong>public key</strong> from its JWKS URL; for HS256, a shared secret). <strong>Pin the allowed algorithms</strong>; never accept <code>alg: none</code> and never let the token choose a weak algorithm. (Standard guidance; not read today.)</li>
+<li>Check <code>iss</code> is your trusted issuer.</li>
+<li>Check <code>aud</code> is <strong>you</strong> (otherwise a token meant for another API could be replayed to yours).</li>
+<li>Check <code>exp</code> (and <code>nbf</code>) with a small tolerance for clock skew (see file 09).</li>
+<li>Check scopes/roles for the action.</li>
+</ol>
+
+<p>Symmetric (HS256, one shared secret) vs asymmetric (RS256/ES256, private key signs, public key verifies): prefer asymmetric when many services only need to <strong>verify</strong>.</p>
+
+<p>Problems: a JWT <strong>cannot be revoked</strong> before it expires (the server has no state). So keep access tokens <strong>short-lived</strong> (minutes), use refresh tokens, and keep a deny-list only if you must. Do not store tokens in places scripts can read (browser <code>localStorage</code>) without thinking about XSS (general guidance).</p>
+
+<h3 id="35-workload-identity-no-secret-at-all">3.5 Workload identity: no secret at all</h3>
+
+<p>Best secret = <strong>no secret</strong>. A workload proves who it is with a <strong>short-lived token</strong> from a trusted issuer; the cloud exchanges it for access.</p>
+
+<ul>
+<li><strong>GitHub Actions -> cloud</strong>: OIDC federation (file 07). Google's <strong>Workload Identity Federation</strong> gives outside workloads access "without a service account key", using short-lived tokens, with attribute mappings and conditions to limit who can authenticate. Keys are called "powerful credentials" that "can present a security risk if they are not managed correctly".</li>
+<li><strong>Pod -> Azure</strong> (AKS): <strong>Microsoft Entra Workload ID</strong> uses a Kubernetes <strong>service account token</strong> (projected into the pod) and OIDC federation. The AKS cluster is the token <strong>issuer</strong>; Entra ID uses OIDC discovery to get the public signing keys, verifies the token, and exchanges it for an Entra token. You annotate the service account (<code>azure.workload.identity/client-id</code>) and label the pod <code>azure.workload.identity/use: "true"</code> (required in the pod template). Entra tokens expire in 24 hours; the projected Kubernetes token's default expiry is 3600 seconds. You then use <code>DefaultAzureCredential</code> in your code. Replaces the older pod-managed identity.</li>
+<li><strong>Pod -> Google Cloud</strong> (GKE): Workload Identity (the same idea; I did not fetch that page today).</li>
+</ul>
+
+<pre><code> pod ── projected K8s service account token (JWT, 1h) ──&gt; Entra ID / Google STS
+                                                           verifies via cluster's OIDC keys
+ pod &lt;── short-lived cloud access token ────────────────── then calls Key Vault / Storage
+</code></pre>
+
+<h3 id="36-secrets-management">3.6 Secrets management</h3>
+
+<p>A <strong>secret</strong> is any value that gives access: passwords, API keys, tokens, private keys, certificates, database URLs with passwords.</p>
+
+<p>Rules:</p>
+
+<ol>
+<li><strong>Never in Git</strong> (not in code, <code>.env</code>, Helm values, Terraform <code>tfvars</code>, Dockerfiles, or images). Once pushed, assume leaked; <strong>rotate</strong> it. Deleting the commit is not enough.</li>
+<li>Store in a <strong>secrets manager</strong>: HashiCorp Vault, Azure Key Vault, Google Secret Manager, AWS Secrets Manager. Benefits: encryption, access control by identity, audit logs, <strong>rotation</strong>, versions.</li>
+<li>Prefer <strong>short-lived, dynamically issued</strong> credentials (workload identity, Vault dynamic database users) over long-lived static ones.</li>
+<li><strong>Least privilege</strong> per secret and per workload; separate secrets per environment.</li>
+<li>Deliver to pods carefully. The Kubernetes docs note Secrets are <strong>base64, unencrypted by default</strong>; enable <strong>encryption at rest</strong> for etcd; limit <code>get/list/watch</code> on Secrets by RBAC ("Granting list access to Secrets implicitly lets the subject fetch the contents"); anyone who can create a pod using a Secret can probably read it; prefer an external store through the <strong>Secrets Store CSI Driver</strong> or External Secrets Operator. Expose a secret only to the container that needs it, and make sure apps do not log it.</li>
+<li><strong>Scan for leaked secrets</strong> in repos and CI (gitleaks, trufflehog, GitHub secret scanning; Trivy also has a secret scanner).</li>
+<li><strong>Rotate</strong> regularly and after any exposure; design apps to reload secrets without a restart where possible.</li>
+<li>Mask secrets in CI logs; GitHub docs: if a secret leaks into a log, delete the log <strong>and rotate</strong> the secret.</li>
+</ol>
+
+<p>Cheat sheet:</p>
+
+<pre><code> Weak                                Better                               Best
+ password in code / .env in Git  -&gt;  CI secret store / Kubernetes Secret -&gt;  secrets manager + workload identity
+ long-lived key, shared by all   -&gt;  per-service key, rotated             -&gt;  short-lived token, no key to steal
+</code></pre>
+
+<h3 id="37-supply-chain-security">3.7 Supply chain security</h3>
+
+<p>The <strong>software supply chain</strong> is everything between "developer types code" and "code runs in production": dependencies, base images, build tools, CI, registries. Attackers target any step.</p>
+
+<p>Controls (mix of verified docs and standard practice):</p>
+
+<ul>
+<li><strong>Pin versions and digests</strong>: Docker's best practices say pin the base image "to a specific digest" for supply-chain integrity (tags are mutable) and use Dependabot to update digests. Same for GitHub Actions: pin to a full commit SHA (file 07). Same for Terraform providers and Helm charts (lock files).</li>
+<li><strong>Minimal base images</strong> (distroless, slim, Alpine): less to attack. Multi-stage builds so compilers and secrets are not shipped (file 03). Run as non-root.</li>
+<li><strong>Scan</strong> images and dependencies for known vulnerabilities (CVEs), and IaC/Kubernetes manifests for misconfigurations, in CI and also on a schedule (new CVEs appear after you ship).</li>
+<li><strong>SBOM</strong> (software bill of materials): a list of what is inside an artifact, so when a new CVE appears you can answer "are we affected?" quickly. Trivy can scan SBOMs.</li>
+<li><strong>Sign and verify</strong> images (Sigstore cosign) and <strong>admission control</strong> in the cluster that only allows signed or approved images (Kyverno, OPA Gatekeeper, or built-in policies).</li>
+<li><strong>Provenance</strong>: a signed statement of <strong>how and where</strong> an artifact was built. <strong>SLSA</strong> (Supply-chain Levels for Software Artifacts) is a framework for this. The SLSA v1.0 spec has a single <strong>Build track</strong> with levels 1 to 3. (The page I read said "Version 1.2 is now current" and the v1.0 page is marked retired, so check the current version when you cite it.)</li>
+<li><strong>Trusted registries</strong> only; private mirror/proxy for public packages; restrict who can push.</li>
+<li><strong>Protect CI</strong>: least-privilege tokens, OIDC, protected branches, required reviews, no <code>pull_request_target</code> mistakes (file 07).</li>
+<li><strong>Dependency hygiene</strong>: lock files, Dependabot or Renovate, review new dependencies, watch for typosquatting.</li>
+<li>Vulnerability handling: triage by <strong>severity and exploitability</strong> (is the vulnerable code reachable? is a fix available?), fix or mitigate, track exceptions with an expiry date.</li>
+</ul>
+
+<h3 id="38-trivy">3.8 Trivy</h3>
+
+<p><strong>Trivy</strong> is an open-source scanner. From its docs: targets include <strong>container images, filesystems, rootfs, code repositories, VM images, Kubernetes, and SBOMs</strong>; scanners include <strong>vulnerabilities, misconfigurations (IaC for Terraform, Kubernetes, Docker, Helm and more), secrets, licenses</strong>, and cryptographic assets. A plain <code>trivy image</code> run does vulnerability and secret scanning by default.</p>
+
+<p>Commands from the docs:</p>
+
+<pre><code>trivy image python:3.4-alpine                       # scan an image
+trivy image --scanners vuln myapp:1.0               # only vulnerabilities
+trivy image --input ruby-3.1.tar                    # scan a saved image tarball
+trivy image --severity HIGH,CRITICAL myapp:1.0      # filter by severity
+trivy image --ignore-unfixed myapp:1.0              # hide issues that have no fix yet
+trivy config --severity HIGH,CRITICAL ./infra       # misconfigurations in Terraform/K8s/Dockerfile
+</code></pre>
+
+<p>Ignore a finding on purpose with a <code>.trivyignore</code> file (one ID per line; comments with <code>#</code>; the docs show an expiry form such as <code>CVE-2019-14697 exp:2023-01-01</code>, which forces a re-review). For CI gating, Trivy has an <code>--exit-code</code> option to make the build fail when findings exist (for example <code>--exit-code 1 --severity HIGH,CRITICAL</code>); the docs page I read did <strong>not</strong> cover <code>--exit-code</code>, so check <code>trivy image --help</code> for the exact behavior.</p>
+
+<p><code>[SAMPLE]</code> output shape (invented findings):</p>
+
+<pre><code>myapp:1.0 (debian 12.7)
+=======================
+Total: 3 (HIGH: 2, CRITICAL: 1)
+
+┌──────────────┬────────────────┬──────────┬──────────────┬───────────────────┬───────────────┐
+│   Library    │ Vulnerability  │ Severity │ Installed    │ Fixed Version     │    Title      │
+├──────────────┼────────────────┼──────────┼──────────────┼───────────────────┼───────────────┤
+│ libexample1  │ CVE-2026-0001  │ CRITICAL │ 1.2.3-1      │ 1.2.3-2           │ example issue │
+└──────────────┴────────────────┴──────────┴──────────────┴───────────────────┴───────────────┘
+</code></pre>
+
+<p>How to talk about it: scan on every build, block on <strong>fixable</strong> HIGH/CRITICAL, keep a time-boxed ignore list, rescan stored images on a schedule, and remember a scanner finds <strong>known</strong> issues only.</p>
+
+<h3 id="39-a-few-more-basics">3.9 A few more basics</h3>
+
+<ul>
+<li><strong>Defense in depth</strong>: many layers (network policy, RBAC, non-root, read-only filesystem, scanning, audit logs), so one failure is not fatal.</li>
+<li><strong>TLS everywhere</strong>; <strong>mTLS</strong> (both sides present certificates) between services, often via a service mesh.</li>
+<li><strong>Encryption</strong>: in transit (TLS), at rest (disk, buckets, etcd), key management with KMS and rotation.</li>
+<li><strong>OWASP Top 10</strong>: the web application risk list. The current edition shown on OWASP's site is <strong>2025</strong>; I could not see the category names on that page, so read https://owasp.org/Top10/2025/ before quoting any. Injection, broken access control, and misconfiguration have been on it for years (general knowledge).</li>
+<li><strong>Audit and logging</strong>: who did what, when; send logs off the machine; protect log integrity.</li>
+<li><strong>Incident basics for secrets</strong>: revoke, rotate, find how it leaked, check usage logs for misuse, fix the cause.</li>
+</ul>
+
+<h2 id="4-commands-to-try">4. Commands to try</h2>
+
+<pre><code># Decode a JWT yourself (never paste production tokens into random websites)
+TOKEN="&lt;paste a test token&gt;"
+echo "$TOKEN" | cut -d. -f1 | tr '_-' '/+' | base64 -d 2&gt;/dev/null; echo
+echo "$TOKEN" | cut -d. -f2 | tr '_-' '/+' | base64 -d 2&gt;/dev/null; echo
+# (padding may be missing; add '=' if base64 complains)
+
+# Kubernetes: who can do what (needs a cluster; careful with your context)
+kubectl auth can-i list secrets -n prod --as=system:serviceaccount:prod:my-app
+kubectl get secret db -n dev -o jsonpath='{.data.password}' | base64 -d
+
+# GCP IAM (needs gcloud)
+gcloud projects get-iam-policy my-project --format=json | jq '.bindings[] | {role, members}'
+gcloud iam service-accounts list
+
+# Look for leaked secrets in a repo (install first)
+gitleaks detect --source .
+
+# Vulnerability scan (install trivy first)
+trivy image --severity HIGH,CRITICAL myapp:1.0
+trivy config .
+</code></pre>
+
+<p><code>[SAMPLE]</code> <code>gcloud projects get-iam-policy</code> shape:</p>
+
+<pre><code>{ "role": "roles/storage.objectViewer", "members": ["group:data-readers@example.com"] }
+{ "role": "roles/owner", "members": ["user:admin@example.com"] }     &lt;-- review this kind of broad role
+</code></pre>
+
+<h2 id="5-common-mistakes">5. Common mistakes</h2>
+
+<ol>
+<li>Basic roles (Owner/Editor) or organization-level grants for convenience.</li>
+<li>Long-lived service account keys or cloud keys stored in CI secrets.</li>
+<li>Thinking a JWT is encrypted, putting secrets in it, or skipping <code>aud</code>/<code>iss</code>/<code>exp</code> checks.</li>
+<li>Accepting any algorithm in JWT verification.</li>
+<li>Secrets in Git history, Docker layers, Helm values, or logs; "deleted the file" without rotating.</li>
+<li>Believing Kubernetes Secrets are encrypted; giving broad <code>list secrets</code> rights.</li>
+<li>Using tags (<code>latest</code>, <code>v1</code>) for images and actions instead of digests and SHAs.</li>
+<li>Scanning once and never again; or ignoring findings with no expiry.</li>
+</ol>
+
+<h2 id="6-eight-interview-questions-with-answers">6. Eight interview questions with answers</h2>
+
+<p><strong>Q1. Authentication vs authorization?</strong>
+Authentication proves who you are (password, certificate, token). Authorization decides what you may do (roles, policies). Example: login with OIDC is authentication; the API checking your scope or role is authorization.</p>
+
+<p><strong>Q2. Explain OAuth2 in simple words.</strong>
+It lets an app get limited access to a user's data on a service without the user's password. The user logs in at the authorization server and consents. The app gets a short-lived code, exchanges it for an access token with limited scope and lifetime, and calls the API with the token. Roles: resource owner, client, authorization server, resource server. OIDC adds an ID token (a JWT) so the app also learns who the user is.</p>
+
+<p><strong>Q3. What is a JWT, and what must a server check?</strong>
+A signed, base64url-encoded token with three parts: header, payload (claims such as <code>iss</code>, <code>sub</code>, <code>aud</code>, <code>exp</code>), and signature. It is signed, not encrypted, so never put secrets in it. The server must verify the signature with the expected key and an allowed algorithm, then check <code>iss</code>, <code>aud</code>, <code>exp</code>/<code>nbf</code>, and scopes. JWTs cannot be revoked before expiry, so keep them short-lived.</p>
+
+<p><strong>Q4. How do you apply least privilege in a cloud like GCP?</strong>
+Predefined or custom roles instead of basic roles, granted at the lowest level (project or resource), to groups, with a separate service account per workload, no service account keys (use workload identity federation), regular access review, and audit logs. Inheritance means a high-level grant reaches everything below, so be careful.</p>
+
+<p><strong>Q5. How do you manage secrets in Kubernetes?</strong>
+Prefer no secret (workload identity). Otherwise keep values in an external manager (Key Vault, Secret Manager, Vault) and sync or mount them using the CSI driver or External Secrets Operator. If you use native Secrets: enable etcd encryption at rest, restrict RBAC for get/list/watch, do not commit manifests, and remember base64 is not encryption. Rotate and avoid printing secrets in logs.</p>
+
+<p><strong>Q6. How can a CI pipeline deploy to the cloud without stored keys?</strong>
+OIDC federation: the job gets a short-lived signed token from the CI platform; the cloud validates it against a trust policy limited to the specific repository, branch or environment, and returns short-lived credentials. No long-lived key exists to leak or rotate.</p>
+
+<p><strong>Q7. What is supply-chain security and what are your top controls?</strong>
+Protecting everything that goes into production. Top controls: pin dependencies, base images (digest), and CI actions (SHA); minimal images and non-root; scan images, dependencies, and IaC in CI and on schedule (Trivy); generate SBOMs; sign images and enforce signatures at admission; keep build provenance (SLSA); protect CI credentials and branches; review new dependencies.</p>
+
+<p><strong>Q8. What does Trivy do and how would you use it in a pipeline?</strong>
+It scans images, filesystems, repos, Kubernetes, IaC, and SBOMs for vulnerabilities, misconfigurations, secrets, and licenses. In CI: scan the built image, filter to HIGH and CRITICAL (optionally only fixable with <code>--ignore-unfixed</code>), fail the build on findings via the exit-code option, keep a reviewed <code>.trivyignore</code> with expiry dates, publish the report, and rescan stored images regularly since new CVEs appear over time.</p>
+
+<h2 id="7-self-quiz-answers-at-the-end">7. Self-quiz (answers at the end)</h2>
+
+<ol>
+<li>Is a JWT encrypted? How can you read its payload?</li>
+<li>Name the four roles in OAuth 2.0.</li>
+<li>Why is <code>aud</code> important when validating a JWT?</li>
+<li>What is wrong with granting the Owner role at the organization level to a CI service account?</li>
+<li>Why is "just delete the commit" not enough after pushing a secret?</li>
+</ol>
+
+<p><strong>Answers</strong></p>
+
+<ol>
+<li>No, only signed. Base64url-decode the second part.</li>
+<li>Resource owner, client, authorization server, resource server.</li>
+<li>It says who the token is meant for. Without checking it, a token issued for another API could be replayed to yours.</li>
+<li>It violates least privilege: a compromised pipeline would control the whole organization. Use a narrow predefined role on one project with workload identity federation.</li>
+<li>The secret may already be cloned, cached, or scraped, and remains in Git history. Treat it as leaked and rotate it.</li>
+</ol>
+
+<h2 id="8-sources">8. Sources</h2>
+
+<ul>
+<li>RFC 6749, OAuth 2.0 (roles, authorization code grant, access token): https://datatracker.ietf.org/doc/html/rfc6749</li>
+<li>RFC 7519, JWT (structure, registered claims): https://datatracker.ietf.org/doc/html/rfc7519</li>
+<li>OpenID Connect Core (identity layer, ID token, UserInfo): https://openid.net/specs/openid-connect-core-1_0.html</li>
+<li>Google Cloud IAM overview (principals, roles, allow policies, inheritance): https://docs.cloud.google.com/iam/docs/overview</li>
+<li>Google Cloud Workload Identity Federation: https://docs.cloud.google.com/iam/docs/workload-identity-federation</li>
+<li>Microsoft Entra Workload ID on AKS: https://learn.microsoft.com/en-us/azure/aks/workload-identity-overview</li>
+<li>Kubernetes Secrets good practices: https://kubernetes.io/docs/concepts/security/secrets-good-practices/</li>
+<li>Docker build best practices (non-root, digest pinning): https://docs.docker.com/build/building/best-practices/</li>
+<li>GitHub Actions secure use (secrets, pinning): https://docs.github.com/en/actions/reference/security/secure-use</li>
+<li>Trivy docs: https://trivy.dev/latest/docs/ , image scanning https://trivy.dev/latest/docs/target/container_image/ , filtering https://trivy.dev/latest/docs/configuration/filtering/</li>
+<li>SLSA v1.0 about page: https://slsa.dev/spec/v1.0/about</li>
+<li>OWASP Top 10 project page (edition 2025): https://owasp.org/www-project-top-ten/</li>
+<li>Local: Python demo JWT built and decoded on this Mac, 2026-11-15 (fake secret)</li>
+</ul>
+
+<p>Not verified from a source: PKCE, client credentials, refresh token advice; JWT verification checklist details (alg pinning, <code>alg: none</code>), HS256 vs RS256 advice, localStorage/XSS note; GKE Workload Identity; Azure and AWS IAM; Vault, CSI driver and External Secrets product details beyond what the Kubernetes page names; gitleaks, trufflehog, cosign, Kyverno, OPA Gatekeeper, SBOM descriptions; Trivy <code>--exit-code</code> semantics and the Trivy default-scanner statement beyond what the docs show; mTLS and service mesh remarks; OWASP category names; the sample outputs marked <code>[SAMPLE]</code>.</p>
+<div class="pn"><span><a href="10_databases_basics.html">&larr; 10. Databases basics</a></span><span><a href="12_gcp_pca_quick_map.html">12. Google Cloud quick map (for Professi &rarr;</a></span></div></main></div></body></html>

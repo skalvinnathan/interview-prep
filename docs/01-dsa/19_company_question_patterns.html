@@ -1,0 +1,566 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Lesson 19: Company Question Patterns (Google, Amazon, Meta, Stripe, Microsoft) and a 4-Week Plan | Interview prep</title><style>
+:root{--bg:#fff;--fg:#1f2328;--mut:#59636e;--bd:#d1d9e0;--ac:#0b57d0;--cb:#f6f8fa;--sb:#f6f8fa}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9198a1;--bd:#30363d;--ac:#6cb6ff;--cb:#161b22;--sb:#010409}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{display:flex;min-height:100vh}nav{width:300px;flex:none;background:var(--sb);border-right:1px solid var(--bd);padding:16px;overflow:auto;position:sticky;top:0;height:100vh}
+nav a{color:var(--fg);text-decoration:none;display:block;padding:3px 6px;border-radius:6px;font-size:14px}nav a:hover{background:var(--cb)}nav a.cur{background:var(--ac);color:#fff}
+nav summary{cursor:pointer;font-weight:600;padding:6px 0}nav .home{font-weight:700;font-size:16px;margin-bottom:8px}
+main{flex:1;min-width:0;max-width:900px;padding:24px 32px 80px;margin:0 auto}
+h1,h2,h3{line-height:1.25}h1{border-bottom:1px solid var(--bd);padding-bottom:.3em}h2{border-bottom:1px solid var(--bd);padding-bottom:.25em;margin-top:2em}
+a{color:var(--ac)}pre{background:var(--cb);border:1px solid var(--bd);border-radius:8px;padding:14px;overflow:auto;font-size:13.5px;line-height:1.5}
+code{background:var(--cb);padding:.15em .35em;border-radius:5px;font-size:.92em}pre code{background:none;padding:0}
+table{border-collapse:collapse;display:block;overflow:auto;max-width:100%}th,td{border:1px solid var(--bd);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--cb)}
+blockquote{border-left:4px solid var(--bd);margin:0;padding:0 1em;color:var(--mut)}img{max-width:100%}
+.top{display:none}.pn{display:flex;justify-content:space-between;gap:12px;margin-top:48px;border-top:1px solid var(--bd);padding-top:16px;font-size:14px}
+@media(max-width:820px){.wrap{display:block}nav{width:auto;height:auto;position:static;border-right:0;border-bottom:1px solid var(--bd)}main{padding:16px}}
+</style></head><body><div class="wrap"><nav><a class="home" href="../index.html">Interview prep</a><details open><summary>Data structures and algorithms</summary><a href="00_how_to_start.html">How to start: reading a problem, the 5-step method, and Big-</a><a href="01_arrays_and_strings.html">Lesson 01. Arrays and Strings</a><a href="02_hash_maps_and_sets.html">Lesson 02. Hash Maps and Sets</a><a href="03_two_pointers.html">Lesson 03. Two Pointers</a><a href="04_sliding_window.html">Lesson 04. Sliding Window</a><a href="05_stack_and_queue.html">Lesson 05. Stack and Queue (including the monotonic stack)</a><a href="06_binary_search.html">Lesson 06. Binary Search (including search on the answer)</a><a href="07_linked_lists.html">Lesson 07. Linked Lists</a><a href="08_trees_and_bst.html">Lesson 08. Trees and Binary Search Trees (BST)</a><a href="09_heaps_and_priority_queues.html">Lesson 09: Heaps and Priority Queues</a><a href="10_graphs_bfs_dfs.html">Lesson 10: Graphs, BFS and DFS (including grids)</a><a href="11_topological_sort_and_union_find.html">Lesson 11: Topological Sort and Union-Find</a><a href="12_shortest_paths.html">Lesson 12: Shortest Paths (Dijkstra in plain words)</a><a href="13_intervals.html">Lesson 13: Intervals (merge intervals, meeting rooms)</a><a href="14_backtracking.html">Lesson 14: Backtracking (subsets, permutations, combination </a><a href="15_dynamic_programming_part1.html">Lesson 15: Dynamic Programming, Part 1 (remembering answers)</a><a href="16_dynamic_programming_part2.html">Lesson 16: Dynamic Programming, Part 2 (LIS, word break, kna</a><a href="17_tries_and_greedy.html">Lesson 17: Tries and Greedy</a><a href="18_bit_tricks_and_math_basics.html">Lesson 18: Bit Tricks and Math Basics (short)</a><a class="cur" href="19_company_question_patterns.html">Lesson 19: Company Question Patterns (Google, Amazon, Meta, </a></details><details><summary>System design</summary><a href="../02-system-design/00_how_the_round_works.html">How the System Design Round Works</a><a href="../02-system-design/01a_client_server_and_http.html">Client, Server and HTTP</a><a href="../02-system-design/01b_dns_and_cdn.html">DNS and CDN</a><a href="../02-system-design/01c_load_balancers.html">Load Balancers</a><a href="../02-system-design/01d_databases.html">Databases: SQL vs NoSQL, Indexes, Transactions</a><a href="../02-system-design/01e_caching.html">Caching (and Why Invalidation Is Hard)</a><a href="../02-system-design/01f_sharding_and_replication.html">Sharding and Replication</a><a href="../02-system-design/01g_message_queues_and_streams.html">Message Queues and Streams (Kafka Basics)</a><a href="../02-system-design/01h_consistency_and_cap.html">Consistency and the CAP Idea (in Plain Words)</a><a href="../02-system-design/02_numbers_and_estimation.html">Numbers and Estimation</a><a href="../02-system-design/03_reliability_patterns.html">Reliability Patterns</a><a href="../02-system-design/10_url_shortener.html">Design a URL Shortener</a><a href="../02-system-design/11_rate_limiter.html">Design a Rate Limiter</a><a href="../02-system-design/12_chat_system.html">Design a Chat System (like WhatsApp or Slack)</a><a href="../02-system-design/13_news_feed.html">Design a News Feed (like Instagram, Facebook or Twitter/X ho</a><a href="../02-system-design/14_notification_service.html">Design a Notification Service</a><a href="../02-system-design/15_file_storage_like_drive.html">Design File Storage and Sync (like Google Drive or Dropbox)</a><a href="../02-system-design/16_search_autocomplete.html">Design Search Autocomplete (Typeahead)</a><a href="../02-system-design/17_video_streaming_basics.html">Design Video Streaming Basics (like YouTube or Netflix)</a><a href="../02-system-design/18_payment_system_like_stripe.html">Design a Payment System (like Stripe)</a><a href="../02-system-design/19_order_management_like_amazon.html">Design an Order Management System (like Amazon: inventory, o</a><a href="../02-system-design/20_job_scheduler_and_workflow_engine.html">Design a Job Scheduler and Workflow Engine</a><a href="../02-system-design/21_api_gateway_and_auth_system.html">Design an API Gateway and Auth System</a><a href="../02-system-design/22_logging_and_metrics_platform.html">Design a Logging and Metrics Platform</a><a href="../02-system-design/90_cheat_sheet.html">Cheat Sheet (one page)</a><a href="../02-system-design/91_practice_questions.html">Practice Questions (30)</a></details><details><summary>Low-level design</summary><a href="../03-low-level-design/00_how_the_lld_round_works.html">- How the LLD round works</a><a href="../03-low-level-design/01_oop_in_plain_words.html">- OOP in plain words</a><a href="../03-low-level-design/02_solid_principles.html">- SOLID principles</a><a href="../03-low-level-design/03_design_patterns_you_need.html">- The 8 design patterns you need</a><a href="../03-low-level-design/10_parking_lot.html">- Parking Lot</a><a href="../03-low-level-design/11_lru_cache.html">- LRU Cache</a><a href="../03-low-level-design/12_elevator_system.html">- Elevator System</a><a href="../03-low-level-design/13_library_management.html">- Library Management System</a><a href="../03-low-level-design/14_vending_machine.html">- Vending Machine (State pattern)</a><a href="../03-low-level-design/15_atm.html">- ATM</a><a href="../03-low-level-design/16_rate_limiter_class.html">- Rate Limiter (class design: token bucket and sliding windo</a><a href="../03-low-level-design/17_amazon_locker.html">- Amazon Locker</a><a href="../03-low-level-design/18_splitwise_expense_sharing.html">- Splitwise (Expense Sharing)</a><a href="../03-low-level-design/19_logger_and_notification_system.html">- Logger and Notification System (Observer and Strategy)</a><a href="../03-low-level-design/20_tic_tac_toe_or_chess_basics.html">- Tic-Tac-Toe (full) and Chess basics</a><a href="../03-low-level-design/90_cheat_sheet.html">- Cheat sheet (read the night before)</a><a href="../03-low-level-design/91_practice_questions.html">- Practice questions (20)</a></details><details><summary>DevOps and platform basics</summary><a href="../05-devops-platform-basics/01_linux_processes_memory_files.html">Linux: processes, memory, and files</a><a href="../05-devops-platform-basics/02_networking.html">Networking: TCP, DNS, TLS, NAT</a><a href="../05-devops-platform-basics/03_containers_and_docker.html">Containers and Docker</a><a href="../05-devops-platform-basics/04_kubernetes_from_zero.html">Kubernetes from zero</a><a href="../05-devops-platform-basics/05_helm.html">Helm</a><a href="../05-devops-platform-basics/06_terraform.html">Terraform</a><a href="../05-devops-platform-basics/07_ci_cd_github_actions.html">CI/CD with GitHub Actions</a><a href="../05-devops-platform-basics/08_observability_and_sre.html">Observability and SRE</a><a href="../05-devops-platform-basics/09_concurrency_and_distributed_basics.html">Concurrency and distributed basics</a><a href="../05-devops-platform-basics/10_databases_basics.html">Databases basics</a><a href="../05-devops-platform-basics/11_security_basics.html">Security basics (IAM, OAuth2/OIDC/JWT, secrets, supply chain</a><a href="../05-devops-platform-basics/12_gcp_pca_quick_map.html">Google Cloud quick map (for Professional Cloud Architect hol</a><a href="../05-devops-platform-basics/20_interview_questions_with_answers.html">Sixty interview questions with model answers (platform / SRE</a><a href="../05-devops-platform-basics/21_scenario_questions.html">Fifteen &quot;production is down&quot; scenarios, with step-by-step an</a></details><details><summary>Company processes</summary><a href="../06-company-process-and-behavioural/10_google.html">Google</a><a href="../06-company-process-and-behavioural/11_amazon.html">Amazon</a><a href="../06-company-process-and-behavioural/12_stripe.html">Stripe</a><a href="../06-company-process-and-behavioural/13_microsoft_and_azure_roles.html">Microsoft and Azure roles</a><a href="../06-company-process-and-behavioural/14_indian_product_and_gcc_companies.html">Indian product companies and GCCs</a><a href="../06-company-process-and-behavioural/15_european_scaleups.html">European scale-ups and visa basics</a><a href="../06-company-process-and-behavioural/16_ai_startups_like_smallest_ai.html">AI startups like Smallest AI</a><a href="../06-company-process-and-behavioural/24_questions_to_ask_interviewers.html">Questions to ask interviewers</a><a href="../06-company-process-and-behavioural/25_salary_notice_period_and_offer_negotiation_india_and_abroad.html">Salary, notice period and offer negotiation (India and abroa</a><a href="../06-company-process-and-behavioural/26_interview_day_checklists.html">Interview day checklists</a></details></nav><main><h1 id="lesson-19-company-question-patterns-google-amazon-meta-stripe-microsoft-and-a-4-week-plan">Lesson 19: Company Question Patterns (Google, Amazon, Meta, Stripe, Microsoft) and a 4-Week Plan</h1>
+
+<p>Written on 2026-11-15 from public web pages. Every claim has a source link. Where I could not verify something, I say so in plain words.</p>
+
+<p><strong>How to read this file.</strong></p>
+
+<ul>
+<li>"Verified" means I opened the page and read it myself.</li>
+<li>"Seen only in search results" means a search result summary said it, but I did not open the page, or the page blocked me. Treat it as a hint, not a fact.</li>
+<li>All interview experience posts are one person's story. Companies change their process. <strong>Always ask your recruiter what your exact loop will be.</strong></li>
+</ul>
+
+<hr />
+
+<h2 id="1-the-honest-limits-read-this-first">1. The honest limits (read this first)</h2>
+
+<ol>
+<li><strong>LeetCode's own company tag pages need a paid account.</strong> I did not use them. Instead I read a public GitHub copy of those lists: <a href="https://github.com/liquidslr/leetcode-company-wise-problems">liquidslr/leetcode-company-wise-problems</a>. Its page shows two dates ("Updated as of 20 Oct, 2025" and a README line "updated as of 1 June 2025"), so the data is about a year old, not "2026".</li>
+<li><strong>The "frequency" number in those files is a relative score</strong> (the top row is 100). The repo does not explain how it is computed. A big number means "tagged many times by LeetCode users", not "Google asks this every week".</li>
+<li><strong>The lists contain some noise.</strong> For example, the Google list ranks "Create Hello World Function" very high. That is a tagging effect, not a sign of what Google asks in a coding round.</li>
+<li><strong>I read the CSV files through a page-summary tool</strong>, not by opening a spreadsheet. The titles and numbers below were copied from its output. Spot-check any single row on GitHub before you rely on it.</li>
+<li><strong>2026 interview experiences</strong> come from forums and prep sites (LeetCode Discuss, PracHub, Glassdoor, blogs). Many prep sites sell products. I name which are first-person reports and which are guides.</li>
+</ol>
+
+<hr />
+
+<h2 id="2-which-patterns-each-company-asks-most">2. Which patterns each company asks most</h2>
+
+<p>I looked at the top rows of each company's "all time" list (the file named <code>5. All.csv</code> in each company folder) and sorted the problems into the patterns from lessons 01 to 18. This grouping is <strong>my own reading</strong> of those rows. It is not an official statement and not a statistic.</p>
+
+<h3 id="21-google">2.1 Google</h3>
+
+<p>Rows I read (top of the list, relative frequency in brackets): Two Sum (100), Add Two Numbers (78.6), Median of Two Sorted Arrays (74.3), Trapping Rain Water (73.5), 3Sum (72.8), Longest Substring Without Repeating Characters (72.6), Best Time to Buy and Sell Stock (71.9), Longest Consecutive Sequence (70.8), Container With Most Water (68.4), Subarray Sum Equals K (65.8), Merge Intervals (64.8), Number of Islands (64.1), Climbing Stairs (62.8), Generate Parentheses (61.5), Koko Eating Bananas (59.2), Top K Frequent Elements (58.6), N-Queens (58.5), Split Array Largest Sum (58.2).</p>
+
+<p>Also in the Google list (lower down, from my look-ups): Meeting Rooms II (57.9), House Robber (57.4), Jump Game (55.8), Kth Largest Element (54.9), Subsets (52.2), Longest Increasing Subsequence (52.2), Course Schedule (51.4), Rotting Oranges (51.1), Find Median from Data Stream (50.5), Coin Change (48.1), Edit Distance (45.8), Word Break (43.8), Word Search (42.2), Word Ladder (41.5).</p>
+
+<p><strong>Patterns, in the order they seem to matter:</strong></p>
+
+<ol>
+<li>Arrays, strings and hash maps (lessons 01, 02).</li>
+<li>Two pointers and sliding window (lessons 03, 04).</li>
+<li><strong>Binary search</strong>, including "binary search on the answer" (Koko, Split Array Largest Sum, Median of Two Sorted Arrays) (lesson 06).</li>
+<li>Graphs on grids and graph search (lessons 10, 11).</li>
+<li>Dynamic programming and backtracking (lessons 14, 15, 16).</li>
+<li>Intervals and heaps (lessons 13, 09).</li>
+</ol>
+
+<p><strong>What I could verify about the loop in 2026:</strong></p>
+
+<ul>
+<li>A guide describes two 45-minute coding rounds, then system design and a behavioural round, and a recruiter screen plus one or two phone screens before the onsite. The same page contains claims it does not source (timing, committee sizes) and it names no specific topics. Source: <a href="https://dglearning.substack.com/p/inside-the-google-2026-loop-rounds">dglearning, "Inside the Google 2026 Loop"</a> (opened).</li>
+<li>A first-person report (Software Engineer, Canada, reported July 2026, no offer): recruiter screen, then a first round that mixed a "Googleyness" talk and a coding problem, then two more coding interviews, and <strong>team matching only after</strong> the coding rounds. It names no problems. Source: <a href="https://prachub.com/interview-experiences/google-software-engineer-interview-recruiter-screen-and-four-linear-rounds-1356c8893d">PracHub report</a> (opened).</li>
+<li>A news article from 22 Aug 2025 says Google's CEO said Google will "definitely introduce at least one round" of in-person interviews for technical roles, because of AI-assisted cheating. The article links no primary source, so treat it as a report, not a Google announcement. Source: <a href="https://trak.in/stories/google-brings-back-in-person-interviews-to-stop-ai-enabled-cheating/">trak.in article</a> (opened). <strong>Ask your recruiter</strong> whether your rounds are on-site or virtual.</li>
+</ul>
+
+<p><strong>Not verified:</strong> whether Google lets candidates use an AI tool in coding rounds. I saw this claimed only in a search summary, so I do not state it as fact.</p>
+
+<h3 id="22-amazon">2.2 Amazon</h3>
+
+<p>Rows I read (relative frequency in brackets): Two Sum (100), Trapping Rain Water (87.9), LRU Cache (87.9), Number of Islands (85.0), Longest Substring Without Repeating Characters (83.9), Best Time to Buy and Sell Stock (83.8), Group Anagrams (80.1), Reorganize String (78.0), Merge Intervals (76.4), Koko Eating Bananas (74.9), <strong>Course Schedule (74.5)</strong>, Subarray Sum Equals K (74.0), <strong>Merge k Sorted Lists (73.5)</strong>, <strong>Rotting Oranges (73.3)</strong>, Top K Frequent Elements (71.5), Copy List with Random Pointer (68.9), Word Ladder (67.1), House Robber (67.1), Sliding Window Maximum (66.4), Jump Game (65.7).</p>
+
+<p>Also in the Amazon list (my look-ups): Word Search (64.7), Course Schedule II (64.7), Subsets (64.5), Coin Change (63.2), Find Median from Data Stream (63.2), Task Scheduler (62.4), Kth Largest Element (62.5), Meeting Rooms II (61.3), Unique Paths (60.5), Word Break (58.7).</p>
+
+<p><strong>Patterns, in the order they seem to matter:</strong></p>
+
+<ol>
+<li>Arrays, strings, hash maps, sliding window (lessons 01 to 04).</li>
+<li><strong>Graph search on grids and prerequisites</strong>: Number of Islands, Rotting Oranges, Course Schedule, Word Ladder (lessons 10, 11).</li>
+<li><strong>Heaps / top-K / merge</strong>: Reorganize String, Top K Frequent, Merge k Sorted Lists, Task Scheduler (lesson 09).</li>
+<li>Design with a hash map and a linked list: LRU Cache, Copy List with Random Pointer (lesson 07).</li>
+<li>Intervals, basic DP, backtracking (lessons 13, 14, 15).</li>
+</ol>
+
+<p><strong>Amazon's online assessment (OA) in 2026, as far as I could verify.</strong> Sources disagree on names and numbering, so use your invite email as the truth.</p>
+
+<ul>
+<li>The OA is commonly described as three parts: <strong>coding</strong> (two problems, about 70 to 90 minutes), a <strong>Work Simulation</strong> (about 50 minutes, a pretend inbox with multiple-choice and multi-select questions about prioritising and debugging, scored against Amazon's Leadership Principles, no coding), and a <strong>Work Style Assessment</strong> (about 15 to 20 minutes, a situational survey). Source: <a href="https://www.lodely.com/blog/amazon-online-assessment-2025">Lodely guide</a> (opened). This is a commercial prep site and its numbers are its own claims.</li>
+<li>The same page says typical coding topics are arrays and hash maps, sliding window, intervals, trees, graph BFS/DFS, DP, two pointers, binary search, stacks, heaps and linked lists, with SDE I at easy-to-medium and SDE II at medium-to-hard. That matches the tag list above.</li>
+<li>A first-person blog says some candidates now get an <strong>"AI Assisted Coding" OA</strong>: an existing codebase (handlers, helpers, tests) with an AI assistant, where you find bugs and fix or improve the code, and hidden tests check edge cases. The author also promotes a paid prep service, and gives no time limit. Source: <a href="https://dev.to/net_programhelp_e160eef28/amazon-coding-oa-experience-pitfalls-guide-2026-latest-4885">DEV Community post</a> (opened).</li>
+<li>Seen only in search results (the pages returned HTTP 403 for me): LeetCode Discuss posts about 2026 Amazon OAs, one saying an invite had one traditional coding problem plus one AI-assisted repo problem. Links for you to read yourself: <a href="https://leetcode.com/discuss/post/8444926/amazon-sde-online-assessment-2026-recent-etbq/">Amazon SDE Intern OA 2026</a>, <a href="https://leetcode.com/discuss/post/8564893/amazon-oa-experience-9-october-2026-by-r-9907/">Amazon OA Experience, 9 October 2026</a>.</li>
+<li><strong>Not verified:</strong> which parts apply to experienced (SDE II) hires in India. One guide lists an extra 20-minute systems design section for SDE II, and I found that in a single source only.</li>
+</ul>
+
+<h3 id="23-meta">2.3 Meta</h3>
+
+<p>Rows I read (relative frequency in brackets): Minimum Remove to Make Valid Parentheses (100), Valid Word Abbreviation (96.9), Valid Palindrome II (95.7), <strong>Kth Largest Element in an Array (93.9)</strong>, Binary Tree Vertical Order Traversal (93.6), Two Sum (92.9), Basic Calculator II (89.5), Subarray Sum Equals K (88.0), Lowest Common Ancestor of a Binary Tree III (88.0), Diameter of Binary Tree (87.9), Random Pick with Weight (87.0), Binary Tree Right Side View (86.2), Find Peak Element (86.1), Merge Intervals (84.7), Pow(x, n) (84.4), Valid Palindrome (83.8), Simplify Path (83.7), Top K Frequent Elements (82.3), <strong>Shortest Path in Binary Matrix (80.2)</strong>, LRU Cache (79.2), K Closest Points to Origin (76.6), Max Consecutive Ones III (75.8), Merge k Sorted Lists (75.6), Making A Large Island (74.1), Interval List Intersections (73.5), Minimum Window Substring (73.4).</p>
+
+<p><strong>Patterns, in the order they seem to matter:</strong></p>
+
+<ol>
+<li><strong>Strings and stack tricks</strong> (valid parentheses variations, calculators, path simplifying) (lesson 05).</li>
+<li><strong>Trees</strong> (vertical order, LCA, diameter, right side view) (lesson 08).</li>
+<li>Hash maps with prefix sums, binary search, two pointers (lessons 02, 03, 06).</li>
+<li>Heaps and top-K (lesson 09).</li>
+<li>BFS on grids (lesson 10), sliding window (lesson 04), intervals (lesson 13).</li>
+</ol>
+
+<p><strong>What I could verify about the loop in 2026:</strong></p>
+
+<ul>
+<li>Many reports describe a <strong>traditional coding round with two algorithm problems and no AI</strong>, and a newer <strong>AI-enabled coding round</strong> in a CoderPad environment with an AI assistant, a multi-file project you did not write, runnable tests and one problem in several parts that build on each other (part 1 is often a bug fix). Evaluation areas listed: problem solving, code quality, verification and communication. Five 2026 reports on that page describe two AI-enabled coding rounds and no traditional one. The page's counts come from its own bank of 35 reports, and its dates are inconsistent, so treat the numbers as soft. Source: <a href="https://prachub.com/resources/meta-ai-coding-interview">PracHub, Meta AI coding interview</a> (opened).</li>
+<li><strong>Not verified:</strong> how often DP appears at Meta. The same page says "rarely" but rests that on two reports.</li>
+</ul>
+
+<h3 id="24-stripe">2.4 Stripe</h3>
+
+<p>Rows I read (all 12 rows of the Stripe list; relative frequency in brackets): Minimum Penalty for a Shop (100), Calculate Amount Paid in Taxes (97.2), Invalid Transactions (94.0), <strong>Cheapest Flights Within K Stops (86.0)</strong>, Brace Expansion (80.8), Merge Intervals (73.9), Parallel Courses III (64.3), One Edit Distance (64.3), Number of Black Blocks (64.3), Alert Using Same Key-Card Three or More Times in a One Hour Period (64.3), Simple Bank System (64.3), Next Permutation (64.3).</p>
+
+<p>This list is tiny (12 rows), so do not draw strong conclusions. It leans towards <strong>parsing and simulation of money, logs and transactions</strong> (hash maps, sorting, strings), plus a few graph and interval problems.</p>
+
+<p><strong>What I could verify about the loop:</strong></p>
+
+<ul>
+<li>Candidate reports from 2026 describe an online assessment, more coding, a <strong>bug squash</strong> round (debugging an existing codebase) and an <strong>API integration</strong> round, plus a behavioural round. Source: <a href="https://prachub.com/interview-experiences/stripe-software-engineer-interview-with-coding-bug-squash-api-integration-and-bq-rounds-cf992a00e3">PracHub report, Durham NC, July 2026, no offer</a> (opened). The author felt later rounds tested practical debugging and API work, not isolated algorithm puzzles. Level not stated.</li>
+<li>A third-party guide says Stripe coding is <strong>not LeetCode-style</strong>: practical tasks like a rate limiter or parsing a billing file, extending or debugging a small codebase, and a payments-flavoured system design round. The guide cites no sources, so treat it as an opinion. Source: <a href="https://www.techinterview.org/companies/stripe/?format=md">techinterview.org Stripe guide</a> (opened).</li>
+<li><strong>What this means for practice:</strong> algorithms (lessons 01 to 18) still matter for the first assessment, but also practise reading unfamiliar code, writing small clean programs with tests, handling edge cases, and calling an API. Practice writing code that reads like a pull request: clear names, small functions, edge cases handled.</li>
+</ul>
+
+<h3 id="25-microsoft">2.5 Microsoft</h3>
+
+<p>Rows I read (relative frequency in brackets): Two Sum (100), Add Two Numbers (81.6), Longest Substring Without Repeating Characters (80.0), Longest Palindromic Substring (79.9), Best Time to Buy and Sell Stock (78.0), Trapping Rain Water (77.9), LRU Cache (77.9), Median of Two Sorted Arrays (75.2), Subarray Sum Equals K (75.2), 3Sum (74.9), Maximum Subarray (74.8), Number of Islands (72.4), Merge Intervals (72.2), Valid Parentheses (72.0), Group Anagrams (70.0), Search in Rotated Sorted Array (68.7), Next Permutation (66.8), Spiral Matrix (66.6), Reverse Linked List (65.8), Merge k Sorted Lists (64.4), Product of Array Except Self (63.5).</p>
+
+<p><strong>Patterns, in the order they seem to matter:</strong></p>
+
+<ol>
+<li>Arrays, strings, hash maps, two pointers (lessons 01 to 03).</li>
+<li><strong>Linked lists</strong> (Add Two Numbers, Reverse Linked List, Merge k Sorted Lists) (lesson 07).</li>
+<li>Matrix manipulation (Spiral Matrix, Rotate Image) and classic "next permutation" style problems.</li>
+<li>DP basics, intervals, graph search (lessons 10, 13, 15).</li>
+</ol>
+
+<p><strong>What I could verify about the loop in 2026:</strong></p>
+
+<ul>
+<li>A first-person report (Software Engineer, Cairo, July 2026, no offer): an online assessment, then two live coding interviews. The first was a medium binary-search problem and the second was graph problems. Source: <a href="https://prachub.com/interview-experiences/microsoft-software-engineer-interview-experience-binary-search-first-then-graph-problems-b49aeafff0">PracHub report</a> (opened). This is one person; other reports mention extra system design rounds and an AI-assisted coding round (seen only in a search summary, not opened). One such report, if you want to read it yourself: <a href="https://prachub.com/interview-experiences/microsoft-senior-software-engineer-interview-experience-coreai-loop-with-an-ai-coding-round-after-11-loops-in-a-year">PracHub, Microsoft senior SWE, CoreAI loop with an AI coding round</a> (I saw only its title in search results).</li>
+<li><strong>Not verified:</strong> the exact rounds for your level and team. Microsoft loops vary a lot by team.</li>
+</ul>
+
+<h3 id="26-one-table-to-remember">2.6 One table to remember</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Pattern</th>
+  <th>Google</th>
+  <th>Amazon</th>
+  <th>Meta</th>
+  <th>Stripe</th>
+  <th>Microsoft</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Arrays, strings, hash maps</td>
+  <td>strong</td>
+  <td>strong</td>
+  <td>strong</td>
+  <td>some</td>
+  <td>strong</td>
+</tr>
+<tr>
+  <td>Two pointers / sliding window</td>
+  <td>strong</td>
+  <td>strong</td>
+  <td>strong</td>
+  <td>not seen</td>
+  <td>strong</td>
+</tr>
+<tr>
+  <td>Binary search (incl. on the answer)</td>
+  <td>strong</td>
+  <td>some</td>
+  <td>some</td>
+  <td>not seen</td>
+  <td>some</td>
+</tr>
+<tr>
+  <td>Stack, parentheses, calculators</td>
+  <td>some</td>
+  <td>some</td>
+  <td><strong>strong</strong></td>
+  <td>some (Brace Expansion)</td>
+  <td>some</td>
+</tr>
+<tr>
+  <td>Linked lists, LRU design</td>
+  <td>some</td>
+  <td><strong>strong</strong></td>
+  <td>some</td>
+  <td>not seen</td>
+  <td><strong>strong</strong></td>
+</tr>
+<tr>
+  <td>Trees</td>
+  <td>some</td>
+  <td>some</td>
+  <td><strong>strong</strong></td>
+  <td>not seen</td>
+  <td>some</td>
+</tr>
+<tr>
+  <td>Heaps, top-K, merge k</td>
+  <td>some</td>
+  <td><strong>strong</strong></td>
+  <td>strong</td>
+  <td>not seen</td>
+  <td>some</td>
+</tr>
+<tr>
+  <td>Graph search on grids, prerequisites</td>
+  <td>strong</td>
+  <td><strong>strong</strong></td>
+  <td>some</td>
+  <td>some</td>
+  <td>some</td>
+</tr>
+<tr>
+  <td>Intervals</td>
+  <td>strong</td>
+  <td>strong</td>
+  <td>strong</td>
+  <td>yes</td>
+  <td>strong</td>
+</tr>
+<tr>
+  <td>DP</td>
+  <td>some</td>
+  <td>some</td>
+  <td>less</td>
+  <td>some (edit distance)</td>
+  <td>some</td>
+</tr>
+<tr>
+  <td>Backtracking</td>
+  <td>some (N-Queens, parentheses)</td>
+  <td>some</td>
+  <td>less</td>
+  <td>some (Brace Expansion)</td>
+  <td>some</td>
+</tr>
+<tr>
+  <td>Code reading, debugging, API work</td>
+  <td>n/a</td>
+  <td>AI-assisted OA reported</td>
+  <td>AI-enabled round</td>
+  <td><strong>bug squash, integration</strong></td>
+  <td>AI round reported (unverified)</td>
+</tr>
+</tbody>
+</table>
+
+<p>"strong / some / less / not seen" is my reading of the top rows above plus the loop reports. It is a rough guide for where to spend time, not a measurement.</p>
+
+<hr />
+
+<h2 id="3-google-rounds-in-2026-what-to-expect-short">3. Google rounds in 2026: what to expect (short)</h2>
+
+<p>From the two sources I opened (see 2.1), plus clear caveats:</p>
+
+<ol>
+<li><strong>Recruiter screen</strong>, then <strong>one or two coding phone screens</strong>.</li>
+<li><strong>Onsite loop of about four to five rounds</strong> (guide) or "recruiter screen, coding rounds, Googleyness, team match" (first-person report). Mostly <strong>45-minute rounds with one algorithm problem</strong> and follow-ups, judged on understanding the problem, finding the pattern, correct code, stating complexity, talking while you think, and reacting to hints (this list is from the guide).</li>
+<li><strong>A behavioural ("Googleyness") conversation</strong>, possibly mixed into a coding round (as in the report).</li>
+<li><strong>System design</strong> is described in the guide as a round of its own. I could not verify at which levels it applies, so ask your recruiter.</li>
+<li><strong>Team matching</strong> happens after the interviews.</li>
+<li><strong>On-site vs virtual</strong>: reports of an in-person comeback exist (see 2.1), but I could not find a Google statement. Ask.</li>
+</ol>
+
+<p>How to prepare for the algorithm rounds: the same patterns as in this folder. Practise saying your thinking out loud, always state time and space complexity at the end, and test your code with 2 edge cases by hand before you say "done".</p>
+
+<hr />
+
+<h2 id="4-a-4-week-practice-schedule-15-hours-a-day">4. A 4-week practice schedule (1.5 hours a day)</h2>
+
+<p>This plan is <strong>mine</strong>, built to go through lessons 01 to 18 in order. It is not taken from a website. The idea is simple: <strong>one new problem a day, and redo an old one</strong>. Repeating old problems from a blank page is what makes patterns stick.</p>
+
+<p><strong>Every 90-minute day follows the same shape:</strong></p>
+
+<table>
+<thead>
+<tr>
+  <th>Minutes</th>
+  <th>What</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>0 to 15</td>
+  <td>Read the part of the lesson for the day. Close it. Write the template from memory on paper.</td>
+</tr>
+<tr>
+  <td>15 to 60</td>
+  <td><strong>One problem from the lesson.</strong> Set a 35-minute timer first. Speak out loud: restate the problem, give the brute force and its cost, then the better idea, then code.</td>
+</tr>
+<tr>
+  <td>60 to 75</td>
+  <td>Compare with the lesson's solution. Write one line: "my mistake was ...".</td>
+</tr>
+<tr>
+  <td>75 to 90</td>
+  <td><strong>Redo from a blank page</strong> the problem from 2 days ago (or the one you got wrong).</td>
+</tr>
+</tbody>
+</table>
+
+<p>Plan: 6 working days a week. Day 7 is a <strong>mock</strong> (or rest). If you miss a day, do not double up: skip the new problem and keep the redo.</p>
+
+<p>Lessons 01 to 08 are written by another author in this folder (arrays, hash maps, two pointers, sliding window, stack and queue, binary search, linked lists, trees). I list them by topic.</p>
+
+<h3 id="week-1-the-everyday-tools-lessons-01-to-06">Week 1: the everyday tools (lessons 01 to 06)</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Day</th>
+  <th>Lesson and topic</th>
+  <th>Problem for the day</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1</td>
+  <td>01 Arrays</td>
+  <td>Best Time to Buy and Sell Stock, then Product of Array Except Self</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>02 Hash maps</td>
+  <td>Two Sum, then Subarray Sum Equals K</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td>03 Two pointers</td>
+  <td>3Sum, then Container With Most Water</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td>04 Sliding window</td>
+  <td>Longest Substring Without Repeating Characters</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td>05 Stack and queue</td>
+  <td>Valid Parentheses, then Minimum Remove to Make Valid Parentheses</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td>06 Binary search</td>
+  <td>Search in Rotated Sorted Array, then Koko Eating Bananas</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td>Mock 1 (45 min, one medium, talk aloud) + review of mistakes</td>
+  <td>Pick one unseen medium from the same topics</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="week-2-structures-lessons-07-to-10">Week 2: structures (lessons 07 to 10)</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Day</th>
+  <th>Lesson and topic</th>
+  <th>Problem for the day</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>8</td>
+  <td>07 Linked lists</td>
+  <td>Reverse Linked List, then LRU Cache</td>
+</tr>
+<tr>
+  <td>9</td>
+  <td>08 Trees</td>
+  <td>Diameter of Binary Tree, then Lowest Common Ancestor</td>
+</tr>
+<tr>
+  <td>10</td>
+  <td>08 Trees (again)</td>
+  <td>Binary Tree Right Side View</td>
+</tr>
+<tr>
+  <td>11</td>
+  <td>09 Heaps</td>
+  <td>Kth Largest Element in an Array, then Top K Frequent Elements</td>
+</tr>
+<tr>
+  <td>12</td>
+  <td>10 Graphs (BFS, DFS)</td>
+  <td>Number of Islands</td>
+</tr>
+<tr>
+  <td>13</td>
+  <td>10 Graphs (grids)</td>
+  <td>Rotting Oranges</td>
+</tr>
+<tr>
+  <td>14</td>
+  <td>Mock 2 (45 min, one medium graph or tree problem)</td>
+  <td>Clone Graph or a tree problem you have not seen</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="week-3-harder-patterns-lessons-11-to-14">Week 3: harder patterns (lessons 11 to 14)</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Day</th>
+  <th>Lesson and topic</th>
+  <th>Problem for the day</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>15</td>
+  <td>11 Topological sort</td>
+  <td>Course Schedule, then Course Schedule II</td>
+</tr>
+<tr>
+  <td>16</td>
+  <td>11 Union-find</td>
+  <td>Number of Provinces, then Redundant Connection</td>
+</tr>
+<tr>
+  <td>17</td>
+  <td>12 Shortest paths</td>
+  <td>Network Delay Time</td>
+</tr>
+<tr>
+  <td>18</td>
+  <td>13 Intervals</td>
+  <td>Merge Intervals, then Meeting Rooms II</td>
+</tr>
+<tr>
+  <td>19</td>
+  <td>14 Backtracking</td>
+  <td>Subsets, then Permutations</td>
+</tr>
+<tr>
+  <td>20</td>
+  <td>14 Backtracking</td>
+  <td>Combination Sum, then Word Search</td>
+</tr>
+<tr>
+  <td>21</td>
+  <td>Mock 3: <strong>Amazon OA style</strong>. 70 minutes, two mediums, no hints, no looking at notes</td>
+  <td>Meeting Rooms II or Merge k Sorted Lists, plus Rotting Oranges</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="week-4-dp-extras-and-mocks-lessons-15-to-19">Week 4: DP, extras, and mocks (lessons 15 to 19)</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Day</th>
+  <th>Lesson and topic</th>
+  <th>Problem for the day</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>22</td>
+  <td>15 DP part 1</td>
+  <td>Climbing Stairs, then House Robber</td>
+</tr>
+<tr>
+  <td>23</td>
+  <td>15 DP part 1</td>
+  <td>Coin Change, then Unique Paths</td>
+</tr>
+<tr>
+  <td>24</td>
+  <td>16 DP part 2</td>
+  <td>Longest Increasing Subsequence, then Word Break</td>
+</tr>
+<tr>
+  <td>25</td>
+  <td>16 DP part 2</td>
+  <td>Edit Distance (draw the table by hand first)</td>
+</tr>
+<tr>
+  <td>26</td>
+  <td>17 Tries and greedy</td>
+  <td>Implement Trie, then Jump Game</td>
+</tr>
+<tr>
+  <td>27</td>
+  <td>18 Bits and math (short), then redo your three weakest problems of the month</td>
+  <td>Single Number, Pow(x, n)</td>
+</tr>
+<tr>
+  <td>28</td>
+  <td><strong>Final mocks</strong>: one 45-minute Google-style round (one medium or hard, talk aloud) and write 3 behavioural stories (see below)</td>
+  <td>Pick an unseen problem from the practice lists in lessons 09 to 17</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Behavioural stories</strong> (Amazon's work simulation and work-style parts are scored on its Leadership Principles; Google has a Googleyness conversation): write 3 stories from your own work, each in the form Situation, Task, Action, Result, with a number if you can. Reuse them across companies.</p>
+
+<p><strong>For Stripe in particular:</strong> twice in the month (for example days 10 and 20), replace your daily problem with a <strong>practical task</strong>: read a small open-source function you did not write and fix a bug in it, or write a small command-line program that parses a file and handles bad input, with tests. This matches the "bug squash" and "integration" rounds reported above.</p>
+
+<p><strong>For Meta in particular:</strong> once in week 4, practise with an AI assistant on: "here is a messy multi-file project with a failing test. Fix it, explain every change, and check the AI's code yourself." The round reportedly rewards checking and explaining.</p>
+
+<hr />
+
+<h2 id="5-what-i-could-not-verify-so-you-know">5. What I could not verify (so you know)</h2>
+
+<ul>
+<li>That the GitHub tag lists reflect what each company asks <strong>today</strong>. They are about a year old and the frequency score is not explained.</li>
+<li>How the Amazon OA is structured for <strong>experienced hires in India</strong> in late 2026. Guides disagree on part names and numbering. Check your invite.</li>
+<li>Whether Google allows AI help in coding rounds. Whether Google rounds are in person for your location.</li>
+<li>How often Meta and Microsoft ask DP. The numbers I saw rest on very few reports.</li>
+<li>Any pass-rate statistic. I saw one (a Stripe Bengaluru aggregate with 11 experiences) and did not use it, because the sample is too small.</li>
+<li>The two LeetCode Discuss pages about Amazon 2026 OAs (HTTP 403 for my tools). I list them as links only.</li>
+</ul>
+
+<hr />
+
+<h2 id="6-sources">6. Sources</h2>
+
+<p>Opened and read by me:</p>
+
+<ul>
+<li><a href="https://github.com/liquidslr/leetcode-company-wise-problems">liquidslr/leetcode-company-wise-problems (GitHub)</a>: company tag lists (Google, Amazon, Meta, Microsoft, Stripe <code>5. All.csv</code> files, read via the raw file links under that repo).</li>
+<li><a href="https://dglearning.substack.com/p/inside-the-google-2026-loop-rounds">dglearning: Inside the Google 2026 Loop</a></li>
+<li><a href="https://prachub.com/interview-experiences/google-software-engineer-interview-recruiter-screen-and-four-linear-rounds-1356c8893d">PracHub: Google SE report (Canada, 2026)</a></li>
+<li><a href="https://trak.in/stories/google-brings-back-in-person-interviews-to-stop-ai-enabled-cheating/">trak.in: Google in-person interviews article (22 Aug 2025)</a></li>
+<li><a href="https://www.lodely.com/blog/amazon-online-assessment-2025">Lodely: Amazon Online Assessment 2026 guide</a></li>
+<li><a href="https://dev.to/net_programhelp_e160eef28/amazon-coding-oa-experience-pitfalls-guide-2026-latest-4885">DEV Community: Amazon coding OA experience and AI-assisted OA</a></li>
+<li><a href="https://prachub.com/resources/meta-ai-coding-interview">PracHub: Meta AI-enabled coding interview</a></li>
+<li><a href="https://prachub.com/interview-experiences/stripe-software-engineer-interview-with-coding-bug-squash-api-integration-and-bq-rounds-cf992a00e3">PracHub: Stripe SE report (coding, bug squash, API integration)</a></li>
+<li><a href="https://www.techinterview.org/companies/stripe/?format=md">techinterview.org: Stripe interview guide</a></li>
+<li><a href="https://prachub.com/interview-experiences/microsoft-software-engineer-interview-experience-binary-search-first-then-graph-problems-b49aeafff0">PracHub: Microsoft SE report (Cairo, 2026)</a></li>
+</ul>
+
+<p>Seen only in search results (not opened, or blocked):</p>
+
+<ul>
+<li><a href="https://leetcode.com/discuss/post/8444926/amazon-sde-online-assessment-2026-recent-etbq/">LeetCode Discuss: Amazon SDE Intern OA 2026</a></li>
+<li><a href="https://leetcode.com/discuss/post/8564893/amazon-oa-experience-9-october-2026-by-r-9907/">LeetCode Discuss: Amazon OA Experience, 9 October 2026</a></li>
+<li><a href="https://prachub.com/interview-experiences/microsoft-senior-software-engineer-interview-experience-coreai-loop-with-an-ai-coding-round-after-11-loops-in-a-year">PracHub: Microsoft senior SWE CoreAI loop with an AI coding round</a></li>
+</ul>
+<div class="pn"><span><a href="18_bit_tricks_and_math_basics.html">&larr; Lesson 18: Bit Tricks and Math Basics (s</a></span><span></span></div></main></div></body></html>

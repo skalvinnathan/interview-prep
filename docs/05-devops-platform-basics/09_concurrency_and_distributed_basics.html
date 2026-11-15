@@ -1,0 +1,337 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>09. Concurrency and distributed basics | Interview prep</title><style>
+:root{--bg:#fff;--fg:#1f2328;--mut:#59636e;--bd:#d1d9e0;--ac:#0b57d0;--cb:#f6f8fa;--sb:#f6f8fa}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9198a1;--bd:#30363d;--ac:#6cb6ff;--cb:#161b22;--sb:#010409}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{display:flex;min-height:100vh}nav{width:300px;flex:none;background:var(--sb);border-right:1px solid var(--bd);padding:16px;overflow:auto;position:sticky;top:0;height:100vh}
+nav a{color:var(--fg);text-decoration:none;display:block;padding:3px 6px;border-radius:6px;font-size:14px}nav a:hover{background:var(--cb)}nav a.cur{background:var(--ac);color:#fff}
+nav summary{cursor:pointer;font-weight:600;padding:6px 0}nav .home{font-weight:700;font-size:16px;margin-bottom:8px}
+main{flex:1;min-width:0;max-width:900px;padding:24px 32px 80px;margin:0 auto}
+h1,h2,h3{line-height:1.25}h1{border-bottom:1px solid var(--bd);padding-bottom:.3em}h2{border-bottom:1px solid var(--bd);padding-bottom:.25em;margin-top:2em}
+a{color:var(--ac)}pre{background:var(--cb);border:1px solid var(--bd);border-radius:8px;padding:14px;overflow:auto;font-size:13.5px;line-height:1.5}
+code{background:var(--cb);padding:.15em .35em;border-radius:5px;font-size:.92em}pre code{background:none;padding:0}
+table{border-collapse:collapse;display:block;overflow:auto;max-width:100%}th,td{border:1px solid var(--bd);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--cb)}
+blockquote{border-left:4px solid var(--bd);margin:0;padding:0 1em;color:var(--mut)}img{max-width:100%}
+.top{display:none}.pn{display:flex;justify-content:space-between;gap:12px;margin-top:48px;border-top:1px solid var(--bd);padding-top:16px;font-size:14px}
+@media(max-width:820px){.wrap{display:block}nav{width:auto;height:auto;position:static;border-right:0;border-bottom:1px solid var(--bd)}main{padding:16px}}
+</style></head><body><div class="wrap"><nav><a class="home" href="../index.html">Interview prep</a><details><summary>Data structures and algorithms</summary><a href="../01-dsa/00_how_to_start.html">How to start: reading a problem, the 5-step method, and Big-</a><a href="../01-dsa/01_arrays_and_strings.html">Lesson 01. Arrays and Strings</a><a href="../01-dsa/02_hash_maps_and_sets.html">Lesson 02. Hash Maps and Sets</a><a href="../01-dsa/03_two_pointers.html">Lesson 03. Two Pointers</a><a href="../01-dsa/04_sliding_window.html">Lesson 04. Sliding Window</a><a href="../01-dsa/05_stack_and_queue.html">Lesson 05. Stack and Queue (including the monotonic stack)</a><a href="../01-dsa/06_binary_search.html">Lesson 06. Binary Search (including search on the answer)</a><a href="../01-dsa/07_linked_lists.html">Lesson 07. Linked Lists</a><a href="../01-dsa/08_trees_and_bst.html">Lesson 08. Trees and Binary Search Trees (BST)</a><a href="../01-dsa/09_heaps_and_priority_queues.html">Lesson 09: Heaps and Priority Queues</a><a href="../01-dsa/10_graphs_bfs_dfs.html">Lesson 10: Graphs, BFS and DFS (including grids)</a><a href="../01-dsa/11_topological_sort_and_union_find.html">Lesson 11: Topological Sort and Union-Find</a><a href="../01-dsa/12_shortest_paths.html">Lesson 12: Shortest Paths (Dijkstra in plain words)</a><a href="../01-dsa/13_intervals.html">Lesson 13: Intervals (merge intervals, meeting rooms)</a><a href="../01-dsa/14_backtracking.html">Lesson 14: Backtracking (subsets, permutations, combination </a><a href="../01-dsa/15_dynamic_programming_part1.html">Lesson 15: Dynamic Programming, Part 1 (remembering answers)</a><a href="../01-dsa/16_dynamic_programming_part2.html">Lesson 16: Dynamic Programming, Part 2 (LIS, word break, kna</a><a href="../01-dsa/17_tries_and_greedy.html">Lesson 17: Tries and Greedy</a><a href="../01-dsa/18_bit_tricks_and_math_basics.html">Lesson 18: Bit Tricks and Math Basics (short)</a><a href="../01-dsa/19_company_question_patterns.html">Lesson 19: Company Question Patterns (Google, Amazon, Meta, </a></details><details><summary>System design</summary><a href="../02-system-design/00_how_the_round_works.html">How the System Design Round Works</a><a href="../02-system-design/01a_client_server_and_http.html">Client, Server and HTTP</a><a href="../02-system-design/01b_dns_and_cdn.html">DNS and CDN</a><a href="../02-system-design/01c_load_balancers.html">Load Balancers</a><a href="../02-system-design/01d_databases.html">Databases: SQL vs NoSQL, Indexes, Transactions</a><a href="../02-system-design/01e_caching.html">Caching (and Why Invalidation Is Hard)</a><a href="../02-system-design/01f_sharding_and_replication.html">Sharding and Replication</a><a href="../02-system-design/01g_message_queues_and_streams.html">Message Queues and Streams (Kafka Basics)</a><a href="../02-system-design/01h_consistency_and_cap.html">Consistency and the CAP Idea (in Plain Words)</a><a href="../02-system-design/02_numbers_and_estimation.html">Numbers and Estimation</a><a href="../02-system-design/03_reliability_patterns.html">Reliability Patterns</a><a href="../02-system-design/10_url_shortener.html">Design a URL Shortener</a><a href="../02-system-design/11_rate_limiter.html">Design a Rate Limiter</a><a href="../02-system-design/12_chat_system.html">Design a Chat System (like WhatsApp or Slack)</a><a href="../02-system-design/13_news_feed.html">Design a News Feed (like Instagram, Facebook or Twitter/X ho</a><a href="../02-system-design/14_notification_service.html">Design a Notification Service</a><a href="../02-system-design/15_file_storage_like_drive.html">Design File Storage and Sync (like Google Drive or Dropbox)</a><a href="../02-system-design/16_search_autocomplete.html">Design Search Autocomplete (Typeahead)</a><a href="../02-system-design/17_video_streaming_basics.html">Design Video Streaming Basics (like YouTube or Netflix)</a><a href="../02-system-design/18_payment_system_like_stripe.html">Design a Payment System (like Stripe)</a><a href="../02-system-design/19_order_management_like_amazon.html">Design an Order Management System (like Amazon: inventory, o</a><a href="../02-system-design/20_job_scheduler_and_workflow_engine.html">Design a Job Scheduler and Workflow Engine</a><a href="../02-system-design/21_api_gateway_and_auth_system.html">Design an API Gateway and Auth System</a><a href="../02-system-design/22_logging_and_metrics_platform.html">Design a Logging and Metrics Platform</a><a href="../02-system-design/90_cheat_sheet.html">Cheat Sheet (one page)</a><a href="../02-system-design/91_practice_questions.html">Practice Questions (30)</a></details><details><summary>Low-level design</summary><a href="../03-low-level-design/00_how_the_lld_round_works.html">- How the LLD round works</a><a href="../03-low-level-design/01_oop_in_plain_words.html">- OOP in plain words</a><a href="../03-low-level-design/02_solid_principles.html">- SOLID principles</a><a href="../03-low-level-design/03_design_patterns_you_need.html">- The 8 design patterns you need</a><a href="../03-low-level-design/10_parking_lot.html">- Parking Lot</a><a href="../03-low-level-design/11_lru_cache.html">- LRU Cache</a><a href="../03-low-level-design/12_elevator_system.html">- Elevator System</a><a href="../03-low-level-design/13_library_management.html">- Library Management System</a><a href="../03-low-level-design/14_vending_machine.html">- Vending Machine (State pattern)</a><a href="../03-low-level-design/15_atm.html">- ATM</a><a href="../03-low-level-design/16_rate_limiter_class.html">- Rate Limiter (class design: token bucket and sliding windo</a><a href="../03-low-level-design/17_amazon_locker.html">- Amazon Locker</a><a href="../03-low-level-design/18_splitwise_expense_sharing.html">- Splitwise (Expense Sharing)</a><a href="../03-low-level-design/19_logger_and_notification_system.html">- Logger and Notification System (Observer and Strategy)</a><a href="../03-low-level-design/20_tic_tac_toe_or_chess_basics.html">- Tic-Tac-Toe (full) and Chess basics</a><a href="../03-low-level-design/90_cheat_sheet.html">- Cheat sheet (read the night before)</a><a href="../03-low-level-design/91_practice_questions.html">- Practice questions (20)</a></details><details open><summary>DevOps and platform basics</summary><a href="01_linux_processes_memory_files.html">Linux: processes, memory, and files</a><a href="02_networking.html">Networking: TCP, DNS, TLS, NAT</a><a href="03_containers_and_docker.html">Containers and Docker</a><a href="04_kubernetes_from_zero.html">Kubernetes from zero</a><a href="05_helm.html">Helm</a><a href="06_terraform.html">Terraform</a><a href="07_ci_cd_github_actions.html">CI/CD with GitHub Actions</a><a href="08_observability_and_sre.html">Observability and SRE</a><a class="cur" href="09_concurrency_and_distributed_basics.html">Concurrency and distributed basics</a><a href="10_databases_basics.html">Databases basics</a><a href="11_security_basics.html">Security basics (IAM, OAuth2/OIDC/JWT, secrets, supply chain</a><a href="12_gcp_pca_quick_map.html">Google Cloud quick map (for Professional Cloud Architect hol</a><a href="20_interview_questions_with_answers.html">Sixty interview questions with model answers (platform / SRE</a><a href="21_scenario_questions.html">Fifteen &quot;production is down&quot; scenarios, with step-by-step an</a></details><details><summary>Company processes</summary><a href="../06-company-process-and-behavioural/10_google.html">Google</a><a href="../06-company-process-and-behavioural/11_amazon.html">Amazon</a><a href="../06-company-process-and-behavioural/12_stripe.html">Stripe</a><a href="../06-company-process-and-behavioural/13_microsoft_and_azure_roles.html">Microsoft and Azure roles</a><a href="../06-company-process-and-behavioural/14_indian_product_and_gcc_companies.html">Indian product companies and GCCs</a><a href="../06-company-process-and-behavioural/15_european_scaleups.html">European scale-ups and visa basics</a><a href="../06-company-process-and-behavioural/16_ai_startups_like_smallest_ai.html">AI startups like Smallest AI</a><a href="../06-company-process-and-behavioural/24_questions_to_ask_interviewers.html">Questions to ask interviewers</a><a href="../06-company-process-and-behavioural/25_salary_notice_period_and_offer_negotiation_india_and_abroad.html">Salary, notice period and offer negotiation (India and abroa</a><a href="../06-company-process-and-behavioural/26_interview_day_checklists.html">Interview day checklists</a></details></nav><main><h1 id="09-concurrency-and-distributed-basics">09. Concurrency and distributed basics</h1>
+
+<p>Legend: <code>[REAL]</code> = I ran the Python script on this Mac (Python 3.9.6, macOS 26) on 2026-11-15. <code>[SAMPLE]</code> = shape example, not run. The retry/backoff/jitter, idempotency, load-shedding, and timeout rules were checked against the AWS Builders' Library, Google's SRE book, and Stripe's docs (links at the end).</p>
+
+<hr />
+
+<h2 id="1-what-it-is-plain-words-analogy">1. What it is (plain words + analogy)</h2>
+
+<p><strong>Concurrency</strong> = many things in progress at the same time (threads, processes, requests, servers).
+<strong>Distributed system</strong> = many computers that work together over a network, where any part can fail alone.</p>
+
+<p>Analogy 1, a <strong>shared notebook</strong>: two people read "balance = 100", both add 10, both write "110". The right answer is 120. One update is lost. That is a <strong>race condition</strong>.
+Analogy 2, a <strong>phone call that drops</strong>: you say "send the money" and the line dies. Did the other side hear you? You do not know. You can only ask again. That is <strong>partial failure</strong>, and why we need <strong>idempotency</strong> (asking twice must be safe).</p>
+
+<p>Words:</p>
+
+<ul>
+<li><strong>Race condition</strong>: the result depends on timing of operations from different threads/processes.</li>
+<li><strong>Lock (mutex)</strong>: only one holder at a time; others wait.</li>
+<li><strong>Deadlock</strong>: A waits for B and B waits for A, forever.</li>
+<li><strong>Idempotent</strong>: doing it once or many times gives the same final result.</li>
+<li><strong>Latency</strong>: how long a call takes. <strong>Throughput</strong>: how many calls per second.</li>
+<li><strong>Backpressure</strong>: a slow consumer telling a fast producer "slow down".</li>
+</ul>
+
+<h2 id="2-why-it-matters-in-interviews">2. Why it matters in interviews</h2>
+
+<p>Google and Amazon loops and Smallest AI's fundamentals call like questions such as "what is a race condition?", "how do you make a retry safe?", "why do retries make an outage worse?", "can you trust the clock?". Platform interviews add "what happens when a node dies mid-request?". 2026 guides place these inside system design and incident questions. The answers are short and follow patterns; learn the patterns.</p>
+
+<h2 id="3-how-it-works-step-by-step">3. How it works, step by step</h2>
+
+<h3 id="31-race-conditions">3.1 Race conditions</h3>
+
+<p>The classic bug is <strong>read-modify-write</strong>: read a value, change it, write it back. Another thread can sneak in between.</p>
+
+<pre><code> Thread A: read count (0)                       write count = 1
+ Thread B:            read count (0)  write count = 1
+ Result: 1, not 2. One increment is lost.
+</code></pre>
+
+<p><code>[REAL]</code> Four threads each add 1 to a shared counter 200,000 times (expected 800,000). I made Python switch threads very often so the race shows up:</p>
+
+<pre><code>expected 800000, got 280239          &lt;-- lost updates, no lock
+with lock: expected 800000, got 800000   &lt;-- with a lock, always correct
+</code></pre>
+
+<p>(The exact number changes each run. On normal settings the race may not show for a long time, which is exactly why races are dangerous: they hide in tests and appear in production.)</p>
+
+<p>How to fix:</p>
+
+<ol>
+<li><strong>Do not share</strong>: give each worker its own data, then combine at the end.</li>
+<li><strong>Lock</strong> around the critical section (small and quick).</li>
+<li><strong>Atomic operations</strong> (an atomic increment, or <code>UPDATE counter SET n = n + 1</code> in the database, which the database runs as one step).</li>
+<li><strong>Optimistic concurrency</strong>: read a version number, write only <code>WHERE version = old</code>; if 0 rows changed, retry (compare-and-swap).</li>
+<li><strong>One owner</strong>: put work in a queue handled by one consumer.</li>
+</ol>
+
+<p>Races also happen <strong>between processes and servers</strong>: two pods both check "does file X exist?" then both create it; two CI jobs both run <code>terraform apply</code> (that is why state locking exists, file 06); two cron jobs run at the same time (use a lock or a single scheduler).</p>
+
+<h3 id="32-locks-and-deadlocks">3.2 Locks and deadlocks</h3>
+
+<p>Deadlock needs four things together (the Coffman conditions, general computer-science knowledge): mutual exclusion, hold-and-wait, no preemption, circular wait.</p>
+
+<pre><code> Thread A: lock(X) ... wants lock(Y)  ──┐
+ Thread B: lock(Y) ... wants lock(X)  ◄─┘  both wait forever
+</code></pre>
+
+<p>Prevent: always take locks in the <strong>same global order</strong>; hold locks for the shortest time; use timeouts on lock acquire; avoid calling unknown code while holding a lock. Databases detect deadlocks and abort one transaction, so applications must be ready to <strong>retry</strong> (see PostgreSQL's serialization failure note in file 10).</p>
+
+<p><strong>Distributed locks</strong> (a lock shared by many servers, for example in Redis, etcd, or a database) are harder: a holder can pause (long GC pause, VM freeze), its lock <strong>lease</strong> expires, someone else takes the lock, then the first holder wakes up and still thinks it holds the lock. Defense: <strong>fencing tokens</strong>, a number that increases with each lock grant; the protected resource rejects writes with an older number. (General knowledge from distributed systems literature; not verified today.) Kubernetes uses <strong>leases</strong> for leader election, the same idea.</p>
+
+<h3 id="33-idempotency">3.3 Idempotency</h3>
+
+<p>An operation is idempotent if repeating it does not change the result after the first time.</p>
+
+<ul>
+<li>Naturally idempotent: <code>GET</code>, <code>PUT /user/5 {name: "A"}</code>, <code>DELETE /user/5</code>, "set value to 5", <code>kubectl apply</code>, <code>terraform apply</code>.</li>
+<li><strong>Not</strong> idempotent: <code>POST /payments</code> (creates a new payment each time), "add 10 to balance", "send email".</li>
+</ul>
+
+<p>Make a non-idempotent operation safe with an <strong>idempotency key</strong>: the client generates a unique key (a UUID) and sends it with the request. The server stores the key with the result. If the same key comes again, it returns the <strong>saved result</strong> instead of doing the work again.</p>
+
+<p>Stripe's docs describe exactly this: you send an <code>Idempotency-Key</code> header with <code>POST</code> requests; "retries with the same key return the saved response" (API v1, even <code>500</code> errors); keys are up to <strong>255 characters</strong>, V4 UUIDs are suggested, you should not put sensitive data in them; for v1 keys can be removed after at least <strong>24 hours</strong>; the server compares the new parameters with the original request and errors if they differ, to catch misuse; <code>GET</code> and <code>DELETE</code> do not need keys "because they are idempotent by definition".</p>
+
+<pre><code> client ── POST /charge  Idempotency-Key: k1 ──&gt; server: new key, do the charge, save result
+ client &lt;── (network drops, no response seen)
+ client ── POST /charge  Idempotency-Key: k1 ──&gt; server: key k1 known -&gt; return saved result (no second charge)
+</code></pre>
+
+<p>Server-side recipe: a table with a <strong>unique constraint on the key</strong>. Insert the key first (<code>INSERT ... ON CONFLICT DO NOTHING</code>); if it already exists, return the stored response. Also store a <strong>request fingerprint</strong> to detect reuse with different data. Handle the "in progress" state: a second request arriving while the first is still running.</p>
+
+<h3 id="34-delivery-guarantees-at-most-once-at-least-once-exactly-once">3.4 Delivery guarantees: at-most-once, at-least-once, exactly-once</h3>
+
+<p>For messages (Kafka, queues, webhooks, retries):</p>
+
+<ul>
+<li><strong>At-most-once</strong>: send once, never retry. May <strong>lose</strong> messages. No duplicates.</li>
+<li><strong>At-least-once</strong>: retry until acknowledged. Never loses, but can <strong>duplicate</strong>. This is the common default.</li>
+<li><strong>Exactly-once</strong> (delivery): not possible in general over an unreliable network, because the sender cannot tell "lost message" from "lost acknowledgment". What systems really offer is <strong>exactly-once processing effect</strong> = <strong>at-least-once delivery + idempotent processing</strong> (or transactions inside one system, as some Kafka features do).</li>
+</ul>
+
+<p>So the interview answer is: <strong>design consumers to be idempotent</strong>. Use a message ID and a "processed" table, or make the operation naturally idempotent (upsert by key).</p>
+
+<h3 id="35-retries-exponential-backoff-and-jitter">3.5 Retries, exponential backoff, and jitter</h3>
+
+<p>Failures are often temporary (a blip, a restart), so retrying helps. But <strong>careless retries cause outages</strong>.</p>
+
+<p>From the AWS Builders' Library:</p>
+
+<ul>
+<li>Retries add load to an already overloaded system: "retries can make the overload worse instead of better".</li>
+<li>Retries <strong>multiply across layers</strong>. Their example: three retries at each of five layers can multiply load on a database by <strong>243 times</strong>. Google's SRE book gives another example: three layers with 3 retries each can turn one user action into <strong>64</strong> attempts on the database. (The two articles count tries a little differently, so do not memorize the exact numbers. Remember the idea: the numbers <strong>multiply</strong> layer by layer.) <strong>Retry at one layer only.</strong></li>
+<li><strong>Exponential backoff</strong>: wait longer after each failure ("the wait time is increased exponentially after every attempt"), with a <strong>cap</strong>.</li>
+<li><strong>Jitter</strong>: add randomness so many clients do not retry at the same moment. "Failed clients that back off to the same moment collide again."</li>
+<li><strong>Limit retries</strong>: a maximum count, and a <strong>retry budget</strong> (for example a token bucket; Google gives the example of a server-wide budget such as 60 retries per minute).</li>
+<li><strong>Idempotency</strong> is required before retrying anything with side effects.</li>
+<li>Do not retry <strong>permanent errors</strong> (400 Bad Request, 404, bad credentials), only temporary ones (timeouts, 503, 429 with <code>Retry-After</code>).</li>
+<li>Set <strong>timeouts</strong> on every remote call, using the dependency's latency percentiles. Too high wastes resources; too low causes extra retries.</li>
+</ul>
+
+<p><code>[REAL]</code> my demo, base 0.1 s, cap 10 s. "Full jitter" picks a random wait between 0 and the exponential value:</p>
+
+<pre><code>attempt  no-jitter   full-jitter(random 0..that)
+1          0.2s       0.03s
+2          0.4s       0.34s
+3          0.8s       0.61s
+4          1.6s       0.41s
+5          3.2s       1.59s
+6          6.4s       2.88s
+7         10.0s       6.52s
+8         10.0s       7.89s
+</code></pre>
+
+<p>Without jitter, 1,000 clients that failed together retry together at 0.2 s, 0.4 s, 0.8 s ... in waves. With jitter, the retries spread out. (The jitter variants "full jitter" and "decorrelated jitter" are described in AWS material; here I used full jitter as an example.)</p>
+
+<p>Code shape:</p>
+
+<pre><code>import random, time
+
+def call_with_retry(fn, max_tries=5, base=0.1, cap=10.0):
+    for attempt in range(1, max_tries + 1):
+        try:
+            return fn()
+        except TemporaryError:
+            if attempt == max_tries:
+                raise
+            time.sleep(random.uniform(0, min(cap, base * 2 ** attempt)))   # full jitter
+</code></pre>
+
+<h3 id="36-backpressure-queues-load-shedding">3.6 Backpressure, queues, load shedding</h3>
+
+<p>If producers are faster than consumers, a queue grows without limit, memory runs out, latency climbs (work waits in line), and eventually everything falls over.</p>
+
+<p>Tools:</p>
+
+<ul>
+<li><strong>Bounded queues</strong>: when full, <strong>reject or block</strong> (this is backpressure). Never use an unbounded queue in production.</li>
+<li><strong>Load shedding</strong>: Google's book: servers should "fail early and cheaply" when overloaded; for example return HTTP 503 when in-flight requests pass a limit. Keep queues short relative to the thread pool so rejection is early. Prefer shedding requests the client has probably already given up on.</li>
+<li><strong>Rate limiting</strong> (token bucket, leaky bucket) at the proxy, load balancer, or per client.</li>
+<li><strong>Deadlines/timeouts propagated downstream</strong>: "Use deadline propagation so downstream calls inherit the remaining time" so doomed work stops.</li>
+<li><strong>Graceful degradation</strong>: return a cheaper answer (cached, partial) instead of failing.</li>
+<li><strong>Circuit breaker</strong>: after many failures, stop calling the broken dependency for a while ("open"), then try a few calls ("half-open"). (Common pattern; general knowledge.)</li>
+<li><strong>Bulkheads</strong>: separate pools per dependency so one slow dependency cannot use all threads.</li>
+<li><strong>Autoscaling</strong> helps only if the bottleneck can scale, and is slower than a spike.</li>
+</ul>
+
+<pre><code> clients ─&gt; [ rate limit ] ─&gt; [ bounded queue ] ─&gt; workers ─&gt; database
+                 │ 429               │ 503 when full              ▲
+                 └───────────────────┴─ clients back off + jitter ─┘
+</code></pre>
+
+<p><strong>Cascading failure</strong>: one overloaded part slows down, its callers time out and retry, which adds more load, which slows it more. The SRE book notes retries can keep a backend overloaded <strong>even after the original traffic drops</strong>. Breaking the loop needs shedding load, cutting retries, or turning traffic off.</p>
+
+<h3 id="37-clocks">3.7 Clocks</h3>
+
+<p>Computers do not share one clock.</p>
+
+<ul>
+<li><strong>Wall-clock time</strong> (<code>time.time()</code>, "2026-11-15 21:00:00") can <strong>jump</strong> (NTP corrections, manual changes, leap seconds) and differs between machines (<strong>clock skew</strong>), often by milliseconds, sometimes by seconds when NTP is broken.</li>
+<li><strong>Monotonic time</strong> (<code>time.monotonic()</code>) only moves forward and is correct for <strong>measuring durations</strong> on one machine, but meaningless between machines.</li>
+</ul>
+
+<p>Rules:</p>
+
+<ol>
+<li>Measure elapsed time with a <strong>monotonic</strong> clock.</li>
+<li>Do <strong>not</strong> use wall clocks from different machines to decide "which event happened first" or "last write wins" if you care about correctness: skew can make the older write look newer.</li>
+<li>For ordering across machines use <strong>logical clocks</strong> (sequence numbers, version numbers, Lamport clocks), a single leader that assigns order, or a database transaction log.</li>
+<li>Expiry times (tokens, certificates, locks) depend on wall clocks; allow a small tolerance for skew (JWT <code>nbf</code>/<code>exp</code> checks usually allow a few seconds, see file 11). A wrong clock can break TLS ("certificate not yet valid") and authentication.</li>
+<li>Always run NTP/chrony and alert on clock drift.</li>
+</ol>
+
+<p>(These are standard distributed-systems points; I did not verify them against one source today.)</p>
+
+<h3 id="38-partial-failure">3.8 Partial failure</h3>
+
+<p>In a single program, a function call either works or throws. Across a network, there is a third outcome: <strong>you do not know</strong>.</p>
+
+<pre><code> client ──request──&gt; server
+ outcomes: (1) request lost   (2) server crashed before doing it   (3) server did it, crashed before replying
+           (4) server did it, reply lost                          (5) it is just very slow
+ The client sees the same thing in all five: a timeout.
+</code></pre>
+
+<p>So: every remote call needs a <strong>timeout</strong>, a <strong>retry policy</strong> with backoff and jitter, and the operation must be <strong>idempotent</strong> (or the client must be able to check the state first). Also think about:</p>
+
+<ul>
+<li><strong>Timeouts that are too long</strong> hold threads and sockets (a slow dependency becomes your outage).</li>
+<li><strong>Health checks</strong>: a node that is slow may look dead and is replaced while still working (the <strong>split brain</strong> problem when two nodes both think they are the leader). Use quorum and leases, and fencing.</li>
+<li><strong>Sagas / compensation</strong> for multi-step business flows across services: if step 3 fails, run "undo" actions for steps 1 and 2 (there is no global transaction).</li>
+<li>The <strong>CAP idea</strong>: when the network splits, you must choose between consistency and availability for that data. (General knowledge; keep the answer simple: "during a partition, choose what is worse for this feature, wrong data or no data".)</li>
+<li><strong>Eventual consistency</strong>: replicas may briefly disagree (file 10, replication lag). Read-your-writes may fail unless you route reads to the primary.</li>
+</ul>
+
+<h2 id="4-commands-to-try">4. Commands to try</h2>
+
+<pre><code># Prove the race yourself (Python 3, no installs)
+python3 - &lt;&lt;'EOF'
+import threading, sys
+sys.setswitchinterval(1e-6)       # switch threads very often so the race shows
+count = 0
+def work():
+    global count
+    for _ in range(200000):
+        tmp = count
+        count = tmp + 1
+ts=[threading.Thread(target=work) for _ in range(4)]
+[t.start() for t in ts]; [t.join() for t in ts]
+print("expected 800000, got", count)
+EOF
+
+# See retry behavior with curl (retries only on transient errors)
+curl --retry 3 --retry-delay 1 --retry-max-time 20 -sS https://example.com -o /dev/null
+
+# Use a lock file so two cron jobs do not overlap (Linux; flock)
+flock -n /tmp/job.lock ./run_job.sh || echo "already running"
+
+# Check clock sync on Linux
+timedatectl status          # shows "System clock synchronized: yes"
+chronyc tracking            # offset from the time source
+</code></pre>
+
+<p><code>[SAMPLE]</code> <code>timedatectl status</code> (Linux):</p>
+
+<pre><code>               Local time: Sun 2026-11-15 21:58:12 IST
+           Universal time: Sun 2026-11-15 16:28:12 UTC
+System clock synchronized: yes
+              NTP service: active
+</code></pre>
+
+<h2 id="5-common-mistakes">5. Common mistakes</h2>
+
+<ol>
+<li>Read-modify-write without a lock, atomic update, or version check.</li>
+<li>Retrying immediately, forever, at every layer (retry storm).</li>
+<li>Retrying non-idempotent calls (double charge, duplicate orders).</li>
+<li>No timeouts (default "wait forever") or one huge timeout for everything.</li>
+<li>Unbounded queues and thread pools.</li>
+<li>Using wall-clock time from different machines for ordering or "last write wins".</li>
+<li>Assuming "exactly-once" delivery exists, without idempotent consumers.</li>
+<li>Holding locks while doing slow network calls.</li>
+</ol>
+
+<h2 id="6-eight-interview-questions-with-answers">6. Eight interview questions with answers</h2>
+
+<p><strong>Q1. What is a race condition? Give an example and fixes.</strong>
+Two or more actors access shared data and the result depends on timing. Example: two threads read a counter, both add 1, both write, and one increment is lost. Fixes: avoid sharing, use a lock around the critical section, use atomic operations (database <code>UPDATE n = n + 1</code>), use optimistic concurrency with a version check and retry, or funnel changes through a single owner or queue.</p>
+
+<p><strong>Q2. What is a deadlock and how do you avoid it?</strong>
+Two or more actors each hold something and wait for the other's, forever. Avoid it with one consistent lock order, short lock holding, timeouts on lock acquisition, and no slow external calls inside locks. Databases detect it and abort one transaction, so callers must retry.</p>
+
+<p><strong>Q3. What does idempotent mean, and how do you make a POST idempotent?</strong>
+Repeating the operation gives the same final result. Use an idempotency key: the client sends a unique key; the server stores key and result with a unique constraint; a repeated key returns the stored result without redoing the work; it checks the parameters match the first request. Stripe's API works this way (key up to 255 characters, saved response returned on retry, keys pruned after at least 24 hours).</p>
+
+<p><strong>Q4. At-most-once vs at-least-once vs exactly-once?</strong>
+At-most-once: no retries, may lose messages. At-least-once: retry until acknowledged, may duplicate. Exactly-once delivery over an unreliable network is not generally achievable; practical systems provide at-least-once delivery plus idempotent processing (or transactions inside one system) so the effect happens once.</p>
+
+<p><strong>Q5. How do you design retries safely?</strong>
+Retry only temporary errors and only idempotent operations. Use exponential backoff with a cap and jitter, a maximum number of attempts, and a retry budget. Retry at one layer only, because layers multiply (three retries at each of three layers means 64 database calls per user action in Google's example). Set timeouts from the dependency's latency percentiles, and honor <code>Retry-After</code>.</p>
+
+<p><strong>Q6. What is backpressure? How do you protect a service from overload?</strong>
+Backpressure makes a slow consumer limit its producers (bounded queues that reject or block, rate limits, 429/503 responses with <code>Retry-After</code>). Protect the service by load shedding (fail early and cheaply), bounded queues, per-client rate limits, deadline propagation, circuit breakers, bulkheads, graceful degradation, and autoscaling for slower growth. Unbounded queues turn overload into memory exhaustion and huge latency.</p>
+
+<p><strong>Q7. Can you trust the system clock in a distributed system?</strong>
+Not for ordering or correctness. Wall clocks drift, jump (NTP), and differ between machines. Use monotonic clocks to measure durations on one machine, and sequence or version numbers, a single leader, or consensus to order events. Allow skew tolerance in token expiry checks, and keep NTP healthy and monitored.</p>
+
+<p><strong>Q8. A client times out calling a payment service. What do you do?</strong>
+Do not assume failure. The payment may have happened. Retry with the <strong>same idempotency key</strong>, using backoff and jitter, so a repeat returns the first result. Or query the payment status by key or order ID before retrying. If it stays unknown, mark the order "pending" and reconcile later with the provider. Alert on the rate of unknown outcomes.</p>
+
+<h2 id="7-self-quiz-answers-at-the-end">7. Self-quiz (answers at the end)</h2>
+
+<ol>
+<li>Why can <code>count = count + 1</code> lose updates with two threads?</li>
+<li>What is the difference between exponential backoff and jitter, and why use both?</li>
+<li>Which clock do you use to measure how long something took?</li>
+<li>What makes "exactly-once processing" possible in practice?</li>
+<li>What is a retry storm, and one way to prevent it?</li>
+</ol>
+
+<p><strong>Answers</strong></p>
+
+<ol>
+<li>It is three steps (read, add, write). Another thread can read the old value before the first writes, so one update overwrites the other.</li>
+<li>Backoff spaces retries further apart over time. Jitter randomizes the spacing so clients that failed together do not retry together. Together they reduce load and avoid synchronized waves.</li>
+<li>A monotonic clock.</li>
+<li>At-least-once delivery plus idempotent processing (dedupe by ID or a naturally idempotent operation), or transactions within one system.</li>
+<li>Many clients and layers retry at once and add load to an overloaded service. Prevent it with limited retries, backoff with jitter, retry budgets, retrying at one layer, and load shedding.</li>
+</ol>
+
+<h2 id="8-sources">8. Sources</h2>
+
+<ul>
+<li>AWS Builders' Library, Timeouts, retries, and backoff with jitter (retry amplification, 243x example, backoff, jitter, token-bucket retry limit, idempotency, timeouts): https://builder.aws.com/content/3EumjoZascWd1oZiEgL8ORlv3qE/timeouts-retries-and-backoff-with-jitter</li>
+<li>Google SRE book, Addressing Cascading Failures (retries, 64-attempt example, 60 retries per minute budget, load shedding, graceful degradation, deadline propagation): https://sre.google/sre-book/addressing-cascading-failures/</li>
+<li>Stripe, idempotent requests (key length, saved response, 24 hours, parameter comparison): https://docs.stripe.com/api/idempotent_requests</li>
+<li>PostgreSQL isolation levels (serialization failures need retry): https://www.postgresql.org/docs/current/transaction-iso.html</li>
+<li>Local: Python race and backoff scripts run on this Mac, 2026-11-15</li>
+</ul>
+
+<p>Not verified from a source: Coffman conditions; fencing tokens and lease expiry issues; circuit breaker and bulkhead patterns; clock behavior, NTP, monotonic vs wall clock rules; the CAP and saga summaries; the "exactly-once is impossible in general" claim (standard distributed-systems result, I did not cite a paper); <code>flock</code>, <code>timedatectl</code>, and <code>chronyc</code> usage; the exact retry-count arithmetic behind the 243x and 64-attempt examples (quoted as the sources state them); the <code>curl --retry</code> flags (documented in curl's man page).</p>
+<div class="pn"><span><a href="08_observability_and_sre.html">&larr; 08. Observability and SRE</a></span><span><a href="10_databases_basics.html">10. Databases basics &rarr;</a></span></div></main></div></body></html>

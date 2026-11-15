@@ -1,0 +1,481 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>02. Numbers and Estimation | Interview prep</title><style>
+:root{--bg:#fff;--fg:#1f2328;--mut:#59636e;--bd:#d1d9e0;--ac:#0b57d0;--cb:#f6f8fa;--sb:#f6f8fa}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9198a1;--bd:#30363d;--ac:#6cb6ff;--cb:#161b22;--sb:#010409}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{display:flex;min-height:100vh}nav{width:300px;flex:none;background:var(--sb);border-right:1px solid var(--bd);padding:16px;overflow:auto;position:sticky;top:0;height:100vh}
+nav a{color:var(--fg);text-decoration:none;display:block;padding:3px 6px;border-radius:6px;font-size:14px}nav a:hover{background:var(--cb)}nav a.cur{background:var(--ac);color:#fff}
+nav summary{cursor:pointer;font-weight:600;padding:6px 0}nav .home{font-weight:700;font-size:16px;margin-bottom:8px}
+main{flex:1;min-width:0;max-width:900px;padding:24px 32px 80px;margin:0 auto}
+h1,h2,h3{line-height:1.25}h1{border-bottom:1px solid var(--bd);padding-bottom:.3em}h2{border-bottom:1px solid var(--bd);padding-bottom:.25em;margin-top:2em}
+a{color:var(--ac)}pre{background:var(--cb);border:1px solid var(--bd);border-radius:8px;padding:14px;overflow:auto;font-size:13.5px;line-height:1.5}
+code{background:var(--cb);padding:.15em .35em;border-radius:5px;font-size:.92em}pre code{background:none;padding:0}
+table{border-collapse:collapse;display:block;overflow:auto;max-width:100%}th,td{border:1px solid var(--bd);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--cb)}
+blockquote{border-left:4px solid var(--bd);margin:0;padding:0 1em;color:var(--mut)}img{max-width:100%}
+.top{display:none}.pn{display:flex;justify-content:space-between;gap:12px;margin-top:48px;border-top:1px solid var(--bd);padding-top:16px;font-size:14px}
+@media(max-width:820px){.wrap{display:block}nav{width:auto;height:auto;position:static;border-right:0;border-bottom:1px solid var(--bd)}main{padding:16px}}
+</style></head><body><div class="wrap"><nav><a class="home" href="../index.html">Interview prep</a><details><summary>Data structures and algorithms</summary><a href="../01-dsa/00_how_to_start.html">How to start: reading a problem, the 5-step method, and Big-</a><a href="../01-dsa/01_arrays_and_strings.html">Lesson 01. Arrays and Strings</a><a href="../01-dsa/02_hash_maps_and_sets.html">Lesson 02. Hash Maps and Sets</a><a href="../01-dsa/03_two_pointers.html">Lesson 03. Two Pointers</a><a href="../01-dsa/04_sliding_window.html">Lesson 04. Sliding Window</a><a href="../01-dsa/05_stack_and_queue.html">Lesson 05. Stack and Queue (including the monotonic stack)</a><a href="../01-dsa/06_binary_search.html">Lesson 06. Binary Search (including search on the answer)</a><a href="../01-dsa/07_linked_lists.html">Lesson 07. Linked Lists</a><a href="../01-dsa/08_trees_and_bst.html">Lesson 08. Trees and Binary Search Trees (BST)</a><a href="../01-dsa/09_heaps_and_priority_queues.html">Lesson 09: Heaps and Priority Queues</a><a href="../01-dsa/10_graphs_bfs_dfs.html">Lesson 10: Graphs, BFS and DFS (including grids)</a><a href="../01-dsa/11_topological_sort_and_union_find.html">Lesson 11: Topological Sort and Union-Find</a><a href="../01-dsa/12_shortest_paths.html">Lesson 12: Shortest Paths (Dijkstra in plain words)</a><a href="../01-dsa/13_intervals.html">Lesson 13: Intervals (merge intervals, meeting rooms)</a><a href="../01-dsa/14_backtracking.html">Lesson 14: Backtracking (subsets, permutations, combination </a><a href="../01-dsa/15_dynamic_programming_part1.html">Lesson 15: Dynamic Programming, Part 1 (remembering answers)</a><a href="../01-dsa/16_dynamic_programming_part2.html">Lesson 16: Dynamic Programming, Part 2 (LIS, word break, kna</a><a href="../01-dsa/17_tries_and_greedy.html">Lesson 17: Tries and Greedy</a><a href="../01-dsa/18_bit_tricks_and_math_basics.html">Lesson 18: Bit Tricks and Math Basics (short)</a><a href="../01-dsa/19_company_question_patterns.html">Lesson 19: Company Question Patterns (Google, Amazon, Meta, </a></details><details open><summary>System design</summary><a href="00_how_the_round_works.html">How the System Design Round Works</a><a href="01a_client_server_and_http.html">Client, Server and HTTP</a><a href="01b_dns_and_cdn.html">DNS and CDN</a><a href="01c_load_balancers.html">Load Balancers</a><a href="01d_databases.html">Databases: SQL vs NoSQL, Indexes, Transactions</a><a href="01e_caching.html">Caching (and Why Invalidation Is Hard)</a><a href="01f_sharding_and_replication.html">Sharding and Replication</a><a href="01g_message_queues_and_streams.html">Message Queues and Streams (Kafka Basics)</a><a href="01h_consistency_and_cap.html">Consistency and the CAP Idea (in Plain Words)</a><a class="cur" href="02_numbers_and_estimation.html">Numbers and Estimation</a><a href="03_reliability_patterns.html">Reliability Patterns</a><a href="10_url_shortener.html">Design a URL Shortener</a><a href="11_rate_limiter.html">Design a Rate Limiter</a><a href="12_chat_system.html">Design a Chat System (like WhatsApp or Slack)</a><a href="13_news_feed.html">Design a News Feed (like Instagram, Facebook or Twitter/X ho</a><a href="14_notification_service.html">Design a Notification Service</a><a href="15_file_storage_like_drive.html">Design File Storage and Sync (like Google Drive or Dropbox)</a><a href="16_search_autocomplete.html">Design Search Autocomplete (Typeahead)</a><a href="17_video_streaming_basics.html">Design Video Streaming Basics (like YouTube or Netflix)</a><a href="18_payment_system_like_stripe.html">Design a Payment System (like Stripe)</a><a href="19_order_management_like_amazon.html">Design an Order Management System (like Amazon: inventory, o</a><a href="20_job_scheduler_and_workflow_engine.html">Design a Job Scheduler and Workflow Engine</a><a href="21_api_gateway_and_auth_system.html">Design an API Gateway and Auth System</a><a href="22_logging_and_metrics_platform.html">Design a Logging and Metrics Platform</a><a href="90_cheat_sheet.html">Cheat Sheet (one page)</a><a href="91_practice_questions.html">Practice Questions (30)</a></details><details><summary>Low-level design</summary><a href="../03-low-level-design/00_how_the_lld_round_works.html">- How the LLD round works</a><a href="../03-low-level-design/01_oop_in_plain_words.html">- OOP in plain words</a><a href="../03-low-level-design/02_solid_principles.html">- SOLID principles</a><a href="../03-low-level-design/03_design_patterns_you_need.html">- The 8 design patterns you need</a><a href="../03-low-level-design/10_parking_lot.html">- Parking Lot</a><a href="../03-low-level-design/11_lru_cache.html">- LRU Cache</a><a href="../03-low-level-design/12_elevator_system.html">- Elevator System</a><a href="../03-low-level-design/13_library_management.html">- Library Management System</a><a href="../03-low-level-design/14_vending_machine.html">- Vending Machine (State pattern)</a><a href="../03-low-level-design/15_atm.html">- ATM</a><a href="../03-low-level-design/16_rate_limiter_class.html">- Rate Limiter (class design: token bucket and sliding windo</a><a href="../03-low-level-design/17_amazon_locker.html">- Amazon Locker</a><a href="../03-low-level-design/18_splitwise_expense_sharing.html">- Splitwise (Expense Sharing)</a><a href="../03-low-level-design/19_logger_and_notification_system.html">- Logger and Notification System (Observer and Strategy)</a><a href="../03-low-level-design/20_tic_tac_toe_or_chess_basics.html">- Tic-Tac-Toe (full) and Chess basics</a><a href="../03-low-level-design/90_cheat_sheet.html">- Cheat sheet (read the night before)</a><a href="../03-low-level-design/91_practice_questions.html">- Practice questions (20)</a></details><details><summary>DevOps and platform basics</summary><a href="../05-devops-platform-basics/01_linux_processes_memory_files.html">Linux: processes, memory, and files</a><a href="../05-devops-platform-basics/02_networking.html">Networking: TCP, DNS, TLS, NAT</a><a href="../05-devops-platform-basics/03_containers_and_docker.html">Containers and Docker</a><a href="../05-devops-platform-basics/04_kubernetes_from_zero.html">Kubernetes from zero</a><a href="../05-devops-platform-basics/05_helm.html">Helm</a><a href="../05-devops-platform-basics/06_terraform.html">Terraform</a><a href="../05-devops-platform-basics/07_ci_cd_github_actions.html">CI/CD with GitHub Actions</a><a href="../05-devops-platform-basics/08_observability_and_sre.html">Observability and SRE</a><a href="../05-devops-platform-basics/09_concurrency_and_distributed_basics.html">Concurrency and distributed basics</a><a href="../05-devops-platform-basics/10_databases_basics.html">Databases basics</a><a href="../05-devops-platform-basics/11_security_basics.html">Security basics (IAM, OAuth2/OIDC/JWT, secrets, supply chain</a><a href="../05-devops-platform-basics/12_gcp_pca_quick_map.html">Google Cloud quick map (for Professional Cloud Architect hol</a><a href="../05-devops-platform-basics/20_interview_questions_with_answers.html">Sixty interview questions with model answers (platform / SRE</a><a href="../05-devops-platform-basics/21_scenario_questions.html">Fifteen &quot;production is down&quot; scenarios, with step-by-step an</a></details><details><summary>Company processes</summary><a href="../06-company-process-and-behavioural/10_google.html">Google</a><a href="../06-company-process-and-behavioural/11_amazon.html">Amazon</a><a href="../06-company-process-and-behavioural/12_stripe.html">Stripe</a><a href="../06-company-process-and-behavioural/13_microsoft_and_azure_roles.html">Microsoft and Azure roles</a><a href="../06-company-process-and-behavioural/14_indian_product_and_gcc_companies.html">Indian product companies and GCCs</a><a href="../06-company-process-and-behavioural/15_european_scaleups.html">European scale-ups and visa basics</a><a href="../06-company-process-and-behavioural/16_ai_startups_like_smallest_ai.html">AI startups like Smallest AI</a><a href="../06-company-process-and-behavioural/24_questions_to_ask_interviewers.html">Questions to ask interviewers</a><a href="../06-company-process-and-behavioural/25_salary_notice_period_and_offer_negotiation_india_and_abroad.html">Salary, notice period and offer negotiation (India and abroa</a><a href="../06-company-process-and-behavioural/26_interview_day_checklists.html">Interview day checklists</a></details></nav><main><h1 id="02-numbers-and-estimation">02. Numbers and Estimation</h1>
+
+<p>Goal: in 3 minutes, turn "1 million users" into "how many requests per second, how much disk, how many servers". Rough answers are fine. <strong>Everything in this file is an estimate</strong> unless a number is exact math (like powers of two).</p>
+
+<p>Why do it? The numbers tell you what design you need. 40 requests per second = one small server. 400,000 per second = a whole fleet, caches, sharding.</p>
+
+<hr />
+
+<h2 id="1-powers-of-two-exact">1. Powers of two (exact)</h2>
+
+<table>
+<thead>
+<tr>
+  <th>Power</th>
+  <th>Exact value</th>
+  <th>Easy name</th>
+  <th>Short name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>2^10</td>
+  <td>1,024</td>
+  <td>about 1 thousand</td>
+  <td>1 KB (kilobyte)</td>
+</tr>
+<tr>
+  <td>2^20</td>
+  <td>1,048,576</td>
+  <td>about 1 million</td>
+  <td>1 MB (megabyte)</td>
+</tr>
+<tr>
+  <td>2^30</td>
+  <td>1,073,741,824</td>
+  <td>about 1 billion</td>
+  <td>1 GB (gigabyte)</td>
+</tr>
+<tr>
+  <td>2^40</td>
+  <td>about 1.1 x 10^12</td>
+  <td>about 1 trillion</td>
+  <td>1 TB (terabyte)</td>
+</tr>
+<tr>
+  <td>2^50</td>
+  <td>about 1.1 x 10^15</td>
+  <td>about 1 quadrillion</td>
+  <td>1 PB (petabyte)</td>
+</tr>
+</tbody>
+</table>
+
+<p>Trick: every 10 powers of 2 is about 1,000 times more. So 2^32 is about 4 billion (4 x 2^30).</p>
+
+<p>Useful: a 32-bit number has about 4.3 billion values. A 64-bit number has about 1.8 x 10^19.</p>
+
+<h3 id="words-for-big-numbers">Words for big numbers</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Number</th>
+  <th>Words</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1,000</td>
+  <td>thousand (K)</td>
+</tr>
+<tr>
+  <td>1,000,000</td>
+  <td>million (M)</td>
+</tr>
+<tr>
+  <td>1,000,000,000</td>
+  <td>billion (B)</td>
+</tr>
+<tr>
+  <td>10^12</td>
+  <td>trillion</td>
+</tr>
+</tbody>
+</table>
+
+<hr />
+
+<h2 id="2-time-shortcuts">2. Time shortcuts</h2>
+
+<table>
+<thead>
+<tr>
+  <th>Period</th>
+  <th>Seconds</th>
+  <th>For quick math use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1 minute</td>
+  <td>60</td>
+  <td>60</td>
+</tr>
+<tr>
+  <td>1 hour</td>
+  <td>3,600</td>
+  <td>about 4 x 10^3</td>
+</tr>
+<tr>
+  <td>1 day</td>
+  <td>86,400</td>
+  <td><strong>about 10^5</strong> (100,000)</td>
+</tr>
+<tr>
+  <td>1 month</td>
+  <td>about 2.6 million</td>
+  <td>about 2.5 x 10^6</td>
+</tr>
+<tr>
+  <td>1 year</td>
+  <td>about 31.5 million</td>
+  <td>about 3 x 10^7</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>The golden shortcut:</strong> 1 million requests per day = about 10 requests per second (1,000,000 / 100,000). 100 million per day = about 1,000 per second.</p>
+
+<hr />
+
+<h2 id="3-latency-numbers-rough-orders-of-magnitude">3. Latency numbers (rough orders of magnitude)</h2>
+
+<p>These are the well-known "numbers every programmer should know". They are approximate and vary by hardware and year. Use them to compare, not as exact facts.</p>
+
+<table>
+<thead>
+<tr>
+  <th>Operation</th>
+  <th>Rough time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Read from CPU cache</td>
+  <td>~1 nanosecond (ns)</td>
+</tr>
+<tr>
+  <td>Read from main memory (RAM)</td>
+  <td>~100 ns</td>
+</tr>
+<tr>
+  <td>Read 1 MB from memory</td>
+  <td>~ tens of microseconds (us)</td>
+</tr>
+<tr>
+  <td>SSD random read</td>
+  <td>~100 us</td>
+</tr>
+<tr>
+  <td>Network round trip inside one data centre</td>
+  <td>~0.5 milliseconds (ms)</td>
+</tr>
+<tr>
+  <td>Read 1 MB from SSD</td>
+  <td>~1 ms</td>
+</tr>
+<tr>
+  <td>Disk (spinning) seek</td>
+  <td>~10 ms</td>
+</tr>
+<tr>
+  <td>Network round trip across continents</td>
+  <td>~100 to 150 ms</td>
+</tr>
+</tbody>
+</table>
+
+<p>Lessons:</p>
+
+<ol>
+<li>Memory is thousands of times faster than disk or network. That is why caches work.</li>
+<li>Avoid many network hops in one request.</li>
+<li>Sequential disk reads are much faster than random ones (why logs and Kafka are fast).</li>
+<li>Distance costs time. That is why CDNs and regions exist.</li>
+</ol>
+
+<hr />
+
+<h2 id="4-typical-sizes-assumptions-you-can-state">4. Typical sizes (assumptions you can state)</h2>
+
+<table>
+<thead>
+<tr>
+  <th>Item</th>
+  <th>Rough size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>A character (ASCII)</td>
+  <td>1 byte</td>
+</tr>
+<tr>
+  <td>A tweet-like text message</td>
+  <td>100 to 300 bytes</td>
+</tr>
+<tr>
+  <td>A database row for a simple record</td>
+  <td>100 bytes to 1 KB</td>
+</tr>
+<tr>
+  <td>A URL</td>
+  <td>100 to 200 bytes</td>
+</tr>
+<tr>
+  <td>A profile photo (compressed)</td>
+  <td>100 to 300 KB</td>
+</tr>
+<tr>
+  <td>A phone photo</td>
+  <td>2 to 5 MB</td>
+</tr>
+<tr>
+  <td>1 minute of video (HD)</td>
+  <td>tens of MB (depends on quality)</td>
+</tr>
+<tr>
+  <td>A log line</td>
+  <td>100 to 300 bytes</td>
+</tr>
+<tr>
+  <td>An id (64-bit)</td>
+  <td>8 bytes</td>
+</tr>
+</tbody>
+</table>
+
+<p>Always say "I assume ..." and let the interviewer correct you.</p>
+
+<hr />
+
+<h2 id="5-server-capacity-rules-of-thumb-estimates">5. Server capacity rules of thumb (estimates!)</h2>
+
+<p>These change with the workload. State them as assumptions.</p>
+
+<table>
+<thead>
+<tr>
+  <th>Thing</th>
+  <th>Rough number to assume</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>One web/app server</td>
+  <td>1,000 to 10,000 simple requests per second (depends on work done)</td>
+</tr>
+<tr>
+  <td>One relational DB primary</td>
+  <td>about 1,000 to 10,000 simple writes/s; reads higher, with good indexes (very workload-dependent)</td>
+</tr>
+<tr>
+  <td>One Redis node</td>
+  <td>about 100,000 simple operations per second</td>
+</tr>
+<tr>
+  <td>One WebSocket server</td>
+  <td>tens of thousands up to ~100,000 idle connections (memory bound)</td>
+</tr>
+<tr>
+  <td>One Kafka broker</td>
+  <td>hundreds of thousands of small messages per second (hardware dependent)</td>
+</tr>
+<tr>
+  <td>One disk/SSD node</td>
+  <td>a few TB comfortably</td>
+</tr>
+</tbody>
+</table>
+
+<p>If an interviewer wants a better number, they will tell you. The method matters more than the exact value.</p>
+
+<hr />
+
+<h2 id="6-availability-and-nines">6. Availability and "nines"</h2>
+
+<table>
+<thead>
+<tr>
+  <th>Availability</th>
+  <th>Downtime per year (about)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>99%</td>
+  <td>3.65 days</td>
+</tr>
+<tr>
+  <td>99.9% ("three nines")</td>
+  <td>8.8 hours</td>
+</tr>
+<tr>
+  <td>99.99% ("four nines")</td>
+  <td>52 minutes</td>
+</tr>
+<tr>
+  <td>99.999% ("five nines")</td>
+  <td>5 minutes</td>
+</tr>
+</tbody>
+</table>
+
+<p>(Exact math: 365 days x 24 hours x (1 - availability).)</p>
+
+<hr />
+
+<h2 id="7-the-estimation-recipe">7. The estimation recipe</h2>
+
+<ol>
+<li><strong>Users</strong>: total users, daily active users (DAU). Often DAU = 10 to 50 percent of total (assumption).</li>
+<li><strong>Actions per user per day</strong>: e.g. 5 reads, 1 write.</li>
+<li><strong>Requests per day</strong> = DAU x actions.</li>
+<li><strong>QPS (queries per second)</strong> = requests per day / 86,400 (or /100,000 for quick math).</li>
+<li><strong>Peak QPS</strong> = average x 2 to 3 (sometimes x 10 for spiky things like flash sales).</li>
+<li><strong>Storage</strong> = items per day x size per item x days kept. Multiply by replicas (usually x3).</li>
+<li><strong>Bandwidth</strong> = QPS x size per response.</li>
+<li><strong>Servers</strong> = peak QPS / QPS per server, plus spare (at least 2 for safety, and keep 30 to 50 percent headroom).</li>
+<li><strong>Cache size</strong>: 80/20 rule - assume 20 percent of the data gets 80 percent of the reads. Cache that 20 percent (or even less).</li>
+</ol>
+
+<hr />
+
+<h2 id="8-worked-example-1-url-shortener">8. Worked example 1: URL shortener</h2>
+
+<p><strong>Assumptions (all estimates):</strong> 100 million new short links per month. Reads are 100 times writes. Keep links 5 years. Each record is about 500 bytes (long URL, short code, dates, owner).</p>
+
+<p><strong>Writes per second</strong></p>
+
+<ul>
+<li>1 month = about 2.6 million seconds.</li>
+<li>100,000,000 / 2,600,000 = about <strong>40 writes/s</strong>.</li>
+</ul>
+
+<p><strong>Reads per second</strong></p>
+
+<ul>
+<li>40 x 100 = <strong>4,000 reads/s</strong> on average.</li>
+<li>Peak (x3 assumption) = about <strong>12,000 reads/s</strong>.</li>
+</ul>
+
+<p><strong>Storage in 5 years</strong></p>
+
+<ul>
+<li>Links = 100M x 12 months x 5 years = 6 billion links.</li>
+<li>6,000,000,000 x 500 bytes = 3 x 10^12 bytes = <strong>about 3 TB</strong>.</li>
+<li>With 3 copies = about 9 TB. Fits easily on a few machines.</li>
+</ul>
+
+<p><strong>Short code length</strong></p>
+
+<ul>
+<li>Use base62 (a-z, A-Z, 0-9 = 62 symbols).</li>
+<li>62^6 = about 56.8 billion codes; 62^7 = about 3.5 trillion.</li>
+<li>We need 6 billion codes. 6 characters (56.8 B) is enough, with room to spare.</li>
+</ul>
+
+<p><strong>Cache</strong></p>
+
+<ul>
+<li>80/20 rule: hot 20 percent of reads. Daily reads = 4,000 x 86,400 = about 345 million. Hot links data: if we cache 20 percent of daily-unique items, each at 500 bytes... roughly 345M x 0.2 x 500 bytes = about 35 GB. Fits in one or two Redis nodes. (Overestimate, since many reads repeat the same link.)</li>
+</ul>
+
+<p><strong>Conclusion:</strong> 12,000 reads/s peak is easily served by a few app servers plus a cache; 3 TB is small. A single database with replicas works at first; sharding is not needed on day one.</p>
+
+<hr />
+
+<h2 id="9-worked-example-2-chat-messages">9. Worked example 2: Chat messages</h2>
+
+<p><strong>Assumptions:</strong> 50 million daily active users (DAU). Each sends 40 messages per day. Average message 100 bytes. Keep messages forever (or 5 years for the math). 20 percent of DAU are online at the same time at peak.</p>
+
+<p><strong>Messages per day</strong> = 50M x 40 = 2 billion.</p>
+
+<p><strong>Messages per second</strong></p>
+
+<ul>
+<li>2,000,000,000 / 86,400 = about <strong>23,000/s</strong> average.</li>
+<li>Peak (x3) = about <strong>70,000/s</strong>.</li>
+</ul>
+
+<p><strong>Storage</strong></p>
+
+<ul>
+<li>Per day: 2B x 100 bytes = 200 GB/day.</li>
+<li>Per year: 200 GB x 365 = about <strong>73 TB/year</strong>. (Add metadata and index: maybe x2 = about 150 TB/year.)</li>
+<li>With 3 copies: about 220 TB/year just for raw. That is why a write-friendly store and sharding are needed.</li>
+</ul>
+
+<p><strong>Connections</strong></p>
+
+<ul>
+<li>20 percent of 50M = <strong>10 million</strong> connections open at peak.</li>
+<li>If one WebSocket server handles 100,000 connections (assumption), we need 10,000,000 / 100,000 = <strong>100 servers</strong> (plus spare, so about 150).</li>
+</ul>
+
+<p><strong>Delivery fan-out</strong> (group chat): a message to a group of 100 means 100 deliveries. If 10 percent of messages are group chats of 100: 70,000 x (0.9 x 1 + 0.1 x 100) = 70,000 x 10.9 = about 760,000 deliveries/s at peak. Messages are stored once, but pushed many times.</p>
+
+<p><strong>Conclusion:</strong> Many connections (100s of servers), lots of writes (shard by chat id), many TBs/year (use a wide-column store).</p>
+
+<hr />
+
+<h2 id="10-worked-example-3-video-streaming">10. Worked example 3: Video streaming</h2>
+
+<p><strong>Assumptions:</strong> 500,000 new videos uploaded per day. Average raw upload 200 MB. We store several quality versions (transcoded), which together are about 2 times the original (assumption). 100 million video views per day. Average watch uses 50 MB of data. Keep forever (use per-year numbers).</p>
+
+<p><strong>Upload bandwidth</strong></p>
+
+<ul>
+<li>500,000 x 200 MB = 100,000,000 MB = 100 TB/day.</li>
+<li>100 TB / 86,400 s = about 1.2 GB/s = about <strong>9 to 10 Gbps</strong> (x8 bits) average inbound.</li>
+</ul>
+
+<p><strong>Storage</strong></p>
+
+<ul>
+<li>Original + transcoded = 200 MB x 3 (original plus 2x versions) = 600 MB per video.</li>
+<li>500,000 x 600 MB = 300 TB/day.</li>
+<li>Per year: 300 TB x 365 = about 110 PB (petabytes). Huge. This must be in cheap object storage; old and rarely watched videos can move to cold storage.</li>
+</ul>
+
+<p><strong>Viewing (egress) bandwidth</strong></p>
+
+<ul>
+<li>100M x 50 MB = 5,000,000,000 MB = 5 PB/day.</li>
+<li>5 PB / 86,400 s = about 58 GB/s = about <strong>460 Gbps</strong> average. Peak maybe 2 to 3 times more.</li>
+<li>No single data centre should serve this. <strong>A CDN serves almost all of it.</strong></li>
+</ul>
+
+<p><strong>Metadata (small):</strong> 500,000 videos/day x 1 KB = 0.5 GB/day. Tiny. A normal database holds it.</p>
+
+<p><strong>Conclusion:</strong> Bytes dominate, not requests. Object storage, CDN and a transcoding pipeline (queue + workers) are the heart. Database size is not the problem.</p>
+
+<hr />
+
+<h2 id="11-common-mistakes-in-estimation">11. Common mistakes in estimation</h2>
+
+<ol>
+<li>Mixing up bits and bytes (network speed is in bits: 1 byte = 8 bits).</li>
+<li>Forgetting replication (x3) and index overhead.</li>
+<li>Using average QPS only. Always think of peak.</li>
+<li>Giving numbers with fake accuracy. Say "about" and round.</li>
+<li>Spending 10 minutes on math. Limit to 3.</li>
+<li>Not saying what the number <strong>means</strong> for the design. Always end with "so we need..."</li>
+</ol>
+
+<hr />
+
+<h2 id="12-practice">12. Practice</h2>
+
+<ol>
+<li>200 million daily users, each opens the app 5 times a day: how many requests per second? (Answer: 200M x 5 = 1B/day, /100,000 = 10,000 per second average. Peak x3 = 30,000.)</li>
+<li>Photo app: 10M photos uploaded per day, 3 MB each. Storage per year? (10M x 3 MB = 30 TB/day, x365 = about 11 PB/year.)</li>
+<li>5,000 requests per second, one server handles 1,000 per second. How many servers with 50 percent headroom? (5 needed at full load; with 50 percent headroom = 10 servers.)</li>
+</ol>
+<div class="pn"><span><a href="01h_consistency_and_cap.html">&larr; 01h. Consistency and the CAP Idea (in Pl</a></span><span><a href="03_reliability_patterns.html">03. Reliability Patterns &rarr;</a></span></div></main></div></body></html>

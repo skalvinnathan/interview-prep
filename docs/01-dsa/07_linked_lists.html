@@ -1,0 +1,651 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Lesson 07. Linked Lists | Interview prep</title><style>
+:root{--bg:#fff;--fg:#1f2328;--mut:#59636e;--bd:#d1d9e0;--ac:#0b57d0;--cb:#f6f8fa;--sb:#f6f8fa}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9198a1;--bd:#30363d;--ac:#6cb6ff;--cb:#161b22;--sb:#010409}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{display:flex;min-height:100vh}nav{width:300px;flex:none;background:var(--sb);border-right:1px solid var(--bd);padding:16px;overflow:auto;position:sticky;top:0;height:100vh}
+nav a{color:var(--fg);text-decoration:none;display:block;padding:3px 6px;border-radius:6px;font-size:14px}nav a:hover{background:var(--cb)}nav a.cur{background:var(--ac);color:#fff}
+nav summary{cursor:pointer;font-weight:600;padding:6px 0}nav .home{font-weight:700;font-size:16px;margin-bottom:8px}
+main{flex:1;min-width:0;max-width:900px;padding:24px 32px 80px;margin:0 auto}
+h1,h2,h3{line-height:1.25}h1{border-bottom:1px solid var(--bd);padding-bottom:.3em}h2{border-bottom:1px solid var(--bd);padding-bottom:.25em;margin-top:2em}
+a{color:var(--ac)}pre{background:var(--cb);border:1px solid var(--bd);border-radius:8px;padding:14px;overflow:auto;font-size:13.5px;line-height:1.5}
+code{background:var(--cb);padding:.15em .35em;border-radius:5px;font-size:.92em}pre code{background:none;padding:0}
+table{border-collapse:collapse;display:block;overflow:auto;max-width:100%}th,td{border:1px solid var(--bd);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--cb)}
+blockquote{border-left:4px solid var(--bd);margin:0;padding:0 1em;color:var(--mut)}img{max-width:100%}
+.top{display:none}.pn{display:flex;justify-content:space-between;gap:12px;margin-top:48px;border-top:1px solid var(--bd);padding-top:16px;font-size:14px}
+@media(max-width:820px){.wrap{display:block}nav{width:auto;height:auto;position:static;border-right:0;border-bottom:1px solid var(--bd)}main{padding:16px}}
+</style></head><body><div class="wrap"><nav><a class="home" href="../index.html">Interview prep</a><details open><summary>Data structures and algorithms</summary><a href="00_how_to_start.html">How to start: reading a problem, the 5-step method, and Big-</a><a href="01_arrays_and_strings.html">Lesson 01. Arrays and Strings</a><a href="02_hash_maps_and_sets.html">Lesson 02. Hash Maps and Sets</a><a href="03_two_pointers.html">Lesson 03. Two Pointers</a><a href="04_sliding_window.html">Lesson 04. Sliding Window</a><a href="05_stack_and_queue.html">Lesson 05. Stack and Queue (including the monotonic stack)</a><a href="06_binary_search.html">Lesson 06. Binary Search (including search on the answer)</a><a class="cur" href="07_linked_lists.html">Lesson 07. Linked Lists</a><a href="08_trees_and_bst.html">Lesson 08. Trees and Binary Search Trees (BST)</a><a href="09_heaps_and_priority_queues.html">Lesson 09: Heaps and Priority Queues</a><a href="10_graphs_bfs_dfs.html">Lesson 10: Graphs, BFS and DFS (including grids)</a><a href="11_topological_sort_and_union_find.html">Lesson 11: Topological Sort and Union-Find</a><a href="12_shortest_paths.html">Lesson 12: Shortest Paths (Dijkstra in plain words)</a><a href="13_intervals.html">Lesson 13: Intervals (merge intervals, meeting rooms)</a><a href="14_backtracking.html">Lesson 14: Backtracking (subsets, permutations, combination </a><a href="15_dynamic_programming_part1.html">Lesson 15: Dynamic Programming, Part 1 (remembering answers)</a><a href="16_dynamic_programming_part2.html">Lesson 16: Dynamic Programming, Part 2 (LIS, word break, kna</a><a href="17_tries_and_greedy.html">Lesson 17: Tries and Greedy</a><a href="18_bit_tricks_and_math_basics.html">Lesson 18: Bit Tricks and Math Basics (short)</a><a href="19_company_question_patterns.html">Lesson 19: Company Question Patterns (Google, Amazon, Meta, </a></details><details><summary>System design</summary><a href="../02-system-design/00_how_the_round_works.html">How the System Design Round Works</a><a href="../02-system-design/01a_client_server_and_http.html">Client, Server and HTTP</a><a href="../02-system-design/01b_dns_and_cdn.html">DNS and CDN</a><a href="../02-system-design/01c_load_balancers.html">Load Balancers</a><a href="../02-system-design/01d_databases.html">Databases: SQL vs NoSQL, Indexes, Transactions</a><a href="../02-system-design/01e_caching.html">Caching (and Why Invalidation Is Hard)</a><a href="../02-system-design/01f_sharding_and_replication.html">Sharding and Replication</a><a href="../02-system-design/01g_message_queues_and_streams.html">Message Queues and Streams (Kafka Basics)</a><a href="../02-system-design/01h_consistency_and_cap.html">Consistency and the CAP Idea (in Plain Words)</a><a href="../02-system-design/02_numbers_and_estimation.html">Numbers and Estimation</a><a href="../02-system-design/03_reliability_patterns.html">Reliability Patterns</a><a href="../02-system-design/10_url_shortener.html">Design a URL Shortener</a><a href="../02-system-design/11_rate_limiter.html">Design a Rate Limiter</a><a href="../02-system-design/12_chat_system.html">Design a Chat System (like WhatsApp or Slack)</a><a href="../02-system-design/13_news_feed.html">Design a News Feed (like Instagram, Facebook or Twitter/X ho</a><a href="../02-system-design/14_notification_service.html">Design a Notification Service</a><a href="../02-system-design/15_file_storage_like_drive.html">Design File Storage and Sync (like Google Drive or Dropbox)</a><a href="../02-system-design/16_search_autocomplete.html">Design Search Autocomplete (Typeahead)</a><a href="../02-system-design/17_video_streaming_basics.html">Design Video Streaming Basics (like YouTube or Netflix)</a><a href="../02-system-design/18_payment_system_like_stripe.html">Design a Payment System (like Stripe)</a><a href="../02-system-design/19_order_management_like_amazon.html">Design an Order Management System (like Amazon: inventory, o</a><a href="../02-system-design/20_job_scheduler_and_workflow_engine.html">Design a Job Scheduler and Workflow Engine</a><a href="../02-system-design/21_api_gateway_and_auth_system.html">Design an API Gateway and Auth System</a><a href="../02-system-design/22_logging_and_metrics_platform.html">Design a Logging and Metrics Platform</a><a href="../02-system-design/90_cheat_sheet.html">Cheat Sheet (one page)</a><a href="../02-system-design/91_practice_questions.html">Practice Questions (30)</a></details><details><summary>Low-level design</summary><a href="../03-low-level-design/00_how_the_lld_round_works.html">- How the LLD round works</a><a href="../03-low-level-design/01_oop_in_plain_words.html">- OOP in plain words</a><a href="../03-low-level-design/02_solid_principles.html">- SOLID principles</a><a href="../03-low-level-design/03_design_patterns_you_need.html">- The 8 design patterns you need</a><a href="../03-low-level-design/10_parking_lot.html">- Parking Lot</a><a href="../03-low-level-design/11_lru_cache.html">- LRU Cache</a><a href="../03-low-level-design/12_elevator_system.html">- Elevator System</a><a href="../03-low-level-design/13_library_management.html">- Library Management System</a><a href="../03-low-level-design/14_vending_machine.html">- Vending Machine (State pattern)</a><a href="../03-low-level-design/15_atm.html">- ATM</a><a href="../03-low-level-design/16_rate_limiter_class.html">- Rate Limiter (class design: token bucket and sliding windo</a><a href="../03-low-level-design/17_amazon_locker.html">- Amazon Locker</a><a href="../03-low-level-design/18_splitwise_expense_sharing.html">- Splitwise (Expense Sharing)</a><a href="../03-low-level-design/19_logger_and_notification_system.html">- Logger and Notification System (Observer and Strategy)</a><a href="../03-low-level-design/20_tic_tac_toe_or_chess_basics.html">- Tic-Tac-Toe (full) and Chess basics</a><a href="../03-low-level-design/90_cheat_sheet.html">- Cheat sheet (read the night before)</a><a href="../03-low-level-design/91_practice_questions.html">- Practice questions (20)</a></details><details><summary>DevOps and platform basics</summary><a href="../05-devops-platform-basics/01_linux_processes_memory_files.html">Linux: processes, memory, and files</a><a href="../05-devops-platform-basics/02_networking.html">Networking: TCP, DNS, TLS, NAT</a><a href="../05-devops-platform-basics/03_containers_and_docker.html">Containers and Docker</a><a href="../05-devops-platform-basics/04_kubernetes_from_zero.html">Kubernetes from zero</a><a href="../05-devops-platform-basics/05_helm.html">Helm</a><a href="../05-devops-platform-basics/06_terraform.html">Terraform</a><a href="../05-devops-platform-basics/07_ci_cd_github_actions.html">CI/CD with GitHub Actions</a><a href="../05-devops-platform-basics/08_observability_and_sre.html">Observability and SRE</a><a href="../05-devops-platform-basics/09_concurrency_and_distributed_basics.html">Concurrency and distributed basics</a><a href="../05-devops-platform-basics/10_databases_basics.html">Databases basics</a><a href="../05-devops-platform-basics/11_security_basics.html">Security basics (IAM, OAuth2/OIDC/JWT, secrets, supply chain</a><a href="../05-devops-platform-basics/12_gcp_pca_quick_map.html">Google Cloud quick map (for Professional Cloud Architect hol</a><a href="../05-devops-platform-basics/20_interview_questions_with_answers.html">Sixty interview questions with model answers (platform / SRE</a><a href="../05-devops-platform-basics/21_scenario_questions.html">Fifteen &quot;production is down&quot; scenarios, with step-by-step an</a></details><details><summary>Company processes</summary><a href="../06-company-process-and-behavioural/10_google.html">Google</a><a href="../06-company-process-and-behavioural/11_amazon.html">Amazon</a><a href="../06-company-process-and-behavioural/12_stripe.html">Stripe</a><a href="../06-company-process-and-behavioural/13_microsoft_and_azure_roles.html">Microsoft and Azure roles</a><a href="../06-company-process-and-behavioural/14_indian_product_and_gcc_companies.html">Indian product companies and GCCs</a><a href="../06-company-process-and-behavioural/15_european_scaleups.html">European scale-ups and visa basics</a><a href="../06-company-process-and-behavioural/16_ai_startups_like_smallest_ai.html">AI startups like Smallest AI</a><a href="../06-company-process-and-behavioural/24_questions_to_ask_interviewers.html">Questions to ask interviewers</a><a href="../06-company-process-and-behavioural/25_salary_notice_period_and_offer_negotiation_india_and_abroad.html">Salary, notice period and offer negotiation (India and abroa</a><a href="../06-company-process-and-behavioural/26_interview_day_checklists.html">Interview day checklists</a></details></nav><main><h1 id="lesson-07-linked-lists">Lesson 07. Linked Lists</h1>
+
+<p>Before this lesson: <a href="00_how_to_start.html">00_how_to_start.md</a>.</p>
+
+<p><strong>How to run the code in this lesson.</strong> Put all the Python blocks of this lesson in ONE file, from top to bottom. The first block (Template A) defines <code>ListNode</code>, <code>build</code> and <code>to_list</code>. The later blocks use them. (Other lessons have standalone blocks. This lesson shares the helper code to stay short.)</p>
+
+<hr />
+
+<h2 id="1-what-is-this">1. What is this?</h2>
+
+<p>A <strong>linked list</strong> is a chain of small boxes called <strong>nodes</strong>. Each node has two things:</p>
+
+<ol>
+<li>a <strong>value</strong> (the data), and</li>
+<li>a <strong>next</strong> pointer (an arrow to the next node).</li>
+</ol>
+
+<p>The last node's <code>next</code> is <code>None</code> (it points to nothing). The first node is called the <strong>head</strong>. You only hold the head. To reach other nodes you follow the arrows.</p>
+
+<pre><code>head
+ |
+ v
++-----+---+    +-----+---+    +-----+------+
+|  1  | *-+--&gt; |  2  | *-+--&gt; |  3  | None |
++-----+---+    +-----+---+    +-----+------+
+ value next     value next     value next
+</code></pre>
+
+<p><strong>Analogy: a treasure hunt.</strong> Each clue tells you only where the NEXT clue is hidden. To find clue number 5 you must follow clues 1, 2, 3, 4 first. You cannot jump straight to clue 5.</p>
+
+<p><strong>Analogy 2: train coaches.</strong> Each coach is joined to the next one. To add a coach in the middle you only change two joints. You do not need to move all coaches.</p>
+
+<h3 id="array-versus-linked-list">Array versus linked list</h3>
+
+<table>
+<thead>
+<tr>
+  <th></th>
+  <th>Array (Python list)</th>
+  <th>Linked list</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Read item number i</td>
+  <td>O(1)</td>
+  <td>O(i): you must walk</td>
+</tr>
+<tr>
+  <td>Insert / delete in the middle (when you already hold the node)</td>
+  <td>O(n): items shift</td>
+  <td>O(1): change arrows</td>
+</tr>
+<tr>
+  <td>Insert at the front</td>
+  <td>O(n)</td>
+  <td>O(1)</td>
+</tr>
+<tr>
+  <td>Memory</td>
+  <td>one block</td>
+  <td>many small nodes</td>
+</tr>
+</tbody>
+</table>
+
+<p>Python has no built-in linked list. In interviews, the node class is given:</p>
+
+<pre><code>class ListNode:
+    val  = the value
+    next = the next node, or None
+</code></pre>
+
+<h3 id="three-tricks-you-must-know">Three tricks you must know</h3>
+
+<ol>
+<li><strong>Dummy node.</strong> Make a fake node before the head: <code>dummy.next = head</code>. Then the head is not a special case. At the end return <code>dummy.next</code>.</li>
+<li><strong>Fast and slow pointers.</strong> Slow moves 1 step, fast moves 2 steps. When fast reaches the end, slow is in the middle. If there is a cycle, fast catches slow.</li>
+<li><strong>Three variables for reversing:</strong> <code>prev</code>, <code>curr</code>, <code>next</code>. Always save <code>curr.next</code> BEFORE you change it.</li>
+</ol>
+
+<h2 id="2-when-do-i-use-it">2. When do I use it?</h2>
+
+<p>Words that give it away:</p>
+
+<ul>
+<li>"linked list", "head of the list", "node"</li>
+<li>"reverse", "merge two sorted lists", "remove the nth node"</li>
+<li>"cycle", "loop", "detect"</li>
+<li>"middle of the list", "nth from the end" (fast and slow, or a gap between two pointers)</li>
+<li>"in place" or "O(1) extra space"</li>
+<li>"least recently used" (LRU cache: a doubly linked list plus a dictionary)</li>
+</ul>
+
+<h2 id="3-a-tiny-example-traced-line-by-line">3. A tiny example, traced line by line</h2>
+
+<p>Walk through <code>1 -&gt; 2 -&gt; 3</code> and count the nodes.</p>
+
+<pre><code>curr = head (node 1), count = 0
+loop: curr is not None -&gt; count = 1, curr = curr.next (node 2)
+loop: curr is not None -&gt; count = 2, curr = curr.next (node 3)
+loop: curr is not None -&gt; count = 3, curr = curr.next (None)
+loop: curr is None -&gt; stop.   count = 3
+</code></pre>
+
+<p>Find the middle of <code>1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5</code> with slow and fast pointers:</p>
+
+<pre><code>start:        slow = 1, fast = 1
+fast and fast.next exist -&gt; slow = 2, fast = 3
+fast and fast.next exist -&gt; slow = 3, fast = 5
+fast.next is None        -&gt; stop.   slow is the middle: 3
+</code></pre>
+
+<h2 id="4-template-code-a-comment-on-every-line">4. Template code (a comment on every line)</h2>
+
+<pre><code># TEMPLATE A: the node class and two helper functions (used by all later blocks)
+class ListNode:                                 # one box of the chain
+    def __init__(self, val=0, next=None):       # create a node
+        self.val = val                          # the stored value
+        self.next = next                        # the arrow to the next node (None = end)
+
+def build(values):                              # make a linked list from a Python list; return the head
+    dummy = ListNode()                          # a fake node before the head
+    tail = dummy                                # tail is the last node built so far
+    for v in values:                            # for every value
+        tail.next = ListNode(v)                 # attach a new node after the tail
+        tail = tail.next                        # the new node is now the tail
+    return dummy.next                           # the real head (None if values is empty)
+
+def to_list(head):                              # turn a linked list into a Python list (for printing/tests)
+    out = []                                    # the answer
+    while head:                                 # while there is a node
+        out.append(head.val)                    # save its value
+        head = head.next                        # follow the arrow
+    return out                                  # the values in order
+
+print(to_list(build([1, 2, 3])))                # expect [1, 2, 3]
+assert to_list(build([1, 2, 3])) == [1, 2, 3]   # round trip works
+assert build([]) is None                        # an empty list has no head
+</code></pre>
+
+<pre><code># TEMPLATE B: walk the list, and the dummy-node trick (remove every node with a given value)
+def length(head):                               # function: how many nodes
+    count = 0                                   # nodes counted so far
+    curr = head                                 # start at the head
+    while curr:                                 # while we stand on a real node
+        count += 1                              # count it
+        curr = curr.next                        # move to the next node
+    return count                                # total nodes
+
+def remove_value(head, target):                 # function: delete all nodes whose value is target
+    dummy = ListNode(0, head)                   # fake node in front, so removing the head is not special
+    prev = dummy                                # prev is the node before curr
+    curr = head                                 # curr is the node we are checking
+    while curr:                                 # walk the whole list
+        if curr.val == target:                  # this node must go
+            prev.next = curr.next               # skip over it: prev now points past curr
+        else:                                   # this node stays
+            prev = curr                         # move prev forward
+        curr = curr.next                        # always move curr forward
+    return dummy.next                           # the (possibly new) head
+
+assert length(build([1, 2, 3])) == 3            # three nodes
+assert length(None) == 0                        # empty list
+assert to_list(remove_value(build([1, 2, 6, 3, 6]), 6)) == [1, 2, 3]   # remove the 6s
+assert to_list(remove_value(build([6, 6, 1]), 6)) == [1]               # the head is removed too
+print("template B ok")                          # show that all checks above passed
+</code></pre>
+
+<pre><code># TEMPLATE C: fast and slow pointers (find the middle node)
+def middle(head):                               # function: the middle node (the second one if two)
+    slow = head                                 # slow moves 1 step at a time
+    fast = head                                 # fast moves 2 steps at a time
+    while fast and fast.next:                   # while fast can still take two steps
+        slow = slow.next                        # slow takes one step
+        fast = fast.next.next                   # fast takes two steps
+    return slow                                 # when fast is at the end, slow is in the middle
+
+assert middle(build([1, 2, 3, 4, 5])).val == 3  # odd length: the exact middle
+assert middle(build([1, 2, 3, 4])).val == 3     # even length: the second of the two middles
+assert middle(build([7])).val == 7              # one node
+print("template C ok")                          # show that all checks above passed
+</code></pre>
+
+<hr />
+
+<h2 id="5-classic-problems">5. Classic problems</h2>
+
+<h3 id="problem-1-reverse-linked-list">Problem 1. Reverse Linked List</h3>
+
+<p><strong>Problem in plain words.</strong> Reverse a linked list and return the new head.</p>
+
+<p>Example: <code>1 -&gt; 2 -&gt; 3 -&gt; None</code> becomes <code>3 -&gt; 2 -&gt; 1 -&gt; None</code>.</p>
+
+<p><strong>Brute force.</strong> Copy all values into a Python list, reverse it, and build a new linked list. O(n) time but O(n) extra space, and you create new nodes. The interviewer wants you to reverse the arrows in place.</p>
+
+<p><strong>Better idea, slowly.</strong> Walk along the list. At each node, turn its arrow backwards, so it points to the previous node. You need three variables:</p>
+
+<ul>
+<li><code>prev</code>: the node behind (starts as <code>None</code>, because the new last node must point to nothing).</li>
+<li><code>curr</code>: the node you are fixing now.</li>
+<li><code>nxt</code>: the node ahead. Save it FIRST: after you flip <code>curr.next</code>, you would lose the rest of the list.</li>
+</ul>
+
+<p>Steps for each node: save <code>nxt = curr.next</code>; flip <code>curr.next = prev</code>; move <code>prev = curr</code>; move <code>curr = nxt</code>.</p>
+
+<pre><code>def reverse_list(head):
+    prev = None                               # the node behind curr; the new tail will point to None
+    curr = head                               # the node we are turning around
+    while curr:                               # until we run off the end
+        nxt = curr.next                       # 1. save the rest of the list
+        curr.next = prev                      # 2. flip the arrow backwards
+        prev = curr                           # 3. prev steps forward to curr
+        curr = nxt                            # 4. curr steps forward to the saved next node
+    return prev                               # prev is the last node we touched: the new head
+
+print(to_list(reverse_list(build([1, 2, 3]))))            # expect [3, 2, 1]
+assert to_list(reverse_list(build([1, 2, 3]))) == [3, 2, 1]    # example
+assert reverse_list(None) is None                          # empty list
+assert to_list(reverse_list(build([5]))) == [5]            # one node
+assert to_list(reverse_list(build([1, 2]))) == [2, 1]      # two nodes
+</code></pre>
+
+<p><strong>Trace</strong> on <code>1 -&gt; 2 -&gt; 3</code>:</p>
+
+<pre><code>start:   prev = None, curr = 1          list: 1 -&gt; 2 -&gt; 3 -&gt; None
+
+step 1:  nxt = 2.   1.next = None.  prev = 1.  curr = 2.
+         now:  None &lt;- 1     2 -&gt; 3 -&gt; None
+
+step 2:  nxt = 3.   2.next = 1.     prev = 2.  curr = 3.
+         now:  None &lt;- 1 &lt;- 2     3 -&gt; None
+
+step 3:  nxt = None. 3.next = 2.    prev = 3.  curr = None.
+         now:  None &lt;- 1 &lt;- 2 &lt;- 3
+
+curr is None -&gt; stop. return prev = node 3.   Result: 3 -&gt; 2 -&gt; 1 -&gt; None
+</code></pre>
+
+<p><strong>Complexity.</strong> Time O(n): each node is visited once. Space O(1): only three variables.</p>
+
+<p><strong>Two edge cases.</strong> (1) Empty list (<code>head</code> is <code>None</code>): the loop does not run and we return <code>None</code>. (2) One node: <code>prev</code> becomes that node, return it.</p>
+
+<p><strong>How interviewers twist it.</strong> "Reverse only from position left to right." "Reverse in groups of k." "Do it recursively." "Check if the list is a palindrome" (reverse the second half).</p>
+
+<hr />
+
+<h3 id="problem-2-merge-two-sorted-lists">Problem 2. Merge Two Sorted Lists</h3>
+
+<p><strong>Problem in plain words.</strong> You get two sorted linked lists. Join them into ONE sorted linked list by re-using the nodes.</p>
+
+<p>Example: <code>1 -&gt; 2 -&gt; 4</code> and <code>1 -&gt; 3 -&gt; 4</code> give <code>1 -&gt; 1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 4</code>.</p>
+
+<p><strong>Brute force.</strong> Put all values in a Python list, sort it, and build a new linked list. O((n + m) log(n + m)) time, O(n + m) space. It ignores that the lists are already sorted.</p>
+
+<p><strong>Better idea, slowly.</strong> Like merging two lines of people sorted by height. Look at the FIRST person of each line. Take the shorter one and put them in the new line. Repeat. When one line is empty, put the whole other line at the end.</p>
+
+<p>Use a <code>dummy</code> node and a <code>tail</code> pointer to build the result without special cases.</p>
+
+<pre><code>def merge_two_lists(l1, l2):
+    dummy = ListNode()                            # fake start of the merged list
+    tail = dummy                                  # tail = last node of the merged list so far
+    while l1 and l2:                              # while both lists still have nodes
+        if l1.val &lt;= l2.val:                      # the front of l1 is smaller (or equal)
+            tail.next = l1                        # attach that node to the result
+            l1 = l1.next                          # move l1 to its next node
+        else:                                     # the front of l2 is smaller
+            tail.next = l2                        # attach that node to the result
+            l2 = l2.next                          # move l2 to its next node
+        tail = tail.next                          # the tail is now the node we just attached
+    tail.next = l1 if l1 else l2                  # one list ended: attach the rest of the other one
+    return dummy.next                             # skip the fake node
+
+merged = merge_two_lists(build([1, 2, 4]), build([1, 3, 4]))      # run the example
+print(to_list(merged))                            # expect [1, 1, 2, 3, 4, 4]
+assert to_list(merged) == [1, 1, 2, 3, 4, 4]      # example
+assert merge_two_lists(None, None) is None        # both empty
+assert to_list(merge_two_lists(None, build([0]))) == [0]          # one empty
+assert to_list(merge_two_lists(build([1, 2, 3]), build([7, 8, 9, 10]))) == [1, 2, 3, 7, 8, 9, 10]   # different lengths
+</code></pre>
+
+<p><strong>Trace</strong> on <code>l1 = 1 -&gt; 2 -&gt; 4</code>, <code>l2 = 1 -&gt; 3 -&gt; 4</code>:</p>
+
+<pre><code>compare 1 (l1) and 1 (l2): 1 &lt;= 1 -&gt; take l1's 1.    result: 1             l1 = 2 -&gt; 4
+compare 2 (l1) and 1 (l2): 2 &gt;  1 -&gt; take l2's 1.    result: 1 1           l2 = 3 -&gt; 4
+compare 2 (l1) and 3 (l2): 2 &lt;= 3 -&gt; take l1's 2.    result: 1 1 2         l1 = 4
+compare 4 (l1) and 3 (l2): 4 &gt;  3 -&gt; take l2's 3.    result: 1 1 2 3       l2 = 4
+compare 4 (l1) and 4 (l2): 4 &lt;= 4 -&gt; take l1's 4.    result: 1 1 2 3 4     l1 = None
+l1 is empty -&gt; attach the rest of l2 (the last 4).   result: 1 1 2 3 4 4
+</code></pre>
+
+<p><strong>Complexity.</strong> Time O(n + m): every node is attached once. Space O(1): we re-use the nodes; no new nodes (except the dummy).</p>
+
+<p><strong>Two edge cases.</strong> (1) One list is empty: the <code>while</code> loop never runs, and <code>tail.next</code> becomes the other list. (2) Equal values: <code>&lt;=</code> keeps the merge stable (items of <code>l1</code> come first).</p>
+
+<p><strong>How interviewers twist it.</strong> "Merge k sorted lists" (use a min-heap). "Sort a linked list" (merge sort uses this as a step). "Merge two sorted arrays in place."</p>
+
+<hr />
+
+<h3 id="problem-3-linked-list-cycle">Problem 3. Linked List Cycle</h3>
+
+<p><strong>Problem in plain words.</strong> Does the linked list have a cycle (a node whose <code>next</code> points back to an earlier node, so the list never ends)?</p>
+
+<p><strong>Brute force.</strong> Walk the list and store every visited node in a set. If you see a node twice, there is a cycle. O(n) time, O(n) space.</p>
+
+<p><strong>Better idea, slowly (Floyd's tortoise and hare).</strong> Two runners on a track. The slow one walks 1 step, the fast one walks 2 steps. If the track is a straight line, the fast one reaches the end (<code>None</code>). If the track is a loop, the fast one runs around and catches up with the slow one from behind. Each step the gap shrinks by 1, so they MUST meet. If they meet, there is a cycle.</p>
+
+<pre><code>def has_cycle(head):
+    slow = head                                   # the tortoise: 1 step at a time
+    fast = head                                   # the hare: 2 steps at a time
+    while fast and fast.next:                     # if fast hits the end, there is no cycle
+        slow = slow.next                          # slow moves one step
+        fast = fast.next.next                     # fast moves two steps
+        if slow is fast:                          # they stand on the same node
+            return True                           # fast caught slow: there is a cycle
+    return False                                  # fast reached the end: no cycle
+
+def build_cycle(values, pos):                     # test helper: tail points back to the node at index pos
+    head = build(values)                          # build a normal list
+    if pos &lt; 0 or head is None:                   # pos = -1 means: no cycle
+        return head                               # return the plain list
+    nodes = []                                    # collect all nodes
+    node = head                                   # start at the head
+    while node:                                   # walk the list
+        nodes.append(node)                        # remember the node
+        node = node.next                          # move forward
+    nodes[-1].next = nodes[pos]                   # make the last node point back to nodes[pos]
+    return head                                   # return the head of the cyclic list
+
+print(has_cycle(build_cycle([3, 2, 0, -4], 1)))   # expect True
+assert has_cycle(build_cycle([3, 2, 0, -4], 1)) is True     # example: -4 points back to 2
+assert has_cycle(build_cycle([1, 2], 0)) is True            # 2 points back to 1
+assert has_cycle(build_cycle([1], 0)) is True               # one node pointing to itself
+assert has_cycle(build([1, 2, 3])) is False                 # straight list
+assert has_cycle(None) is False                             # empty list
+</code></pre>
+
+<p><strong>Trace</strong> on <code>3 -&gt; 2 -&gt; 0 -&gt; -4</code>, where <code>-4</code> points back to <code>2</code> (call the nodes A=3, B=2, C=0, D=-4):</p>
+
+<pre><code>start:   slow = A, fast = A
+step 1:  slow = B, fast = C        (fast went A -&gt; B -&gt; C)         not the same node
+step 2:  slow = C, fast = B        (fast went C -&gt; D -&gt; B)         not the same node
+step 3:  slow = D, fast = D        (fast went B -&gt; C -&gt; D)         same node! -&gt; True
+</code></pre>
+
+<p><strong>Complexity.</strong> Time O(n): the pointers meet within a number of steps proportional to the list size. Space O(1): two pointers (the set solution needs O(n)).</p>
+
+<p><strong>Two edge cases.</strong> (1) Empty list or one node without a cycle: the <code>while</code> condition <code>fast and fast.next</code> stops at once. (2) One node pointing to itself: <code>slow</code> and <code>fast</code> both move to that node, so they meet.</p>
+
+<p><strong>How interviewers twist it.</strong> "Return the node where the cycle STARTS" (Linked List Cycle II): after they meet, put one pointer back at the head and move both ONE step at a time; where they meet again is the start of the cycle.</p>
+
+<pre><code>def cycle_start(head):
+    slow = fast = head                            # both pointers start at the head
+    while fast and fast.next:                     # move until fast ends or they meet
+        slow = slow.next                          # slow: 1 step
+        fast = fast.next.next                     # fast: 2 steps
+        if slow is fast:                          # they met inside the cycle
+            ptr = head                            # a new pointer starts at the head
+            while ptr is not slow:                # move both by one step until they meet
+                ptr = ptr.next                    # the new pointer moves
+                slow = slow.next                  # the old pointer moves
+            return ptr                            # the meeting point is the start of the cycle
+    return None                                   # no cycle
+
+start_node = cycle_start(build_cycle([3, 2, 0, -4], 1))   # the cycle starts at the node with value 2
+assert start_node.val == 2                        # check
+assert cycle_start(build([1, 2, 3])) is None      # no cycle
+print("cycle_start ok")
+</code></pre>
+
+<hr />
+
+<h3 id="problem-4-remove-nth-node-from-end-of-list">Problem 4. Remove Nth Node From End of List</h3>
+
+<p><strong>Problem in plain words.</strong> Remove the n-th node counting from the END of the list. Return the head.</p>
+
+<p>Example: <code>1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5</code>, <code>n = 2</code> gives <code>1 -&gt; 2 -&gt; 3 -&gt; 5</code>.</p>
+
+<p><strong>Brute force.</strong> Pass 1: count the length <code>L</code>. Pass 2: walk <code>L - n</code> steps and remove the next node. Two passes, O(n) time, O(1) space. This is fine, but the interviewer often asks for ONE pass.</p>
+
+<p><strong>Better idea, slowly (a gap of n between two pointers).</strong> Let <code>fast</code> run <code>n</code> steps ahead of <code>slow</code>. Then move both at the same speed. When <code>fast</code> reaches the LAST node, <code>slow</code> is exactly the node BEFORE the one to delete (the gap stays n). Use a dummy node, so deleting the head works too.</p>
+
+<pre><code>def remove_nth_from_end(head, n):
+    dummy = ListNode(0, head)                     # fake node in front, so the head can be removed too
+    slow = dummy                                  # will end up just before the node to delete
+    fast = dummy                                  # runs ahead by n steps
+    for _ in range(n):                            # move fast n steps forward
+        fast = fast.next                          # one step
+    while fast.next:                              # move both until fast is on the last node
+        fast = fast.next                          # fast moves one step
+        slow = slow.next                          # slow moves one step (keeps the gap)
+    slow.next = slow.next.next                    # skip over the node to delete
+    return dummy.next                             # the new head
+
+print(to_list(remove_nth_from_end(build([1, 2, 3, 4, 5]), 2)))    # expect [1, 2, 3, 5]
+assert to_list(remove_nth_from_end(build([1, 2, 3, 4, 5]), 2)) == [1, 2, 3, 5]    # example
+assert remove_nth_from_end(build([1]), 1) is None                # remove the only node
+assert to_list(remove_nth_from_end(build([1, 2]), 2)) == [2]     # remove the head
+assert to_list(remove_nth_from_end(build([1, 2]), 1)) == [1]     # remove the last node
+</code></pre>
+
+<p><strong>Trace</strong> on <code>1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5</code>, <code>n = 2</code> (list with dummy: <code>D -&gt; 1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5</code>):</p>
+
+<pre><code>start:            slow = D, fast = D
+move fast 2 steps: fast = 1, then fast = 2.        slow = D
+fast.next exists: fast = 3, slow = 1
+fast.next exists: fast = 4, slow = 2
+fast.next exists: fast = 5, slow = 3
+fast.next is None -&gt; stop.  slow = 3.
+slow.next is 4 -&gt; the node to delete. Set 3.next = 5.
+result: 1 -&gt; 2 -&gt; 3 -&gt; 5
+</code></pre>
+
+<p><strong>Complexity.</strong> Time O(n): one pass. Space O(1).</p>
+
+<p><strong>Two edge cases.</strong> (1) Remove the head (<code>n</code> equals the length): the dummy node makes <code>slow</code> stay at <code>dummy</code>, and <code>dummy.next = head.next</code> works without special code. (2) One node and <code>n = 1</code>: the result is <code>None</code>.</p>
+
+<p><strong>How interviewers twist it.</strong> "Delete the middle node." "Rotate the list to the right by k." "Find the k-th node from the end" (same gap trick, no delete).</p>
+
+<hr />
+
+<h3 id="problem-5-lru-cache">Problem 5. LRU Cache</h3>
+
+<p><strong>Problem in plain words.</strong> Design a <strong>cache</strong> (a small fast memory) that keeps at most <code>capacity</code> items. It has two operations:</p>
+
+<ul>
+<li><code>get(key)</code>: return the value, or -1 if the key is not there. This counts as "using" the key.</li>
+<li><code>put(key, value)</code>: add or update a key. If the cache is full, first remove the <strong>Least Recently Used</strong> key (the one not touched for the longest time).</li>
+</ul>
+
+<p>Both operations must be O(1).</p>
+
+<p><strong>Brute force.</strong> Keep a Python list of keys in usage order. To mark a key as used you must find it and move it: O(n).</p>
+
+<p><strong>Better idea, slowly.</strong> We need two things at once:</p>
+
+<ol>
+<li>Find a key in O(1): a <strong>dictionary</strong> <code>key -&gt; node</code>.</li>
+<li>Move a key to "most recent" and remove the oldest in O(1): a <strong>doubly linked list</strong> (each node has <code>prev</code> AND <code>next</code>). With a node in your hand, you can unlink it in O(1) because you know both neighbours. A singly linked list cannot do this.</li>
+</ol>
+
+<p>Layout: the list goes from least recent (near <code>head</code>) to most recent (near <code>tail</code>). Two fake nodes (<code>head</code> and <code>tail</code>) avoid edge cases.</p>
+
+<ul>
+<li>To "use" a key: unlink its node and re-attach it just before <code>tail</code>.</li>
+<li>To evict: remove the node right after <code>head</code>.</li>
+</ul>
+
+<pre><code>class Node:
+    def __init__(self, key=0, val=0):
+        self.key = key                            # the key (needed when we evict: to delete it from the dict)
+        self.val = val                            # the value
+        self.prev = None                          # arrow to the node before
+        self.next = None                          # arrow to the node after
+
+class LRUCache:
+    def __init__(self, capacity):
+        self.cap = capacity                       # maximum number of items
+        self.map = {}                             # key -&gt; node
+        self.head = Node()                        # fake node on the "least recent" side
+        self.tail = Node()                        # fake node on the "most recent" side
+        self.head.next = self.tail                # empty list: head &lt;-&gt; tail
+        self.tail.prev = self.head                # and the other direction
+
+    def _remove(self, node):
+        node.prev.next = node.next                # the node before skips over this node
+        node.next.prev = node.prev                # the node after skips back over this node
+
+    def _add_last(self, node):
+        last = self.tail.prev                     # the current most recent node
+        last.next = node                          # it points forward to the new node
+        node.prev = last                          # the new node points back to it
+        node.next = self.tail                     # the new node points forward to the fake tail
+        self.tail.prev = node                     # the fake tail points back to the new node
+
+    def get(self, key):
+        if key not in self.map:                   # unknown key
+            return -1                             # nothing to return; order does not change
+        node = self.map[key]                      # find the node in O(1)
+        self._remove(node)                        # unlink it from its old place
+        self._add_last(node)                      # re-attach it as the most recent
+        return node.val                           # return the value
+
+    def put(self, key, value):
+        if key in self.map:                       # the key already exists
+            self._remove(self.map[key])           # unlink the old node (we will insert a fresh one)
+        node = Node(key, value)                   # make a node for the new value
+        self.map[key] = node                      # store it in the dictionary
+        self._add_last(node)                      # it is now the most recent
+        if len(self.map) &gt; self.cap:              # too many items?
+            oldest = self.head.next               # the least recent node is right after the fake head
+            self._remove(oldest)                  # unlink it from the list
+            del self.map[oldest.key]              # and delete it from the dictionary
+
+cache = LRUCache(2)                               # capacity 2
+cache.put(1, 1)                                   # cache: 1
+cache.put(2, 2)                                   # cache: 1 2
+assert cache.get(1) == 1                          # 1 becomes most recent: 2 1
+cache.put(3, 3)                                   # full: evicts 2 (least recent). cache: 1 3
+assert cache.get(2) == -1                         # 2 is gone
+cache.put(4, 4)                                   # full: evicts 1. cache: 3 4
+assert cache.get(1) == -1                         # 1 is gone
+assert cache.get(3) == 3                          # 3 becomes most recent: 4 3
+assert cache.get(4) == 4                          # 4 becomes most recent: 3 4
+one = LRUCache(1)                                 # capacity 1
+one.put(5, 50)                                    # cache: 5
+one.put(5, 51)                                    # update the same key: no eviction
+assert one.get(5) == 51                           # updated value
+one.put(6, 60)                                    # evicts 5
+assert one.get(5) == -1                           # gone
+print("LRUCache works")
+</code></pre>
+
+<p><strong>Trace</strong> (capacity 2). The list is written from least recent (left) to most recent (right):</p>
+
+<pre><code>put(1,1)   list: [1]
+put(2,2)   list: [1, 2]
+get(1)     returns 1. Move 1 to the right end.     list: [2, 1]
+put(3,3)   add 3 on the right: [2, 1, 3]. Over capacity (3 &gt; 2): evict the leftmost, 2.   list: [1, 3]
+get(2)     2 is not in the dictionary -&gt; -1.        list: [1, 3]
+put(4,4)   add 4: [1, 3, 4]. Evict the leftmost, 1.  list: [3, 4]
+get(1)     -&gt; -1
+get(3)     returns 3. Move 3 to the right end.     list: [4, 3]
+get(4)     returns 4. Move 4 to the right end.     list: [3, 4]
+</code></pre>
+
+<p><strong>Complexity.</strong> Time O(1) for <code>get</code> and <code>put</code> (dictionary lookup and a fixed number of pointer changes). Space O(capacity).</p>
+
+<p><strong>Python shortcut.</strong> <code>collections.OrderedDict</code> does the same with <code>move_to_end(key)</code> and <code>popitem(last=False)</code>. In an interview, first ask if you may use it. Many interviewers want the hand-made version above.</p>
+
+<p><strong>Two edge cases.</strong> (1) <code>put</code> on an EXISTING key must update the value, make it most recent, and NOT evict anything. (2) Capacity 1: every new key evicts the old one.</p>
+
+<p><strong>How interviewers twist it.</strong> "LFU cache" (least frequently used). "Add expiry times (TTL)." "Make it thread-safe." "What if the cache is distributed across machines?"</p>
+
+<hr />
+
+<h2 id="6-common-mistakes">6. Common mistakes</h2>
+
+<ol>
+<li><strong>Losing the rest of the list.</strong> In reversal, always save <code>nxt = curr.next</code> BEFORE you change <code>curr.next</code>.</li>
+<li><strong>Not using a dummy node,</strong> then writing special code for the head.</li>
+<li><strong><code>fast.next.next</code> on <code>None</code>.</strong> Always check <code>fast and fast.next</code> first.</li>
+<li><strong>Forgetting <code>None</code></strong> at the end of a list you cut. This may create a hidden cycle.</li>
+<li><strong>Comparing nodes with <code>==</code> on values</strong> when you mean the same node. Use <code>is</code>.</li>
+<li><strong>Off-by-one in "nth from the end".</strong> Move <code>fast</code> n steps, and stop when <code>fast.next</code> is <code>None</code> (not when <code>fast</code> is <code>None</code>).</li>
+<li><strong>Not storing the key inside the node</strong> in LRU. You need it to delete from the dictionary when you evict.</li>
+<li><strong>Changing arrows in the wrong order</strong> in a doubly linked list. Draw boxes and arrows on paper first.</li>
+</ol>
+
+<h2 id="7-practice-list-8-more-problems">7. Practice list (8 more problems)</h2>
+
+<p>"Asked at" means the problem appears on that company's list in the community repo <a href="https://github.com/liquidslr/leetcode-company-wise-problems">liquidslr/leetcode-company-wise-problems</a> (checked 2026-11-15). Difficulty is the LeetCode label from the same data.</p>
+
+<table>
+<thead>
+<tr>
+  <th>#</th>
+  <th>Problem</th>
+  <th>Difficulty</th>
+  <th>Asked at (per those lists)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1</td>
+  <td>Middle of the Linked List</td>
+  <td>Easy</td>
+  <td>Amazon, Google, Meta, Microsoft</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>Palindrome Linked List</td>
+  <td>Easy</td>
+  <td>Amazon, Google, Meta, Microsoft</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td>Intersection of Two Linked Lists</td>
+  <td>Easy</td>
+  <td>Amazon, Google, Meta, Microsoft</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td>Add Two Numbers</td>
+  <td>Medium</td>
+  <td>Amazon, Google, Meta, Microsoft</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td>Linked List Cycle II</td>
+  <td>Medium</td>
+  <td>Amazon, Google, Meta, Microsoft</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td>Reorder List</td>
+  <td>Medium</td>
+  <td>Amazon, Google, Meta, Microsoft</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td>Copy List with Random Pointer</td>
+  <td>Medium</td>
+  <td>Amazon, Google, Meta, Microsoft</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td>Merge k Sorted Lists</td>
+  <td>Hard</td>
+  <td>Amazon, Google, Meta, Microsoft</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="8-self-quiz-5-questions">8. Self-quiz (5 questions)</h2>
+
+<ol>
+<li>Why can you not jump straight to the 5th node of a linked list?</li>
+<li>What is a dummy node and why is it useful?</li>
+<li>In reversing a list, why must you save <code>curr.next</code> first?</li>
+<li>In Floyd's cycle detection, why must the fast and slow pointers meet if there is a cycle?</li>
+<li>Why does LRU Cache need BOTH a dictionary and a doubly linked list?</li>
+</ol>
+
+<h3 id="answers">Answers</h3>
+
+<ol>
+<li>You only hold the head. Each node only knows the next node, so you must follow the arrows one by one.</li>
+<li>A fake node placed before the head. With it, adding or removing the head is the same as for any other node, and you return <code>dummy.next</code> at the end.</li>
+<li>After you flip <code>curr.next</code> to point backward, the rest of the list is no longer reachable from <code>curr</code>. Saving it first keeps the link to the remaining nodes.</li>
+<li>Inside the cycle, the fast pointer gains one step on the slow pointer each round, so the gap goes down by one each time until it is zero.</li>
+<li>The dictionary finds a key in O(1). The doubly linked list moves a node to "most recent" and removes the oldest node in O(1). Either one alone makes one of the operations O(n).</li>
+</ol>
+
+<p>Next: <a href="08_trees_and_bst.html">08_trees_and_bst.md</a></p>
+<div class="pn"><span><a href="06_binary_search.html">&larr; Lesson 06. Binary Search (including sear</a></span><span><a href="08_trees_and_bst.html">Lesson 08. Trees and Binary Search Trees &rarr;</a></span></div></main></div></body></html>

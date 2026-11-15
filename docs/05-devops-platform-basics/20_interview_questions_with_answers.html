@@ -1,0 +1,247 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>20. Sixty interview questions with model answers (platform / SRE) | Interview prep</title><style>
+:root{--bg:#fff;--fg:#1f2328;--mut:#59636e;--bd:#d1d9e0;--ac:#0b57d0;--cb:#f6f8fa;--sb:#f6f8fa}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9198a1;--bd:#30363d;--ac:#6cb6ff;--cb:#161b22;--sb:#010409}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{display:flex;min-height:100vh}nav{width:300px;flex:none;background:var(--sb);border-right:1px solid var(--bd);padding:16px;overflow:auto;position:sticky;top:0;height:100vh}
+nav a{color:var(--fg);text-decoration:none;display:block;padding:3px 6px;border-radius:6px;font-size:14px}nav a:hover{background:var(--cb)}nav a.cur{background:var(--ac);color:#fff}
+nav summary{cursor:pointer;font-weight:600;padding:6px 0}nav .home{font-weight:700;font-size:16px;margin-bottom:8px}
+main{flex:1;min-width:0;max-width:900px;padding:24px 32px 80px;margin:0 auto}
+h1,h2,h3{line-height:1.25}h1{border-bottom:1px solid var(--bd);padding-bottom:.3em}h2{border-bottom:1px solid var(--bd);padding-bottom:.25em;margin-top:2em}
+a{color:var(--ac)}pre{background:var(--cb);border:1px solid var(--bd);border-radius:8px;padding:14px;overflow:auto;font-size:13.5px;line-height:1.5}
+code{background:var(--cb);padding:.15em .35em;border-radius:5px;font-size:.92em}pre code{background:none;padding:0}
+table{border-collapse:collapse;display:block;overflow:auto;max-width:100%}th,td{border:1px solid var(--bd);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--cb)}
+blockquote{border-left:4px solid var(--bd);margin:0;padding:0 1em;color:var(--mut)}img{max-width:100%}
+.top{display:none}.pn{display:flex;justify-content:space-between;gap:12px;margin-top:48px;border-top:1px solid var(--bd);padding-top:16px;font-size:14px}
+@media(max-width:820px){.wrap{display:block}nav{width:auto;height:auto;position:static;border-right:0;border-bottom:1px solid var(--bd)}main{padding:16px}}
+</style></head><body><div class="wrap"><nav><a class="home" href="../index.html">Interview prep</a><details><summary>Data structures and algorithms</summary><a href="../01-dsa/00_how_to_start.html">How to start: reading a problem, the 5-step method, and Big-</a><a href="../01-dsa/01_arrays_and_strings.html">Lesson 01. Arrays and Strings</a><a href="../01-dsa/02_hash_maps_and_sets.html">Lesson 02. Hash Maps and Sets</a><a href="../01-dsa/03_two_pointers.html">Lesson 03. Two Pointers</a><a href="../01-dsa/04_sliding_window.html">Lesson 04. Sliding Window</a><a href="../01-dsa/05_stack_and_queue.html">Lesson 05. Stack and Queue (including the monotonic stack)</a><a href="../01-dsa/06_binary_search.html">Lesson 06. Binary Search (including search on the answer)</a><a href="../01-dsa/07_linked_lists.html">Lesson 07. Linked Lists</a><a href="../01-dsa/08_trees_and_bst.html">Lesson 08. Trees and Binary Search Trees (BST)</a><a href="../01-dsa/09_heaps_and_priority_queues.html">Lesson 09: Heaps and Priority Queues</a><a href="../01-dsa/10_graphs_bfs_dfs.html">Lesson 10: Graphs, BFS and DFS (including grids)</a><a href="../01-dsa/11_topological_sort_and_union_find.html">Lesson 11: Topological Sort and Union-Find</a><a href="../01-dsa/12_shortest_paths.html">Lesson 12: Shortest Paths (Dijkstra in plain words)</a><a href="../01-dsa/13_intervals.html">Lesson 13: Intervals (merge intervals, meeting rooms)</a><a href="../01-dsa/14_backtracking.html">Lesson 14: Backtracking (subsets, permutations, combination </a><a href="../01-dsa/15_dynamic_programming_part1.html">Lesson 15: Dynamic Programming, Part 1 (remembering answers)</a><a href="../01-dsa/16_dynamic_programming_part2.html">Lesson 16: Dynamic Programming, Part 2 (LIS, word break, kna</a><a href="../01-dsa/17_tries_and_greedy.html">Lesson 17: Tries and Greedy</a><a href="../01-dsa/18_bit_tricks_and_math_basics.html">Lesson 18: Bit Tricks and Math Basics (short)</a><a href="../01-dsa/19_company_question_patterns.html">Lesson 19: Company Question Patterns (Google, Amazon, Meta, </a></details><details><summary>System design</summary><a href="../02-system-design/00_how_the_round_works.html">How the System Design Round Works</a><a href="../02-system-design/01a_client_server_and_http.html">Client, Server and HTTP</a><a href="../02-system-design/01b_dns_and_cdn.html">DNS and CDN</a><a href="../02-system-design/01c_load_balancers.html">Load Balancers</a><a href="../02-system-design/01d_databases.html">Databases: SQL vs NoSQL, Indexes, Transactions</a><a href="../02-system-design/01e_caching.html">Caching (and Why Invalidation Is Hard)</a><a href="../02-system-design/01f_sharding_and_replication.html">Sharding and Replication</a><a href="../02-system-design/01g_message_queues_and_streams.html">Message Queues and Streams (Kafka Basics)</a><a href="../02-system-design/01h_consistency_and_cap.html">Consistency and the CAP Idea (in Plain Words)</a><a href="../02-system-design/02_numbers_and_estimation.html">Numbers and Estimation</a><a href="../02-system-design/03_reliability_patterns.html">Reliability Patterns</a><a href="../02-system-design/10_url_shortener.html">Design a URL Shortener</a><a href="../02-system-design/11_rate_limiter.html">Design a Rate Limiter</a><a href="../02-system-design/12_chat_system.html">Design a Chat System (like WhatsApp or Slack)</a><a href="../02-system-design/13_news_feed.html">Design a News Feed (like Instagram, Facebook or Twitter/X ho</a><a href="../02-system-design/14_notification_service.html">Design a Notification Service</a><a href="../02-system-design/15_file_storage_like_drive.html">Design File Storage and Sync (like Google Drive or Dropbox)</a><a href="../02-system-design/16_search_autocomplete.html">Design Search Autocomplete (Typeahead)</a><a href="../02-system-design/17_video_streaming_basics.html">Design Video Streaming Basics (like YouTube or Netflix)</a><a href="../02-system-design/18_payment_system_like_stripe.html">Design a Payment System (like Stripe)</a><a href="../02-system-design/19_order_management_like_amazon.html">Design an Order Management System (like Amazon: inventory, o</a><a href="../02-system-design/20_job_scheduler_and_workflow_engine.html">Design a Job Scheduler and Workflow Engine</a><a href="../02-system-design/21_api_gateway_and_auth_system.html">Design an API Gateway and Auth System</a><a href="../02-system-design/22_logging_and_metrics_platform.html">Design a Logging and Metrics Platform</a><a href="../02-system-design/90_cheat_sheet.html">Cheat Sheet (one page)</a><a href="../02-system-design/91_practice_questions.html">Practice Questions (30)</a></details><details><summary>Low-level design</summary><a href="../03-low-level-design/00_how_the_lld_round_works.html">- How the LLD round works</a><a href="../03-low-level-design/01_oop_in_plain_words.html">- OOP in plain words</a><a href="../03-low-level-design/02_solid_principles.html">- SOLID principles</a><a href="../03-low-level-design/03_design_patterns_you_need.html">- The 8 design patterns you need</a><a href="../03-low-level-design/10_parking_lot.html">- Parking Lot</a><a href="../03-low-level-design/11_lru_cache.html">- LRU Cache</a><a href="../03-low-level-design/12_elevator_system.html">- Elevator System</a><a href="../03-low-level-design/13_library_management.html">- Library Management System</a><a href="../03-low-level-design/14_vending_machine.html">- Vending Machine (State pattern)</a><a href="../03-low-level-design/15_atm.html">- ATM</a><a href="../03-low-level-design/16_rate_limiter_class.html">- Rate Limiter (class design: token bucket and sliding windo</a><a href="../03-low-level-design/17_amazon_locker.html">- Amazon Locker</a><a href="../03-low-level-design/18_splitwise_expense_sharing.html">- Splitwise (Expense Sharing)</a><a href="../03-low-level-design/19_logger_and_notification_system.html">- Logger and Notification System (Observer and Strategy)</a><a href="../03-low-level-design/20_tic_tac_toe_or_chess_basics.html">- Tic-Tac-Toe (full) and Chess basics</a><a href="../03-low-level-design/90_cheat_sheet.html">- Cheat sheet (read the night before)</a><a href="../03-low-level-design/91_practice_questions.html">- Practice questions (20)</a></details><details open><summary>DevOps and platform basics</summary><a href="01_linux_processes_memory_files.html">Linux: processes, memory, and files</a><a href="02_networking.html">Networking: TCP, DNS, TLS, NAT</a><a href="03_containers_and_docker.html">Containers and Docker</a><a href="04_kubernetes_from_zero.html">Kubernetes from zero</a><a href="05_helm.html">Helm</a><a href="06_terraform.html">Terraform</a><a href="07_ci_cd_github_actions.html">CI/CD with GitHub Actions</a><a href="08_observability_and_sre.html">Observability and SRE</a><a href="09_concurrency_and_distributed_basics.html">Concurrency and distributed basics</a><a href="10_databases_basics.html">Databases basics</a><a href="11_security_basics.html">Security basics (IAM, OAuth2/OIDC/JWT, secrets, supply chain</a><a href="12_gcp_pca_quick_map.html">Google Cloud quick map (for Professional Cloud Architect hol</a><a class="cur" href="20_interview_questions_with_answers.html">Sixty interview questions with model answers (platform / SRE</a><a href="21_scenario_questions.html">Fifteen &quot;production is down&quot; scenarios, with step-by-step an</a></details><details><summary>Company processes</summary><a href="../06-company-process-and-behavioural/10_google.html">Google</a><a href="../06-company-process-and-behavioural/11_amazon.html">Amazon</a><a href="../06-company-process-and-behavioural/12_stripe.html">Stripe</a><a href="../06-company-process-and-behavioural/13_microsoft_and_azure_roles.html">Microsoft and Azure roles</a><a href="../06-company-process-and-behavioural/14_indian_product_and_gcc_companies.html">Indian product companies and GCCs</a><a href="../06-company-process-and-behavioural/15_european_scaleups.html">European scale-ups and visa basics</a><a href="../06-company-process-and-behavioural/16_ai_startups_like_smallest_ai.html">AI startups like Smallest AI</a><a href="../06-company-process-and-behavioural/24_questions_to_ask_interviewers.html">Questions to ask interviewers</a><a href="../06-company-process-and-behavioural/25_salary_notice_period_and_offer_negotiation_india_and_abroad.html">Salary, notice period and offer negotiation (India and abroa</a><a href="../06-company-process-and-behavioural/26_interview_day_checklists.html">Interview day checklists</a></details></nav><main><h1 id="20-sixty-interview-questions-with-model-answers-platform-sre">20. Sixty interview questions with model answers (platform / SRE)</h1>
+
+<p>How to use this file:</p>
+
+<ul>
+<li>Each answer is a <strong>model answer you can say out loud</strong> in about 30 to 60 seconds. Use your own words and add one real example from your work (AKS, Helm, Terraform, GitHub Actions, Prometheus/Grafana/Loki). Interviewers trust a real example more than a perfect definition.</li>
+<li>The tag in brackets, like <code>[file 04]</code>, tells you where the full explanation and sources are. Facts here were checked in those files (their source lists are at the end of each file). Where a fact was not verified, the topic file says so.</li>
+<li>Question themes match what 2026 prep guides say is common: scenario-based Kubernetes, Terraform state and modules, incident handling and error budgets, and platform "golden path" design. Those guides are prep-site articles, not employer data, so treat them as indicators only (links at the end).</li>
+<li>Simple structure for any answer: <strong>1) what it is, 2) how it works, 3) a trade-off or failure case, 4) your example.</strong></li>
+</ul>
+
+<p>Sections: A Linux (1-6) | B Networking (7-12) | C Containers (13-16) | D Kubernetes (17-26) | E Helm, Terraform, CI/CD (27-38) | F Observability and SRE (39-46) | G Concurrency and databases (47-52) | H Security and cloud (53-57) | I Platform design and behavior (58-60)</p>
+
+<hr />
+
+<h2 id="a-linux">A. Linux</h2>
+
+<p><strong>1. What happens when you run a command like <code>ls</code> in the shell?</strong> <code>[file 01]</code>
+The shell calls <code>fork()</code> to copy itself, then the child calls <code>exec()</code> to become <code>ls</code>. The shell calls <code>wait()</code> for it. <code>ls</code> prints to file descriptor 1 (stdout) and exits with a code. The shell reads the code and shows the next prompt. Fork then exec lets the child set up redirects or drop rights before the new program starts.</p>
+
+<p><strong>2. What is a zombie process and how do you get rid of it?</strong> <code>[file 01]</code>
+A child that finished, but whose parent has not called <code>wait()</code> to read its exit code. It uses no CPU or memory, only a process table slot, and shows as state <code>Z</code>. You cannot kill it. Fix the parent so it reaps children, or restart the parent; then PID 1 adopts and reaps the zombie.</p>
+
+<p><strong>3. SIGTERM vs SIGKILL? What is exit code 137?</strong> <code>[file 01]</code>
+SIGTERM (15) is a polite request that the program can catch to clean up. SIGKILL (9) cannot be caught or ignored. A shell shows 128 plus the signal number, so 137 = 128 + 9 = killed by SIGKILL, often the OOM killer or a kill after the grace period. 143 = SIGTERM.</p>
+
+<p><strong>4. Free memory shows only 200 MB. Is the server in trouble?</strong> <code>[file 01]</code>
+Not necessarily. Linux uses spare RAM as page cache (file data kept in memory) and gives it back when needed. Look at <code>MemAvailable</code> (<code>free -h</code>, column <code>available</code>), which the man page defines as an estimate of memory for starting new applications without swapping. Also check swap use, OOM messages in <code>dmesg</code>, and memory pressure.</p>
+
+<p><strong>5. <code>df</code> says the disk is 100% full, but <code>du</code> finds only a little data. Why?</strong> <code>[file 01]</code>
+Most likely a deleted file is still open by a process; the space is freed only when the process closes it. Find it with <code>lsof +L1</code>, then restart the process or truncate it through <code>/proc/&lt;pid&gt;/fd/&lt;n&gt;</code>. Other causes: files hidden under a mount point, reserved blocks, snapshots, and inode exhaustion (<code>df -i</code>).</p>
+
+<p><strong>6. How do you write a file so a crash does not leave it half-written?</strong> <code>[file 01]</code>
+Write a temp file in the same directory, <code>fsync</code> it, <code>rename()</code> it over the real name (atomic on one filesystem), then <code>fsync</code> the directory. <code>fsync</code> on the file alone does not guarantee the directory entry is saved (man page). Readers see the old or the new file, never a mix.</p>
+
+<h2 id="b-networking">B. Networking</h2>
+
+<p><strong>7. What happens when I open <code>https://example.com</code> in a browser?</strong> <code>[file 02]</code>
+DNS lookup (resolver, then root, TLD, authoritative; cached for the TTL). TCP handshake (SYN, SYN-ACK, ACK). TLS handshake (certificate check, key exchange; one round trip in TLS 1.3). HTTP request and response, often over HTTP/2 on one reused connection. A CDN or load balancer may sit in front. I can time each step with <code>curl -w</code>.</p>
+
+<p><strong>8. Explain the TCP three-way handshake and TIME_WAIT.</strong> <code>[file 02]</code>
+Client sends SYN, server sends SYN-ACK, client sends ACK; now both sides agree on starting sequence numbers. The side that closes first waits in TIME_WAIT for 2 x MSL (RFC 9293) to be sure the last ACK arrived and to keep old packets away from new connections. It is normal; it only hurts when you run out of local ports. Fix with connection reuse.</p>
+
+<p><strong>9. Many sockets are in CLOSE_WAIT. What does it mean?</strong> <code>[file 02]</code>
+The other side closed the connection, but our application has not called <code>close()</code>. It is an application bug (a socket leak), unlike TIME_WAIT. Find the process with <code>ss -tanp state close-wait</code> and fix the code (close response bodies, use <code>finally</code>/context managers).</p>
+
+<p><strong>10. Connection refused vs connection timed out?</strong> <code>[file 02]</code>
+Refused: the host answered with a reset, so it is reachable but nothing listens on that port; it fails instantly. Timed out: no answer at all, usually a firewall dropping packets, a bad route, or a dead host; it fails after the full timeout. curl exit codes: 7 is connect failure, 28 is timeout, 6 is DNS failure.</p>
+
+<p><strong>11. How does DNS caching work and why can changes seem slow?</strong> <code>[file 02]</code>
+Each answer has a TTL. Browser, OS, app libraries, and recursive resolvers cache it until the TTL ends, so users may keep the old IP. Lower the TTL before a planned change, then raise it later. Inside Kubernetes, CoreDNS resolves service names, and DNS trouble is a common cause of random timeouts.</p>
+
+<p><strong>12. What is NAT and what goes wrong at scale?</strong> <code>[file 02]</code>
+NAT rewrites the source address and port so many private hosts share a public IP, and keeps a table to map replies back. Idle entries expire (surprise resets). Many connections to the same destination can exhaust ports on the shared IP (SNAT port exhaustion), causing random connect timeouts. Fixes: more public IPs, reuse connections, keep-alives.</p>
+
+<h2 id="c-containers">C. Containers</h2>
+
+<p><strong>13. What is a container, and how is it different from a VM?</strong> <code>[file 03]</code>
+A container is a normal Linux process isolated by namespaces (what it sees: pids, network, mounts) and limited by cgroups (what it uses: CPU, memory). It shares the host kernel. A VM has its own kernel on virtual hardware: stronger isolation but heavier and slower to start.</p>
+
+<p><strong>14. Why was my container OOMKilled when the node has free memory?</strong> <code>[file 03, file 04]</code>
+The limit applies to the container's cgroup (<code>memory.max</code>), not to the node. At the limit, the kernel OOM killer runs inside that cgroup and kills the process (exit 137, reason OOMKilled). Look at memory over time (leak, spike at start, spike per request), then fix the leak, bound caches, or raise the limit with headroom; set runtime heap sizes below the limit.</p>
+
+<p><strong>15. Latency is bad but CPU use looks low, with a CPU limit set. What is going on?</strong> <code>[file 03]</code>
+CPU throttling. The limit becomes a quota per 100 ms period (<code>cpu.max</code>). A multi-threaded app can use its quota in a few milliseconds and then freeze for the rest of the period. Averages hide it. Check <code>nr_throttled</code> and <code>throttled_usec</code> in <code>cpu.stat</code> (or cAdvisor throttling metrics). Raise or remove the CPU limit, keep a sensible request, or reduce threads.</p>
+
+<p><strong>16. How do you build a small and safe image? Why is PID 1 special?</strong> <code>[file 03]</code>
+Multi-stage build (compile in a big stage, copy only the result), minimal base, pinned digest, non-root <code>USER</code>, read-only root filesystem, no secrets in layers, copy dependency files before code for layer cache. PID 1 gets no default signal actions, so an app that ignores SIGTERM will not stop on <code>docker stop</code>, and PID 1 must reap zombies. Use exec-form <code>CMD</code>, <code>exec</code> in scripts, or <code>--init</code>/tini.</p>
+
+<h2 id="d-kubernetes">D. Kubernetes</h2>
+
+<p><strong>17. What happens when you run <code>kubectl apply -f deployment.yaml</code>?</strong> <code>[file 04]</code>
+The API server authenticates, authorizes (RBAC), validates, runs admission, and stores the object in etcd. The Deployment controller creates a ReplicaSet, which creates Pods. The scheduler assigns each Pod to a node. The kubelet pulls the image, starts containers, and runs probes. When ready, the pod joins Service endpoints.</p>
+
+<p><strong>18. Liveness vs readiness vs startup probes?</strong> <code>[file 04]</code>
+Liveness failing makes the kubelet restart the container. Readiness failing removes the pod from Service endpoints without a restart. Startup protects slow starters by holding off the others. Keep liveness cheap and do not check the database in it (an outage would restart every pod at once); put dependency checks in readiness.</p>
+
+<p><strong>19. Requests vs limits, and QoS classes?</strong> <code>[file 04]</code>
+Requests are what the scheduler reserves; limits are the ceiling. Over the CPU limit the container is throttled; over the memory limit it is OOM-killed. QoS: Guaranteed (requests equal limits for CPU and memory), Burstable, BestEffort; under node pressure BestEffort is evicted first. Requests are also the base for HPA percentages.</p>
+
+<p><strong>20. Pod stuck in Pending. How do you debug it?</strong> <code>[file 04]</code>
+<code>kubectl describe pod</code> and read the <code>FailedScheduling</code> event. Common causes: not enough CPU or memory on nodes, taints without tolerations, node selector or affinity matching nothing, unbound PVC (also zone mismatch), quota, hostPort use. Then <code>kubectl describe nodes</code> for allocated resources, <code>kubectl get pvc</code>, <code>kubectl describe resourcequota</code>, and the cluster autoscaler status.</p>
+
+<p><strong>21. Pod in ImagePullBackOff?</strong> <code>[file 04]</code>
+The kubelet cannot pull the image and retries with growing delays. Check <code>kubectl describe pod</code> events for the real message. Causes: wrong image name or tag, image not pushed, private registry without <code>imagePullSecrets</code> (or missing ACR/registry attachment), registry unreachable (DNS, firewall), rate limits. Try pulling the same image manually from a node-like environment.</p>
+
+<p><strong>22. CrashLoopBackOff: what is it and what are your first commands?</strong> <code>[file 04]</code>
+The container keeps exiting and Kubernetes restarts it with growing back-off (up to 5 minutes). It is a symptom. Run <code>kubectl logs &lt;pod&gt; --previous</code>, then <code>kubectl describe pod</code> for Last State, reason, and exit code, and check events for probe failures. Exit 1 usually means app or config error, 137 means OOM or kill, and a liveness probe may be killing a slow starter (add a startup probe).</p>
+
+<p><strong>23. How do you do a zero-downtime rollout?</strong> <code>[file 04]</code>
+Rolling update with <code>maxUnavailable: 0</code>, <code>maxSurge</code> of 1 or more, a correct readiness probe, at least 2 replicas spread over nodes and zones, a PDB, and graceful shutdown (handle SIGTERM, a short <code>preStop</code> delay so the load balancer drains, enough <code>terminationGracePeriodSeconds</code>). Roll back with <code>kubectl rollout undo</code>. Database changes must be backward compatible.</p>
+
+<p><strong>24. How does the HPA work and when does it do nothing?</strong> <code>[file 04]</code>
+<code>desired = ceil(current replicas x current metric / target metric)</code>, evaluated about every 15 s with a 10% tolerance. CPU utilization is relative to the pod's CPU request, so with no request the autoscaler takes no action. It also stops at <code>maxReplicas</code>, needs metrics-server for resource metrics, and added pods stay Pending without node capacity (cluster autoscaler needed).</p>
+
+<p><strong>25. What is a PodDisruptionBudget and how can it hurt?</strong> <code>[file 04]</code>
+It limits voluntary disruptions (drains, upgrades) with <code>minAvailable</code> or <code>maxUnavailable</code>. It cannot stop involuntary ones like a node crash. With <code>maxUnavailable: 0</code> or <code>minAvailable</code> equal to the replica count, a node drain never completes, which blocks cluster upgrades; the same happens with one replica and a strict PDB.</p>
+
+<p><strong>26. Are Kubernetes Secrets secure? How do RBAC and NetworkPolicy fit in?</strong> <code>[file 04, file 11]</code>
+Secrets are base64 and stored unencrypted in etcd by default, so enable encryption at rest, restrict get/list/watch, and prefer an external store. RBAC is additive (no deny rules). NetworkPolicy starts as allow-all; once a policy selects a pod only allowed traffic passes, and it works only if the CNI plugin enforces it. Start with default-deny, then allow what is needed.</p>
+
+<h2 id="e-helm-terraform-cicd">E. Helm, Terraform, CI/CD</h2>
+
+<p><strong>27. What is Helm and what are values?</strong> <code>[file 05]</code>
+Helm is a package manager and template engine for Kubernetes. A chart holds templates and default <code>values.yaml</code>; a release is an installed instance with revisions. Values override in order: chart defaults, parent chart, <code>-f</code> files (later wins), then <code>--set</code>. I keep one values file per environment in Git.</p>
+
+<p><strong>28. What is an umbrella chart? Pros and cons?</strong> <code>[file 05]</code>
+A parent chart that depends on subcharts and deploys them as one release. Parent sets subchart values under the subchart's name; <code>global:</code> values reach all charts. Pros: one version, one command, one rollback. Cons: all-or-nothing upgrades, one failing subchart blocks the rest, large values. For independent services, separate releases (GitOps) can be better.</p>
+
+<p><strong>29. What does <code>helm upgrade --install --atomic</code> do? What changed in Helm 4?</strong> <code>[file 05]</code>
+It installs if missing, otherwise upgrades, waits for readiness, and rolls back automatically on failure. In Helm 4, <code>--atomic</code> is renamed <code>--rollback-on-failure</code> (my Helm 4.3.1 help text shows only the new name). Always capture events and logs before the rollback erases the evidence.</p>
+
+<p><strong>30. How do you handle rollbacks and secrets in Helm?</strong> <code>[file 05]</code>
+<code>helm history</code> then <code>helm rollback &lt;release&gt; &lt;revision&gt;</code>; it makes a new revision with the old content. It does not undo database changes. For secrets: no plaintext in values in Git; use an external secret store with an operator or CSI driver, or SOPS/Sealed Secrets, or workload identity. Release records in the cluster contain rendered values, so lock down Secret access.</p>
+
+<p><strong>31. What is Terraform state and why is it risky?</strong> <code>[file 06]</code>
+It maps your resource blocks to real object IDs and attributes. Without it Terraform cannot know what it owns. It may hold secrets in plain text, so store it remotely, encrypted, with access control and versioning. If lost, Terraform may try to recreate resources.</p>
+
+<p><strong>32. Remote backends and locking: what if two people apply at once?</strong> <code>[file 06]</code>
+Terraform locks state for operations that could write it; the second run waits or fails with "Error acquiring the state lock". On S3 use <code>use_lockfile = true</code> (DynamoDB locking is deprecated). <code>terraform force-unlock &lt;ID&gt;</code> only for your own stale lock; unlocking someone else's active lock can corrupt state.</p>
+
+<p><strong>33. Drift and import?</strong> <code>[file 06]</code>
+Drift is real infrastructure changed outside Terraform. <code>terraform plan</code> shows it; <code>-refresh-only</code> shows only outside changes; a nightly plan can alert. For import use an <code>import</code> block (and <code>terraform plan -generate-config-out</code> to draft the resource block), review the plan, then apply. The older CLI import only updates state.</p>
+
+<p><strong>34. Workspaces or directories for dev, stage, prod?</strong> <code>[file 06]</code>
+Separate root configurations (directories) with their own backends and credentials, sharing modules. HashiCorp says CLI workspaces share one backend and are not a suitable isolation mechanism for different stages or teams with different credentials. Workspaces are fine for temporary copies, like branch previews.</p>
+
+<p><strong>35. Reusable workflows vs composite actions in GitHub Actions?</strong> <code>[file 07]</code>
+A reusable workflow (<code>workflow_call</code>) is a whole workflow with its own jobs and permissions, called from a job; limits include 10 nesting levels and 50 unique workflows per file. A composite action bundles steps and runs inside the caller's job, called from a step. Use reusable workflows for a shared pipeline, composites for repeated step groups.</p>
+
+<p><strong>36. How do you remove long-lived cloud keys from CI?</strong> <code>[file 07, file 11]</code>
+OIDC federation: the job requests a short-lived signed token (<code>id-token: write</code>), the cloud validates it against a trust policy limited to the repository, branch or environment, and returns short-lived credentials. Keep trust rules narrow, and note GitHub changed the <code>sub</code> claim format for repos created after July 15, 2026.</p>
+
+<p><strong>37. What is script injection in Actions and how do you prevent it?</strong> <code>[file 07]</code>
+Putting untrusted text (PR title, branch name) into <code>run:</code> through <code>${{ }}</code> lets it become shell code. Pass it through an environment variable with <code>env:</code> and use <code>"$VAR"</code>, or pass it as an action input. Also avoid <code>pull_request_target</code> with untrusted checkouts, pin actions to full commit SHAs, and keep <code>GITHUB_TOKEN</code> read-only by default.</p>
+
+<p><strong>38. How do you speed up pipelines safely?</strong> <code>[file 07]</code>
+Cache dependencies by lockfile hash (10 GB per repo default, entries unused for 7 days are removed, never cache secrets), run jobs in parallel, use path filters and concurrency cancellation, cache Docker layers, build once and promote the same image digest. Keep security gates in the PR path.</p>
+
+<h2 id="f-observability-and-sre">F. Observability and SRE</h2>
+
+<p><strong>39. Metrics, logs, traces: when do you use each?</strong> <code>[file 08]</code>
+Metrics are cheap numbers over time, good for dashboards and alerts. Logs record events, good for the exact error. Traces follow one request across services, good for finding where time goes. A shared trace ID links them. OpenTelemetry lets me instrument once and choose backends later.</p>
+
+<p><strong>40. What are the four golden signals?</strong> <code>[file 08]</code>
+Latency, traffic, errors, saturation (Google SRE book). Track latency of successful and failed requests separately; errors include wrong-content and too-slow responses; saturation is how full the most constrained resource is.</p>
+
+<p><strong>41. Define SLI, SLO, SLA, and error budget.</strong> <code>[file 08]</code>
+SLI is a measured number (share of requests under 300 ms and non-5xx). SLO is the target (99.9% over 30 days). SLA is a contract with consequences. Error budget is 1 minus the SLO: 0.1% means about 43.2 minutes of full outage per 30 days. When it is spent, slow feature releases and fix reliability.</p>
+
+<p><strong>42. Why use percentiles, and why can't you average them?</strong> <code>[file 08]</code>
+The mean hides slow tail requests. A percentile is a position in a sorted list, so p99s from two servers cannot be averaged: in my demo, p99s of 2007 ms and 62 ms averaged to 1035 ms, while the true combined p99 was 2004 ms. Sum histogram buckets and compute the percentile from the sum (<code>histogram_quantile</code>), or use a good/total ratio SLO.</p>
+
+<p><strong>43. How do you design alerts?</strong> <code>[file 08]</code>
+Page on symptoms users feel (error ratio, latency, SLO burn rate), not causes like CPU 80%. Use multiwindow burn-rate alerts: for a 99.9% SLO, page at 14.4x burn over 1 hour (and 5 minutes), page at 6x over 6 hours, ticket at 1x over 3 days. Every alert needs an owner and a runbook; remove noisy alerts.</p>
+
+<p><strong>44. How does Prometheus store and query data, and what is cardinality?</strong> <code>[file 08]</code>
+It scrapes <code>/metrics</code> endpoints and stores time series (metric name plus labels). Use <code>rate()</code> on counters and <code>histogram_quantile</code> on histogram buckets. Cardinality is the number of distinct label combinations; user IDs or request IDs in labels create millions of series and can crash it. Loki follows the same rule for log labels.</p>
+
+<p><strong>45. How do you run an incident?</strong> <code>[file 08, file 21]</code>
+Triage impact and severity, declare it, assign an incident commander and a communicator, check recent changes, mitigate first (rollback, flag off, shift traffic), communicate on a schedule, confirm recovery with SLIs. After that, a blameless postmortem with an owner and verifiable action items.</p>
+
+<p><strong>46. What goes into a blameless postmortem?</strong> <code>[file 08]</code>
+Summary, impact (duration, users, SLO budget used), trigger and root causes, timeline, what went well or poorly or was lucky, and action items each with owner, priority, ticket, and a verifiable end state. Focus on system gaps, use neutral language, and share it widely. A postmortem without action is the same as none (Google SRE Workbook).</p>
+
+<h2 id="g-concurrency-and-databases">G. Concurrency and databases</h2>
+
+<p><strong>47. What is a race condition and how do you prevent it?</strong> <code>[file 09]</code>
+Two actors touch shared data and the result depends on timing: two threads read a counter, both add 1, one update is lost (my demo got 280,239 instead of 800,000 without a lock). Prevent with no sharing, locks, atomic operations (<code>UPDATE n = n + 1</code>), optimistic version checks with retry, or a single owner via a queue.</p>
+
+<p><strong>48. What does idempotent mean? How do you retry a POST safely?</strong> <code>[file 09]</code>
+Repeating the operation gives the same result. Use an idempotency key: the client sends a unique key, the server stores key and result under a unique constraint and returns the saved result for repeats, checking that the parameters match. Stripe's API works this way.</p>
+
+<p><strong>49. How do you design retries? What is a retry storm?</strong> <code>[file 09]</code>
+Retry only temporary errors and only idempotent calls, with exponential backoff, a cap, jitter, a maximum count, and a retry budget, at one layer only. Retries multiply across layers and add load to a struggling dependency, which makes the outage worse; that is a retry storm. Set timeouts from latency percentiles.</p>
+
+<p><strong>50. Exactly-once delivery: is it possible?</strong> <code>[file 09]</code>
+Not in general over an unreliable network, because a sender cannot tell a lost message from a lost acknowledgment. Practical systems give at-least-once delivery plus idempotent processing (or transactions inside one system) so the effect happens once.</p>
+
+<p><strong>51. How do indexes work and what do they cost? How do you debug a slow query?</strong> <code>[file 10]</code>
+A B-tree index lets the database find rows without scanning the table, but every write must update it and it uses space. For a slow query: find it, run <code>EXPLAIN (ANALYZE, BUFFERS)</code> (in a rolled-back transaction if it writes), look for sequential scans and estimate-vs-actual gaps, then fix the index, the query, or the statistics. In my SQLite test an index changed <code>SCAN</code> into <code>SEARCH ... USING INDEX</code>.</p>
+
+<p><strong>52. Isolation levels and replication lag?</strong> <code>[file 10]</code>
+Read committed (PostgreSQL default) stops dirty reads; repeatable read gives a stable snapshot; serializable also prevents serialization anomalies but needs retries on failure. Replication lag is how far a replica is behind; asynchronous replication is fast but can lose recent commits and show stale reads, so read your own writes from the primary and alert on lag.</p>
+
+<h2 id="h-security-and-cloud">H. Security and cloud</h2>
+
+<p><strong>53. Explain OAuth2, OIDC, and JWT in simple words.</strong> <code>[file 11]</code>
+OAuth2 lets an app get limited access to a user's data without the password: the user logs in at the authorization server, the app exchanges a short-lived code for a scoped access token, and calls the API. OIDC adds an ID token so the app knows who logged in. A JWT is a signed (not encrypted) token with header, payload claims, and signature; the API must verify signature, <code>iss</code>, <code>aud</code>, and <code>exp</code>.</p>
+
+<p><strong>54. How do you manage secrets?</strong> <code>[file 11]</code>
+Best is no secret: workload identity or OIDC federation. Otherwise a secrets manager with identity-based access, rotation, and audit; never in Git, images, or logs; per-workload least privilege; scan for leaks. If one leaks, revoke and rotate. In Kubernetes remember base64 is not encryption.</p>
+
+<p><strong>55. What is supply-chain security and what does Trivy do?</strong> <code>[file 11]</code>
+Protecting everything that goes into production: pin dependencies, image digests, and action SHAs; minimal non-root images; scan images, dependencies, and IaC; SBOMs; sign images and enforce at admission; provenance (SLSA). Trivy scans images, filesystems, repos, Kubernetes, IaC, and SBOMs for vulnerabilities, misconfigurations, secrets, and licenses; use <code>--severity</code> and <code>--ignore-unfixed</code>, and a reviewed <code>.trivyignore</code>.</p>
+
+<p><strong>56. Cloud Run, GKE, or Compute Engine?</strong> <code>[file 12]</code>
+Cloud Run for stateless HTTP and event workloads with no cluster to run (scales to zero, instances are stateless). GKE (Autopilot first) for many services, operators, sidecars, or stateful sets. Compute Engine for OS-level control or legacy software. Choose the least operational burden that meets the requirements.</p>
+
+<p><strong>57. How do you apply least privilege in a cloud?</strong> <code>[file 11, file 12]</code>
+Smallest predefined or custom role, at the lowest level (project or resource), to groups, a separate service account per workload, no long-lived keys (federation), regular reviews and audit logs. Remember inheritance: a grant high in the hierarchy reaches everything below.</p>
+
+<h2 id="i-platform-design-and-behavior">I. Platform design and behavior</h2>
+
+<p><strong>58. What is a "golden path" and what does a platform team build?</strong> <code>[file 04, file 07]</code>
+A golden path is the easy, supported way to ship a service: templates, a standard pipeline (reusable workflows), default Helm charts, observability and security built in, and docs. The platform is a product with internal users: measure adoption and developer time-to-first-deploy, hide Kubernetes details where possible, and allow escape hatches. (Prep guides say golden-path and internal developer platform design questions appear in many 2026 platform loops; they are indicators, not proof.)</p>
+
+<p><strong>59. Design a safe multi-tenant Kubernetes platform for several teams.</strong> <code>[file 04, file 11]</code>
+Namespace per team with ResourceQuota and LimitRange, RBAC per team (least privilege), default-deny NetworkPolicy, pod security settings (non-root, drop capabilities), workload identity instead of secrets, admission policies (signed images, no <code>:latest</code>), PDBs and requests required, cost labels, shared observability with per-team dashboards and SLOs, GitOps for deployment, and a clear upgrade process (PDBs and surge). Note that namespaces are a soft boundary; stronger isolation needs separate clusters or node pools.</p>
+
+<p><strong>60. Tell me about a production incident you handled.</strong> <code>[file 21]</code>
+Use this shape: situation (what broke and user impact), your role, what you checked first and why (impact, recent change), the mitigation, the root cause, and what you changed so it does not repeat (alert, test, runbook, automation). Give numbers (minutes to detect, minutes to mitigate, percent of users). Be honest about mistakes; blameless language shows maturity.</p>
+
+<hr />
+
+<h2 id="sources-for-this-file">Sources for this file</h2>
+
+<p>All technical facts come from the topic files 01 to 12 in this folder, which list their own sources (Linux man pages, kernel docs, RFC 9293 and 8446, Docker, Kubernetes, Helm, HashiCorp, GitHub, Google SRE books, Prometheus, Grafana, OpenTelemetry, PostgreSQL, Google Cloud, Trivy).</p>
+
+<p>2026 interview-theme summaries (prep-site articles, indicators only, not employer data):</p>
+
+<ul>
+<li>https://www.kore1.com/platform-engineer-interview-questions/</li>
+<li>https://www.kore1.com/sre-interview-questions/</li>
+<li>https://www.kore1.com/devops-engineer-interview-questions/</li>
+<li>https://prachub.com/resources/kubernetes-interview-questions-for-sre-and-platform-engineers-production-scenarios-not-trivia</li>
+<li>https://prachub.com/resources/incident-response-interview-questions-for-sre-and-senior-engineers</li>
+<li>https://startup.jobs/interview-questions/platform-engineer</li>
+</ul>
+
+<p>Not verified: that these exact 60 questions are asked at any specific company. They are built from the topic list you gave me and the general 2026 themes in the articles above. The golden-path and multi-tenancy answers (Q58, Q59) mix verified Kubernetes facts with general platform-engineering practice.</p>
+<div class="pn"><span><a href="12_gcp_pca_quick_map.html">&larr; 12. Google Cloud quick map (for Professi</a></span><span><a href="21_scenario_questions.html">21. Fifteen &quot;production is down&quot; scenari &rarr;</a></span></div></main></div></body></html>

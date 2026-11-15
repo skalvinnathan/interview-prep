@@ -1,0 +1,294 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>01a. Client, Server and HTTP | Interview prep</title><style>
+:root{--bg:#fff;--fg:#1f2328;--mut:#59636e;--bd:#d1d9e0;--ac:#0b57d0;--cb:#f6f8fa;--sb:#f6f8fa}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9198a1;--bd:#30363d;--ac:#6cb6ff;--cb:#161b22;--sb:#010409}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{display:flex;min-height:100vh}nav{width:300px;flex:none;background:var(--sb);border-right:1px solid var(--bd);padding:16px;overflow:auto;position:sticky;top:0;height:100vh}
+nav a{color:var(--fg);text-decoration:none;display:block;padding:3px 6px;border-radius:6px;font-size:14px}nav a:hover{background:var(--cb)}nav a.cur{background:var(--ac);color:#fff}
+nav summary{cursor:pointer;font-weight:600;padding:6px 0}nav .home{font-weight:700;font-size:16px;margin-bottom:8px}
+main{flex:1;min-width:0;max-width:900px;padding:24px 32px 80px;margin:0 auto}
+h1,h2,h3{line-height:1.25}h1{border-bottom:1px solid var(--bd);padding-bottom:.3em}h2{border-bottom:1px solid var(--bd);padding-bottom:.25em;margin-top:2em}
+a{color:var(--ac)}pre{background:var(--cb);border:1px solid var(--bd);border-radius:8px;padding:14px;overflow:auto;font-size:13.5px;line-height:1.5}
+code{background:var(--cb);padding:.15em .35em;border-radius:5px;font-size:.92em}pre code{background:none;padding:0}
+table{border-collapse:collapse;display:block;overflow:auto;max-width:100%}th,td{border:1px solid var(--bd);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--cb)}
+blockquote{border-left:4px solid var(--bd);margin:0;padding:0 1em;color:var(--mut)}img{max-width:100%}
+.top{display:none}.pn{display:flex;justify-content:space-between;gap:12px;margin-top:48px;border-top:1px solid var(--bd);padding-top:16px;font-size:14px}
+@media(max-width:820px){.wrap{display:block}nav{width:auto;height:auto;position:static;border-right:0;border-bottom:1px solid var(--bd)}main{padding:16px}}
+</style></head><body><div class="wrap"><nav><a class="home" href="../index.html">Interview prep</a><details><summary>Data structures and algorithms</summary><a href="../01-dsa/00_how_to_start.html">How to start: reading a problem, the 5-step method, and Big-</a><a href="../01-dsa/01_arrays_and_strings.html">Lesson 01. Arrays and Strings</a><a href="../01-dsa/02_hash_maps_and_sets.html">Lesson 02. Hash Maps and Sets</a><a href="../01-dsa/03_two_pointers.html">Lesson 03. Two Pointers</a><a href="../01-dsa/04_sliding_window.html">Lesson 04. Sliding Window</a><a href="../01-dsa/05_stack_and_queue.html">Lesson 05. Stack and Queue (including the monotonic stack)</a><a href="../01-dsa/06_binary_search.html">Lesson 06. Binary Search (including search on the answer)</a><a href="../01-dsa/07_linked_lists.html">Lesson 07. Linked Lists</a><a href="../01-dsa/08_trees_and_bst.html">Lesson 08. Trees and Binary Search Trees (BST)</a><a href="../01-dsa/09_heaps_and_priority_queues.html">Lesson 09: Heaps and Priority Queues</a><a href="../01-dsa/10_graphs_bfs_dfs.html">Lesson 10: Graphs, BFS and DFS (including grids)</a><a href="../01-dsa/11_topological_sort_and_union_find.html">Lesson 11: Topological Sort and Union-Find</a><a href="../01-dsa/12_shortest_paths.html">Lesson 12: Shortest Paths (Dijkstra in plain words)</a><a href="../01-dsa/13_intervals.html">Lesson 13: Intervals (merge intervals, meeting rooms)</a><a href="../01-dsa/14_backtracking.html">Lesson 14: Backtracking (subsets, permutations, combination </a><a href="../01-dsa/15_dynamic_programming_part1.html">Lesson 15: Dynamic Programming, Part 1 (remembering answers)</a><a href="../01-dsa/16_dynamic_programming_part2.html">Lesson 16: Dynamic Programming, Part 2 (LIS, word break, kna</a><a href="../01-dsa/17_tries_and_greedy.html">Lesson 17: Tries and Greedy</a><a href="../01-dsa/18_bit_tricks_and_math_basics.html">Lesson 18: Bit Tricks and Math Basics (short)</a><a href="../01-dsa/19_company_question_patterns.html">Lesson 19: Company Question Patterns (Google, Amazon, Meta, </a></details><details open><summary>System design</summary><a href="00_how_the_round_works.html">How the System Design Round Works</a><a class="cur" href="01a_client_server_and_http.html">Client, Server and HTTP</a><a href="01b_dns_and_cdn.html">DNS and CDN</a><a href="01c_load_balancers.html">Load Balancers</a><a href="01d_databases.html">Databases: SQL vs NoSQL, Indexes, Transactions</a><a href="01e_caching.html">Caching (and Why Invalidation Is Hard)</a><a href="01f_sharding_and_replication.html">Sharding and Replication</a><a href="01g_message_queues_and_streams.html">Message Queues and Streams (Kafka Basics)</a><a href="01h_consistency_and_cap.html">Consistency and the CAP Idea (in Plain Words)</a><a href="02_numbers_and_estimation.html">Numbers and Estimation</a><a href="03_reliability_patterns.html">Reliability Patterns</a><a href="10_url_shortener.html">Design a URL Shortener</a><a href="11_rate_limiter.html">Design a Rate Limiter</a><a href="12_chat_system.html">Design a Chat System (like WhatsApp or Slack)</a><a href="13_news_feed.html">Design a News Feed (like Instagram, Facebook or Twitter/X ho</a><a href="14_notification_service.html">Design a Notification Service</a><a href="15_file_storage_like_drive.html">Design File Storage and Sync (like Google Drive or Dropbox)</a><a href="16_search_autocomplete.html">Design Search Autocomplete (Typeahead)</a><a href="17_video_streaming_basics.html">Design Video Streaming Basics (like YouTube or Netflix)</a><a href="18_payment_system_like_stripe.html">Design a Payment System (like Stripe)</a><a href="19_order_management_like_amazon.html">Design an Order Management System (like Amazon: inventory, o</a><a href="20_job_scheduler_and_workflow_engine.html">Design a Job Scheduler and Workflow Engine</a><a href="21_api_gateway_and_auth_system.html">Design an API Gateway and Auth System</a><a href="22_logging_and_metrics_platform.html">Design a Logging and Metrics Platform</a><a href="90_cheat_sheet.html">Cheat Sheet (one page)</a><a href="91_practice_questions.html">Practice Questions (30)</a></details><details><summary>Low-level design</summary><a href="../03-low-level-design/00_how_the_lld_round_works.html">- How the LLD round works</a><a href="../03-low-level-design/01_oop_in_plain_words.html">- OOP in plain words</a><a href="../03-low-level-design/02_solid_principles.html">- SOLID principles</a><a href="../03-low-level-design/03_design_patterns_you_need.html">- The 8 design patterns you need</a><a href="../03-low-level-design/10_parking_lot.html">- Parking Lot</a><a href="../03-low-level-design/11_lru_cache.html">- LRU Cache</a><a href="../03-low-level-design/12_elevator_system.html">- Elevator System</a><a href="../03-low-level-design/13_library_management.html">- Library Management System</a><a href="../03-low-level-design/14_vending_machine.html">- Vending Machine (State pattern)</a><a href="../03-low-level-design/15_atm.html">- ATM</a><a href="../03-low-level-design/16_rate_limiter_class.html">- Rate Limiter (class design: token bucket and sliding windo</a><a href="../03-low-level-design/17_amazon_locker.html">- Amazon Locker</a><a href="../03-low-level-design/18_splitwise_expense_sharing.html">- Splitwise (Expense Sharing)</a><a href="../03-low-level-design/19_logger_and_notification_system.html">- Logger and Notification System (Observer and Strategy)</a><a href="../03-low-level-design/20_tic_tac_toe_or_chess_basics.html">- Tic-Tac-Toe (full) and Chess basics</a><a href="../03-low-level-design/90_cheat_sheet.html">- Cheat sheet (read the night before)</a><a href="../03-low-level-design/91_practice_questions.html">- Practice questions (20)</a></details><details><summary>DevOps and platform basics</summary><a href="../05-devops-platform-basics/01_linux_processes_memory_files.html">Linux: processes, memory, and files</a><a href="../05-devops-platform-basics/02_networking.html">Networking: TCP, DNS, TLS, NAT</a><a href="../05-devops-platform-basics/03_containers_and_docker.html">Containers and Docker</a><a href="../05-devops-platform-basics/04_kubernetes_from_zero.html">Kubernetes from zero</a><a href="../05-devops-platform-basics/05_helm.html">Helm</a><a href="../05-devops-platform-basics/06_terraform.html">Terraform</a><a href="../05-devops-platform-basics/07_ci_cd_github_actions.html">CI/CD with GitHub Actions</a><a href="../05-devops-platform-basics/08_observability_and_sre.html">Observability and SRE</a><a href="../05-devops-platform-basics/09_concurrency_and_distributed_basics.html">Concurrency and distributed basics</a><a href="../05-devops-platform-basics/10_databases_basics.html">Databases basics</a><a href="../05-devops-platform-basics/11_security_basics.html">Security basics (IAM, OAuth2/OIDC/JWT, secrets, supply chain</a><a href="../05-devops-platform-basics/12_gcp_pca_quick_map.html">Google Cloud quick map (for Professional Cloud Architect hol</a><a href="../05-devops-platform-basics/20_interview_questions_with_answers.html">Sixty interview questions with model answers (platform / SRE</a><a href="../05-devops-platform-basics/21_scenario_questions.html">Fifteen &quot;production is down&quot; scenarios, with step-by-step an</a></details><details><summary>Company processes</summary><a href="../06-company-process-and-behavioural/10_google.html">Google</a><a href="../06-company-process-and-behavioural/11_amazon.html">Amazon</a><a href="../06-company-process-and-behavioural/12_stripe.html">Stripe</a><a href="../06-company-process-and-behavioural/13_microsoft_and_azure_roles.html">Microsoft and Azure roles</a><a href="../06-company-process-and-behavioural/14_indian_product_and_gcc_companies.html">Indian product companies and GCCs</a><a href="../06-company-process-and-behavioural/15_european_scaleups.html">European scale-ups and visa basics</a><a href="../06-company-process-and-behavioural/16_ai_startups_like_smallest_ai.html">AI startups like Smallest AI</a><a href="../06-company-process-and-behavioural/24_questions_to_ask_interviewers.html">Questions to ask interviewers</a><a href="../06-company-process-and-behavioural/25_salary_notice_period_and_offer_negotiation_india_and_abroad.html">Salary, notice period and offer negotiation (India and abroa</a><a href="../06-company-process-and-behavioural/26_interview_day_checklists.html">Interview day checklists</a></details></nav><main><h1 id="01a-client-server-and-http">01a. Client, Server and HTTP</h1>
+
+<p>Everything in system design starts here. Learn this one well.</p>
+
+<hr />
+
+<h2 id="1-client-and-server">1. Client and server</h2>
+
+<ul>
+<li><strong>Client</strong> = the one who asks. Your phone app, your browser, another program.</li>
+<li><strong>Server</strong> = the one who answers. A computer that runs a program all day, waiting for requests.</li>
+</ul>
+
+<p><strong>Analogy: a restaurant.</strong> The guest (client) tells the waiter what he wants. The kitchen (server) makes it and sends it back. The guest never goes into the kitchen.</p>
+
+<pre><code> +--------+   1. request ("give me page X")    +--------+
+ | Client | ---------------------------------&gt; | Server |
+ | (phone)| &lt;--------------------------------- |        |
+ +--------+   2. response (the page)           +--------+
+</code></pre>
+
+<p>One server can serve many clients. A client can talk to many servers.</p>
+
+<hr />
+
+<h2 id="2-ip-address-port-dns-short-version">2. IP address, port, DNS (short version)</h2>
+
+<ul>
+<li><strong>IP address</strong> = the house number of a computer. Example <code>142.250.1.1</code>.</li>
+<li><strong>Port</strong> = the door number in that house. Web uses port 80 (HTTP) and 443 (HTTPS).</li>
+<li><strong>DNS</strong> = the phone book that turns <code>google.com</code> into an IP address. See <code>01b</code>.</li>
+</ul>
+
+<hr />
+
+<h2 id="3-what-is-http">3. What is HTTP?</h2>
+
+<p><strong>HTTP</strong> is the language a client and server use on the web. It is a set of simple rules: "send me a message in this shape, I will reply in that shape."</p>
+
+<ul>
+<li><strong>HTTPS</strong> = HTTP with a lock (encryption). Nobody in the middle can read the message. Always use it.</li>
+</ul>
+
+<h3 id="a-request-has">A request has</h3>
+
+<pre><code>POST /v1/orders HTTP/1.1            &lt;- method + path
+Host: api.shop.com                  &lt;- headers (extra info)
+Authorization: Bearer abc123
+Content-Type: application/json
+
+{"item": "book", "qty": 2}          &lt;- body (the data)
+</code></pre>
+
+<h3 id="a-response-has">A response has</h3>
+
+<pre><code>HTTP/1.1 201 Created                &lt;- status code
+Content-Type: application/json
+
+{"order_id": "o_789"}               &lt;- body
+</code></pre>
+
+<h3 id="methods-verbs">Methods (verbs)</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Method</th>
+  <th>Meaning</th>
+  <th>Daily-life example</th>
+  <th>Safe to repeat?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>GET</td>
+  <td>Read something</td>
+  <td>Read the menu</td>
+  <td>Yes</td>
+</tr>
+<tr>
+  <td>POST</td>
+  <td>Create something</td>
+  <td>Place a new order</td>
+  <td><strong>No</strong> (may create two)</td>
+</tr>
+<tr>
+  <td>PUT</td>
+  <td>Replace something fully</td>
+  <td>Rewrite my whole order</td>
+  <td>Yes</td>
+</tr>
+<tr>
+  <td>PATCH</td>
+  <td>Change a part</td>
+  <td>Change only the quantity</td>
+  <td>Usually</td>
+</tr>
+<tr>
+  <td>DELETE</td>
+  <td>Remove</td>
+  <td>Cancel the order</td>
+  <td>Yes</td>
+</tr>
+</tbody>
+</table>
+
+<p>"Safe to repeat" has a fancy name: <strong>idempotent</strong> (see <code>03_reliability_patterns.md</code>). It matters a lot when the network fails and the client retries.</p>
+
+<h3 id="status-codes-learn-the-groups">Status codes (learn the groups)</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Code</th>
+  <th>Meaning</th>
+  <th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>2xx</td>
+  <td>Success</td>
+  <td>200 OK, 201 Created, 204 No Content</td>
+</tr>
+<tr>
+  <td>3xx</td>
+  <td>Go somewhere else</td>
+  <td>301 moved forever, 302 temporary redirect</td>
+</tr>
+<tr>
+  <td>4xx</td>
+  <td><strong>Client</strong> made a mistake</td>
+  <td>400 bad request, 401 not logged in, 403 not allowed, 404 not found, 409 conflict, 429 too many requests</td>
+</tr>
+<tr>
+  <td>5xx</td>
+  <td><strong>Server</strong> has a problem</td>
+  <td>500 error, 502 bad gateway, 503 unavailable, 504 gateway timeout</td>
+</tr>
+</tbody>
+</table>
+
+<p>Rule: 4xx = do not retry blindly (your request is wrong). 5xx and 429 = may retry later with a wait.</p>
+
+<hr />
+
+<h2 id="4-stateless-vs-stateful-servers">4. Stateless vs stateful servers</h2>
+
+<ul>
+<li><strong>Stateful</strong>: the server remembers you between requests (it keeps your session in its own memory). If that server dies, you lose your session. Also, you must always return to the same server.</li>
+<li><strong>Stateless</strong>: the server remembers nothing. Every request carries everything needed (for example a token). The state lives in a database or cache outside.</li>
+</ul>
+
+<p><strong>Analogy:</strong> A stateless waiter reads your table card each time. Any waiter can serve you. A stateful waiter "remembers" you; if he goes home, you are lost.</p>
+
+<p><strong>Why stateless is good:</strong> you can add 10 more identical servers and put a load balancer in front (see <code>01c</code>). Interviewers love this sentence: <strong>"I keep the web servers stateless so I can scale them horizontally."</strong></p>
+
+<hr />
+
+<h2 id="5-scaling-up-or-out">5. Scaling: up or out</h2>
+
+<ul>
+<li><strong>Vertical scaling (scale up)</strong> = buy a bigger machine (more CPU, more RAM). Simple, but it has a limit and costs a lot at the top. Also one machine = one point of failure.</li>
+<li><strong>Horizontal scaling (scale out)</strong> = add more machines. Cheaper, no real limit, but you need a load balancer and a design that works across machines.</li>
+</ul>
+
+<pre><code>Scale up:     [ small ] ---&gt; [ BIG BIG BIG ]
+Scale out:    [ s ] ---&gt; [ s ][ s ][ s ][ s ]
+</code></pre>
+
+<hr />
+
+<h2 id="6-ways-to-talk-rest-grpc-websocket-polling">6. Ways to talk: REST, gRPC, WebSocket, polling</h2>
+
+<table>
+<thead>
+<tr>
+  <th>Style</th>
+  <th>What it is</th>
+  <th>Use it for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>REST</strong> (HTTP + JSON)</td>
+  <td>Resources with URLs: <code>GET /users/42</code></td>
+  <td>Most public APIs. Easy to debug</td>
+</tr>
+<tr>
+  <td><strong>gRPC</strong></td>
+  <td>Fast binary calls between services, with a strict contract file</td>
+  <td>Service-to-service inside your company</td>
+</tr>
+<tr>
+  <td><strong>GraphQL</strong></td>
+  <td>Client asks exactly the fields it wants</td>
+  <td>Mobile apps with varied screens</td>
+</tr>
+<tr>
+  <td><strong>Polling</strong></td>
+  <td>Client asks again and again: "anything new?"</td>
+  <td>Simple, wasteful</td>
+</tr>
+<tr>
+  <td><strong>Long polling</strong></td>
+  <td>Client asks; server holds the call open until there is news</td>
+  <td>Better than polling, still HTTP</td>
+</tr>
+<tr>
+  <td><strong>WebSocket</strong></td>
+  <td>One long-lived two-way connection</td>
+  <td>Chat, live scores, games</td>
+</tr>
+<tr>
+  <td><strong>Server-Sent Events (SSE)</strong></td>
+  <td>Server pushes a stream to the client (one way)</td>
+  <td>Live feeds, progress bars</td>
+</tr>
+<tr>
+  <td><strong>Webhook</strong></td>
+  <td>Server calls <strong>your</strong> URL when something happens</td>
+  <td>Payment done, build finished</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Analogy:</strong> Polling = you call the shop every 5 minutes: "is my parcel ready?" Webhook = the shop calls you when it is ready.</p>
+
+<hr />
+
+<h2 id="7-api-design-basics-you-will-do-this-in-step-3-of-every-design">7. API design basics (you will do this in Step 3 of every design)</h2>
+
+<ol>
+<li><strong>Use nouns in URLs, verbs in methods.</strong> <code>POST /orders</code>, not <code>/createOrder</code>.</li>
+<li><strong>Version your API.</strong> <code>/v1/...</code>. You can change v2 later without breaking old clients.</li>
+<li><strong>Pagination for lists.</strong> Never return 10 million rows. Use <code>?limit=20&amp;cursor=abc</code>. (Cursor is better than page numbers when data changes.)</li>
+<li><strong>Idempotency for creates.</strong> Client sends an <code>Idempotency-Key</code> header so a retry does not create two orders. (See <code>03</code>.)</li>
+<li><strong>Clear errors.</strong> Status code + a short machine-readable code + a human message.</li>
+<li><strong>Authentication</strong> (who are you?) and <strong>authorization</strong> (what may you do?). Different things. (See <code>21</code>.)</li>
+<li><strong>Rate limits.</strong> Return 429 with a <code>Retry-After</code> header. (See <code>11</code>.)</li>
+</ol>
+
+<hr />
+
+<h2 id="8-a-requests-journey-the-what-happens-when-you-open-a-website-answer">8. A request's journey (the "what happens when you open a website" answer)</h2>
+
+<p>A very common question. Say it in order:</p>
+
+<ol>
+<li>Browser asks DNS: "IP of <code>shop.com</code>?" (cache is checked first).</li>
+<li>Browser opens a TCP connection to that IP, then does a TLS handshake (the lock).</li>
+<li>Browser sends the HTTP request.</li>
+<li>A CDN or load balancer receives it and picks a healthy server.</li>
+<li>The web server checks login (token), maybe asks a cache.</li>
+<li>If not in cache, it asks the database.</li>
+<li>It builds the response and sends it back.</li>
+<li>Browser draws the page; asks for images and scripts (often from a CDN).</li>
+</ol>
+
+<pre><code>Browser -&gt; DNS -&gt; CDN -&gt; Load balancer -&gt; Web server -&gt; Cache -&gt; Database
+</code></pre>
+
+<hr />
+
+<h2 id="9-where-this-shows-in-your-own-work">9. Where this shows in your own work</h2>
+
+<p>Your OIDC gateway and access-control service are a client-server system: apps are clients, the gateway checks a token and forwards to a stateless backend. Your provisioner calls Kubernetes APIs over HTTPS too. You already use these ideas daily; here you only give them names.</p>
+
+<hr />
+
+<h2 id="10-quick-check-answer-out-loud">10. Quick check (answer out loud)</h2>
+
+<ol>
+<li>Why is a stateless server easier to scale?</li>
+<li>Which HTTP methods are safe to repeat?</li>
+<li>Is 429 a client or server problem? What should the client do?</li>
+<li>Polling vs webhook: which is better for "payment finished"?</li>
+</ol>
+<div class="pn"><span><a href="00_how_the_round_works.html">&larr; 00. How the System Design Round Works</a></span><span><a href="01b_dns_and_cdn.html">01b. DNS and CDN &rarr;</a></span></div></main></div></body></html>

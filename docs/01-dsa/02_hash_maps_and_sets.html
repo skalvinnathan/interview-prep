@@ -1,0 +1,498 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Lesson 02. Hash Maps and Sets | Interview prep</title><style>
+:root{--bg:#fff;--fg:#1f2328;--mut:#59636e;--bd:#d1d9e0;--ac:#0b57d0;--cb:#f6f8fa;--sb:#f6f8fa}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9198a1;--bd:#30363d;--ac:#6cb6ff;--cb:#161b22;--sb:#010409}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{display:flex;min-height:100vh}nav{width:300px;flex:none;background:var(--sb);border-right:1px solid var(--bd);padding:16px;overflow:auto;position:sticky;top:0;height:100vh}
+nav a{color:var(--fg);text-decoration:none;display:block;padding:3px 6px;border-radius:6px;font-size:14px}nav a:hover{background:var(--cb)}nav a.cur{background:var(--ac);color:#fff}
+nav summary{cursor:pointer;font-weight:600;padding:6px 0}nav .home{font-weight:700;font-size:16px;margin-bottom:8px}
+main{flex:1;min-width:0;max-width:900px;padding:24px 32px 80px;margin:0 auto}
+h1,h2,h3{line-height:1.25}h1{border-bottom:1px solid var(--bd);padding-bottom:.3em}h2{border-bottom:1px solid var(--bd);padding-bottom:.25em;margin-top:2em}
+a{color:var(--ac)}pre{background:var(--cb);border:1px solid var(--bd);border-radius:8px;padding:14px;overflow:auto;font-size:13.5px;line-height:1.5}
+code{background:var(--cb);padding:.15em .35em;border-radius:5px;font-size:.92em}pre code{background:none;padding:0}
+table{border-collapse:collapse;display:block;overflow:auto;max-width:100%}th,td{border:1px solid var(--bd);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--cb)}
+blockquote{border-left:4px solid var(--bd);margin:0;padding:0 1em;color:var(--mut)}img{max-width:100%}
+.top{display:none}.pn{display:flex;justify-content:space-between;gap:12px;margin-top:48px;border-top:1px solid var(--bd);padding-top:16px;font-size:14px}
+@media(max-width:820px){.wrap{display:block}nav{width:auto;height:auto;position:static;border-right:0;border-bottom:1px solid var(--bd)}main{padding:16px}}
+</style></head><body><div class="wrap"><nav><a class="home" href="../index.html">Interview prep</a><details open><summary>Data structures and algorithms</summary><a href="00_how_to_start.html">How to start: reading a problem, the 5-step method, and Big-</a><a href="01_arrays_and_strings.html">Lesson 01. Arrays and Strings</a><a class="cur" href="02_hash_maps_and_sets.html">Lesson 02. Hash Maps and Sets</a><a href="03_two_pointers.html">Lesson 03. Two Pointers</a><a href="04_sliding_window.html">Lesson 04. Sliding Window</a><a href="05_stack_and_queue.html">Lesson 05. Stack and Queue (including the monotonic stack)</a><a href="06_binary_search.html">Lesson 06. Binary Search (including search on the answer)</a><a href="07_linked_lists.html">Lesson 07. Linked Lists</a><a href="08_trees_and_bst.html">Lesson 08. Trees and Binary Search Trees (BST)</a><a href="09_heaps_and_priority_queues.html">Lesson 09: Heaps and Priority Queues</a><a href="10_graphs_bfs_dfs.html">Lesson 10: Graphs, BFS and DFS (including grids)</a><a href="11_topological_sort_and_union_find.html">Lesson 11: Topological Sort and Union-Find</a><a href="12_shortest_paths.html">Lesson 12: Shortest Paths (Dijkstra in plain words)</a><a href="13_intervals.html">Lesson 13: Intervals (merge intervals, meeting rooms)</a><a href="14_backtracking.html">Lesson 14: Backtracking (subsets, permutations, combination </a><a href="15_dynamic_programming_part1.html">Lesson 15: Dynamic Programming, Part 1 (remembering answers)</a><a href="16_dynamic_programming_part2.html">Lesson 16: Dynamic Programming, Part 2 (LIS, word break, kna</a><a href="17_tries_and_greedy.html">Lesson 17: Tries and Greedy</a><a href="18_bit_tricks_and_math_basics.html">Lesson 18: Bit Tricks and Math Basics (short)</a><a href="19_company_question_patterns.html">Lesson 19: Company Question Patterns (Google, Amazon, Meta, </a></details><details><summary>System design</summary><a href="../02-system-design/00_how_the_round_works.html">How the System Design Round Works</a><a href="../02-system-design/01a_client_server_and_http.html">Client, Server and HTTP</a><a href="../02-system-design/01b_dns_and_cdn.html">DNS and CDN</a><a href="../02-system-design/01c_load_balancers.html">Load Balancers</a><a href="../02-system-design/01d_databases.html">Databases: SQL vs NoSQL, Indexes, Transactions</a><a href="../02-system-design/01e_caching.html">Caching (and Why Invalidation Is Hard)</a><a href="../02-system-design/01f_sharding_and_replication.html">Sharding and Replication</a><a href="../02-system-design/01g_message_queues_and_streams.html">Message Queues and Streams (Kafka Basics)</a><a href="../02-system-design/01h_consistency_and_cap.html">Consistency and the CAP Idea (in Plain Words)</a><a href="../02-system-design/02_numbers_and_estimation.html">Numbers and Estimation</a><a href="../02-system-design/03_reliability_patterns.html">Reliability Patterns</a><a href="../02-system-design/10_url_shortener.html">Design a URL Shortener</a><a href="../02-system-design/11_rate_limiter.html">Design a Rate Limiter</a><a href="../02-system-design/12_chat_system.html">Design a Chat System (like WhatsApp or Slack)</a><a href="../02-system-design/13_news_feed.html">Design a News Feed (like Instagram, Facebook or Twitter/X ho</a><a href="../02-system-design/14_notification_service.html">Design a Notification Service</a><a href="../02-system-design/15_file_storage_like_drive.html">Design File Storage and Sync (like Google Drive or Dropbox)</a><a href="../02-system-design/16_search_autocomplete.html">Design Search Autocomplete (Typeahead)</a><a href="../02-system-design/17_video_streaming_basics.html">Design Video Streaming Basics (like YouTube or Netflix)</a><a href="../02-system-design/18_payment_system_like_stripe.html">Design a Payment System (like Stripe)</a><a href="../02-system-design/19_order_management_like_amazon.html">Design an Order Management System (like Amazon: inventory, o</a><a href="../02-system-design/20_job_scheduler_and_workflow_engine.html">Design a Job Scheduler and Workflow Engine</a><a href="../02-system-design/21_api_gateway_and_auth_system.html">Design an API Gateway and Auth System</a><a href="../02-system-design/22_logging_and_metrics_platform.html">Design a Logging and Metrics Platform</a><a href="../02-system-design/90_cheat_sheet.html">Cheat Sheet (one page)</a><a href="../02-system-design/91_practice_questions.html">Practice Questions (30)</a></details><details><summary>Low-level design</summary><a href="../03-low-level-design/00_how_the_lld_round_works.html">- How the LLD round works</a><a href="../03-low-level-design/01_oop_in_plain_words.html">- OOP in plain words</a><a href="../03-low-level-design/02_solid_principles.html">- SOLID principles</a><a href="../03-low-level-design/03_design_patterns_you_need.html">- The 8 design patterns you need</a><a href="../03-low-level-design/10_parking_lot.html">- Parking Lot</a><a href="../03-low-level-design/11_lru_cache.html">- LRU Cache</a><a href="../03-low-level-design/12_elevator_system.html">- Elevator System</a><a href="../03-low-level-design/13_library_management.html">- Library Management System</a><a href="../03-low-level-design/14_vending_machine.html">- Vending Machine (State pattern)</a><a href="../03-low-level-design/15_atm.html">- ATM</a><a href="../03-low-level-design/16_rate_limiter_class.html">- Rate Limiter (class design: token bucket and sliding windo</a><a href="../03-low-level-design/17_amazon_locker.html">- Amazon Locker</a><a href="../03-low-level-design/18_splitwise_expense_sharing.html">- Splitwise (Expense Sharing)</a><a href="../03-low-level-design/19_logger_and_notification_system.html">- Logger and Notification System (Observer and Strategy)</a><a href="../03-low-level-design/20_tic_tac_toe_or_chess_basics.html">- Tic-Tac-Toe (full) and Chess basics</a><a href="../03-low-level-design/90_cheat_sheet.html">- Cheat sheet (read the night before)</a><a href="../03-low-level-design/91_practice_questions.html">- Practice questions (20)</a></details><details><summary>DevOps and platform basics</summary><a href="../05-devops-platform-basics/01_linux_processes_memory_files.html">Linux: processes, memory, and files</a><a href="../05-devops-platform-basics/02_networking.html">Networking: TCP, DNS, TLS, NAT</a><a href="../05-devops-platform-basics/03_containers_and_docker.html">Containers and Docker</a><a href="../05-devops-platform-basics/04_kubernetes_from_zero.html">Kubernetes from zero</a><a href="../05-devops-platform-basics/05_helm.html">Helm</a><a href="../05-devops-platform-basics/06_terraform.html">Terraform</a><a href="../05-devops-platform-basics/07_ci_cd_github_actions.html">CI/CD with GitHub Actions</a><a href="../05-devops-platform-basics/08_observability_and_sre.html">Observability and SRE</a><a href="../05-devops-platform-basics/09_concurrency_and_distributed_basics.html">Concurrency and distributed basics</a><a href="../05-devops-platform-basics/10_databases_basics.html">Databases basics</a><a href="../05-devops-platform-basics/11_security_basics.html">Security basics (IAM, OAuth2/OIDC/JWT, secrets, supply chain</a><a href="../05-devops-platform-basics/12_gcp_pca_quick_map.html">Google Cloud quick map (for Professional Cloud Architect hol</a><a href="../05-devops-platform-basics/20_interview_questions_with_answers.html">Sixty interview questions with model answers (platform / SRE</a><a href="../05-devops-platform-basics/21_scenario_questions.html">Fifteen &quot;production is down&quot; scenarios, with step-by-step an</a></details><details><summary>Company processes</summary><a href="../06-company-process-and-behavioural/10_google.html">Google</a><a href="../06-company-process-and-behavioural/11_amazon.html">Amazon</a><a href="../06-company-process-and-behavioural/12_stripe.html">Stripe</a><a href="../06-company-process-and-behavioural/13_microsoft_and_azure_roles.html">Microsoft and Azure roles</a><a href="../06-company-process-and-behavioural/14_indian_product_and_gcc_companies.html">Indian product companies and GCCs</a><a href="../06-company-process-and-behavioural/15_european_scaleups.html">European scale-ups and visa basics</a><a href="../06-company-process-and-behavioural/16_ai_startups_like_smallest_ai.html">AI startups like Smallest AI</a><a href="../06-company-process-and-behavioural/24_questions_to_ask_interviewers.html">Questions to ask interviewers</a><a href="../06-company-process-and-behavioural/25_salary_notice_period_and_offer_negotiation_india_and_abroad.html">Salary, notice period and offer negotiation (India and abroa</a><a href="../06-company-process-and-behavioural/26_interview_day_checklists.html">Interview day checklists</a></details></nav><main><h1 id="lesson-02-hash-maps-and-sets">Lesson 02. Hash Maps and Sets</h1>
+
+<p>Before this lesson: <a href="00_how_to_start.html">00_how_to_start.md</a> and <a href="01_arrays_and_strings.html">01_arrays_and_strings.md</a>.</p>
+
+<hr />
+
+<h2 id="1-what-is-this">1. What is this?</h2>
+
+<p>A <strong>hash map</strong> stores pairs: a <strong>key</strong> and a <strong>value</strong>. In Python it is a <code>dict</code>. You give a key, you get the value back almost instantly.</p>
+
+<p>A <strong>set</strong> stores only keys (no values) and no repeats. You ask it one thing: "Is this item inside?"</p>
+
+<p><strong>Analogy 1: the coat check.</strong> At a big party you give your coat and get a ticket number. Later you show the ticket and they hand you the coat at once. They do not search every coat. The ticket is the key. The coat is the value.</p>
+
+<p><strong>Analogy 2: a guest list.</strong> A guard at the door has a list of names (a set). For each person he asks: "Is your name on the list?" He answers fast, even if the list has a million names.</p>
+
+<p><strong>How is it fast?</strong> Python runs a small formula (a <strong>hash function</strong>) on your key. The formula gives a locker number. Python goes straight to that locker. This is why lookup, insert and delete cost <strong>O(1) on average</strong>.</p>
+
+<p>Rules to remember:</p>
+
+<ul>
+<li>Keys must be <strong>hashable</strong>: numbers, strings and tuples are fine. Lists are NOT (they can change).</li>
+<li>A set has no order you can rely on, and no repeats.</li>
+<li>Worst case is slower than O(1), but it is very rare. In interviews we say "O(1) average".</li>
+</ul>
+
+<pre><code>dict  = {"apple": 3, "pear": 5}     key -&gt; value
+set   = {"apple", "pear"}           only keys
+</code></pre>
+
+<p>Compare the cost of the question "have I seen 7 before?":</p>
+
+<table>
+<thead>
+<tr>
+  <th>Tool</th>
+  <th>Cost of the question</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>list: <code>7 in nums</code></td>
+  <td>O(n) (looks at every item)</td>
+</tr>
+<tr>
+  <td>set: <code>7 in seen</code></td>
+  <td>O(1) average</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="2-when-do-i-use-it">2. When do I use it?</h2>
+
+<p>Words that give it away:</p>
+
+<ul>
+<li>"Have I seen this before?" / "duplicate" / "unique" / "distinct"</li>
+<li>"Count how many times..." / "frequency" / "most common"</li>
+<li>"Find two numbers that add to..." (look for the partner)</li>
+<li>"Group the items that..." (anagrams)</li>
+<li>"First non-repeating..."</li>
+<li>"Longest sequence..." where you can look up neighbours quickly</li>
+<li>A brute force that does a <strong>second loop only to search for something</strong>. Replace that inner loop with a lookup.</li>
+</ul>
+
+<p>Memory trick: <strong>"A hash map trades memory for speed."</strong> You spend O(n) extra space and save a whole loop of time.</p>
+
+<h2 id="3-a-tiny-example-traced-line-by-line">3. A tiny example, traced line by line</h2>
+
+<p>Count the letters of <code>"banana"</code> with a dictionary.</p>
+
+<pre><code>counts = {}                       (empty dictionary)
+
+letter 'b': counts.get('b', 0) is 0 -&gt; counts['b'] = 1     counts = {b:1}
+letter 'a': counts.get('a', 0) is 0 -&gt; counts['a'] = 1     counts = {b:1, a:1}
+letter 'n': counts.get('n', 0) is 0 -&gt; counts['n'] = 1     counts = {b:1, a:1, n:1}
+letter 'a': counts.get('a', 0) is 1 -&gt; counts['a'] = 2     counts = {b:1, a:2, n:1}
+letter 'n': counts.get('n', 0) is 1 -&gt; counts['n'] = 2     counts = {b:1, a:2, n:2}
+letter 'a': counts.get('a', 0) is 2 -&gt; counts['a'] = 3     counts = {b:1, a:3, n:2}
+</code></pre>
+
+<p><code>counts.get(key, 0)</code> means: "give me the value for key, or 0 if the key is not there".</p>
+
+<h2 id="4-template-code-a-comment-on-every-line">4. Template code (a comment on every line)</h2>
+
+<pre><code># TEMPLATE A: counting how many times each item appears
+def count_items(items):                       # function: returns a dict item -&gt; how many times
+    counts = {}                               # empty dictionary to hold the counts
+    for item in items:                        # look at each item once
+        counts[item] = counts.get(item, 0) + 1    # old count (or 0 if new) plus one
+    return counts                             # the finished counts
+
+print(count_items("banana"))                  # expect {'b': 1, 'a': 3, 'n': 2}
+assert count_items("banana") == {"b": 1, "a": 3, "n": 2}   # check by machine
+assert count_items([]) == {}                  # empty input gives empty dict
+</code></pre>
+
+<pre><code># TEMPLATE B: "have I seen it?" with a set (find the first repeated item)
+def first_repeat(items):                      # function: returns the first item seen twice, or None
+    seen = set()                              # empty set: the guest list so far
+    for item in items:                        # walk through the items in order
+        if item in seen:                      # is the item already on the list? O(1)
+            return item                       # yes: this is the first repeat
+        seen.add(item)                        # no: add it to the list
+    return None                               # no repeat found
+
+print(first_repeat([4, 2, 7, 2, 4]))          # expect 2
+assert first_repeat([4, 2, 7, 2, 4]) == 2     # 2 repeats before 4 does
+assert first_repeat([1, 2, 3]) is None        # no repeats
+</code></pre>
+
+<pre><code># TEMPLATE C: grouping items by a key
+from collections import defaultdict           # defaultdict creates a missing value automatically
+
+def group_by_length(words):                   # function: groups words that have the same length
+    groups = defaultdict(list)                # a missing key starts as an empty list
+    for word in words:                        # look at each word
+        groups[len(word)].append(word)        # put the word in the group of its length
+    return dict(groups)                       # turn it into a normal dict
+
+print(group_by_length(["hi", "yo", "cat", "dog", "a"]))   # expect {2: ['hi', 'yo'], 3: ['cat', 'dog'], 1: ['a']}
+assert group_by_length(["hi", "yo", "cat", "dog", "a"]) == {2: ["hi", "yo"], 3: ["cat", "dog"], 1: ["a"]}   # check
+</code></pre>
+
+<hr />
+
+<h2 id="5-classic-problems">5. Classic problems</h2>
+
+<h3 id="problem-1-two-sum">Problem 1. Two Sum</h3>
+
+<p><strong>Problem in plain words.</strong> You get a list of numbers and a target. Find the positions (indices) of the two numbers that add up to the target. There is exactly one answer. You cannot use the same position twice.</p>
+
+<p>Example: <code>nums = [2, 7, 11, 15]</code>, <code>target = 9</code> gives <code>[0, 1]</code> because 2 + 7 = 9.</p>
+
+<p><strong>Brute force.</strong> Two loops: try every pair. O(n^2) time, O(1) space.</p>
+
+<p><strong>Better idea, slowly.</strong> For each number <code>x</code>, its partner must be <code>target - x</code>. Do not search the list for the partner. Instead, keep a dictionary <code>seen</code> of numbers you already passed: number -> its index. For each new <code>x</code>:</p>
+
+<ol>
+<li>Compute <code>need = target - x</code>.</li>
+<li>If <code>need</code> is in <code>seen</code>, you found the pair. Return the two indices.</li>
+<li>Otherwise store <code>x</code> in <code>seen</code> and continue.</li>
+</ol>
+
+<p>Why does one pass work? If a pair (a, b) exists, then when you reach the later one of the two, the earlier one is already in <code>seen</code>.</p>
+
+<pre><code>def two_sum(nums, target):
+    seen = {}                                  # number -&gt; index where we saw it
+    for i, x in enumerate(nums):               # i is the position, x is the number
+        need = target - x                      # the partner we are looking for
+        if need in seen:                       # did we already pass the partner?
+            return [seen[need], i]             # yes: return both positions
+        seen[x] = i                            # no: remember this number and position
+    return []                                  # no pair found (the problem promises one)
+
+print(two_sum([2, 7, 11, 15], 9))              # expect [0, 1]
+assert two_sum([2, 7, 11, 15], 9) == [0, 1]    # the example
+assert two_sum([3, 3], 6) == [0, 1]            # two equal numbers
+assert two_sum([3, 2, 4], 6) == [1, 2]         # must not use index 0 twice (3 + 3)
+assert two_sum([-1, -2, -3, -4], -6) == [1, 3] # negative numbers work
+</code></pre>
+
+<p><strong>Trace</strong> on <code>[2, 7, 11, 15]</code>, target 9:</p>
+
+<pre><code>i=0, x=2 : need = 9-2 = 7. Is 7 in seen {}? no.   seen = {2:0}
+i=1, x=7 : need = 9-7 = 2. Is 2 in seen {2:0}? yes -&gt; return [0, 1]
+</code></pre>
+
+<p><strong>Complexity.</strong> Time O(n): one pass, each lookup is O(1). Space O(n): the dictionary may hold all numbers.</p>
+
+<p><strong>Two edge cases.</strong> (1) Two equal numbers like <code>[3, 3]</code> with target 6: we check <code>seen</code> BEFORE adding <code>x</code>, so it works. (2) A number that is exactly half the target, like <code>[3, 2, 4]</code> with target 6: we must not pair 3 with itself. The "check first, add after" order prevents this.</p>
+
+<p><strong>How interviewers twist it.</strong> "The list is sorted, use O(1) space" (two pointers, lesson 03). "Return all pairs." "Count the pairs." "3Sum." "Design a data structure that supports add and find." "Input is a binary search tree."</p>
+
+<hr />
+
+<h3 id="problem-2-group-anagrams">Problem 2. Group Anagrams</h3>
+
+<p><strong>Problem in plain words.</strong> An <strong>anagram</strong> is a word made from the same letters in another order ("eat" and "tea"). Given a list of words, group the words that are anagrams of each other.</p>
+
+<p>Example: <code>["eat","tea","tan","ate","nat","bat"]</code> gives <code>[["eat","tea","ate"],["tan","nat"],["bat"]]</code> (the order of groups does not matter).</p>
+
+<p><strong>Brute force.</strong> For each word, compare it with every other word (sort both and compare). O(n^2 * k log k), where k is word length. Too slow for many words.</p>
+
+<p><strong>Better idea, slowly.</strong> All anagrams become the SAME word if you sort their letters: "eat", "tea", "ate" all become "aet". So the sorted word is a perfect <strong>key</strong> for the group. Use a dictionary: key = sorted letters, value = list of words.</p>
+
+<pre><code>from collections import defaultdict            # lets us skip the "is the key there?" check
+
+def group_anagrams(words):
+    groups = defaultdict(list)                 # key (sorted letters) -&gt; list of words
+    for word in words:                         # look at each word once
+        key = "".join(sorted(word))            # sort the letters; join into a string key
+        groups[key].append(word)               # put the word into its group
+    return list(groups.values())               # return just the groups
+
+result = group_anagrams(["eat", "tea", "tan", "ate", "nat", "bat"])    # run the example
+print(result)                                  # expect three groups
+assert sorted(sorted(g) for g in result) == [["ate", "eat", "tea"], ["bat"], ["nat", "tan"]]   # order-free check
+assert group_anagrams([""]) == [[""]]          # empty word
+assert group_anagrams(["a"]) == [["a"]]        # one word
+</code></pre>
+
+<p><strong>Trace</strong> on <code>["eat","tea","tan","ate","nat","bat"]</code>:</p>
+
+<pre><code>"eat" -&gt; key "aet" -&gt; groups = {aet:[eat]}
+"tea" -&gt; key "aet" -&gt; groups = {aet:[eat, tea]}
+"tan" -&gt; key "ant" -&gt; groups = {aet:[eat, tea], ant:[tan]}
+"ate" -&gt; key "aet" -&gt; groups = {aet:[eat, tea, ate], ant:[tan]}
+"nat" -&gt; key "ant" -&gt; groups = {aet:[eat, tea, ate], ant:[tan, nat]}
+"bat" -&gt; key "abt" -&gt; groups = {aet:[...], ant:[...], abt:[bat]}
+</code></pre>
+
+<p><strong>Complexity.</strong> Time O(n * k log k): for n words of length k, sorting each word costs k log k. Space O(n * k): we store all the words.</p>
+
+<p>A faster key for lowercase words: a tuple of 26 letter counts. That makes the time O(n * k).</p>
+
+<p><strong>Two edge cases.</strong> (1) The empty string <code>""</code>: its sorted key is <code>""</code>, and it forms its own group. (2) Words with different lengths are never anagrams, and their keys differ, so they stay separate.</p>
+
+<p><strong>How interviewers twist it.</strong> "Use the count-tuple key to avoid sorting." "Group shifted strings (abc, bcd)." "Find all anagrams of p inside s" (sliding window, lesson 04). "Words are in a huge file."</p>
+
+<hr />
+
+<h3 id="problem-3-top-k-frequent-elements">Problem 3. Top K Frequent Elements</h3>
+
+<p><strong>Problem in plain words.</strong> Given a list of numbers and a number <code>k</code>, return the <code>k</code> numbers that appear most often.</p>
+
+<p>Example: <code>nums = [1,1,1,2,2,3]</code>, <code>k = 2</code> gives <code>[1, 2]</code>.</p>
+
+<p><strong>Brute force.</strong> Count each number, then sort the counts from big to small and take the first k. Cost: O(n log n). This is fine, but the interviewer often asks for better than O(n log n).</p>
+
+<p><strong>Better idea, slowly (bucket sort).</strong> The count of any number is between 1 and n (the list length). So make n + 1 buckets. Bucket number <code>c</code> holds all numbers that appear exactly <code>c</code> times. Then walk from the biggest bucket to the smallest and collect numbers until you have <code>k</code>.</p>
+
+<p>Think of it as putting students in rows by "how many books they read". Then you read the names from the top row downward.</p>
+
+<pre><code>def top_k_frequent(nums, k):
+    counts = {}                                    # number -&gt; how many times it appears
+    for x in nums:                                 # count every number
+        counts[x] = counts.get(x, 0) + 1           # add one to its count
+    buckets = [[] for _ in range(len(nums) + 1)]   # buckets[c] = numbers that appear c times
+    for x, c in counts.items():                    # for each number and its count
+        buckets[c].append(x)                       # put the number into bucket c
+    answer = []                                    # the result list
+    for c in range(len(buckets) - 1, 0, -1):       # go from the highest count down to 1
+        for x in buckets[c]:                       # every number in this bucket
+            answer.append(x)                       # take it
+            if len(answer) == k:                   # do we have k numbers yet?
+                return answer                      # yes: stop and return
+    return answer                                  # (only reached if k is too big)
+
+print(top_k_frequent([1, 1, 1, 2, 2, 3], 2))       # expect [1, 2]
+assert top_k_frequent([1, 1, 1, 2, 2, 3], 2) == [1, 2]    # the example
+assert top_k_frequent([5, 5, 5], 1) == [5]                # one distinct number
+assert sorted(top_k_frequent([4, 4, 6, 6, 9], 2)) == [4, 6]   # a tie for the top
+</code></pre>
+
+<p><strong>Trace</strong> on <code>[1,1,1,2,2,3]</code>, <code>k = 2</code>:</p>
+
+<pre><code>counts  = {1:3, 2:2, 3:1}
+buckets (index 0..6) = [ [], [3], [2], [1], [], [], [] ]
+go down from index 6:
+c=6,5,4 -&gt; empty
+c=3 -&gt; bucket [1]  -&gt; answer = [1]       (1 number, need 2)
+c=2 -&gt; bucket [2]  -&gt; answer = [1, 2]    (2 numbers = k) -&gt; return [1, 2]
+</code></pre>
+
+<p><strong>Complexity.</strong> Time O(n): counting is O(n), filling buckets is O(n), walking the buckets is O(n). Space O(n): the dict and the buckets.</p>
+
+<p>(Alternative: a heap with <code>heapq.nlargest(k, counts, key=counts.get)</code> costs O(n log k).)</p>
+
+<p><strong>Two edge cases.</strong> (1) All numbers equal, such as <code>[5,5,5]</code>, k=1: one bucket is full. (2) <code>k</code> equals the number of distinct values: you return every distinct value. Ties at the cut-off: the real problem promises a unique answer.</p>
+
+<p><strong>How interviewers twist it.</strong> "Top K frequent WORDS, ties broken alphabetically." "K closest points to origin." "Kth largest element." "The numbers come as a stream" (use a heap).</p>
+
+<hr />
+
+<h3 id="problem-4-longest-consecutive-sequence">Problem 4. Longest Consecutive Sequence</h3>
+
+<p><strong>Problem in plain words.</strong> Given an unsorted list of numbers, find the length of the longest run of numbers that follow each other by 1 (like 1, 2, 3, 4). The numbers do not need to be next to each other in the list. Aim for O(n) time.</p>
+
+<p>Example: <code>[100, 4, 200, 1, 3, 2]</code> gives <code>4</code> (the run 1, 2, 3, 4).</p>
+
+<p><strong>Brute force.</strong> Sort the list, then walk and count runs. O(n log n). Works, but is not O(n).</p>
+
+<p><strong>Better idea, slowly.</strong> Put all numbers in a <strong>set</strong>, so "is x in the list?" costs O(1). Now think about a run like 1, 2, 3, 4. Only ONE number in it is the start: the one whose "number minus 1" is NOT in the set. So:</p>
+
+<ol>
+<li>For each number <code>x</code>: if <code>x - 1</code> is in the set, skip it (it is in the middle of a run).</li>
+<li>Otherwise <code>x</code> is a start. Count upward: x+1, x+2, ... while they are in the set.</li>
+<li>Keep the longest count.</li>
+</ol>
+
+<p>Each number is counted at most once as part of a run, because we only start at run beginnings. So the total work is O(n).</p>
+
+<pre><code>def longest_consecutive(nums):
+    num_set = set(nums)                       # all numbers in a set; also removes duplicates
+    best = 0                                  # longest run found so far
+    for x in num_set:                         # look at each distinct number
+        if x - 1 in num_set:                  # is there a number just before x?
+            continue                          # yes: x is not a start, skip it
+        length = 1                            # x is a start; the run has length 1 so far
+        while x + length in num_set:          # does the next number exist?
+            length += 1                       # yes: the run gets longer
+        best = max(best, length)              # keep the longest run
+    return best                               # answer
+
+print(longest_consecutive([100, 4, 200, 1, 3, 2]))     # expect 4
+assert longest_consecutive([100, 4, 200, 1, 3, 2]) == 4    # the example
+assert longest_consecutive([]) == 0                        # empty list
+assert longest_consecutive([1, 2, 2, 3]) == 3              # duplicates do not count twice
+assert longest_consecutive([-1, 0, 1]) == 3                # negative numbers
+</code></pre>
+
+<p><strong>Trace</strong> on <code>[100, 4, 200, 1, 3, 2]</code> (set = {100, 4, 200, 1, 3, 2}):</p>
+
+<pre><code>x=100: is 99 in set? no  -&gt; start. 101 in set? no.        length=1  best=1
+x=4  : is 3 in set?  yes -&gt; skip.
+x=200: is 199 in set? no -&gt; start. 201 in set? no.        length=1  best=1
+x=1  : is 0 in set?  no  -&gt; start. 2 yes, 3 yes, 4 yes, 5 no. length=4  best=4
+x=3  : is 2 in set?  yes -&gt; skip.
+x=2  : is 1 in set?  yes -&gt; skip.
+answer = 4
+</code></pre>
+
+<p>(The set may be visited in a different order. The result is the same.)</p>
+
+<p><strong>Complexity.</strong> Time O(n): the <code>while</code> loop runs only for run starts, and each number is passed once overall. Space O(n): the set.</p>
+
+<p><strong>Two edge cases.</strong> (1) Empty list: the answer is 0. (2) Duplicates like <code>[1,2,2,3]</code>: the set removes them, so the run is 3.</p>
+
+<p><strong>How interviewers twist it.</strong> "Return the sequence, not only its length." "Solve with union-find." "Allow one gap." "The numbers are in a stream."</p>
+
+<hr />
+
+<h3 id="problem-5-subarray-sum-equals-k">Problem 5. Subarray Sum Equals K</h3>
+
+<p><strong>Problem in plain words.</strong> Given a list of integers (can be negative) and a number <code>k</code>, count how many contiguous subarrays have a sum equal to <code>k</code>.</p>
+
+<p>Example: <code>nums = [1, 2, 3]</code>, <code>k = 3</code> gives <code>2</code> (the pieces <code>[1, 2]</code> and <code>[3]</code>).</p>
+
+<p><strong>Brute force.</strong> Try every start and end, keep a running sum. O(n^2) time.</p>
+
+<p><strong>Why not a sliding window?</strong> Sliding window needs all numbers positive. With negative numbers, the sum can go down and up again. So a different idea is needed.</p>
+
+<p><strong>Better idea, slowly (prefix sums + hash map).</strong> Let <code>s</code> be the running total after the current number (the prefix sum). A subarray that ENDS here and starts later has sum <code>s - (an earlier prefix)</code>. We want that to be <code>k</code>. So we need an earlier prefix equal to <code>s - k</code>.</p>
+
+<p>So we keep a dictionary: prefix sum -> how many times it happened. At each position, add <code>counts[s - k]</code> to the answer. Start with <code>{0: 1}</code>, which means "an empty prefix with sum 0 exists once". This handles pieces that start at index 0.</p>
+
+<pre><code>def subarray_sum(nums, k):
+    counts = {0: 1}                          # prefix sum -&gt; times seen; empty prefix has sum 0
+    s = 0                                    # running total (prefix sum)
+    total = 0                                # how many subarrays we found
+    for x in nums:                           # go through the numbers
+        s += x                               # update the running total
+        total += counts.get(s - k, 0)        # earlier prefixes equal to s-k make a subarray with sum k
+        counts[s] = counts.get(s, 0) + 1     # record this prefix sum for the future
+    return total                             # answer
+
+print(subarray_sum([1, 2, 3], 3))            # expect 2
+assert subarray_sum([1, 2, 3], 3) == 2       # the example
+assert subarray_sum([1, -1, 0], 0) == 3      # negatives and zeros: [1,-1], [1,-1,0], [0]
+assert subarray_sum([0, 0, 0], 0) == 6       # all zeros: every piece counts
+assert subarray_sum([], 5) == 0              # empty list
+</code></pre>
+
+<p><strong>Trace</strong> on <code>[1, 2, 3]</code>, <code>k = 3</code>:</p>
+
+<pre><code>start: counts = {0:1}, s = 0, total = 0
+x=1: s=1. need s-k = -2 -&gt; count 0.         total=0.  counts = {0:1, 1:1}
+x=2: s=3. need s-k =  0 -&gt; count 1.         total=1.  counts = {0:1, 1:1, 3:1}
+x=3: s=6. need s-k =  3 -&gt; count 1.         total=2.  counts = {0:1, 1:1, 3:1, 6:1}
+answer = 2
+</code></pre>
+
+<p>Check: the <code>1</code> at step 2 means prefix 0 to prefix 3 is the piece <code>[1, 2]</code>. The <code>1</code> at step 3 means prefix 3 to prefix 6 is the piece <code>[3]</code>.</p>
+
+<p><strong>Complexity.</strong> Time O(n): one pass with O(1) dictionary work. Space O(n): the dictionary.</p>
+
+<p><strong>Two edge cases.</strong> (1) Many zeros with <code>k = 0</code>: every piece counts, so counts grow fast (3 zeros give 6). (2) Negative numbers: that is the reason we use prefix sums and not a window. Empty list gives 0.</p>
+
+<p><strong>How interviewers twist it.</strong> "Longest subarray with sum k" (store the FIRST index of each prefix). "Subarray sum divisible by k" (store prefix sum modulo k). "Binary array with equal 0s and 1s" (change 0 to -1, then find sum 0). "Count in a 2D grid."</p>
+
+<hr />
+
+<h2 id="6-common-mistakes">6. Common mistakes</h2>
+
+<ol>
+<li><strong>Adding to <code>seen</code> before checking it</strong> (Two Sum). You may pair a number with itself.</li>
+<li><strong>Using a list as a key.</strong> Lists are not hashable. Use a tuple or a string.</li>
+<li><strong>Forgetting <code>counts.get(x, 0)</code>.</strong> <code>counts[x] += 1</code> crashes with <code>KeyError</code> for a new key (or use <code>defaultdict</code> or <code>Counter</code>).</li>
+<li><strong>Changing a dict while looping over it.</strong> Python raises an error. Loop over a copy of the keys.</li>
+<li><strong>Forgetting <code>{0: 1}</code> in prefix-sum problems.</strong> You miss subarrays that start at index 0.</li>
+<li><strong>Assuming order.</strong> Sets have no reliable order. If the answer order matters, sort or track it.</li>
+<li><strong>Wrong complexity claim.</strong> A dictionary lookup is O(1) on average, but a long string key costs O(length) to hash.</li>
+<li><strong>Using <code>x in list</code></strong> when a set would do.</li>
+</ol>
+
+<h2 id="7-practice-list-8-more-problems">7. Practice list (8 more problems)</h2>
+
+<p>"Asked at" means the problem appears on that company's list in the community repo <a href="https://github.com/liquidslr/leetcode-company-wise-problems">liquidslr/leetcode-company-wise-problems</a> (checked 2026-11-15). Difficulty is the LeetCode label from the same data.</p>
+
+<table>
+<thead>
+<tr>
+  <th>#</th>
+  <th>Problem</th>
+  <th>Difficulty</th>
+  <th>Asked at (per those lists)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1</td>
+  <td>Contains Duplicate</td>
+  <td>Easy</td>
+  <td>Amazon, Google, Meta, Microsoft</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>Valid Anagram</td>
+  <td>Easy</td>
+  <td>Amazon, Google, Meta, Microsoft</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td>Ransom Note</td>
+  <td>Easy</td>
+  <td>Amazon, Google, Meta, Microsoft</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td>Isomorphic Strings</td>
+  <td>Easy</td>
+  <td>Amazon, Google, Meta, Microsoft</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td>Word Pattern</td>
+  <td>Easy</td>
+  <td>Amazon, Google, Meta, Microsoft</td>
+</tr>
+<tr>
+  <td>6</td>
+  <td>Happy Number</td>
+  <td>Easy</td>
+  <td>Amazon, Google, Meta, Microsoft</td>
+</tr>
+<tr>
+  <td>7</td>
+  <td>Insert Delete GetRandom O(1)</td>
+  <td>Medium</td>
+  <td>Amazon, Google, Meta, Microsoft</td>
+</tr>
+<tr>
+  <td>8</td>
+  <td>4Sum II</td>
+  <td>Medium</td>
+  <td>Amazon, Google, Meta, Microsoft</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="8-self-quiz-5-questions">8. Self-quiz (5 questions)</h2>
+
+<ol>
+<li>What is the average cost of <code>x in my_set</code>? What is the cost of <code>x in my_list</code>?</li>
+<li>Why can a list not be a dictionary key? What can you use instead?</li>
+<li>In Two Sum, why do we check <code>seen</code> before we add the current number?</li>
+<li>In Longest Consecutive Sequence, why do we skip a number <code>x</code> when <code>x - 1</code> is in the set?</li>
+<li>In Subarray Sum Equals K, why do we start with <code>{0: 1}</code>?</li>
+</ol>
+
+<h3 id="answers">Answers</h3>
+
+<ol>
+<li>Set: O(1) on average. List: O(n).</li>
+<li>A list can change, so its hash would change. Use a tuple (or a string).</li>
+<li>So that a number is not paired with itself (same index used twice).</li>
+<li>Because <code>x</code> is in the middle of a run, not at its start. Counting from every number would repeat work and become O(n^2).</li>
+<li>It stands for the empty prefix (sum 0). Without it, we miss subarrays that start at the very first element.</li>
+</ol>
+
+<p>Next: <a href="03_two_pointers.html">03_two_pointers.md</a></p>
+<div class="pn"><span><a href="01_arrays_and_strings.html">&larr; Lesson 01. Arrays and Strings</a></span><span><a href="03_two_pointers.html">Lesson 03. Two Pointers &rarr;</a></span></div></main></div></body></html>

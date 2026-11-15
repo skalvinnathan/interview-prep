@@ -1,0 +1,483 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>01. Linux: processes, memory, and files | Interview prep</title><style>
+:root{--bg:#fff;--fg:#1f2328;--mut:#59636e;--bd:#d1d9e0;--ac:#0b57d0;--cb:#f6f8fa;--sb:#f6f8fa}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9198a1;--bd:#30363d;--ac:#6cb6ff;--cb:#161b22;--sb:#010409}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{display:flex;min-height:100vh}nav{width:300px;flex:none;background:var(--sb);border-right:1px solid var(--bd);padding:16px;overflow:auto;position:sticky;top:0;height:100vh}
+nav a{color:var(--fg);text-decoration:none;display:block;padding:3px 6px;border-radius:6px;font-size:14px}nav a:hover{background:var(--cb)}nav a.cur{background:var(--ac);color:#fff}
+nav summary{cursor:pointer;font-weight:600;padding:6px 0}nav .home{font-weight:700;font-size:16px;margin-bottom:8px}
+main{flex:1;min-width:0;max-width:900px;padding:24px 32px 80px;margin:0 auto}
+h1,h2,h3{line-height:1.25}h1{border-bottom:1px solid var(--bd);padding-bottom:.3em}h2{border-bottom:1px solid var(--bd);padding-bottom:.25em;margin-top:2em}
+a{color:var(--ac)}pre{background:var(--cb);border:1px solid var(--bd);border-radius:8px;padding:14px;overflow:auto;font-size:13.5px;line-height:1.5}
+code{background:var(--cb);padding:.15em .35em;border-radius:5px;font-size:.92em}pre code{background:none;padding:0}
+table{border-collapse:collapse;display:block;overflow:auto;max-width:100%}th,td{border:1px solid var(--bd);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--cb)}
+blockquote{border-left:4px solid var(--bd);margin:0;padding:0 1em;color:var(--mut)}img{max-width:100%}
+.top{display:none}.pn{display:flex;justify-content:space-between;gap:12px;margin-top:48px;border-top:1px solid var(--bd);padding-top:16px;font-size:14px}
+@media(max-width:820px){.wrap{display:block}nav{width:auto;height:auto;position:static;border-right:0;border-bottom:1px solid var(--bd)}main{padding:16px}}
+</style></head><body><div class="wrap"><nav><a class="home" href="../index.html">Interview prep</a><details><summary>Data structures and algorithms</summary><a href="../01-dsa/00_how_to_start.html">How to start: reading a problem, the 5-step method, and Big-</a><a href="../01-dsa/01_arrays_and_strings.html">Lesson 01. Arrays and Strings</a><a href="../01-dsa/02_hash_maps_and_sets.html">Lesson 02. Hash Maps and Sets</a><a href="../01-dsa/03_two_pointers.html">Lesson 03. Two Pointers</a><a href="../01-dsa/04_sliding_window.html">Lesson 04. Sliding Window</a><a href="../01-dsa/05_stack_and_queue.html">Lesson 05. Stack and Queue (including the monotonic stack)</a><a href="../01-dsa/06_binary_search.html">Lesson 06. Binary Search (including search on the answer)</a><a href="../01-dsa/07_linked_lists.html">Lesson 07. Linked Lists</a><a href="../01-dsa/08_trees_and_bst.html">Lesson 08. Trees and Binary Search Trees (BST)</a><a href="../01-dsa/09_heaps_and_priority_queues.html">Lesson 09: Heaps and Priority Queues</a><a href="../01-dsa/10_graphs_bfs_dfs.html">Lesson 10: Graphs, BFS and DFS (including grids)</a><a href="../01-dsa/11_topological_sort_and_union_find.html">Lesson 11: Topological Sort and Union-Find</a><a href="../01-dsa/12_shortest_paths.html">Lesson 12: Shortest Paths (Dijkstra in plain words)</a><a href="../01-dsa/13_intervals.html">Lesson 13: Intervals (merge intervals, meeting rooms)</a><a href="../01-dsa/14_backtracking.html">Lesson 14: Backtracking (subsets, permutations, combination </a><a href="../01-dsa/15_dynamic_programming_part1.html">Lesson 15: Dynamic Programming, Part 1 (remembering answers)</a><a href="../01-dsa/16_dynamic_programming_part2.html">Lesson 16: Dynamic Programming, Part 2 (LIS, word break, kna</a><a href="../01-dsa/17_tries_and_greedy.html">Lesson 17: Tries and Greedy</a><a href="../01-dsa/18_bit_tricks_and_math_basics.html">Lesson 18: Bit Tricks and Math Basics (short)</a><a href="../01-dsa/19_company_question_patterns.html">Lesson 19: Company Question Patterns (Google, Amazon, Meta, </a></details><details><summary>System design</summary><a href="../02-system-design/00_how_the_round_works.html">How the System Design Round Works</a><a href="../02-system-design/01a_client_server_and_http.html">Client, Server and HTTP</a><a href="../02-system-design/01b_dns_and_cdn.html">DNS and CDN</a><a href="../02-system-design/01c_load_balancers.html">Load Balancers</a><a href="../02-system-design/01d_databases.html">Databases: SQL vs NoSQL, Indexes, Transactions</a><a href="../02-system-design/01e_caching.html">Caching (and Why Invalidation Is Hard)</a><a href="../02-system-design/01f_sharding_and_replication.html">Sharding and Replication</a><a href="../02-system-design/01g_message_queues_and_streams.html">Message Queues and Streams (Kafka Basics)</a><a href="../02-system-design/01h_consistency_and_cap.html">Consistency and the CAP Idea (in Plain Words)</a><a href="../02-system-design/02_numbers_and_estimation.html">Numbers and Estimation</a><a href="../02-system-design/03_reliability_patterns.html">Reliability Patterns</a><a href="../02-system-design/10_url_shortener.html">Design a URL Shortener</a><a href="../02-system-design/11_rate_limiter.html">Design a Rate Limiter</a><a href="../02-system-design/12_chat_system.html">Design a Chat System (like WhatsApp or Slack)</a><a href="../02-system-design/13_news_feed.html">Design a News Feed (like Instagram, Facebook or Twitter/X ho</a><a href="../02-system-design/14_notification_service.html">Design a Notification Service</a><a href="../02-system-design/15_file_storage_like_drive.html">Design File Storage and Sync (like Google Drive or Dropbox)</a><a href="../02-system-design/16_search_autocomplete.html">Design Search Autocomplete (Typeahead)</a><a href="../02-system-design/17_video_streaming_basics.html">Design Video Streaming Basics (like YouTube or Netflix)</a><a href="../02-system-design/18_payment_system_like_stripe.html">Design a Payment System (like Stripe)</a><a href="../02-system-design/19_order_management_like_amazon.html">Design an Order Management System (like Amazon: inventory, o</a><a href="../02-system-design/20_job_scheduler_and_workflow_engine.html">Design a Job Scheduler and Workflow Engine</a><a href="../02-system-design/21_api_gateway_and_auth_system.html">Design an API Gateway and Auth System</a><a href="../02-system-design/22_logging_and_metrics_platform.html">Design a Logging and Metrics Platform</a><a href="../02-system-design/90_cheat_sheet.html">Cheat Sheet (one page)</a><a href="../02-system-design/91_practice_questions.html">Practice Questions (30)</a></details><details><summary>Low-level design</summary><a href="../03-low-level-design/00_how_the_lld_round_works.html">- How the LLD round works</a><a href="../03-low-level-design/01_oop_in_plain_words.html">- OOP in plain words</a><a href="../03-low-level-design/02_solid_principles.html">- SOLID principles</a><a href="../03-low-level-design/03_design_patterns_you_need.html">- The 8 design patterns you need</a><a href="../03-low-level-design/10_parking_lot.html">- Parking Lot</a><a href="../03-low-level-design/11_lru_cache.html">- LRU Cache</a><a href="../03-low-level-design/12_elevator_system.html">- Elevator System</a><a href="../03-low-level-design/13_library_management.html">- Library Management System</a><a href="../03-low-level-design/14_vending_machine.html">- Vending Machine (State pattern)</a><a href="../03-low-level-design/15_atm.html">- ATM</a><a href="../03-low-level-design/16_rate_limiter_class.html">- Rate Limiter (class design: token bucket and sliding windo</a><a href="../03-low-level-design/17_amazon_locker.html">- Amazon Locker</a><a href="../03-low-level-design/18_splitwise_expense_sharing.html">- Splitwise (Expense Sharing)</a><a href="../03-low-level-design/19_logger_and_notification_system.html">- Logger and Notification System (Observer and Strategy)</a><a href="../03-low-level-design/20_tic_tac_toe_or_chess_basics.html">- Tic-Tac-Toe (full) and Chess basics</a><a href="../03-low-level-design/90_cheat_sheet.html">- Cheat sheet (read the night before)</a><a href="../03-low-level-design/91_practice_questions.html">- Practice questions (20)</a></details><details open><summary>DevOps and platform basics</summary><a class="cur" href="01_linux_processes_memory_files.html">Linux: processes, memory, and files</a><a href="02_networking.html">Networking: TCP, DNS, TLS, NAT</a><a href="03_containers_and_docker.html">Containers and Docker</a><a href="04_kubernetes_from_zero.html">Kubernetes from zero</a><a href="05_helm.html">Helm</a><a href="06_terraform.html">Terraform</a><a href="07_ci_cd_github_actions.html">CI/CD with GitHub Actions</a><a href="08_observability_and_sre.html">Observability and SRE</a><a href="09_concurrency_and_distributed_basics.html">Concurrency and distributed basics</a><a href="10_databases_basics.html">Databases basics</a><a href="11_security_basics.html">Security basics (IAM, OAuth2/OIDC/JWT, secrets, supply chain</a><a href="12_gcp_pca_quick_map.html">Google Cloud quick map (for Professional Cloud Architect hol</a><a href="20_interview_questions_with_answers.html">Sixty interview questions with model answers (platform / SRE</a><a href="21_scenario_questions.html">Fifteen &quot;production is down&quot; scenarios, with step-by-step an</a></details><details><summary>Company processes</summary><a href="../06-company-process-and-behavioural/10_google.html">Google</a><a href="../06-company-process-and-behavioural/11_amazon.html">Amazon</a><a href="../06-company-process-and-behavioural/12_stripe.html">Stripe</a><a href="../06-company-process-and-behavioural/13_microsoft_and_azure_roles.html">Microsoft and Azure roles</a><a href="../06-company-process-and-behavioural/14_indian_product_and_gcc_companies.html">Indian product companies and GCCs</a><a href="../06-company-process-and-behavioural/15_european_scaleups.html">European scale-ups and visa basics</a><a href="../06-company-process-and-behavioural/16_ai_startups_like_smallest_ai.html">AI startups like Smallest AI</a><a href="../06-company-process-and-behavioural/24_questions_to_ask_interviewers.html">Questions to ask interviewers</a><a href="../06-company-process-and-behavioural/25_salary_notice_period_and_offer_negotiation_india_and_abroad.html">Salary, notice period and offer negotiation (India and abroa</a><a href="../06-company-process-and-behavioural/26_interview_day_checklists.html">Interview day checklists</a></details></nav><main><h1 id="01-linux-processes-memory-and-files">01. Linux: processes, memory, and files</h1>
+
+<p>How to read this file:</p>
+
+<ul>
+<li>Short sentences. Every new word is explained the first time.</li>
+<li><code>[REAL]</code> means I ran the command on this Mac (macOS 26, Apple chip) on 2026-11-15 and pasted the output.</li>
+<li><code>[SAMPLE]</code> means typical Linux output that I wrote to show the shape. The numbers are made up. I did not run it here, because this Mac is not Linux.</li>
+<li>Mac and Linux are close cousins (both follow the "Unix" way). The ideas are the same. Some command names differ. I say so when it matters.</li>
+</ul>
+
+<hr />
+
+<h2 id="1-what-it-is-plain-words-analogy">1. What it is (plain words + analogy)</h2>
+
+<p>Linux is the operating system (OS) that sits between your programs and the computer parts (CPU, memory, disk, network). The OS gives each program a safe little room to work in.</p>
+
+<p>Analogy: a big hotel.</p>
+
+<ul>
+<li>The <strong>kernel</strong> is the hotel manager. It owns all rooms, water, and electricity.</li>
+<li>A <strong>process</strong> is a guest in a room. A guest has an ID number (PID), a room (its memory), and a key list (open files).</li>
+<li>A <strong>signal</strong> is a note slid under the door ("please leave", or "leave NOW").</li>
+<li><strong>Memory (RAM)</strong> is the hotel's fast desk space. <strong>Disk</strong> is the slow warehouse in the basement.</li>
+<li>The <strong>page cache</strong> is the manager keeping popular warehouse boxes on the front desk, so guests do not wait.</li>
+</ul>
+
+<p>Words you need:</p>
+
+<ul>
+<li><strong>Process</strong>: a running program. It has a number called <strong>PID</strong> (process ID).</li>
+<li><strong>PPID</strong>: the PID of the parent (the process that started it).</li>
+<li><strong>System call (syscall)</strong>: a request from a program to the kernel ("open this file", "start a new process").</li>
+<li><strong>File descriptor (fd)</strong>: a small number that stands for an open file, pipe, or network connection.</li>
+<li><strong>Inode</strong>: the record on disk that stores a file's facts (size, owner, where the data blocks are). The file name is stored separately, in the directory.</li>
+</ul>
+
+<h2 id="2-why-it-matters-in-interviews">2. Why it matters in interviews</h2>
+
+<p>Platform and SRE jobs are "what is really happening under the container?" jobs. Every Kubernetes problem ends in Linux: a pod is killed because of the OOM killer, a pod will not stop because PID 1 ignores signals, a disk is "full" but <code>du</code> shows nothing, a service says "too many open files". Interviewers use these small Linux questions to check whether you understand the base, not only the tools on top. Smallest AI says its call tests fundamentals, so this file is high value.</p>
+
+<h2 id="3-how-it-works-step-by-step">3. How it works, step by step</h2>
+
+<h3 id="31-starting-a-program-fork-and-exec">3.1 Starting a program: fork and exec</h3>
+
+<p>To run a new program, Linux does two steps:</p>
+
+<ol>
+<li><code>fork()</code> makes a near-copy of the current process. Now there are two: parent and child. (The kernel copies memory lazily, only when someone writes. This is called copy-on-write.)</li>
+<li><code>exec()</code> makes the child <strong>become</strong> a different program. Same PID, new program code.</li>
+</ol>
+
+<pre><code> shell (PID 100)
+   |
+   | fork()
+   v
+ shell copy (PID 101)  --exec("ls")--&gt;  now it IS "ls" (still PID 101)
+   |
+   | exit(0)
+   v
+ shell (PID 100) calls wait() and learns "101 finished with code 0"
+</code></pre>
+
+<p>Why two steps? Between fork and exec the child can set things up (redirect output, drop rights). This is how shells and container runtimes work.</p>
+
+<p><strong>Zombie</strong>: a child that has finished, but the parent has not yet called <code>wait()</code> to read its exit code. The kernel keeps a tiny record. Nothing runs. It shows as state <code>Z</code>. Too many zombies = a parent that never calls wait.</p>
+
+<p><strong>Orphan</strong>: a child whose parent died first. It is adopted by PID 1 (the first process), which should reap it (call wait for it). This is why PID 1 matters. See section 3.3.</p>
+
+<p><code>[REAL]</code> Python fork demo. The child exits, the parent waits 0.3 seconds, then runs <code>ps</code>:</p>
+
+<pre><code>parent pid 17186
+child: pid 17187 parent 17186
+  PID  PPID STAT COMM
+17187 17186 Z    &lt;defunct&gt;          &lt;-- zombie: finished, not yet reaped
+reaped, exit code = 7
+I am now the echo program, same pid: 17190    &lt;-- exec: same PID, new program
+</code></pre>
+
+<h3 id="32-signals">3.2 Signals</h3>
+
+<p>A signal is a tiny message to a process. The common ones:</p>
+
+<table>
+<thead>
+<tr>
+  <th>Signal</th>
+  <th>Number</th>
+  <th>Meaning</th>
+  <th>Can the program catch it?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>SIGHUP</td>
+  <td>1</td>
+  <td>"terminal closed" (many daemons reload config)</td>
+  <td>yes</td>
+</tr>
+<tr>
+  <td>SIGINT</td>
+  <td>2</td>
+  <td>Ctrl-C</td>
+  <td>yes</td>
+</tr>
+<tr>
+  <td>SIGQUIT</td>
+  <td>3</td>
+  <td>Ctrl-\ , quit with core dump</td>
+  <td>yes</td>
+</tr>
+<tr>
+  <td>SIGKILL</td>
+  <td>9</td>
+  <td>kill now, no cleanup</td>
+  <td><strong>no</strong></td>
+</tr>
+<tr>
+  <td>SIGTERM</td>
+  <td>15</td>
+  <td>polite "please stop" (the default of <code>kill</code>)</td>
+  <td>yes</td>
+</tr>
+<tr>
+  <td>SIGSTOP</td>
+  <td>19 on Linux</td>
+  <td>pause</td>
+  <td><strong>no</strong></td>
+</tr>
+<tr>
+  <td>SIGCHLD</td>
+  <td>17 on Linux</td>
+  <td>a child changed state</td>
+  <td>yes</td>
+</tr>
+</tbody>
+</table>
+
+<p>(<code>kill -l</code> prints the list for your OS. On Linux SIGSTOP is 19 and SIGCHLD is 17; on macOS the numbers differ. That is why people write names, not numbers.)</p>
+
+<p><code>[REAL]</code> <code>kill -l</code> on this Mac:</p>
+
+<pre><code>HUP INT QUIT ILL TRAP ABRT EMT FPE KILL BUS SEGV SYS PIPE ALRM TERM URG STOP TSTP CONT CHLD ...
+</code></pre>
+
+<p><strong>Graceful shutdown</strong>: when Kubernetes stops a pod it sends SIGTERM, waits (30 seconds by default, the "grace period"), then sends SIGKILL. A good app catches SIGTERM, finishes current requests, closes connections, then exits.</p>
+
+<p><strong>Exit code from a signal</strong>: a shell shows <code>128 + signal number</code>. SIGKILL is 9, so 137. SIGTERM is 15, so 143. You will see <strong>137</strong> in Kubernetes when a container was killed (often by the OOM killer).</p>
+
+<p><code>[REAL]</code></p>
+
+<pre><code>got signal 15 (SIGTERM) - cleaning up          &lt;-- a handler caught SIGTERM
+SIGKILL cannot be caught:
+  error: [Errno 22] Invalid argument           &lt;-- the OS refuses a handler for SIGKILL
+child killed by SIGKILL -&gt; python returncode -9 ; shell would show 137
+</code></pre>
+
+<h3 id="33-pid-1-is-special">3.3 PID 1 is special</h3>
+
+<p>PID 1 is the first process. On a normal Linux host it is <code>systemd</code> (or <code>init</code>). On macOS it is <code>launchd</code>:</p>
+
+<p><code>[REAL]</code></p>
+
+<pre><code>  PID  PPID STAT ELAPSED COMMAND
+    1     0 Ss     26:22 /sbin/launchd
+</code></pre>
+
+<p>PID 1 has two special jobs:</p>
+
+<ol>
+<li>It <strong>adopts orphans</strong> and reaps them (calls wait), so zombies do not pile up.</li>
+<li>The kernel protects it: a signal with no handler is <strong>ignored</strong> for PID 1 (a normal process would die). So if your app is PID 1 in a container and does not install a SIGTERM handler, <code>docker stop</code> or a pod delete will <strong>not</strong> stop it. It waits for the grace period and then gets SIGKILL.</li>
+</ol>
+
+<p>Docker's own docs describe <code>--init</code> this way: it "forwards signals and reaps processes" (see Sources). More in file 03.</p>
+
+<h3 id="34-file-descriptors-fd">3.4 File descriptors (fd)</h3>
+
+<p>Every process has a table of open things. Numbers 0, 1, 2 are always there:</p>
+
+<pre><code>0 = stdin   (input)
+1 = stdout  (normal output)
+2 = stderr  (error output)
+3, 4, 5 ... = files, sockets, pipes you open
+</code></pre>
+
+<p>Rule: a new open gets the <strong>lowest free number</strong>. A network connection also uses one fd. Each process has a limit (<code>ulimit -n</code>). If you hit it you get the error <strong>"Too many open files"</strong> (error name EMFILE). Usual cause: a program opens files or connections and never closes them (a "leak").</p>
+
+<p><code>[REAL]</code></p>
+
+<pre><code>fds at start: 0=stdin 1=stdout 2=stderr
+open('/etc/hosts') got fd 3
+second open got fd 4
+dup2 copied fd 3 to 10
+closed first; next open gets lowest free fd -&gt; 3     &lt;-- lowest free number is reused
+</code></pre>
+
+<p><code>[REAL]</code> <code>ulimit -n</code> on this Mac says <code>1048576</code>. On many Linux systems the default soft limit is 1024 for a normal shell, so check with <code>ulimit -n</code>. (Not verified here; it depends on the distro and on systemd/container settings.)</p>
+
+<h3 id="35-memory-virtual-memory-page-cache-available">3.5 Memory: virtual memory, page cache, "available"</h3>
+
+<p>Each process thinks it has its own big private memory. That is <strong>virtual memory</strong>. The kernel maps it to real RAM in small pieces called <strong>pages</strong>. The kernel docs say virtual memory "abstracts the details of physical memory from the application software".</p>
+
+<p><strong>Page cache</strong>: when you read a file, the kernel keeps its pages in RAM. The next read is fast (no disk). When you write, the page is marked <strong>dirty</strong> and written to disk a bit later. The man page defines Cached as "In-memory cache for files read from the disk (the page cache)" and Dirty as "Memory which is waiting to get written back to the disk."</p>
+
+<p>So "free" RAM being small is <strong>normal and healthy</strong>. Linux uses spare RAM as cache and gives it back when a program needs it.</p>
+
+<p><strong>MemFree vs MemAvailable</strong> (from <code>/proc/meminfo</code>, a fake file where the kernel shows its numbers):</p>
+
+<ul>
+<li><code>MemFree</code> = RAM that is completely unused.</li>
+<li><code>MemAvailable</code> = "An estimate of how much memory is available for starting new applications, without swapping" (man page). It counts memory the kernel can take back easily, like clean cache.</li>
+</ul>
+
+<p><strong>Always look at <code>available</code>, not <code>free</code>.</strong></p>
+
+<pre><code> +--------------------------- total RAM ---------------------------+
+ | used by programs | page cache (clean, can drop) | free |   ...   |
+ +------------------+------------------------------+------+---------+
+                    \______ reclaimable _____/      \ unused /
+ available  ≈  free + the reclaimable part
+</code></pre>
+
+<p>Not all cache can be dropped. <code>Shmem</code> (tmpfs, shared memory) counts as "cache" in some tools but cannot just be freed ("Amount of memory consumed in tmpfs(5) filesystems, System V, and POSIX shared memory").</p>
+
+<p><code>[SAMPLE]</code> <code>free -h</code> on Linux (made-up numbers):</p>
+
+<pre><code>               total        used        free      shared  buff/cache   available
+Mem:            15Gi       3.1Gi       412Mi       120Mi        11Gi        11Gi
+Swap:          2.0Gi          0B       2.0Gi
+</code></pre>
+
+<p>Only 412 Mi "free", but 11 Gi "available". The machine is fine.</p>
+
+<p><code>[REAL]</code> macOS has no <code>free</code>. <code>vm_stat</code> shows pages (here one page is 16384 bytes):</p>
+
+<pre><code>Mach Virtual Memory Statistics: (page size of 16384 bytes)
+Pages free:                                     6460.
+Pages active:                                 436850.
+Pages inactive:                               432240.
+</code></pre>
+
+<p>Same lesson: "free" is tiny on a healthy Mac too.</p>
+
+<h3 id="36-the-oom-killer">3.6 The OOM killer</h3>
+
+<p>OOM = <strong>O</strong>ut <strong>O</strong>f <strong>M</strong>emory. When memory is full and the kernel cannot free enough, it picks a process and kills it to save the system. The kernel docs say: "In order to save the rest of the system, it invokes the OOM killer."</p>
+
+<p>Steps:</p>
+
+<ol>
+<li>Programs ask for more memory.</li>
+<li>Kernel first reclaims: drops clean cache, writes dirty pages, swaps out (moves rarely used pages to disk).</li>
+<li>If that is not enough, the OOM killer picks the "worst" process (biggest memory use, adjusted by a score) and sends SIGKILL.</li>
+<li>The process dies with no warning. You see exit code 137. The kernel log has a line like "Out of memory: Killed process ...".</li>
+</ol>
+
+<p><strong>In containers</strong>: a cgroup (a group with limits, file 03) has its own memory limit (<code>memory.max</code>). When the group hits the limit and cannot reclaim, the OOM killer runs <strong>inside that group</strong>. The kernel doc: <code>memory.max</code> is the "Memory usage hard limit", and <code>memory.events</code> has an <code>oom_kill</code> counter. In Kubernetes this is the <code>OOMKilled</code> state. Important: the <strong>node</strong> can have lots of free memory and your container still gets killed, because the container hit <strong>its own</strong> limit.</p>
+
+<p><code>[SAMPLE]</code> how to see it on a Linux host:</p>
+
+<pre><code>$ dmesg -T | grep -i "killed process"
+[Sun Nov 15 21:40:11 2026] Out of memory: Killed process 4242 (java) total-vm:9123456kB, anon-rss:7123456kB ...
+$ journalctl -k | grep -i oom        # same on systemd machines
+</code></pre>
+
+<p>(<code>dmesg</code> may need root on some systems. The exact wording changes between kernel versions.)</p>
+
+<h3 id="37-inodes-hard-links-symlinks">3.7 Inodes, hard links, symlinks</h3>
+
+<p>A directory is a table: name -> inode number. The inode holds the file facts and block locations.</p>
+
+<pre><code> directory entry        inode 99415                data blocks
+ "hosts"  ----------&gt;  [size, owner, perms,  ----&gt;  [the bytes]
+                         link count = 1]
+</code></pre>
+
+<ul>
+<li><strong>Hard link</strong>: another name for the same inode. The link count goes up. The data is deleted only when the link count is 0 <strong>and</strong> no process still has it open.</li>
+<li><strong>Symlink</strong> (symbolic link): a tiny file that holds a path. If the target is removed, the symlink is "broken".</li>
+</ul>
+
+<p><code>[REAL]</code></p>
+
+<pre><code>$ echo hello &gt; a.txt; ln a.txt b.txt; ln -s a.txt c.txt; ls -li a.txt b.txt c.txt
+16946503 -rw-r--r--@ 2 user  wheel  6 Nov 15 21:15 a.txt     &lt;-- same inode 16946503,
+16946503 -rw-r--r--@ 2 user  wheel  6 Nov 15 21:15 b.txt     &lt;-- link count 2
+16946506 lrwxr-xr-x@ 1 user  wheel  5 Nov 15 21:15 c.txt -&gt; a.txt   &lt;-- own inode, points to a name
+$ rm a.txt; cat b.txt; cat c.txt
+hello                                      &lt;-- data still alive through b.txt
+cat: c.txt: No such file or directory      &lt;-- symlink is now broken
+</code></pre>
+
+<p><strong>Inode exhaustion</strong>: a Linux filesystem like ext4 makes a fixed number of inodes when it is created. Millions of tiny files can use them all. Then you cannot create files even though <code>df -h</code> shows free space. Check with <code>df -i</code>.</p>
+
+<p><code>[REAL]</code> <code>df -i /</code> (this Mac uses APFS, which does not have a fixed inode count, so it shows 0% used):</p>
+
+<pre><code>Filesystem        Size    Used   Avail Capacity iused ifree %iused  Mounted on
+/dev/disk3s3s1   460Gi    12Gi   362Gi     4%    459k  3.8G    0%   /
+</code></pre>
+
+<h3 id="38-df-vs-du-why-disk-full-but-nothing-big-is-found">3.8 df vs du (why "disk full" but nothing big is found)</h3>
+
+<ul>
+<li><code>df</code> asks the <strong>filesystem</strong>: "how many blocks are used?" It is the truth about space.</li>
+<li><code>du</code> <strong>walks the directories</strong> and adds up file sizes it can see.</li>
+</ul>
+
+<p>They disagree when:</p>
+
+<ol>
+<li><strong>A deleted file is still open.</strong> You <code>rm</code> a big log, but a process still holds it open. The name is gone (du cannot see it) but the blocks stay until the process closes it or dies. This is the #1 interview answer.</li>
+<li>Files hidden under a <strong>mount point</strong> (a disk mounted on top of a folder that already had files).</li>
+<li>Reserved blocks, snapshots, or filesystem metadata.</li>
+<li>Inode exhaustion (<code>df -h</code> fine, <code>df -i</code> full).</li>
+</ol>
+
+<p><code>[REAL]</code> proof of case 1. A program wrote 20 MB, then the file was removed. <code>lsof</code> still lists it, and the link count is 0:</p>
+
+<pre><code>file removed from directory (ls cannot see it): False
+COMMAND   PID          USER   FD   TYPE  DEVICE SIZE/OFF     NODE NAME
+Python  17194 user   3w   REG    1,13 20000000 16946499 /private/tmp/.../big.bin
+link count of open fd: 0 size: 20000000
+</code></pre>
+
+<p>Fix on Linux: <code>lsof +L1</code> (lists open files with link count &lt; 1) to find the process, then restart it, or truncate through its fd: <code>: &gt; /proc/&lt;pid&gt;/fd/&lt;n&gt;</code>.</p>
+
+<p><code>[REAL]</code> <code>du -sh /usr/bin</code> -> <code>80M  /usr/bin</code> and <code>df -h /</code> shows 460Gi size, 12Gi used.</p>
+
+<h3 id="39-writing-data-safely-fsync-and-atomic-rename">3.9 Writing data safely: fsync and atomic rename</h3>
+
+<p>When a program "writes" a file, the data usually goes to the page cache first. If the power fails now, the data can be lost. <code>fsync(fd)</code> tells the kernel: write this file's data to the storage device <strong>now</strong>, and wait until the device says done. The man page says it flushes so the data can be "retrieved even if the system crashes or is rebooted".</p>
+
+<p>Careful: <code>fsync</code> on the file does <strong>not</strong> guarantee that the <strong>directory entry</strong> (the name) is on disk. The man page says you need to <code>fsync</code> the directory too.</p>
+
+<p><code>rename(old, new)</code> is <strong>atomic</strong> on the same filesystem: other programs see either the old file or the new file, never a half-written one. The man page: if the new path exists it "will be atomically replaced". It fails with <code>EXDEV</code> if the two paths are on different mounts.</p>
+
+<p>So the safe way to update a config file:</p>
+
+<pre><code>1. write new content to a TEMP file in the SAME directory
+2. fsync the temp file          (data is on disk)
+3. rename temp -&gt; real name     (atomic swap)
+4. fsync the directory          (the new name is on disk)
+</code></pre>
+
+<p><code>[REAL]</code> Python version. The inode number changes, because the new file replaced the old one:</p>
+
+<pre><code>wrote .../config.json inode 16946501
+wrote .../config.json inode 16946502
+{"v":2}
+</code></pre>
+
+<p>Why interviewers like it: it explains how databases, editors, and tools like Terraform's state writes avoid corrupt files. It also explains why ConfigMap updates in Kubernetes use a symlink swap (an atomic switch).</p>
+
+<h2 id="4-commands-to-try">4. Commands to try</h2>
+
+<p>Safe, read-only. Linux versions first where they differ.</p>
+
+<pre><code># processes
+ps aux                      # all processes (Linux and Mac)
+ps -o pid,ppid,stat,comm -p $$      # this shell: PID, parent, state, name
+pstree -p            # tree view (Linux; on Mac: brew install pstree)
+top                  # live view; press 1 for per-CPU, M sort by memory (Linux top)
+kill -TERM &lt;pid&gt;     # polite stop        kill -KILL &lt;pid&gt;   # force
+
+# file descriptors and what a process has open
+ls -l /proc/&lt;pid&gt;/fd         # Linux only
+lsof -p &lt;pid&gt;                # Linux and Mac
+lsof -nP -iTCP -sTCP:LISTEN  # who is listening on which TCP port
+ulimit -n                    # fd limit of this shell
+
+# memory (Linux)
+free -h
+grep -E 'MemTotal|MemFree|MemAvailable|^Cached|Dirty|Shmem' /proc/meminfo
+cat /proc/&lt;pid&gt;/status | grep -E 'VmRSS|VmSize'
+dmesg -T | grep -i -E 'oom|killed process'
+
+# disk and inodes
+df -h        df -i
+du -sh /var/log/* | sort -h | tail
+ls -li file          # show inode number
+stat file            # inode, links, size, times
+lsof +L1             # open files that were deleted
+</code></pre>
+
+<p><code>[SAMPLE]</code> <code>/proc/meminfo</code> lines on Linux:</p>
+
+<pre><code>MemTotal:       16384000 kB
+MemFree:          421000 kB
+MemAvailable:   11400000 kB
+Cached:         10800000 kB
+Dirty:              1200 kB
+Shmem:            123000 kB
+</code></pre>
+
+<h2 id="5-common-mistakes">5. Common mistakes</h2>
+
+<ol>
+<li>Reading "free" memory as "memory left". Use <code>available</code>.</li>
+<li>Thinking <code>kill</code> always kills. Default is SIGTERM, which a program may ignore. Only SIGKILL cannot be ignored.</li>
+<li>Using <code>kill -9</code> first. The process gets no chance to clean up (half-written files, locks left behind).</li>
+<li>Running a shell script as PID 1 in a container with <code>CMD ./start.sh</code>: the shell does not pass SIGTERM to the app. Use <code>exec ./app</code> at the end of the script, or an init like <code>tini</code>.</li>
+<li>Deleting a big log file and expecting free space while the process still holds it open.</li>
+<li>Forgetting inodes: "No space left on device" but <code>df -h</code> shows space.</li>
+<li>Writing config in place (open, truncate, write). A crash in the middle leaves a broken file. Use temp + rename.</li>
+<li>Believing <code>fsync</code> on the file also saves its name. It does not (directory needs its own fsync).</li>
+</ol>
+
+<h2 id="6-eight-interview-questions-with-answers">6. Eight interview questions with answers</h2>
+
+<p><strong>Q1. What happens when you run <code>ls</code> in a shell?</strong>
+The shell calls <code>fork()</code> to make a child copy of itself. The child calls <code>exec()</code> to become the <code>ls</code> program. The shell calls <code>wait()</code> and sleeps until <code>ls</code> finishes. <code>ls</code> writes to fd 1 (stdout). When it exits, the shell reads the exit code, shows the next prompt.</p>
+
+<p><strong>Q2. What is a zombie process? How do you remove one?</strong>
+A zombie is a child that has exited but whose parent has not called <code>wait()</code>. It uses no CPU or memory, only a slot in the process table. You cannot kill it (it is already dead). You fix the parent: make it call wait, or restart the parent. When the parent dies, PID 1 adopts the zombie and reaps it.</p>
+
+<p><strong>Q3. SIGTERM vs SIGKILL?</strong>
+SIGTERM (15) asks the program to stop; the program can catch it and clean up. SIGKILL (9) is handled by the kernel; the program cannot catch, block, or ignore it. Use SIGTERM first, SIGKILL last. In Kubernetes: SIGTERM, wait for the grace period (default 30 s), then SIGKILL.</p>
+
+<p><strong>Q4. Why does my container ignore <code>docker stop</code> and take 10 seconds (or 30 in Kubernetes) to stop?</strong>
+The app is probably PID 1. PID 1 gets no default signal actions from the kernel, so SIGTERM with no handler is ignored. Docker waits the timeout, then sends SIGKILL. Fixes: handle SIGTERM in the app, use <code>exec</code> in start scripts, and/or run with <code>--init</code> (a tiny init such as tini that forwards signals and reaps zombies).</p>
+
+<p><strong>Q5. A server shows 200 MB "free" but is fine. Why? What do you look at?</strong>
+Linux uses spare RAM as page cache, so "free" is small by design. Look at <code>MemAvailable</code> (<code>free -h</code> column <code>available</code>): an estimate of memory for new programs without swapping. Also watch swap activity, major page faults, and OOM messages.</p>
+
+<p><strong>Q6. <code>df</code> says 100% full but <code>du</code> adds up to much less. What are the causes?</strong>
+Most common: a deleted file still open by a process. Find it with <code>lsof +L1</code>, restart the process (or truncate via <code>/proc/PID/fd/N</code>). Others: files under a mount point, reserved blocks, snapshots. Also check <code>df -i</code> for inode exhaustion.</p>
+
+<p><strong>Q7. What is an inode? What is the difference between a hard link and a symlink?</strong>
+An inode stores a file's metadata and the location of its data. The name lives in the directory and points to the inode. A hard link is another name for the same inode (link count goes up; data is freed when count is 0 and no one has it open). A symlink is a separate small file that stores a path; it breaks if the target goes away. Hard links cannot cross filesystems; symlinks can.</p>
+
+<p><strong>Q8. How do you update a file so a crash cannot leave it half-written?</strong>
+Write a temp file in the same directory, <code>fsync</code> it, <code>rename()</code> it over the real name (atomic on one filesystem), then <code>fsync</code> the directory. Readers see the old or the new file, never a mix.</p>
+
+<h2 id="7-self-quiz-answers-at-the-end">7. Self-quiz (answers at the end)</h2>
+
+<ol>
+<li>What is the difference between <code>fork</code> and <code>exec</code>?</li>
+<li>A container is killed with exit code 137. Which signal was it, and what is one likely cause?</li>
+<li>Which number in <code>free -h</code> tells you how much memory new programs can get, and why not <code>free</code>?</li>
+<li>You delete a 50 GB log and <code>df</code> does not change. What is your first command?</li>
+<li>Why does the temp file for an atomic write have to be in the same directory (same filesystem)?</li>
+</ol>
+
+<p><strong>Answers</strong></p>
+
+<ol>
+<li>fork copies the process (new PID). exec replaces the running program inside a process (same PID).</li>
+<li>137 = 128 + 9 = SIGKILL. A likely cause is the OOM killer (the container hit its memory limit). It can also be a grace-period kill after SIGTERM was ignored.</li>
+<li><code>available</code>. <code>free</code> counts only totally unused RAM and ignores reclaimable cache.</li>
+<li><code>lsof +L1</code> (find the process holding the deleted file), then restart it.</li>
+<li><code>rename()</code> is atomic only inside one filesystem. Across mounts it fails with EXDEV, and a copy would not be atomic.</li>
+</ol>
+
+<h2 id="8-sources">8. Sources</h2>
+
+<ul>
+<li>proc_meminfo(5), definitions of MemFree, MemAvailable, Cached, Dirty, Shmem: https://man7.org/linux/man-pages/man5/proc_meminfo.5.html</li>
+<li>Kernel docs, memory concepts (virtual memory, page cache, reclaim, OOM killer): https://docs.kernel.org/admin-guide/mm/concepts.html</li>
+<li>Kernel docs, cgroup v2 (<code>memory.max</code>, <code>memory.events oom_kill</code>): https://docs.kernel.org/admin-guide/cgroup-v2.html</li>
+<li>fsync(2): https://man7.org/linux/man-pages/man2/fsync.2.html</li>
+<li>rename(2): https://man7.org/linux/man-pages/man2/rename.2.html</li>
+<li>Docker <code>run</code> reference (<code>--init</code>): https://docs.docker.com/reference/cli/docker/container/run/</li>
+<li>Kubernetes, resource limits and OOM kills: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/</li>
+</ul>
+
+<p>Not verified from a source (general Linux knowledge, check on your machine): default <code>ulimit -n</code> of 1024 on many distros; exact <code>dmesg</code> wording; the <code>lsof +L1</code> and <code>/proc/PID/fd</code> truncation trick; signal numbers 17 and 19 on Linux; "copy-on-write" detail of fork; the kernel's rule that PID 1 ignores unhandled signals (the Docker doc supports the effect, not the kernel source).</p>
+<div class="pn"><span></span><span><a href="02_networking.html">02. Networking: TCP, DNS, TLS, NAT &rarr;</a></span></div></main></div></body></html>

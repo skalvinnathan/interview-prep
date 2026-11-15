@@ -1,0 +1,404 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>12. Google Cloud quick map (for Professional Cloud Architect holders) | Interview prep</title><style>
+:root{--bg:#fff;--fg:#1f2328;--mut:#59636e;--bd:#d1d9e0;--ac:#0b57d0;--cb:#f6f8fa;--sb:#f6f8fa}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9198a1;--bd:#30363d;--ac:#6cb6ff;--cb:#161b22;--sb:#010409}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{display:flex;min-height:100vh}nav{width:300px;flex:none;background:var(--sb);border-right:1px solid var(--bd);padding:16px;overflow:auto;position:sticky;top:0;height:100vh}
+nav a{color:var(--fg);text-decoration:none;display:block;padding:3px 6px;border-radius:6px;font-size:14px}nav a:hover{background:var(--cb)}nav a.cur{background:var(--ac);color:#fff}
+nav summary{cursor:pointer;font-weight:600;padding:6px 0}nav .home{font-weight:700;font-size:16px;margin-bottom:8px}
+main{flex:1;min-width:0;max-width:900px;padding:24px 32px 80px;margin:0 auto}
+h1,h2,h3{line-height:1.25}h1{border-bottom:1px solid var(--bd);padding-bottom:.3em}h2{border-bottom:1px solid var(--bd);padding-bottom:.25em;margin-top:2em}
+a{color:var(--ac)}pre{background:var(--cb);border:1px solid var(--bd);border-radius:8px;padding:14px;overflow:auto;font-size:13.5px;line-height:1.5}
+code{background:var(--cb);padding:.15em .35em;border-radius:5px;font-size:.92em}pre code{background:none;padding:0}
+table{border-collapse:collapse;display:block;overflow:auto;max-width:100%}th,td{border:1px solid var(--bd);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--cb)}
+blockquote{border-left:4px solid var(--bd);margin:0;padding:0 1em;color:var(--mut)}img{max-width:100%}
+.top{display:none}.pn{display:flex;justify-content:space-between;gap:12px;margin-top:48px;border-top:1px solid var(--bd);padding-top:16px;font-size:14px}
+@media(max-width:820px){.wrap{display:block}nav{width:auto;height:auto;position:static;border-right:0;border-bottom:1px solid var(--bd)}main{padding:16px}}
+</style></head><body><div class="wrap"><nav><a class="home" href="../index.html">Interview prep</a><details><summary>Data structures and algorithms</summary><a href="../01-dsa/00_how_to_start.html">How to start: reading a problem, the 5-step method, and Big-</a><a href="../01-dsa/01_arrays_and_strings.html">Lesson 01. Arrays and Strings</a><a href="../01-dsa/02_hash_maps_and_sets.html">Lesson 02. Hash Maps and Sets</a><a href="../01-dsa/03_two_pointers.html">Lesson 03. Two Pointers</a><a href="../01-dsa/04_sliding_window.html">Lesson 04. Sliding Window</a><a href="../01-dsa/05_stack_and_queue.html">Lesson 05. Stack and Queue (including the monotonic stack)</a><a href="../01-dsa/06_binary_search.html">Lesson 06. Binary Search (including search on the answer)</a><a href="../01-dsa/07_linked_lists.html">Lesson 07. Linked Lists</a><a href="../01-dsa/08_trees_and_bst.html">Lesson 08. Trees and Binary Search Trees (BST)</a><a href="../01-dsa/09_heaps_and_priority_queues.html">Lesson 09: Heaps and Priority Queues</a><a href="../01-dsa/10_graphs_bfs_dfs.html">Lesson 10: Graphs, BFS and DFS (including grids)</a><a href="../01-dsa/11_topological_sort_and_union_find.html">Lesson 11: Topological Sort and Union-Find</a><a href="../01-dsa/12_shortest_paths.html">Lesson 12: Shortest Paths (Dijkstra in plain words)</a><a href="../01-dsa/13_intervals.html">Lesson 13: Intervals (merge intervals, meeting rooms)</a><a href="../01-dsa/14_backtracking.html">Lesson 14: Backtracking (subsets, permutations, combination </a><a href="../01-dsa/15_dynamic_programming_part1.html">Lesson 15: Dynamic Programming, Part 1 (remembering answers)</a><a href="../01-dsa/16_dynamic_programming_part2.html">Lesson 16: Dynamic Programming, Part 2 (LIS, word break, kna</a><a href="../01-dsa/17_tries_and_greedy.html">Lesson 17: Tries and Greedy</a><a href="../01-dsa/18_bit_tricks_and_math_basics.html">Lesson 18: Bit Tricks and Math Basics (short)</a><a href="../01-dsa/19_company_question_patterns.html">Lesson 19: Company Question Patterns (Google, Amazon, Meta, </a></details><details><summary>System design</summary><a href="../02-system-design/00_how_the_round_works.html">How the System Design Round Works</a><a href="../02-system-design/01a_client_server_and_http.html">Client, Server and HTTP</a><a href="../02-system-design/01b_dns_and_cdn.html">DNS and CDN</a><a href="../02-system-design/01c_load_balancers.html">Load Balancers</a><a href="../02-system-design/01d_databases.html">Databases: SQL vs NoSQL, Indexes, Transactions</a><a href="../02-system-design/01e_caching.html">Caching (and Why Invalidation Is Hard)</a><a href="../02-system-design/01f_sharding_and_replication.html">Sharding and Replication</a><a href="../02-system-design/01g_message_queues_and_streams.html">Message Queues and Streams (Kafka Basics)</a><a href="../02-system-design/01h_consistency_and_cap.html">Consistency and the CAP Idea (in Plain Words)</a><a href="../02-system-design/02_numbers_and_estimation.html">Numbers and Estimation</a><a href="../02-system-design/03_reliability_patterns.html">Reliability Patterns</a><a href="../02-system-design/10_url_shortener.html">Design a URL Shortener</a><a href="../02-system-design/11_rate_limiter.html">Design a Rate Limiter</a><a href="../02-system-design/12_chat_system.html">Design a Chat System (like WhatsApp or Slack)</a><a href="../02-system-design/13_news_feed.html">Design a News Feed (like Instagram, Facebook or Twitter/X ho</a><a href="../02-system-design/14_notification_service.html">Design a Notification Service</a><a href="../02-system-design/15_file_storage_like_drive.html">Design File Storage and Sync (like Google Drive or Dropbox)</a><a href="../02-system-design/16_search_autocomplete.html">Design Search Autocomplete (Typeahead)</a><a href="../02-system-design/17_video_streaming_basics.html">Design Video Streaming Basics (like YouTube or Netflix)</a><a href="../02-system-design/18_payment_system_like_stripe.html">Design a Payment System (like Stripe)</a><a href="../02-system-design/19_order_management_like_amazon.html">Design an Order Management System (like Amazon: inventory, o</a><a href="../02-system-design/20_job_scheduler_and_workflow_engine.html">Design a Job Scheduler and Workflow Engine</a><a href="../02-system-design/21_api_gateway_and_auth_system.html">Design an API Gateway and Auth System</a><a href="../02-system-design/22_logging_and_metrics_platform.html">Design a Logging and Metrics Platform</a><a href="../02-system-design/90_cheat_sheet.html">Cheat Sheet (one page)</a><a href="../02-system-design/91_practice_questions.html">Practice Questions (30)</a></details><details><summary>Low-level design</summary><a href="../03-low-level-design/00_how_the_lld_round_works.html">- How the LLD round works</a><a href="../03-low-level-design/01_oop_in_plain_words.html">- OOP in plain words</a><a href="../03-low-level-design/02_solid_principles.html">- SOLID principles</a><a href="../03-low-level-design/03_design_patterns_you_need.html">- The 8 design patterns you need</a><a href="../03-low-level-design/10_parking_lot.html">- Parking Lot</a><a href="../03-low-level-design/11_lru_cache.html">- LRU Cache</a><a href="../03-low-level-design/12_elevator_system.html">- Elevator System</a><a href="../03-low-level-design/13_library_management.html">- Library Management System</a><a href="../03-low-level-design/14_vending_machine.html">- Vending Machine (State pattern)</a><a href="../03-low-level-design/15_atm.html">- ATM</a><a href="../03-low-level-design/16_rate_limiter_class.html">- Rate Limiter (class design: token bucket and sliding windo</a><a href="../03-low-level-design/17_amazon_locker.html">- Amazon Locker</a><a href="../03-low-level-design/18_splitwise_expense_sharing.html">- Splitwise (Expense Sharing)</a><a href="../03-low-level-design/19_logger_and_notification_system.html">- Logger and Notification System (Observer and Strategy)</a><a href="../03-low-level-design/20_tic_tac_toe_or_chess_basics.html">- Tic-Tac-Toe (full) and Chess basics</a><a href="../03-low-level-design/90_cheat_sheet.html">- Cheat sheet (read the night before)</a><a href="../03-low-level-design/91_practice_questions.html">- Practice questions (20)</a></details><details open><summary>DevOps and platform basics</summary><a href="01_linux_processes_memory_files.html">Linux: processes, memory, and files</a><a href="02_networking.html">Networking: TCP, DNS, TLS, NAT</a><a href="03_containers_and_docker.html">Containers and Docker</a><a href="04_kubernetes_from_zero.html">Kubernetes from zero</a><a href="05_helm.html">Helm</a><a href="06_terraform.html">Terraform</a><a href="07_ci_cd_github_actions.html">CI/CD with GitHub Actions</a><a href="08_observability_and_sre.html">Observability and SRE</a><a href="09_concurrency_and_distributed_basics.html">Concurrency and distributed basics</a><a href="10_databases_basics.html">Databases basics</a><a href="11_security_basics.html">Security basics (IAM, OAuth2/OIDC/JWT, secrets, supply chain</a><a class="cur" href="12_gcp_pca_quick_map.html">Google Cloud quick map (for Professional Cloud Architect hol</a><a href="20_interview_questions_with_answers.html">Sixty interview questions with model answers (platform / SRE</a><a href="21_scenario_questions.html">Fifteen &quot;production is down&quot; scenarios, with step-by-step an</a></details><details><summary>Company processes</summary><a href="../06-company-process-and-behavioural/10_google.html">Google</a><a href="../06-company-process-and-behavioural/11_amazon.html">Amazon</a><a href="../06-company-process-and-behavioural/12_stripe.html">Stripe</a><a href="../06-company-process-and-behavioural/13_microsoft_and_azure_roles.html">Microsoft and Azure roles</a><a href="../06-company-process-and-behavioural/14_indian_product_and_gcc_companies.html">Indian product companies and GCCs</a><a href="../06-company-process-and-behavioural/15_european_scaleups.html">European scale-ups and visa basics</a><a href="../06-company-process-and-behavioural/16_ai_startups_like_smallest_ai.html">AI startups like Smallest AI</a><a href="../06-company-process-and-behavioural/24_questions_to_ask_interviewers.html">Questions to ask interviewers</a><a href="../06-company-process-and-behavioural/25_salary_notice_period_and_offer_negotiation_india_and_abroad.html">Salary, notice period and offer negotiation (India and abroa</a><a href="../06-company-process-and-behavioural/26_interview_day_checklists.html">Interview day checklists</a></details></nav><main><h1 id="12-google-cloud-quick-map-for-professional-cloud-architect-holders">12. Google Cloud quick map (for Professional Cloud Architect holders)</h1>
+
+<p>You already have the Google Cloud Professional Cloud Architect certification and a study site. This file is a <strong>short map</strong>: the main services, <strong>when to pick each</strong>, and the one-line "why". It is for interviews (Google loops, FIS, Smallest AI), not for the exam.</p>
+
+<p>Legend: <code>[SAMPLE]</code> = shape example, not run. I did not run any <code>gcloud</code> command (no Google Cloud login on this machine). Statements marked <strong>(Google docs)</strong> were read on Google's pages today. Everything else is general knowledge and listed at the end as unverified.</p>
+
+<hr />
+
+<h2 id="1-what-it-is-plain-words-analogy">1. What it is (plain words + analogy)</h2>
+
+<p>Google Cloud (GCP) is a set of rentable building blocks. Think of a <strong>city</strong>:</p>
+
+<ul>
+<li><strong>Compute</strong> = buildings (from an empty plot you build on, to a ready shop).</li>
+<li><strong>Storage</strong> = warehouses (boxes, shelves, filing cabinets).</li>
+<li><strong>Networking</strong> = roads, gates, and traffic police.</li>
+<li><strong>IAM</strong> = the badge office.</li>
+<li><strong>Data and analytics</strong> = the city's records office and research lab.</li>
+<li><strong>Operations</strong> = the CCTV and control room.</li>
+</ul>
+
+<p>The skill for an architect (and for an interview) is <strong>choosing the right block</strong> and saying <strong>why</strong>: how much you manage yourself vs how much Google manages, cost, scale, latency, and failure.</p>
+
+<h2 id="2-why-it-matters-in-interviews">2. Why it matters in interviews</h2>
+
+<p>For Google roles, they expect you to speak their products and trade-offs. For other companies (FIS, ScienceLogic), the same thinking maps to Azure and AWS, so use GCP as your example and name the equivalent. Typical prompts: "which compute option for this workload?", "which database?", "how do you give a CI pipeline access without keys?", "how do you design a multi-region, highly available service?".</p>
+
+<h2 id="3-how-it-works-step-by-step-the-map">3. How it works, step by step: the map</h2>
+
+<h3 id="31-the-resource-hierarchy-and-iam-google-docs">3.1 The resource hierarchy and IAM (Google docs)</h3>
+
+<p>Organization -> Folders -> Projects -> resources. IAM allow policies on a parent are <strong>inherited</strong> by everything below. A <strong>project</strong> is the main unit of billing, quotas, and API enablement. Use <strong>folders</strong> per environment or team, and a <strong>separate project</strong> per environment and per application to limit blast radius. IAM basics (principals, roles, allow policies, inheritance) are in file 11.</p>
+
+<h3 id="32-compute-which-one">3.2 Compute: which one?</h3>
+
+<pre><code> more control, more work                                              less control, less work
+ Compute Engine (VMs) ── GKE Standard ── GKE Autopilot ── Cloud Run (containers) ── Cloud Run functions
+</code></pre>
+
+<table>
+<thead>
+<tr>
+  <th>Service</th>
+  <th>What it is</th>
+  <th>Pick it when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Compute Engine</strong></td>
+  <td>Virtual machines</td>
+  <td>you need full OS control, special software, lift-and-shift, GPUs/custom machine shapes, licensing needs</td>
+</tr>
+<tr>
+  <td><strong>GKE</strong> (Kubernetes Engine)</td>
+  <td>Managed Kubernetes</td>
+  <td>you want Kubernetes (many services, portability, custom operators, stateful sets, service mesh)</td>
+</tr>
+<tr>
+  <td>- GKE <strong>Autopilot</strong></td>
+  <td>Google manages nodes and scaling</td>
+  <td><strong>Google docs</strong>: it "handles most of your infrastructure", and is recommended for most production workloads unless you need privileges or settings Autopilot does not allow</td>
+</tr>
+<tr>
+  <td>- GKE <strong>Standard</strong></td>
+  <td>You manage node pools</td>
+  <td><strong>Google docs</strong>: you have "direct control over your node infrastructure and autoscaling"; use it when workloads need special privileges or granular infrastructure control</td>
+</tr>
+<tr>
+  <td><strong>Cloud Run</strong></td>
+  <td>Serverless containers</td>
+  <td>stateless HTTP services, APIs, event handlers, jobs, queue workers, with scale to zero and no cluster to run</td>
+</tr>
+<tr>
+  <td><strong>Cloud Run functions</strong></td>
+  <td>Single-purpose event-driven functions</td>
+  <td>tiny glue code on events (a file lands, a message arrives)</td>
+</tr>
+<tr>
+  <td><strong>App Engine</strong></td>
+  <td>Older platform for web apps</td>
+  <td>existing apps; for new work most people choose Cloud Run (general knowledge)</td>
+</tr>
+<tr>
+  <td><strong>Batch</strong></td>
+  <td>Managed batch jobs</td>
+  <td>large batch computing without managing a cluster</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Cloud Run facts (Google docs)</strong>: a managed platform for running code, functions, or containers "without creating or managing clusters". Resource types: <strong>service</strong> (HTTP, autoscales), <strong>job</strong> (runs to completion, on demand or on a schedule), <strong>worker pool</strong> (always-on non-HTTP work such as queue consumers), and an <strong>instance</strong> type in Preview. A service with no traffic <strong>scales to zero</strong>; the next request starts an instance and may be slower, so use <strong>minimum instances</strong> to avoid it. Instances are <strong>stateless and disposable</strong> (in-memory file system is lost), and your app can handle <code>SIGTERM</code> to flush data before exit (so the PID 1/signal lesson from file 03 applies). Billing is <strong>request-based</strong> (pay while processing, plus a per-request fee) or <strong>instance-based</strong> (pay for the full instance lifetime, no per-request fee), measured in 100 ms increments of allocated CPU and memory.</p>
+
+<p>Decision shortcut for an interview: "Stateless HTTP and no special needs -> <strong>Cloud Run</strong>. Many microservices with Kubernetes skills, or need operators, sidecars, mesh, or stateful sets -> <strong>GKE</strong> (Autopilot first). Need OS-level control or legacy software -> <strong>Compute Engine</strong>. Event glue -> <strong>Cloud Run functions</strong>."</p>
+
+<p>Autoscaling and availability on Compute Engine: <strong>managed instance groups</strong> (MIGs) with autohealing and autoscaling, spread over zones, behind a load balancer. <strong>Regional</strong> MIGs and <strong>regional</strong> GKE clusters survive a zone failure. (General knowledge.)</p>
+
+<h3 id="33-storage">3.3 Storage</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Service</th>
+  <th>Type</th>
+  <th>Pick it for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Cloud Storage</strong></td>
+  <td>object storage (buckets)</td>
+  <td>files, backups, logs, data lake, static sites; storage classes (Standard, Nearline, Coldline, Archive) trade cost vs access frequency; lifecycle rules move or delete data</td>
+</tr>
+<tr>
+  <td><strong>Persistent Disk / Hyperdisk</strong></td>
+  <td>block storage for VMs and GKE volumes</td>
+  <td>databases on VMs, boot disks; zonal or regional</td>
+</tr>
+<tr>
+  <td><strong>Filestore</strong></td>
+  <td>managed NFS file share</td>
+  <td>shared POSIX file system for many VMs/pods</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="34-databases-google-docs-database-overview">3.4 Databases (Google docs database overview)</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Service</th>
+  <th>Google's one-line description</th>
+  <th>Pick it when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td><strong>Cloud SQL</strong></td>
+  <td>"fully-managed database service" for MySQL, PostgreSQL, SQL Server</td>
+  <td>a normal relational app database at moderate scale; least effort</td>
+</tr>
+<tr>
+  <td><strong>AlloyDB</strong></td>
+  <td>"PostgreSQL-compatible database for demanding transactional workloads"</td>
+  <td>PostgreSQL apps needing higher performance and analytics speed</td>
+</tr>
+<tr>
+  <td><strong>Spanner</strong></td>
+  <td>"mission-critical, global-scale database service"</td>
+  <td>relational with global scale and strong consistency across regions; very high availability needs</td>
+</tr>
+<tr>
+  <td><strong>Firestore</strong></td>
+  <td>"flexible, scalable NoSQL document database" (a MongoDB-compatible edition is available)</td>
+  <td>mobile/web apps, document data, simple scaling</td>
+</tr>
+<tr>
+  <td><strong>Bigtable</strong></td>
+  <td>"terabytes or petabytes" in a NoSQL wide-column service</td>
+  <td>huge key-value/time-series workloads with very high throughput and low latency</td>
+</tr>
+<tr>
+  <td><strong>BigQuery</strong></td>
+  <td>"fully managed, highly scalable data warehouse with built-in ML"</td>
+  <td>analytics (column store, file 10), not application transactions</td>
+</tr>
+<tr>
+  <td><strong>Memorystore</strong></td>
+  <td>in-memory (Valkey, Redis, Redis Cluster; the page notes Memcached is deprecated)</td>
+  <td>caches, sessions, leaderboards</td>
+</tr>
+</tbody>
+</table>
+
+<p>(The "pick it when" column is my reading of the descriptions, as the Google page itself gives no selection rules.)</p>
+
+<h3 id="35-networking">3.5 Networking</h3>
+
+<ul>
+<li><strong>VPC</strong>: your private network. Google VPCs are <strong>global</strong> (subnets are regional); firewall rules apply per VPC (general knowledge; check the docs when quoting).</li>
+<li><strong>Cloud Load Balancing</strong>: global external HTTP(S) load balancer (one anycast IP, can route to backends in many regions), plus regional and internal load balancers, and TCP/UDP load balancers.</li>
+<li><strong>Cloud CDN</strong>: caches content at the edge. <strong>Cloud Armor</strong>: WAF and DDoS protection in front of the load balancer.</li>
+<li><strong>Cloud DNS</strong>: managed DNS (see file 02 for how DNS works).</li>
+<li><strong>Cloud NAT</strong>: outbound internet for private VMs/pods without public IPs (NAT, file 02; watch port exhaustion).</li>
+<li><strong>Private Google Access / Private Service Connect</strong>: reach Google APIs and published services privately.</li>
+<li><strong>VPN, Cloud Interconnect</strong>: connect on-premises to GCP (VPN over the internet; Interconnect is a dedicated link).</li>
+<li><strong>Shared VPC</strong>: one host project owns the network; service projects use it.</li>
+<li><strong>VPC Service Controls</strong>: a perimeter to reduce data exfiltration from Google APIs.</li>
+</ul>
+
+<h3 id="36-messaging-and-data-pipelines">3.6 Messaging and data pipelines</h3>
+
+<ul>
+<li><strong>Pub/Sub</strong>: global asynchronous messaging; <strong>at-least-once delivery</strong> by default (so consumers must be idempotent, file 09); decouples producers and consumers and absorbs bursts (backpressure helper).</li>
+<li><strong>Dataflow</strong>: managed stream and batch processing (Apache Beam). <strong>Dataproc</strong>: managed Spark/Hadoop. <strong>BigQuery</strong>: warehouse. <strong>Cloud Composer</strong>: managed Airflow for workflows. <strong>Dataform</strong>/scheduled queries for SQL pipelines.</li>
+<li><strong>Cloud Tasks / Workflows / Eventarc / Cloud Scheduler</strong>: task queues, orchestration, event routing, cron.</li>
+</ul>
+
+<h3 id="37-operations-and-devops-tooling">3.7 Operations and DevOps tooling</h3>
+
+<ul>
+<li><strong>Cloud Monitoring</strong> (metrics, dashboards, alerting, SLO monitoring), <strong>Cloud Logging</strong>, <strong>Cloud Trace</strong>, <strong>Error Reporting</strong>, <strong>Managed Service for Prometheus</strong> (Prometheus-compatible metrics). Concepts match file 08.</li>
+<li><strong>Artifact Registry</strong>: stores container images and packages. <strong>Cloud Build</strong>: managed CI. <strong>Cloud Deploy</strong>: managed delivery pipelines to GKE/Cloud Run. (Many teams use GitHub Actions instead; see file 07.)</li>
+<li><strong>Secret Manager</strong>: secrets storage. <strong>Cloud KMS</strong>: encryption keys. <strong>Workload Identity Federation</strong>: external workloads (GitHub Actions, AWS, Azure, on-prem) access Google Cloud <strong>without service account keys</strong>, with short-lived tokens, attribute mappings, and conditions <strong>(Google docs)</strong>. GKE has its own Workload Identity for pods.</li>
+<li><strong>Cloud Audit Logs</strong>: who did what. <strong>Organization Policy</strong>: guardrails (for example block service account key creation, restrict regions).</li>
+<li><strong>Terraform</strong>: the usual way to manage GCP as code (file 06).</li>
+</ul>
+
+<h3 id="38-reliability-design-in-gcp-how-to-answer-design-for-high-availability">3.8 Reliability design in GCP (how to answer "design for high availability")</h3>
+
+<pre><code> Users ─&gt; global HTTPS Load Balancer (Cloud Armor, CDN)
+             ├─&gt; Region A: GKE/Cloud Run/MIG across 3 zones ─&gt; regional DB (HA replica)
+             └─&gt; Region B: same (active-active or warm standby)
+        data: Spanner (multi-region) or Cloud SQL/AlloyDB with cross-region replica + backups to Cloud Storage
+</code></pre>
+
+<p>Points to say: <strong>zones</strong> are failure domains inside a region; <strong>regions</strong> are far apart (disaster recovery). Define <strong>SLOs</strong> first (file 08), then choose the cost level: single zone &lt; multi-zone &lt; multi-region. Know <strong>RPO/RTO</strong> (data loss and downtime allowed). Test failover. Use health checks, autohealing, graceful shutdown, retries with jitter, and load shedding (file 09). Back up data and <strong>test restores</strong>.</p>
+
+<h3 id="39-cost-basics">3.9 Cost basics</h3>
+
+<p>Use the right size (rightsizing recommendations), autoscaling, <strong>committed use discounts</strong> for steady load, <strong>Spot VMs</strong> for fault-tolerant batch (can be reclaimed at short notice), storage lifecycle policies, labels for cost reporting, budgets and alerts, and turn off idle resources. (General knowledge; I did not verify current discount names or numbers.)</p>
+
+<h3 id="310-equivalent-services-useful-when-the-interviewer-uses-azure-or-aws">3.10 Equivalent services (useful when the interviewer uses Azure or AWS)</h3>
+
+<table>
+<thead>
+<tr>
+  <th>Idea</th>
+  <th>GCP</th>
+  <th>Azure</th>
+  <th>AWS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>VMs</td>
+  <td>Compute Engine</td>
+  <td>Virtual Machines</td>
+  <td>EC2</td>
+</tr>
+<tr>
+  <td>Managed Kubernetes</td>
+  <td>GKE</td>
+  <td>AKS</td>
+  <td>EKS</td>
+</tr>
+<tr>
+  <td>Serverless containers</td>
+  <td>Cloud Run</td>
+  <td>Container Apps</td>
+  <td>App Runner / Fargate</td>
+</tr>
+<tr>
+  <td>Object storage</td>
+  <td>Cloud Storage</td>
+  <td>Blob Storage</td>
+  <td>S3</td>
+</tr>
+<tr>
+  <td>Managed relational DB</td>
+  <td>Cloud SQL</td>
+  <td>Azure Database for PostgreSQL/MySQL, SQL Database</td>
+  <td>RDS</td>
+</tr>
+<tr>
+  <td>Warehouse</td>
+  <td>BigQuery</td>
+  <td>Synapse / Fabric</td>
+  <td>Redshift</td>
+</tr>
+<tr>
+  <td>Messaging</td>
+  <td>Pub/Sub</td>
+  <td>Service Bus / Event Hubs</td>
+  <td>SNS+SQS / Kinesis</td>
+</tr>
+<tr>
+  <td>Secrets</td>
+  <td>Secret Manager</td>
+  <td>Key Vault</td>
+  <td>Secrets Manager</td>
+</tr>
+<tr>
+  <td>Identity for pods</td>
+  <td>Workload Identity</td>
+  <td>Entra Workload ID (verified in file 11)</td>
+  <td>IRSA / EKS Pod Identity</td>
+</tr>
+</tbody>
+</table>
+
+<p>(Rows other than the AKS Workload ID are from general knowledge. AWS Well-Architected is Amazon's framework for design reviews; I opened its welcome page, which describes it as helping you build "secure, reliable, efficient, cost-effective, and sustainable" workloads.)</p>
+
+<h2 id="4-commands-to-try">4. Commands to try</h2>
+
+<pre><code>gcloud auth login                       # (needs your account; do not share tokens)
+gcloud config list
+gcloud projects list
+gcloud compute instances list
+gcloud container clusters list
+gcloud run services list --region asia-south1
+gcloud sql instances list
+gcloud storage ls
+gcloud projects get-iam-policy &lt;project-id&gt; --format=json | jq '.bindings'
+gcloud logging read 'severity&gt;=ERROR' --limit 10
+</code></pre>
+
+<p><code>[SAMPLE]</code> <code>gcloud run services list</code>:</p>
+
+<pre><code>   SERVICE  REGION        URL                              LAST DEPLOYED BY    LAST DEPLOYED AT
+✔  web      asia-south1   https://web-xxxxx-el.a.run.app   dev@example.com     2026-11-14T10:20:30Z
+</code></pre>
+
+<p>(<code>gcloud</code> subcommand names are real in general; I did not run them, so check <code>gcloud &lt;group&gt; --help</code>.)</p>
+
+<h2 id="5-common-mistakes">5. Common mistakes</h2>
+
+<ol>
+<li>One big project for everything, or grants at the organization level.</li>
+<li>Using service account keys when Workload Identity Federation exists.</li>
+<li>Choosing GKE when Cloud Run would do (more to operate), or Compute Engine VMs for stateless apps.</li>
+<li>Running analytics on Cloud SQL instead of BigQuery.</li>
+<li>Forgetting that Cloud Run scales to zero (cold starts) and instances are stateless.</li>
+<li>Single-zone deployments and untested backups, with no RPO/RTO defined.</li>
+<li>Ignoring egress and cross-region network costs.</li>
+<li>No Pub/Sub idempotency (duplicates under at-least-once delivery).</li>
+</ol>
+
+<h2 id="6-eight-interview-questions-with-answers">6. Eight interview questions with answers</h2>
+
+<p><strong>Q1. Cloud Run, GKE, or Compute Engine for a new stateless API?</strong>
+Cloud Run first: no cluster to run, autoscaling including to zero, simple deploys, pay per use. Choose GKE if the team already runs many services on Kubernetes or needs operators, sidecars, mesh, GPUs with special scheduling, or stateful sets. Choose Compute Engine for OS-level control or legacy software. Prefer the least operational burden that meets the requirements.</p>
+
+<p><strong>Q2. GKE Autopilot vs Standard?</strong>
+In Autopilot, GKE manages nodes and scaling and you focus on pods; Google recommends it for most production workloads unless you need privileges or settings Autopilot does not allow. In Standard you manage node pools and have granular control over infrastructure, at the cost of more operations. They can be mixed to a degree (Standard clusters can run Autopilot-style workloads through compute classes).</p>
+
+<p><strong>Q3. How do you choose a database on Google Cloud?</strong>
+Relational, moderate scale: Cloud SQL. PostgreSQL needing more performance: AlloyDB. Relational with global scale and strong consistency: Spanner. Document and mobile-friendly: Firestore. Massive wide-column or time-series throughput: Bigtable. Analytics: BigQuery. Cache: Memorystore. Decide by data model, consistency, scale, latency, and cost.</p>
+
+<p><strong>Q4. How would a GitHub Actions pipeline deploy to GCP without keys?</strong>
+Workload Identity Federation: a workload identity pool and provider trust GitHub's OIDC issuer; attribute mappings and conditions restrict to the specific repository and branch; the job uses <code>id-token: write</code>, exchanges its token through Google's STS for short-lived credentials, and either holds IAM roles directly or impersonates a narrowly scoped service account.</p>
+
+<p><strong>Q5. What is the resource hierarchy and why does it matter?</strong>
+Organization, folders, projects, resources. IAM policies and organization policies inherit downward, so you set broad guardrails high and specific access low. Projects are boundaries for billing, quotas, and blast radius; use separate projects per environment and application.</p>
+
+<p><strong>Q6. Design a highly available web service on GCP.</strong>
+Global external HTTPS load balancer with Cloud Armor (and CDN for static content), stateless services on GKE or Cloud Run across at least three zones (and two regions if the SLO needs it), a database with an HA configuration (regional Cloud SQL/AlloyDB with a cross-region replica, or Spanner multi-region), Pub/Sub to decouple async work, health checks and autohealing, graceful shutdown, retries with jitter, SLO-based alerts, backups with tested restores, and defined RPO/RTO.</p>
+
+<p><strong>Q7. Pub/Sub delivery guarantees and what you must do in consumers?</strong>
+Delivery is at-least-once by default, so duplicates can happen and ordering is not guaranteed unless you use ordering keys. Make consumers idempotent (dedupe by message ID or use upserts), acknowledge only after successful processing, set a dead-letter topic for poison messages, and use backoff for retries.</p>
+
+<p><strong>Q8. How do you keep cloud costs under control?</strong>
+Right-size resources, autoscale, use committed use discounts for steady workloads and Spot VMs for fault-tolerant batch, lifecycle rules for storage, scale-to-zero services where suitable, labels and budgets with alerts, and regular review of recommendations. Watch network egress and cross-region traffic.</p>
+
+<h2 id="7-self-quiz-answers-at-the-end">7. Self-quiz (answers at the end)</h2>
+
+<ol>
+<li>Which service is the managed data warehouse, and is it row or column oriented?</li>
+<li>Which Cloud Run resource type runs a task to completion on a schedule?</li>
+<li>What does a Cloud Run service do when there is no traffic?</li>
+<li>Name the levels of the GCP resource hierarchy.</li>
+<li>What replaces service account keys for an external CI system?</li>
+</ol>
+
+<p><strong>Answers</strong></p>
+
+<ol>
+<li>BigQuery; column oriented.</li>
+<li>A Cloud Run <strong>job</strong>.</li>
+<li>It scales to zero (all instances removed); the next request starts a new instance and may be slower. Set minimum instances to avoid that.</li>
+<li>Organization, folders, projects, resources.</li>
+<li>Workload Identity Federation (short-lived tokens through OIDC or SAML, no keys).</li>
+</ol>
+
+<h2 id="8-sources">8. Sources</h2>
+
+<ul>
+<li>Cloud Run overview (service, job, worker pool, scale to zero, stateless, billing): https://docs.cloud.google.com/run/docs/overview/what-is-cloud-run</li>
+<li>GKE Autopilot vs Standard: https://docs.cloud.google.com/kubernetes-engine/docs/concepts/choose-cluster-mode</li>
+<li>Google Cloud databases overview: https://docs.cloud.google.com/docs/databases</li>
+<li>IAM overview and resource hierarchy: https://docs.cloud.google.com/iam/docs/overview</li>
+<li>Workload Identity Federation: https://docs.cloud.google.com/iam/docs/workload-identity-federation</li>
+<li>AWS Well-Architected Framework welcome page: https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html</li>
+<li>Microsoft Entra Workload ID on AKS (for the equivalence row): https://learn.microsoft.com/en-us/azure/aks/workload-identity-overview</li>
+</ul>
+
+<p>I tried to read Google's "choosing a compute option" and "products" pages but they returned only titles, so the compute decision table, storage, networking, messaging, operations, cost, and equivalent-services sections are <strong>general knowledge, not verified today</strong>. Specifically unverified: Compute Engine/MIG/regional behavior, storage classes, VPC being global, load balancer types, Cloud Armor/CDN/NAT/Interconnect/Shared VPC/VPC Service Controls descriptions, Pub/Sub at-least-once and ordering keys, Dataflow/Dataproc/Composer descriptions, Cloud Build/Deploy, Spot VMs and committed use discounts, the Azure and AWS equivalents (except AKS Workload ID), and all <code>gcloud</code> command names. For anything exam-related, trust your own study site.</p>
+<div class="pn"><span><a href="11_security_basics.html">&larr; 11. Security basics (IAM, OAuth2/OIDC/JW</a></span><span><a href="20_interview_questions_with_answers.html">20. Sixty interview questions with model &rarr;</a></span></div></main></div></body></html>

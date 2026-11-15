@@ -1,0 +1,396 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>17 - Amazon Locker | Interview prep</title><style>
+:root{--bg:#fff;--fg:#1f2328;--mut:#59636e;--bd:#d1d9e0;--ac:#0b57d0;--cb:#f6f8fa;--sb:#f6f8fa}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9198a1;--bd:#30363d;--ac:#6cb6ff;--cb:#161b22;--sb:#010409}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{display:flex;min-height:100vh}nav{width:300px;flex:none;background:var(--sb);border-right:1px solid var(--bd);padding:16px;overflow:auto;position:sticky;top:0;height:100vh}
+nav a{color:var(--fg);text-decoration:none;display:block;padding:3px 6px;border-radius:6px;font-size:14px}nav a:hover{background:var(--cb)}nav a.cur{background:var(--ac);color:#fff}
+nav summary{cursor:pointer;font-weight:600;padding:6px 0}nav .home{font-weight:700;font-size:16px;margin-bottom:8px}
+main{flex:1;min-width:0;max-width:900px;padding:24px 32px 80px;margin:0 auto}
+h1,h2,h3{line-height:1.25}h1{border-bottom:1px solid var(--bd);padding-bottom:.3em}h2{border-bottom:1px solid var(--bd);padding-bottom:.25em;margin-top:2em}
+a{color:var(--ac)}pre{background:var(--cb);border:1px solid var(--bd);border-radius:8px;padding:14px;overflow:auto;font-size:13.5px;line-height:1.5}
+code{background:var(--cb);padding:.15em .35em;border-radius:5px;font-size:.92em}pre code{background:none;padding:0}
+table{border-collapse:collapse;display:block;overflow:auto;max-width:100%}th,td{border:1px solid var(--bd);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--cb)}
+blockquote{border-left:4px solid var(--bd);margin:0;padding:0 1em;color:var(--mut)}img{max-width:100%}
+.top{display:none}.pn{display:flex;justify-content:space-between;gap:12px;margin-top:48px;border-top:1px solid var(--bd);padding-top:16px;font-size:14px}
+@media(max-width:820px){.wrap{display:block}nav{width:auto;height:auto;position:static;border-right:0;border-bottom:1px solid var(--bd)}main{padding:16px}}
+</style></head><body><div class="wrap"><nav><a class="home" href="../index.html">Interview prep</a><details><summary>Data structures and algorithms</summary><a href="../01-dsa/00_how_to_start.html">How to start: reading a problem, the 5-step method, and Big-</a><a href="../01-dsa/01_arrays_and_strings.html">Lesson 01. Arrays and Strings</a><a href="../01-dsa/02_hash_maps_and_sets.html">Lesson 02. Hash Maps and Sets</a><a href="../01-dsa/03_two_pointers.html">Lesson 03. Two Pointers</a><a href="../01-dsa/04_sliding_window.html">Lesson 04. Sliding Window</a><a href="../01-dsa/05_stack_and_queue.html">Lesson 05. Stack and Queue (including the monotonic stack)</a><a href="../01-dsa/06_binary_search.html">Lesson 06. Binary Search (including search on the answer)</a><a href="../01-dsa/07_linked_lists.html">Lesson 07. Linked Lists</a><a href="../01-dsa/08_trees_and_bst.html">Lesson 08. Trees and Binary Search Trees (BST)</a><a href="../01-dsa/09_heaps_and_priority_queues.html">Lesson 09: Heaps and Priority Queues</a><a href="../01-dsa/10_graphs_bfs_dfs.html">Lesson 10: Graphs, BFS and DFS (including grids)</a><a href="../01-dsa/11_topological_sort_and_union_find.html">Lesson 11: Topological Sort and Union-Find</a><a href="../01-dsa/12_shortest_paths.html">Lesson 12: Shortest Paths (Dijkstra in plain words)</a><a href="../01-dsa/13_intervals.html">Lesson 13: Intervals (merge intervals, meeting rooms)</a><a href="../01-dsa/14_backtracking.html">Lesson 14: Backtracking (subsets, permutations, combination </a><a href="../01-dsa/15_dynamic_programming_part1.html">Lesson 15: Dynamic Programming, Part 1 (remembering answers)</a><a href="../01-dsa/16_dynamic_programming_part2.html">Lesson 16: Dynamic Programming, Part 2 (LIS, word break, kna</a><a href="../01-dsa/17_tries_and_greedy.html">Lesson 17: Tries and Greedy</a><a href="../01-dsa/18_bit_tricks_and_math_basics.html">Lesson 18: Bit Tricks and Math Basics (short)</a><a href="../01-dsa/19_company_question_patterns.html">Lesson 19: Company Question Patterns (Google, Amazon, Meta, </a></details><details><summary>System design</summary><a href="../02-system-design/00_how_the_round_works.html">How the System Design Round Works</a><a href="../02-system-design/01a_client_server_and_http.html">Client, Server and HTTP</a><a href="../02-system-design/01b_dns_and_cdn.html">DNS and CDN</a><a href="../02-system-design/01c_load_balancers.html">Load Balancers</a><a href="../02-system-design/01d_databases.html">Databases: SQL vs NoSQL, Indexes, Transactions</a><a href="../02-system-design/01e_caching.html">Caching (and Why Invalidation Is Hard)</a><a href="../02-system-design/01f_sharding_and_replication.html">Sharding and Replication</a><a href="../02-system-design/01g_message_queues_and_streams.html">Message Queues and Streams (Kafka Basics)</a><a href="../02-system-design/01h_consistency_and_cap.html">Consistency and the CAP Idea (in Plain Words)</a><a href="../02-system-design/02_numbers_and_estimation.html">Numbers and Estimation</a><a href="../02-system-design/03_reliability_patterns.html">Reliability Patterns</a><a href="../02-system-design/10_url_shortener.html">Design a URL Shortener</a><a href="../02-system-design/11_rate_limiter.html">Design a Rate Limiter</a><a href="../02-system-design/12_chat_system.html">Design a Chat System (like WhatsApp or Slack)</a><a href="../02-system-design/13_news_feed.html">Design a News Feed (like Instagram, Facebook or Twitter/X ho</a><a href="../02-system-design/14_notification_service.html">Design a Notification Service</a><a href="../02-system-design/15_file_storage_like_drive.html">Design File Storage and Sync (like Google Drive or Dropbox)</a><a href="../02-system-design/16_search_autocomplete.html">Design Search Autocomplete (Typeahead)</a><a href="../02-system-design/17_video_streaming_basics.html">Design Video Streaming Basics (like YouTube or Netflix)</a><a href="../02-system-design/18_payment_system_like_stripe.html">Design a Payment System (like Stripe)</a><a href="../02-system-design/19_order_management_like_amazon.html">Design an Order Management System (like Amazon: inventory, o</a><a href="../02-system-design/20_job_scheduler_and_workflow_engine.html">Design a Job Scheduler and Workflow Engine</a><a href="../02-system-design/21_api_gateway_and_auth_system.html">Design an API Gateway and Auth System</a><a href="../02-system-design/22_logging_and_metrics_platform.html">Design a Logging and Metrics Platform</a><a href="../02-system-design/90_cheat_sheet.html">Cheat Sheet (one page)</a><a href="../02-system-design/91_practice_questions.html">Practice Questions (30)</a></details><details open><summary>Low-level design</summary><a href="00_how_the_lld_round_works.html">- How the LLD round works</a><a href="01_oop_in_plain_words.html">- OOP in plain words</a><a href="02_solid_principles.html">- SOLID principles</a><a href="03_design_patterns_you_need.html">- The 8 design patterns you need</a><a href="10_parking_lot.html">- Parking Lot</a><a href="11_lru_cache.html">- LRU Cache</a><a href="12_elevator_system.html">- Elevator System</a><a href="13_library_management.html">- Library Management System</a><a href="14_vending_machine.html">- Vending Machine (State pattern)</a><a href="15_atm.html">- ATM</a><a href="16_rate_limiter_class.html">- Rate Limiter (class design: token bucket and sliding windo</a><a class="cur" href="17_amazon_locker.html">- Amazon Locker</a><a href="18_splitwise_expense_sharing.html">- Splitwise (Expense Sharing)</a><a href="19_logger_and_notification_system.html">- Logger and Notification System (Observer and Strategy)</a><a href="20_tic_tac_toe_or_chess_basics.html">- Tic-Tac-Toe (full) and Chess basics</a><a href="90_cheat_sheet.html">- Cheat sheet (read the night before)</a><a href="91_practice_questions.html">- Practice questions (20)</a></details><details><summary>DevOps and platform basics</summary><a href="../05-devops-platform-basics/01_linux_processes_memory_files.html">Linux: processes, memory, and files</a><a href="../05-devops-platform-basics/02_networking.html">Networking: TCP, DNS, TLS, NAT</a><a href="../05-devops-platform-basics/03_containers_and_docker.html">Containers and Docker</a><a href="../05-devops-platform-basics/04_kubernetes_from_zero.html">Kubernetes from zero</a><a href="../05-devops-platform-basics/05_helm.html">Helm</a><a href="../05-devops-platform-basics/06_terraform.html">Terraform</a><a href="../05-devops-platform-basics/07_ci_cd_github_actions.html">CI/CD with GitHub Actions</a><a href="../05-devops-platform-basics/08_observability_and_sre.html">Observability and SRE</a><a href="../05-devops-platform-basics/09_concurrency_and_distributed_basics.html">Concurrency and distributed basics</a><a href="../05-devops-platform-basics/10_databases_basics.html">Databases basics</a><a href="../05-devops-platform-basics/11_security_basics.html">Security basics (IAM, OAuth2/OIDC/JWT, secrets, supply chain</a><a href="../05-devops-platform-basics/12_gcp_pca_quick_map.html">Google Cloud quick map (for Professional Cloud Architect hol</a><a href="../05-devops-platform-basics/20_interview_questions_with_answers.html">Sixty interview questions with model answers (platform / SRE</a><a href="../05-devops-platform-basics/21_scenario_questions.html">Fifteen &quot;production is down&quot; scenarios, with step-by-step an</a></details><details><summary>Company processes</summary><a href="../06-company-process-and-behavioural/10_google.html">Google</a><a href="../06-company-process-and-behavioural/11_amazon.html">Amazon</a><a href="../06-company-process-and-behavioural/12_stripe.html">Stripe</a><a href="../06-company-process-and-behavioural/13_microsoft_and_azure_roles.html">Microsoft and Azure roles</a><a href="../06-company-process-and-behavioural/14_indian_product_and_gcc_companies.html">Indian product companies and GCCs</a><a href="../06-company-process-and-behavioural/15_european_scaleups.html">European scale-ups and visa basics</a><a href="../06-company-process-and-behavioural/16_ai_startups_like_smallest_ai.html">AI startups like Smallest AI</a><a href="../06-company-process-and-behavioural/24_questions_to_ask_interviewers.html">Questions to ask interviewers</a><a href="../06-company-process-and-behavioural/25_salary_notice_period_and_offer_negotiation_india_and_abroad.html">Salary, notice period and offer negotiation (India and abroa</a><a href="../06-company-process-and-behavioural/26_interview_day_checklists.html">Interview day checklists</a></details></nav><main><h1 id="17-amazon-locker">17 - Amazon Locker</h1>
+
+<p>Python 3.9. All code was run; the output is real.</p>
+
+<hr />
+
+<h2 id="1-the-problem-in-plain-words">1. The problem in plain words</h2>
+
+<p>A <strong>locker station</strong> is a wall of boxes (compartments) of different sizes, placed in a shop or a station. A delivery person puts a package in a box. The customer gets a <strong>pickup code</strong>. The customer types the code at the station, the right box opens, and they take the package. If nobody collects the package within a few days, staff remove it and send it back.</p>
+
+<p><strong>Analogy.</strong> A hotel cloakroom with a numbered token: you give your bag, you get a token, you come back with the token and get exactly that bag.</p>
+
+<p>(A Jointaro candidate report (Amazon SDE II, Austin, May 2022, no offer) says one question was to "design an API for an Amazon Locker system" and then scale it
+(<a href="https://www.jointaro.com/interviews/companies/amazon/experiences/software-engineer-ii-sde2-austin-tx-may-1-2022-no-offer-neutral-ad02ca44/">Jointaro</a>). That is one anonymous report and it describes an API design round, so treat it as a hint. Hello Interview lists "Amazon Locker" as one of its practice LLD problems, but that is a practice problem, not a claim about Amazon's real interviews
+(<a href="https://www.hellointerview.com/learn/low-level-design/problem-breakdowns/amazon-locker">Hello Interview</a>).)</p>
+
+<hr />
+
+<h2 id="2-requirements-i-ask-the-interviewer">2. Requirements I ask the interviewer</h2>
+
+<ol>
+<li>Compartment sizes? -> <em>Small, medium, large.</em></li>
+<li>Which box for a package? -> <em>The smallest free box that fits (a small package may use a bigger box if needed).</em></li>
+<li>How does the customer open the box? -> <em>A random numeric code, unique among active packages.</em></li>
+<li>How long is a package kept? -> <em>3 days (configurable). After that the code stops working.</em></li>
+<li>What happens to expired packages? -> <em>Staff call a "collect expired" action: the packages are removed and the boxes are freed.</em></li>
+<li>What if no box fits? -> <em>Reject the deposit with a clear error (the delivery system can try another locker).</em></li>
+<li>Several lockers? -> <em>One station for the core; a network of stations is an extension.</em></li>
+<li>Threads? -> <em>Yes, several delivery agents and customers at once.</em></li>
+</ol>
+
+<hr />
+
+<h2 id="3-classes-and-methods-the-picture">3. Classes and methods (the picture)</h2>
+
+<pre><code>+---------------------------------------------------+
+|                      Locker                       |   &lt;- the boss (one station)
+|---------------------------------------------------|
+| name, compartments, hold_days                     |
+| deposit(package) -&gt; code                          |
+| pickup(code) -&gt; package                           |
+| collect_expired() -&gt; [packages]                   |
+| free_count()                                      |
++--+----------------+--------------+----------------+
+   | has many       | uses         | uses
+   v                v              v
++-------------+  +-----------------------+  +----------------------+
+| Compartment |  | CompartmentSelector   |  | CodeGenerator        |
+|-------------|  | (abstract, Strategy)  |  | (abstract, Strategy) |
+| id, size    |  | choose(comps, pkg)    |  | generate()           |
+| package     |  +-----------+-----------+  +----------+-----------+
+| can_fit()   |       SmallestFitSelector        RandomCodeGenerator
++-------------+
+      Package(id, size)        AccessToken(code, compartment, expires_at)
+
+ Extension: LockerNetwork (many Locker objects, tries the nearest first)
+</code></pre>
+
+<p><strong>Why these?</strong></p>
+
+<ul>
+<li><code>Compartment</code> knows if a package fits.</li>
+<li><code>AccessToken</code> links a code, a box, and an expiry time.</li>
+<li>Choosing a box and making codes are two things that change (new rules, secure codes), so each is a small Strategy.</li>
+</ul>
+
+<hr />
+
+<h2 id="4-full-code">4. Full code</h2>
+
+<pre><code>import random                                  # to create random codes
+import threading                               # Lock
+from abc import ABC, abstractmethod            # "promise" classes
+from enum import Enum                          # fixed named choices
+
+
+class Size(Enum):
+    SMALL = 1                                  # number = size rank (bigger number = bigger)
+    MEDIUM = 2
+    LARGE = 3
+
+
+class NoSpaceError(Exception):                 # no box fits this package
+    pass
+
+
+class InvalidCodeError(Exception):             # wrong or already used code
+    pass
+
+
+class ExpiredCodeError(Exception):             # code is correct but too late
+    pass
+
+
+class Package:
+    def __init__(self, package_id, size):
+        self.package_id = package_id
+        self.size = size                       # a Size
+
+
+class Compartment:
+    def __init__(self, comp_id, size):
+        self.comp_id = comp_id
+        self.size = size
+        self.package = None                    # None = empty
+
+    def is_free(self):
+        return self.package is None
+
+    def can_fit(self, package):
+        return self.size.value &gt;= package.size.value   # same rank rule as the parking lot
+
+
+class AccessToken:
+    def __init__(self, code, compartment, expires_at):
+        self.code = code                       # what the customer types
+        self.compartment = compartment         # which box it opens
+        self.expires_at = expires_at           # day number after which it is invalid
+
+
+# ---------- strategies ----------
+
+class CompartmentSelector(ABC):
+    @abstractmethod
+    def choose(self, compartments, package):
+        pass
+
+
+class SmallestFitSelector(CompartmentSelector):
+    def choose(self, compartments, package):
+        fits = [c for c in compartments if c.is_free() and c.can_fit(package)]
+        if not fits:
+            return None
+        # smallest size first; ties broken by id so the result is the same every run
+        return min(fits, key=lambda c: (c.size.value, c.comp_id))
+
+
+class CodeGenerator(ABC):
+    @abstractmethod
+    def generate(self):
+        pass
+
+
+class RandomCodeGenerator(CodeGenerator):
+    def __init__(self, rng, digits=6):
+        self.rng = rng                         # a random.Random object (we can give it a seed for repeatable tests)
+        self.digits = digits
+
+    def generate(self):
+        # a number from 0 to 999999, shown with leading zeros, for example "004217"
+        return str(self.rng.randrange(10 ** self.digits)).zfill(self.digits)
+
+
+# ---------- the boss ----------
+
+class Locker:
+    def __init__(self, name, compartments, code_generator, clock, selector=None, hold_days=3):
+        self.name = name
+        self.compartments = compartments       # list of Compartment
+        self.code_generator = code_generator
+        self.clock = clock                     # function returning the current day number (float)
+        self.selector = selector or SmallestFitSelector()
+        self.hold_days = hold_days
+        self._tokens = {}                      # code -&gt; AccessToken (only active packages)
+        self._lock = threading.Lock()
+
+    def deposit(self, package):
+        with self._lock:                       # choose a box and take it: one atomic step
+            comp = self.selector.choose(self.compartments, package)
+            if comp is None:
+                raise NoSpaceError("no free compartment for " + package.size.name)
+            code = self.code_generator.generate()
+            while code in self._tokens:        # make sure the code is unique among active ones
+                code = self.code_generator.generate()
+            comp.package = package             # box is now occupied
+            self._tokens[code] = AccessToken(code, comp, self.clock() + self.hold_days)
+            return code
+
+    def pickup(self, code):
+        with self._lock:
+            token = self._tokens.get(code)
+            if token is None:
+                raise InvalidCodeError("code not recognised")
+            if self.clock() &gt; token.expires_at:
+                raise ExpiredCodeError("code expired; contact support")
+            package = token.compartment.package
+            token.compartment.package = None   # free the box
+            del self._tokens[code]             # a code works only once
+            return package
+
+    def collect_expired(self):
+        # staff action: remove all packages whose code has expired, free their boxes
+        with self._lock:
+            now = self.clock()
+            removed = []
+            for code in list(self._tokens):    # list(...) copy: we delete while looping
+                token = self._tokens[code]
+                if now &gt; token.expires_at:
+                    removed.append(token.compartment.package)
+                    token.compartment.package = None
+                    del self._tokens[code]
+            return removed
+
+    def free_count(self):
+        with self._lock:
+            return sum(1 for c in self.compartments if c.is_free())
+
+
+# ---------- EXTENSION: a network of lockers ----------
+
+class LockerNetwork:
+    def __init__(self, lockers_by_distance):
+        self.lockers = lockers_by_distance     # list of Locker, nearest first
+
+    def deposit_nearest(self, package):
+        for locker in self.lockers:            # try the nearest, then the next...
+            try:
+                return locker.name, locker.deposit(package)
+            except NoSpaceError:
+                continue
+        raise NoSpaceError("all lockers are full for " + package.size.name)
+
+
+class Clock:
+    def __init__(self):
+        self.day = 0.0
+    def __call__(self):
+        return self.day
+
+
+def make_locker(name, sizes, clock, seed=1):
+    comps = [Compartment(name + "-" + str(i + 1), s) for i, s in enumerate(sizes)]
+    return Locker(name, comps, RandomCodeGenerator(random.Random(seed)), clock)
+
+
+def main():
+    clock = Clock()
+    locker = make_locker("L1", [Size.SMALL, Size.MEDIUM, Size.LARGE], clock)
+
+    code_a = locker.deposit(Package("pkg-A", Size.SMALL))
+    code_b = locker.deposit(Package("pkg-B", Size.SMALL))      # small box taken, so this goes to the MEDIUM box
+    print("A code:", code_a, "-&gt; box", locker._tokens[code_a].compartment.comp_id)
+    print("B code:", code_b, "-&gt; box", locker._tokens[code_b].compartment.comp_id)
+    code_c = locker.deposit(Package("pkg-C", Size.LARGE))
+    print("free boxes:", locker.free_count())
+    try:
+        locker.deposit(Package("pkg-D", Size.SMALL))           # everything is full
+    except NoSpaceError as e:
+        print("deposit refused:", e)
+
+    print("pickup A:", locker.pickup(code_a).package_id)
+    try:
+        locker.pickup(code_a)                                  # the same code again
+    except InvalidCodeError as e:
+        print("second use:", e)
+    try:
+        locker.pickup("000000")
+    except InvalidCodeError as e:
+        print("guess:", e)
+
+    clock.day = 4.0                                            # 4 days later: B and C are past 3 days
+    try:
+        locker.pickup(code_b)
+    except ExpiredCodeError as e:
+        print("pickup B on day 4:", e)
+    removed = locker.collect_expired()
+    print("staff removed:", [p.package_id for p in removed], "| free boxes:", locker.free_count())
+
+    # ---- extension demo ----
+    print("--- extension: network of lockers ---")
+    c2 = Clock()
+    near = make_locker("NEAR", [Size.SMALL], c2, seed=2)
+    far = make_locker("FAR", [Size.SMALL, Size.LARGE], c2, seed=3)
+    net = LockerNetwork([near, far])
+    print(net.deposit_nearest(Package("p1", Size.SMALL))[0])   # NEAR has space
+    print(net.deposit_nearest(Package("p2", Size.SMALL))[0])   # NEAR is full, so FAR
+    print(net.deposit_nearest(Package("p3", Size.LARGE))[0])   # only FAR has a large box
+    try:
+        net.deposit_nearest(Package("p4", Size.LARGE))
+    except NoSpaceError as e:
+        print("network full:", e)
+
+    # ---- thread test: 20 agents try to use 5 boxes ----
+    print("--- thread test ---")
+    c3 = Clock()
+    busy = make_locker("BUSY", [Size.MEDIUM] * 5, c3, seed=4)
+    codes, fails = [], []
+    def agent(n):
+        try:
+            codes.append(busy.deposit(Package("p" + str(n), Size.SMALL)))
+        except NoSpaceError:
+            fails.append(n)
+    threads = [threading.Thread(target=agent, args=(n,)) for n in range(20)]
+    for t in threads: t.start()
+    for t in threads: t.join()
+    print("deposited:", len(codes), "| refused:", len(fails), "| codes all different:", len(set(codes)) == len(codes))
+
+
+if __name__ == "__main__":
+    main()
+</code></pre>
+
+<p>Output I got when I ran it:</p>
+
+<pre><code>A code: 140891 -&gt; box L1-1
+B code: 596853 -&gt; box L1-2
+free boxes: 0
+deposit refused: no free compartment for SMALL
+pickup A: pkg-A
+second use: code not recognised
+guess: code not recognised
+pickup B on day 4: code expired; contact support
+staff removed: ['pkg-B', 'pkg-C'] | free boxes: 3
+--- extension: network of lockers ---
+NEAR
+FAR
+FAR
+network full: all lockers are full for LARGE
+--- thread test ---
+deposited: 5 | refused: 15 | codes all different: True
+</code></pre>
+
+<hr />
+
+<h2 id="5-how-the-code-works-walk-through">5. How the code works (walk through)</h2>
+
+<ol>
+<li><code>deposit</code>: under the lock, the <strong>selector</strong> picks the smallest free box that fits. Then a unique code is created, the box is marked occupied, and an <code>AccessToken</code> (code, box, expiry day) is saved in <code>_tokens</code>.</li>
+<li><code>pickup</code>: look up the code. Unknown means <code>InvalidCodeError</code>. Past the expiry means <code>ExpiredCodeError</code>. Otherwise the box is emptied and the code is deleted (a code works only once).</li>
+<li><code>collect_expired</code>: staff action. It walks the tokens, and for each expired one removes the package and frees the box. We loop over <code>list(self._tokens)</code> (a copy) because we delete during the loop.</li>
+<li>In the output: package A (small) took the small box; package B (small) was forced into the medium box (smallest <em>free</em> fit); on day 4 the old codes are expired, and staff removal frees everything.</li>
+</ol>
+
+<p>The codes come from a seeded random generator only so the output is repeatable. In production the generator must be <strong>unpredictable</strong> (use <code>secrets</code> in Python, not <code>random</code>).</p>
+
+<hr />
+
+<h2 id="6-how-to-extend-it">6. How to extend it</h2>
+
+<p><strong>"We have many locker stations."</strong> <code>LockerNetwork</code> holds several <code>Locker</code> objects ordered by distance and tries them in turn. <code>Locker</code> is unchanged.</p>
+
+<p><strong>"Returns: a customer wants to send a package back using the locker."</strong> Add <code>deposit_return(package, customer_id)</code> that uses the same selector but creates a <em>return token</em> for the delivery driver. Probably a small <code>TokenType</code> enum (<code>PICKUP</code>, <code>RETURN</code>) on <code>AccessToken</code>.</p>
+
+<p><strong>"Give notifications when a package arrives or is about to expire."</strong> Add an observer list on <code>Locker</code> (Observer pattern, file 03): <code>deposit</code> emits <code>PACKAGE_READY</code>; a daily job emits <code>EXPIRING_SOON</code>.</p>
+
+<p><strong>"Better box choice (for example keep large boxes free)."</strong> A new <code>CompartmentSelector</code>. Nothing else changes.</p>
+
+<hr />
+
+<h2 id="7-thread-safety-notes-plain-words">7. Thread-safety notes (plain words)</h2>
+
+<ul>
+<li><strong>The danger:</strong> two delivery agents ask for a box at the same moment. Both see the same free box and both put a package in it. Or two packages get the same code.</li>
+<li><strong>The fix:</strong> one lock covers "choose a box + create a code + occupy the box" as a single step. The thread test shows 20 agents and 5 boxes: exactly 5 succeed, and all 5 codes are different.</li>
+<li><code>pickup</code> and <code>collect_expired</code> use the same lock, so a customer cannot collect a package at the same moment staff remove it.</li>
+<li>For a <strong>network</strong> of lockers, each station has its own lock, and <code>LockerNetwork</code> does not hold any lock while it moves to the next station, so there is no deadlock.</li>
+</ul>
+
+<hr />
+
+<h2 id="8-five-follow-up-questions-with-model-answers">8. Five follow-up questions with model answers</h2>
+
+<p><strong>Q1. How do you stop someone guessing codes?</strong>
+Six digits give a million possibilities, so brute force is possible. Add (1) a limit on failed attempts per station or per minute (use the rate limiter, file 16), (2) longer codes or codes tied to the customer's phone, and (3) generate codes with a secure random source. A failed-attempt counter is a few lines in <code>pickup</code>.</p>
+
+<p><strong>Q2. Why does <code>pickup</code> raise different errors for invalid and expired codes?</strong>
+The caller can show a different message and take a different action: "wrong code, try again" versus "this package is waiting for return, contact support". Using separate exception classes also keeps the happy path clean.</p>
+
+<p><strong>Q3. How would you handle a box that is broken?</strong>
+Add a <code>status</code> to <code>Compartment</code> (<code>OK</code>, <code>OUT_OF_SERVICE</code>), and make <code>is_free()</code> return <code>False</code> if it is not OK. The selector and <code>deposit</code> then skip it automatically. (Same idea as the elevator maintenance state.)</p>
+
+<p><strong>Q4. How do you choose boxes if many packages arrive at once, to avoid waste?</strong>
+The simple "smallest fit" rule can leave large packages without space after small packages used medium boxes. A better approach is to plan the whole batch: sort packages from largest to smallest, assign each to the smallest fitting box. Wrap this in a new <code>BatchSelector</code> strategy.</p>
+
+<p><strong>Q5. Why is <code>collect_expired</code> a method and not a background thread?</strong>
+Staff need a clear, testable action ("run now"). A background thread adds timing problems that are hard to test. You can still add a scheduler that calls <code>collect_expired()</code> once per hour; it just calls the same method.</p>
+
+<hr />
+
+<p><strong>Next:</strong> <code>18_splitwise_expense_sharing.md</code>.</p>
+<div class="pn"><span><a href="16_rate_limiter_class.html">&larr; 16 - Rate Limiter (class design: token b</a></span><span><a href="18_splitwise_expense_sharing.html">18 - Splitwise (Expense Sharing) &rarr;</a></span></div></main></div></body></html>
