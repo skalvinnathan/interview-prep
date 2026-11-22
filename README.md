@@ -2,6 +2,8 @@
 
 **Read it as a website:** https://skalvinnathan.github.io/interview-prep/
 
+**Short on time?** Start with the [three-day crash plan](00-start-here/01_three_day_crash_plan.md).
+
 Plain-English study notes for platform, backend and software engineer interviews, written for people who want every term explained from zero.
 
 - Code in `01-dsa` and `03-low-level-design` was run (Python 3.9) before being written down.

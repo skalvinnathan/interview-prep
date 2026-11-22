@@ -1,0 +1,347 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Three-day crash plan (backend engineer: Google and Stripe style loops) | Interview prep</title><style>
+:root{--bg:#fff;--fg:#1f2328;--mut:#59636e;--bd:#d1d9e0;--ac:#0b57d0;--cb:#f6f8fa;--sb:#f6f8fa}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9198a1;--bd:#30363d;--ac:#6cb6ff;--cb:#161b22;--sb:#010409}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{display:flex;min-height:100vh}nav{width:300px;flex:none;background:var(--sb);border-right:1px solid var(--bd);padding:16px;overflow:auto;position:sticky;top:0;height:100vh}
+nav a{color:var(--fg);text-decoration:none;display:block;padding:3px 6px;border-radius:6px;font-size:14px}nav a:hover{background:var(--cb)}nav a.cur{background:var(--ac);color:#fff}
+nav summary{cursor:pointer;font-weight:600;padding:6px 0}nav .home{font-weight:700;font-size:16px;margin-bottom:8px}
+main{flex:1;min-width:0;max-width:900px;padding:24px 32px 80px;margin:0 auto}
+h1,h2,h3{line-height:1.25}h1{border-bottom:1px solid var(--bd);padding-bottom:.3em}h2{border-bottom:1px solid var(--bd);padding-bottom:.25em;margin-top:2em}
+a{color:var(--ac)}pre{background:var(--cb);border:1px solid var(--bd);border-radius:8px;padding:14px;overflow:auto;font-size:13.5px;line-height:1.5}
+code{background:var(--cb);padding:.15em .35em;border-radius:5px;font-size:.92em}pre code{background:none;padding:0}
+table{border-collapse:collapse;display:block;overflow:auto;max-width:100%}th,td{border:1px solid var(--bd);padding:6px 10px;text-align:left;vertical-align:top}th{background:var(--cb)}
+blockquote{border-left:4px solid var(--bd);margin:0;padding:0 1em;color:var(--mut)}img{max-width:100%}
+.top{display:none}.pn{display:flex;justify-content:space-between;gap:12px;margin-top:48px;border-top:1px solid var(--bd);padding-top:16px;font-size:14px}
+@media(max-width:820px){.wrap{display:block}nav{width:auto;height:auto;position:static;border-right:0;border-bottom:1px solid var(--bd)}main{padding:16px}}
+</style></head><body><div class="wrap"><nav><a class="home" href="../index.html">Interview prep</a><details open><summary>Start here</summary><a class="cur" href="01_three_day_crash_plan.html">Three-day crash plan (backend engineer: Google and Stripe st</a></details><details><summary>Data structures and algorithms</summary><a href="../01-dsa/00_how_to_start.html">How to start: reading a problem, the 5-step method, and Big-</a><a href="../01-dsa/01_arrays_and_strings.html">Lesson 01. Arrays and Strings</a><a href="../01-dsa/02_hash_maps_and_sets.html">Lesson 02. Hash Maps and Sets</a><a href="../01-dsa/03_two_pointers.html">Lesson 03. Two Pointers</a><a href="../01-dsa/04_sliding_window.html">Lesson 04. Sliding Window</a><a href="../01-dsa/05_stack_and_queue.html">Lesson 05. Stack and Queue (including the monotonic stack)</a><a href="../01-dsa/06_binary_search.html">Lesson 06. Binary Search (including search on the answer)</a><a href="../01-dsa/07_linked_lists.html">Lesson 07. Linked Lists</a><a href="../01-dsa/08_trees_and_bst.html">Lesson 08. Trees and Binary Search Trees (BST)</a><a href="../01-dsa/09_heaps_and_priority_queues.html">Lesson 09: Heaps and Priority Queues</a><a href="../01-dsa/10_graphs_bfs_dfs.html">Lesson 10: Graphs, BFS and DFS (including grids)</a><a href="../01-dsa/11_topological_sort_and_union_find.html">Lesson 11: Topological Sort and Union-Find</a><a href="../01-dsa/12_shortest_paths.html">Lesson 12: Shortest Paths (Dijkstra in plain words)</a><a href="../01-dsa/13_intervals.html">Lesson 13: Intervals (merge intervals, meeting rooms)</a><a href="../01-dsa/14_backtracking.html">Lesson 14: Backtracking (subsets, permutations, combination </a><a href="../01-dsa/15_dynamic_programming_part1.html">Lesson 15: Dynamic Programming, Part 1 (remembering answers)</a><a href="../01-dsa/16_dynamic_programming_part2.html">Lesson 16: Dynamic Programming, Part 2 (LIS, word break, kna</a><a href="../01-dsa/17_tries_and_greedy.html">Lesson 17: Tries and Greedy</a><a href="../01-dsa/18_bit_tricks_and_math_basics.html">Lesson 18: Bit Tricks and Math Basics (short)</a><a href="../01-dsa/19_company_question_patterns.html">Lesson 19: Company Question Patterns (Google, Amazon, Meta, </a></details><details><summary>System design</summary><a href="../02-system-design/00_how_the_round_works.html">How the System Design Round Works</a><a href="../02-system-design/01a_client_server_and_http.html">Client, Server and HTTP</a><a href="../02-system-design/01b_dns_and_cdn.html">DNS and CDN</a><a href="../02-system-design/01c_load_balancers.html">Load Balancers</a><a href="../02-system-design/01d_databases.html">Databases: SQL vs NoSQL, Indexes, Transactions</a><a href="../02-system-design/01e_caching.html">Caching (and Why Invalidation Is Hard)</a><a href="../02-system-design/01f_sharding_and_replication.html">Sharding and Replication</a><a href="../02-system-design/01g_message_queues_and_streams.html">Message Queues and Streams (Kafka Basics)</a><a href="../02-system-design/01h_consistency_and_cap.html">Consistency and the CAP Idea (in Plain Words)</a><a href="../02-system-design/02_numbers_and_estimation.html">Numbers and Estimation</a><a href="../02-system-design/03_reliability_patterns.html">Reliability Patterns</a><a href="../02-system-design/10_url_shortener.html">Design a URL Shortener</a><a href="../02-system-design/11_rate_limiter.html">Design a Rate Limiter</a><a href="../02-system-design/12_chat_system.html">Design a Chat System (like WhatsApp or Slack)</a><a href="../02-system-design/13_news_feed.html">Design a News Feed (like Instagram, Facebook or Twitter/X ho</a><a href="../02-system-design/14_notification_service.html">Design a Notification Service</a><a href="../02-system-design/15_file_storage_like_drive.html">Design File Storage and Sync (like Google Drive or Dropbox)</a><a href="../02-system-design/16_search_autocomplete.html">Design Search Autocomplete (Typeahead)</a><a href="../02-system-design/17_video_streaming_basics.html">Design Video Streaming Basics (like YouTube or Netflix)</a><a href="../02-system-design/18_payment_system_like_stripe.html">Design a Payment System (like Stripe)</a><a href="../02-system-design/19_order_management_like_amazon.html">Design an Order Management System (like Amazon: inventory, o</a><a href="../02-system-design/20_job_scheduler_and_workflow_engine.html">Design a Job Scheduler and Workflow Engine</a><a href="../02-system-design/21_api_gateway_and_auth_system.html">Design an API Gateway and Auth System</a><a href="../02-system-design/22_logging_and_metrics_platform.html">Design a Logging and Metrics Platform</a><a href="../02-system-design/90_cheat_sheet.html">Cheat Sheet (one page)</a><a href="../02-system-design/91_practice_questions.html">Practice Questions (30)</a></details><details><summary>Low-level design</summary><a href="../03-low-level-design/00_how_the_lld_round_works.html">- How the LLD round works</a><a href="../03-low-level-design/01_oop_in_plain_words.html">- OOP in plain words</a><a href="../03-low-level-design/02_solid_principles.html">- SOLID principles</a><a href="../03-low-level-design/03_design_patterns_you_need.html">- The 8 design patterns you need</a><a href="../03-low-level-design/10_parking_lot.html">- Parking Lot</a><a href="../03-low-level-design/11_lru_cache.html">- LRU Cache</a><a href="../03-low-level-design/12_elevator_system.html">- Elevator System</a><a href="../03-low-level-design/13_library_management.html">- Library Management System</a><a href="../03-low-level-design/14_vending_machine.html">- Vending Machine (State pattern)</a><a href="../03-low-level-design/15_atm.html">- ATM</a><a href="../03-low-level-design/16_rate_limiter_class.html">- Rate Limiter (class design: token bucket and sliding windo</a><a href="../03-low-level-design/17_amazon_locker.html">- Amazon Locker</a><a href="../03-low-level-design/18_splitwise_expense_sharing.html">- Splitwise (Expense Sharing)</a><a href="../03-low-level-design/19_logger_and_notification_system.html">- Logger and Notification System (Observer and Strategy)</a><a href="../03-low-level-design/20_tic_tac_toe_or_chess_basics.html">- Tic-Tac-Toe (full) and Chess basics</a><a href="../03-low-level-design/90_cheat_sheet.html">- Cheat sheet (read the night before)</a><a href="../03-low-level-design/91_practice_questions.html">- Practice questions (20)</a></details><details><summary>DevOps and platform basics</summary><a href="../05-devops-platform-basics/01_linux_processes_memory_files.html">Linux: processes, memory, and files</a><a href="../05-devops-platform-basics/02_networking.html">Networking: TCP, DNS, TLS, NAT</a><a href="../05-devops-platform-basics/03_containers_and_docker.html">Containers and Docker</a><a href="../05-devops-platform-basics/04_kubernetes_from_zero.html">Kubernetes from zero</a><a href="../05-devops-platform-basics/05_helm.html">Helm</a><a href="../05-devops-platform-basics/06_terraform.html">Terraform</a><a href="../05-devops-platform-basics/07_ci_cd_github_actions.html">CI/CD with GitHub Actions</a><a href="../05-devops-platform-basics/08_observability_and_sre.html">Observability and SRE</a><a href="../05-devops-platform-basics/09_concurrency_and_distributed_basics.html">Concurrency and distributed basics</a><a href="../05-devops-platform-basics/10_databases_basics.html">Databases basics</a><a href="../05-devops-platform-basics/11_security_basics.html">Security basics (IAM, OAuth2/OIDC/JWT, secrets, supply chain</a><a href="../05-devops-platform-basics/12_gcp_pca_quick_map.html">Google Cloud quick map (for Professional Cloud Architect hol</a><a href="../05-devops-platform-basics/20_interview_questions_with_answers.html">Sixty interview questions with model answers (platform / SRE</a><a href="../05-devops-platform-basics/21_scenario_questions.html">Fifteen &quot;production is down&quot; scenarios, with step-by-step an</a></details><details><summary>Company processes</summary><a href="../06-company-process-and-behavioural/10_google.html">Google</a><a href="../06-company-process-and-behavioural/11_amazon.html">Amazon</a><a href="../06-company-process-and-behavioural/12_stripe.html">Stripe</a><a href="../06-company-process-and-behavioural/13_microsoft_and_azure_roles.html">Microsoft and Azure roles</a><a href="../06-company-process-and-behavioural/14_indian_product_and_gcc_companies.html">Indian product companies and GCCs</a><a href="../06-company-process-and-behavioural/15_european_scaleups.html">European scale-ups and visa basics</a><a href="../06-company-process-and-behavioural/16_ai_startups_like_smallest_ai.html">AI startups like Smallest AI</a><a href="../06-company-process-and-behavioural/24_questions_to_ask_interviewers.html">Questions to ask interviewers</a><a href="../06-company-process-and-behavioural/25_salary_notice_period_and_offer_negotiation_india_and_abroad.html">Salary, notice period and offer negotiation (India and abroa</a><a href="../06-company-process-and-behavioural/26_interview_day_checklists.html">Interview day checklists</a></details></nav><main><h1 id="three-day-crash-plan-backend-engineer-google-and-stripe-style-loops">Three-day crash plan (backend engineer: Google and Stripe style loops)</h1>
+
+<p>This page is a route through the lessons on this site. It adds no new theory.
+It tells you what to read, what to type, in what order, and when to stop.</p>
+
+<p>Labels used here: <strong>[Official]</strong> = the company's own pages. <strong>[Third-party]</strong> = prep sites and candidate reports. <strong>[General advice]</strong> = my own suggestion.</p>
+
+<hr />
+
+<h2 id="read-this-first-what-three-days-can-and-cannot-do">Read this first: what three days can and cannot do</h2>
+
+<ul>
+<li><strong>Can do:</strong> learn 7 patterns well enough to solve easy and some medium problems, learn one routine you follow on every problem, explain two system designs, and answer basic Linux and Kubernetes questions.</li>
+<li><strong>Cannot do:</strong> make a beginner fluent at hard graph problems or dynamic programming. One prep site says plainly that a week is not enough from zero and suggests asking for 2 to 3 more weeks <strong>[Third-party: Exponent]</strong>.</li>
+<li><strong>So the best single move is to ask for time.</strong> A recruiter call usually comes before any technical round. On that call, ask for 2 to 4 weeks before the technical screen. Recruiters hear this every day <strong>[General advice]</strong>.</li>
+<li>Treat these three days as the base. Repeat them, then continue with the lessons you skipped.</li>
+</ul>
+
+<h2 id="the-rules-for-all-three-days">The rules for all three days</h2>
+
+<ol>
+<li><strong>No AI and no autocomplete while you practise.</strong> Google bans AI tools in interviews <strong>[Official]</strong>. Reports on Stripe conflict, so assume none unless the recruiter says otherwise in writing <strong>[Third-party]</strong>.</li>
+<li><strong>Type every solution yourself.</strong> Reading code teaches almost nothing. Typing it from memory does.</li>
+<li><strong>Use a timer.</strong> 30 minutes per problem. If you are stuck after 20 minutes, read the solution in the lesson, close it, and type it again from memory.</li>
+<li><strong>Talk out loud while you code.</strong> Both companies grade how you think, not only the answer <strong>[Official: Google interview tips; Third-party: Stripe reports]</strong>.</li>
+<li><strong>Keep a "failed" list.</strong> Every problem you could not solve alone goes on it. Redo the list each morning.</li>
+<li><strong>Follow the same six steps on every problem</strong> (from <a href="../01-dsa/00_how_to_start.html">how to start</a>):
+<ol>
+<li>Say the problem back in your own words and ask two questions.</li>
+<li>Work one small example by hand.</li>
+<li>Say the slow, obvious way first.</li>
+<li>Say the faster way and why it is faster.</li>
+<li>Write the code.</li>
+<li>Test it by hand on your example and one edge case, then say the time and space cost.</li>
+</ol></li>
+</ol>
+
+<h2 id="two-practice-modes-they-are-different-on-purpose">Two practice modes (they are different on purpose)</h2>
+
+<table>
+<thead>
+<tr>
+  <th></th>
+  <th>Google style</th>
+  <th>Stripe style</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Problem</td>
+  <td>Short algorithm puzzle</td>
+  <td>Practical, multi-part task (parse, validate, total up)</td>
+</tr>
+<tr>
+  <td>Where you write</td>
+  <td>Plain document, <strong>code does not run</strong> <strong>[Third-party]</strong></td>
+  <td>Your own editor, <strong>code must run</strong> <strong>[Third-party]</strong></td>
+</tr>
+<tr>
+  <td>What counts most</td>
+  <td>Thinking out loud, correct logic, hand testing, Big-O</td>
+  <td>Working code, small tests, clear names, handling bad input</td>
+</tr>
+<tr>
+  <td>How to practise</td>
+  <td>Google Doc or plain text file, no running</td>
+  <td>VS Code or any editor, run it, write 3 small tests</td>
+</tr>
+</tbody>
+</table>
+
+<hr />
+
+<h2 id="day-1-arrays-strings-hash-maps-windows-sorting-binary-search">Day 1: arrays, strings, hash maps, windows, sorting, binary search</h2>
+
+<p>About 8 hours. Take a 10-minute break between blocks.</p>
+
+<table>
+<thead>
+<tr>
+  <th>Block</th>
+  <th>Time</th>
+  <th>Read</th>
+  <th>Then type these (search the name on LeetCode)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1</td>
+  <td>1 h</td>
+  <td><a href="../01-dsa/00_how_to_start.html">How to start</a>: the method and Big-O</td>
+  <td>Write the six steps on paper. Keep it next to you.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>2 h</td>
+  <td><a href="../01-dsa/01_arrays_and_strings.html">Arrays and strings</a>, <a href="../01-dsa/02_hash_maps_and_sets.html">Hash maps and sets</a></td>
+  <td>Two Sum, Valid Anagram, Group Anagrams</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td>2 h</td>
+  <td><a href="../01-dsa/03_two_pointers.html">Two pointers</a>, <a href="../01-dsa/04_sliding_window.html">Sliding window</a></td>
+  <td>Valid Palindrome, Best Time to Buy and Sell Stock, Longest Substring Without Repeating Characters</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td>1.5 h</td>
+  <td><a href="../01-dsa/13_intervals.html">Intervals</a></td>
+  <td>Merge Intervals, Meeting Rooms</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td>1 h</td>
+  <td><a href="../01-dsa/06_binary_search.html">Binary search</a></td>
+  <td>Binary Search, First Bad Version</td>
+</tr>
+<tr>
+  <td>Evening</td>
+  <td>30 min</td>
+  <td>Your own career story</td>
+  <td>Say a 60-second "who I am and what I built" out loud, three times.</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Done when:</strong> you can type Two Sum and Merge Intervals from a blank page in under 10 minutes each, and say why each is the speed it is.</p>
+
+<h2 id="day-2-trees-graphs-heaps-then-stripe-style-tasks">Day 2: trees, graphs, heaps, then Stripe-style tasks</h2>
+
+<table>
+<thead>
+<tr>
+  <th>Block</th>
+  <th>Time</th>
+  <th>Read</th>
+  <th>Then type these</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>0</td>
+  <td>20 min</td>
+  <td>Your failed list</td>
+  <td>Redo yesterday's failed problems from a blank page.</td>
+</tr>
+<tr>
+  <td>1</td>
+  <td>2 h</td>
+  <td><a href="../01-dsa/08_trees_and_bst.html">Trees</a></td>
+  <td>Maximum Depth of Binary Tree, Invert Binary Tree, Binary Tree Level Order Traversal</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>2 h</td>
+  <td><a href="../01-dsa/10_graphs_bfs_dfs.html">Graphs: BFS and DFS</a></td>
+  <td>Number of Islands, Flood Fill, Rotting Oranges</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td>1 h</td>
+  <td><a href="../01-dsa/09_heaps_and_priority_queues.html">Heaps</a></td>
+  <td>Kth Largest Element in an Array, Top K Frequent Elements</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td>2.5 h</td>
+  <td>The three tasks below</td>
+  <td>Stripe mode: run the code and write tests.</td>
+</tr>
+<tr>
+  <td>Evening</td>
+  <td>30 min</td>
+  <td>Behavioural basics</td>
+  <td>Write three stories in Situation, Task, Action, Result form: one win, one failure, one conflict.</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="three-stripe-style-tasks-themes-candidates-report-third-party">Three Stripe-style tasks (themes candidates report <strong>[Third-party]</strong>)</h3>
+
+<p>Do them in your own editor. Each has parts. Finish part 1 fully, with tests, before reading part 2.</p>
+
+<p><strong>Task A: balances from transactions.</strong></p>
+
+<ol>
+<li>You get lines like <code>alice,bob,25.50</code> (payer, receiver, amount). Print each person's final balance.</li>
+<li>Skip bad lines (missing field, amount that is not a number, negative amount) and count how many you skipped.</li>
+<li>Print the fewest payments that would settle everyone back to zero.</li>
+</ol>
+
+<p><strong>Task B: rate limiter.</strong></p>
+
+<ol>
+<li>Write <code>allow(user_id, timestamp)</code> that returns False when the user has made more than 5 calls in the last 60 seconds.</li>
+<li>Make the limit and the window settings, not fixed numbers.</li>
+<li>Explain what breaks if two servers each run their own copy. Compare with <a href="../03-low-level-design/16_rate_limiter_class.html">the rate limiter class</a>.</li>
+</ol>
+
+<p><strong>Task C: currency conversion.</strong></p>
+
+<ol>
+<li>You get rates like <code>USD,EUR,0.9</code>. Write <code>convert("USD", "INR", 100)</code> when a direct rate exists.</li>
+<li>Make it work through one or more middle currencies. This is BFS from Day 2, block 2.</li>
+<li>Return the best rate, not just any rate.</li>
+</ol>
+
+<p><strong>Done when:</strong> Number of Islands is on paper from memory, and Task A parts 1 and 2 run with tests.</p>
+
+<h2 id="day-3-system-design-linux-kubernetes-then-a-mock">Day 3: system design, Linux, Kubernetes, then a mock</h2>
+
+<table>
+<thead>
+<tr>
+  <th>Block</th>
+  <th>Time</th>
+  <th>Read</th>
+  <th>Then do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>0</td>
+  <td>20 min</td>
+  <td>Your failed list</td>
+  <td>Redo.</td>
+</tr>
+<tr>
+  <td>1</td>
+  <td>2.5 h</td>
+  <td><a href="../02-system-design/00_how_the_round_works.html">How the round works</a>, <a href="../02-system-design/01c_load_balancers.html">Load balancers</a>, <a href="../02-system-design/01d_databases.html">Databases</a>, <a href="../02-system-design/01e_caching.html">Caching</a>, <a href="../02-system-design/01g_message_queues_and_streams.html">Queues</a>, <a href="../02-system-design/01h_consistency_and_cap.html">Consistency</a></td>
+  <td>For each page, write three lines: what it is, when to use it, what goes wrong.</td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>1.5 h</td>
+  <td><a href="../02-system-design/11_rate_limiter.html">Rate limiter</a>, <a href="../02-system-design/18_payment_system_like_stripe.html">Payment system</a></td>
+  <td>Set a 20-minute timer. Explain the payment design out loud to an empty room. Use the word "idempotency key" and say what it protects against.</td>
+</tr>
+<tr>
+  <td>3</td>
+  <td>1.5 h</td>
+  <td><a href="../05-devops-platform-basics/01_linux_processes_memory_files.html">Linux</a>, <a href="../05-devops-platform-basics/02_networking.html">Networking</a></td>
+  <td>Answer out loud: what happens when you type a URL and press Enter?</td>
+</tr>
+<tr>
+  <td>4</td>
+  <td>1.5 h</td>
+  <td><a href="../05-devops-platform-basics/04_kubernetes_from_zero.html">Kubernetes from zero</a>, <a href="../05-devops-platform-basics/20_interview_questions_with_answers.html">Questions with answers</a></td>
+  <td>Cover the answers. Say yours first. Mark the ones you miss.</td>
+</tr>
+<tr>
+  <td>5</td>
+  <td>1.5 h</td>
+  <td>Mock</td>
+  <td>One Day 1 problem in a plain document, 35 minutes, talking out loud, no running. Then Task B from Day 2 again from blank, 40 minutes, with tests.</td>
+</tr>
+<tr>
+  <td>Evening</td>
+  <td>30 min</td>
+  <td><a href="../06-company-process-and-behavioural/24_questions_to_ask_interviewers.html">Questions to ask</a>, <a href="../06-company-process-and-behavioural/26_interview_day_checklists.html">Day checklist</a>, <a href="../02-system-design/90_cheat_sheet.html">System design cheat sheet</a></td>
+  <td>Write your five questions for the recruiter.</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Done when:</strong> you can draw the payment system from memory and explain a pod, a deployment and a service in one sentence each.</p>
+
+<hr />
+
+<h2 id="what-to-skip-for-now">What to skip for now</h2>
+
+<p>Dynamic programming, backtracking, tries, union-find, shortest paths, bit tricks. One count of Google mock interviews puts arrays, strings, trees and graphs far ahead of these <strong>[Third-party: interviewing.io]</strong>, and a well-known study guide rates dynamic programming low priority when time is short <strong>[Third-party: Tech Interview Handbook]</strong>. No source gives exact percentages for Google, so treat this as a ranking, not a guarantee.</p>
+
+<h2 id="what-each-companys-later-rounds-look-like">What each company's later rounds look like</h2>
+
+<p><strong>Google (Software Engineer III, level L4) [Third-party unless marked]</strong></p>
+
+<ul>
+<li>One technical phone screen, 45 to 60 minutes: one medium problem or two short ones.</li>
+<li>Then two or three coding rounds and one behavioural ("Googleyness") round. Google itself only says "a panel of interviews" scored with "clear rubrics" <strong>[Official]</strong>.</li>
+<li>Sources disagree on whether L4 gets a system design round, and on whether you type in a Google Doc or Google's own interview editor. All agree the code does not run.</li>
+<li>Infrastructure teams sometimes swap one coding round for a domain round. No source shows a Kubernetes or Linux round at L4.</li>
+</ul>
+
+<p><strong>Stripe (backend) [Third-party; I could not load Stripe's own pages]</strong></p>
+
+<ul>
+<li>30-minute recruiter call, then a technical screen of about 60 minutes with one practical multi-part task.</li>
+<li>Onsite of four or five rounds: coding, bug squash (fix a bug in code you have never seen), integration (use an API from its documentation), system design, and a behavioural round.</li>
+<li>Design themes reported: rate limiter, payment processing, webhook delivery with retries, ledger. Idempotency comes up often.</li>
+<li>More detail: <a href="../06-company-process-and-behavioural/12_stripe.html">Stripe page</a>, <a href="../06-company-process-and-behavioural/10_google.html">Google page</a>.</li>
+</ul>
+
+<h2 id="questions-to-ask-the-recruiter">Questions to ask the recruiter</h2>
+
+<ul>
+<li>How many rounds are there, and what is each one?</li>
+<li>How long do I have before the technical screen? Can I have two to four weeks?</li>
+<li>Which editor will I use? Will the code run?</li>
+<li>Which languages are allowed?</li>
+<li>Are AI tools or web search allowed? (Ask Stripe to confirm in writing.)</li>
+<li>Is there a system design round or a domain round at my level?</li>
+<li>Does team matching happen before or after the hiring committee? (Google)</li>
+</ul>
+
+<h2 id="after-the-three-days">After the three days</h2>
+
+<ol>
+<li>Repeat Day 1 and Day 2 problems until none are on the failed list.</li>
+<li>Add <a href="../01-dsa/05_stack_and_queue.html">stacks and queues</a>, <a href="../01-dsa/07_linked_lists.html">linked lists</a> and <a href="../01-dsa/11_topological_sort_and_union_find.html">topological sort</a>.</li>
+<li>Do one Google-mode problem and one Stripe-mode task every day.</li>
+<li>For Stripe's bug squash: clone a small open-source Python project, pick a closed bug report, and try to find the fix yourself in 45 minutes.</li>
+<li>Only then start <a href="../01-dsa/15_dynamic_programming_part1.html">dynamic programming</a>.</li>
+</ol>
+
+<h2 id="sources">Sources</h2>
+
+<ul>
+<li>Google, How we hire: https://www.google.com/about/careers/applications/how-we-hire/</li>
+<li>Google, Interview tips: https://www.google.com/about/careers/applications/interview-tips/</li>
+<li>interviewing.io, Google hiring process: https://interviewing.io/guides/hiring-process/google</li>
+<li>Hello Interview, Google L4: https://www.hellointerview.com/guides/google/l4</li>
+<li>Prepfully, Google phone screen: https://prepfully.com/interview-guides/google-software-engineer-technical-phone-screen</li>
+<li>Tech Interview Handbook, study plan: https://www.techinterviewhandbook.org/coding-interview-study-plan/</li>
+<li>Aced, last-minute prep: https://www.aced.io/blog/last-minute-coding-interview-prep</li>
+<li>Aced, Stripe software engineer interview: https://www.aced.io/guides/stripe-software-engineer-interview</li>
+<li>interviewing.io, Stripe: https://interviewing.io/stripe-interview-questions</li>
+<li>Exponent, Stripe process: https://www.tryexponent.com/blog/stripe-interview-process</li>
+<li>Exponent, Stripe system design: https://www.tryexponent.com/blog/stripe-system-design-interview</li>
+</ul>
+</main></div></body></html>

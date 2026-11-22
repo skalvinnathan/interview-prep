@@ -3,7 +3,7 @@ import os, re, html, shutil, markdown2
 ROOT = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(ROOT, "docs")
 FOLDERS = sorted(d for d in os.listdir(ROOT) if re.match(r"^\d\d-", d) and os.path.isdir(os.path.join(ROOT, d)))
-LABEL = {"01-dsa": "Data structures and algorithms", "02-system-design": "System design", "03-low-level-design": "Low-level design",
+LABEL = {"00-start-here": "Start here", "01-dsa": "Data structures and algorithms", "02-system-design": "System design", "03-low-level-design": "Low-level design",
          "05-devops-platform-basics": "DevOps and platform basics", "06-company-process-and-behavioural": "Company processes"}
 def title_of(path):
     for l in open(path, encoding="utf-8"):
